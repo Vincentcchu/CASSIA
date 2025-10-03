@@ -1,0 +1,264 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { 
+                font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 20px; 
+                background-color: #f0f2f5;
+                line-height: 1.6;
+            }
+            .container { 
+                background-color: white; 
+                padding: 40px; 
+                border-radius: 16px; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .agent-section { 
+                margin-bottom: 35px; 
+                padding: 25px; 
+                border-radius: 12px; 
+                transition: all 0.3s ease;
+            }
+            .agent-section:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            .final-annotation { 
+                background-color: #f0f7ff; 
+                border-left: 5px solid #2196f3; 
+            }
+            .validator { 
+                background-color: #f0fdf4; 
+                border-left: 5px solid #22c55e; 
+            }
+            .formatting { 
+                background: linear-gradient(145deg, #fff7ed, #ffe4c4);
+                border-left: 5px solid #f97316; 
+                box-shadow: 0 4px 15px rgba(249, 115, 22, 0.1);
+            }
+            h2 { 
+                color: #1a2b3c; 
+                margin-top: 0; 
+                font-size: 1.5rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            ul { 
+                margin: 15px 0; 
+                padding-left: 20px; 
+            }
+            pre { 
+                background-color: #f8fafc; 
+                padding: 20px; 
+                border-radius: 8px; 
+                overflow-x: auto;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            .validation-result { 
+                font-weight: 600; 
+                color: #16a34a; 
+                padding: 12px 20px;
+                background-color: #dcfce7; 
+                border-radius: 8px; 
+                display: inline-block;
+                margin: 10px 0;
+            }
+            br { 
+                margin-bottom: 8px; 
+            }
+            p {
+                margin: 12px 0;
+                color: #374151;
+            }
+            .summary-content {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+            .summary-item {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.7);
+                padding: 16px;
+                border-radius: 12px;
+                backdrop-filter: blur(8px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+            .summary-label {
+                font-weight: 600;
+                color: #c2410c;
+                font-size: 0.95rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .summary-value {
+                color: #1f2937;
+                font-size: 1.1rem;
+                padding: 8px 16px;
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 8px;
+                display: inline-block;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            .summary-list {
+                margin: 0;
+                padding-left: 24px;
+                list-style-type: none;
+            }
+            .summary-list li {
+                color: #1f2937;
+                padding: 8px 0;
+                position: relative;
+            }
+            .summary-list li:before {
+                content: "•";
+                color: #f97316;
+                font-weight: bold;
+                position: absolute;
+                left: -20px;
+            }
+            .report-header {
+                text-align: center;
+                margin-bottom: 40px;
+                padding-bottom: 30px;
+                border-bottom: 2px solid rgba(249, 115, 22, 0.2);
+            }
+            
+            .report-title {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: #1a2b3c;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #f97316, #c2410c);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                letter-spacing: -0.5px;
+            }
+            
+            .report-subtitle {
+                font-size: 1.1rem;
+                color: #64748b;
+                margin-top: 8px;
+                font-weight: 500;
+            }
+            .scoring { 
+                background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+                border-left: 5px solid #22c55e;
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.1);
+            }
+            .scoring-content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                color: #1f2937;
+                line-height: 1.8;
+            }
+            .scoring-content br + br {
+                content: "";
+                display: block;
+                margin: 12px 0;
+            }
+            .empty-list {
+                color: #6b7280;
+                font-style: italic;
+            }
+            .error-message {
+                color: #dc2626;
+                padding: 12px;
+                background-color: #fef2f2;
+                border-radius: 6px;
+                border-left: 4px solid #dc2626;
+            }
+            .score-badge {
+                background: linear-gradient(135deg, #22c55e, #16a34a);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-size: 1.5rem;
+                font-weight: 700;
+                display: inline-block;
+                margin: 12px 0;
+                box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+                position: relative;
+                top: -10px;
+            }
+            .score-badge::before {
+                content: "Score:";
+                font-size: 0.9rem;
+                font-weight: 500;
+                margin-right: 8px;
+                opacity: 0.9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="report-header">
+                <h1 class="report-title">CASSIA Analysis Report</h1>
+                <p class="report-subtitle">Comprehensive Cell Type Analysis and Annotation</p>
+            </div>
+            
+                <div class="agent-section final-annotation">
+                    <h2>🔍 Final Annotation Analysis</h2>
+                    To annotate the cell type from the provided ranked marker list, we will follow the outlined steps:<br><br>### Step 1: List the Key Functional Markers<br>- **SCGB2A2 (Secretoglobin Family 2A Member 2)**: Known for its role in the immune response and is a marker for mammary gland epithelial cells.<br>- **SCGB1D2 (Secretoglobin Family 1D Member 2)**: Similar to SCGB2A2, involved in immune modulation and secreted by epithelial cells.<br>- **MGP (Matrix Gla Protein)**: Involved in inhibiting vascular calcification, often expressed in smooth muscle cells and chondrocytes.<br>- **TFF1 and TFF3 (Trefoil Factor 1 and 3)**: Involved in mucosal protection and repair, commonly expressed in epithelial tissues.<br>- **GFRA1 (GDNF Family Receptor Alpha 1)**: A receptor for GDNF, involved in neuronal development but also expressed in some epithelial cells.<br>- **XBP1 (X-Box Binding Protein 1)**: A transcription factor involved in the unfolded protein response, often upregulated in secretory cells.<br>- **ESR1 (Estrogen Receptor 1)**: A nuclear hormone receptor for estrogen, highly expressed in breast tissue.<br>- **GATA3 (GATA Binding Protein 3)**: A transcription factor critical for the development of various tissues, including the mammary gland.<br>- **FOXA1 (Forkhead Box A1)**: A transcription factor involved in the regulation of gene expression in breast cancer.<br>- **MUC1 (Mucin 1)**: A glycoprotein expressed on the apical surface of epithelial cells, particularly in glandular tissues.<br><br>### Step 2: List the Key Cell Type Markers<br>- **SCGB2A2 and SCGB1D2**: Specific markers for mammary gland epithelial cells.<br>- **ESR1 and GATA3**: Strongly associated with luminal epithelial cells in the breast.<br>- **KRT18 (Keratin 18)**: An intermediate filament protein found in epithelial cells, particularly luminal epithelial cells.<br>- **ERBB3 (Erb-B2 Receptor Tyrosine Kinase 3)**: Often expressed in epithelial cells, including those in the breast.<br>- **AGR2 (Anterior Gradient 2)**: A protein disulfide isomerase involved in protein folding, expressed in secretory epithelial cells.<br><br>### Step 3: Cross-reference Known Databases<br>Using databases such as the Human Protein Atlas, CellMarker, and PanglaoDB, we can confirm that many of these markers are associated with luminal epithelial cells in the breast. SCGB2A2, SCGB1D2, ESR1, and GATA3 are particularly indicative of luminal epithelial cells in breast tissue.<br><br>### Step 4: Determine the Most Probable General Cell Type<br>Based on the expression of SCGB2A2, SCGB1D2, ESR1, GATA3, and KRT18, the most probable general cell type is **luminal epithelial cells** of the breast.<br><br>### Step 5: Identify the Top 3 Most Probable Sub Cell Types<br>1. **Luminal A Breast Cancer Cells**: Characterized by high expression of ESR1, GATA3, and luminal markers like KRT18.<br>2. **Luminal B Breast Cancer Cells**: Similar to Luminal A but with higher proliferation markers and possibly lower expression of some luminal markers.<br>3. **Normal Luminal Epithelial Cells**: Non-cancerous cells with high expression of luminal markers.<br><br>The most likely subtype, given the high expression of SCGB2A2, SCGB1D2, ESR1, and GATA3, is **Luminal A Breast Cancer Cells**.<br><br>### Step 6: Provide a Concise Summary of Your Analysis<br>The ranked marker list from the breast cancer tissue dataset strongly suggests that the cell type is luminal epithelial cells, specifically Luminal A breast cancer cells. This conclusion is supported by the high expression of markers such as SCGB2A2, SCGB1D2, ESR1, and GATA3, which are well-documented in the literature and databases as being associated with luminal epithelial cells in the breast.<br><br>FINAL ANNOTATION COMPLETED
+                </div>
+            
+                <div class="agent-section validator">
+                    <h2>✓ Validation Check</h2>
+                    <div class="validation-result">✅ VALIDATION PASSED</div>
+                    Validation result: VALIDATION PASSED<br><br>The proposed annotation result for the cell type as luminal epithelial cells, specifically Luminal A breast cancer cells, is consistent with the provided marker list and the known functions of these markers. Here's the breakdown:<br><br>1. **Marker Consistency**:<br>   - The key markers used in the annotation (SCGB2A2, SCGB1D2, ESR1, GATA3, KRT18) are present in the provided marker list.<br>   - These markers are well-documented in the literature and databases as being associated with luminal epithelial cells in the breast, particularly in the context of breast cancer.<br><br>2. **Mixed Cell Type Consideration**:<br>   - The analysis does not strongly suggest the presence of multiple distinct cell types. The markers used are specific to luminal epithelial cells and are consistent with the annotation of Luminal A breast cancer cells.<br>   - There is no indication of a mixed cell population that would require further investigation.<br><br>The annotation is well-supported by the ranked marker list and aligns with known biological functions and database references. Therefore, the validation is passed.
+                </div>
+            
+                        <div class="agent-section formatting">
+                            <h2>📋 Summary</h2>
+                            
+                        <div class="summary-content">
+                            <div class="summary-item">
+                                <span class="summary-label">Main Cell Type:</span>
+                                <span class="summary-value">luminal epithelial cells</span>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Sub Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Luminal A Breast Cancer Cells</li><li>Luminal B Breast Cancer Cells</li><li>Normal Luminal Epithelial Cells</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Possible Mixed Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li class="empty-list">No mixed cell types identified</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Number of Markers:</span>
+                                <span class="summary-value">50</span>
+                            </div>
+                        </div>
+                    
+                        </div>
+                    
+                    <div class="agent-section scoring">
+                        <h2>🎯 Quality Assessment</h2>
+                        <div class="score-badge">90</div>
+                        <div class="scoring-content">
+                            The annotation results provided are generally well-executed, with a strong focus on identifying luminal epithelial cells, specifically Luminal A breast cancer cells, from the given marker list. The analysis effectively highlights key markers such as SCGB2A2, SCGB1D2, ESR1, and GATA3, which are indeed well-documented in the literature as being associated with luminal epithelial cells in the breast. This suggests a high level of correctness in the annotation.<br><br>1. **Correctness of the Annotations**: The identification of luminal epithelial cells, particularly Luminal A breast cancer cells, is scientifically accurate given the marker list. The markers chosen for emphasis are appropriate and relevant to the cell type in question.<br><br>2. **Balanced Consideration of Multiple Markers**: The analysis does a good job of considering multiple markers rather than over-focusing on a single one. It highlights a range of markers that are indicative of luminal epithelial cells, such as KRT18 and ERBB3, in addition to the primary markers. This balanced approach strengthens the annotation's validity.<br><br>3. **Ability to Capture the General Picture**: The annotation provides a comprehensive view of the cell types present, focusing on luminal epithelial cells and distinguishing between Luminal A and B breast cancer cells, as well as normal luminal epithelial cells. This demonstrates an understanding of the broader context of breast cancer cell types.<br><br>4. **Consideration of Marker Rank**: While the analysis does not explicitly discuss the rank of markers, it does prioritize markers that are known to be highly indicative of the cell type, such as SCGB2A2 and ESR1, which appear early in the list. This suggests an implicit consideration of marker rank.<br><br>5. **Potential Oversights**: One potential oversight is the lack of discussion on the possibility of mixed cell populations. While the analysis concludes that there is no indication of mixed cell types, a more detailed exploration of this aspect could have been beneficial, especially given the complexity of breast cancer tissues.<br><br>Overall, the annotation is well-supported by the marker list and aligns with known biological functions and database references. The analysis is thorough and captures the general picture effectively, with only minor areas for improvement.<br>
+                        </div>
+                    </div>
+                
+        </div>
+    </body>
+    </html>
+    

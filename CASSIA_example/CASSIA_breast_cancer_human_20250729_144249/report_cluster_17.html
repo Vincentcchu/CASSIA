@@ -1,0 +1,264 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { 
+                font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 20px; 
+                background-color: #f0f2f5;
+                line-height: 1.6;
+            }
+            .container { 
+                background-color: white; 
+                padding: 40px; 
+                border-radius: 16px; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .agent-section { 
+                margin-bottom: 35px; 
+                padding: 25px; 
+                border-radius: 12px; 
+                transition: all 0.3s ease;
+            }
+            .agent-section:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            .final-annotation { 
+                background-color: #f0f7ff; 
+                border-left: 5px solid #2196f3; 
+            }
+            .validator { 
+                background-color: #f0fdf4; 
+                border-left: 5px solid #22c55e; 
+            }
+            .formatting { 
+                background: linear-gradient(145deg, #fff7ed, #ffe4c4);
+                border-left: 5px solid #f97316; 
+                box-shadow: 0 4px 15px rgba(249, 115, 22, 0.1);
+            }
+            h2 { 
+                color: #1a2b3c; 
+                margin-top: 0; 
+                font-size: 1.5rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            ul { 
+                margin: 15px 0; 
+                padding-left: 20px; 
+            }
+            pre { 
+                background-color: #f8fafc; 
+                padding: 20px; 
+                border-radius: 8px; 
+                overflow-x: auto;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            .validation-result { 
+                font-weight: 600; 
+                color: #16a34a; 
+                padding: 12px 20px;
+                background-color: #dcfce7; 
+                border-radius: 8px; 
+                display: inline-block;
+                margin: 10px 0;
+            }
+            br { 
+                margin-bottom: 8px; 
+            }
+            p {
+                margin: 12px 0;
+                color: #374151;
+            }
+            .summary-content {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+            .summary-item {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.7);
+                padding: 16px;
+                border-radius: 12px;
+                backdrop-filter: blur(8px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+            .summary-label {
+                font-weight: 600;
+                color: #c2410c;
+                font-size: 0.95rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .summary-value {
+                color: #1f2937;
+                font-size: 1.1rem;
+                padding: 8px 16px;
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 8px;
+                display: inline-block;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            .summary-list {
+                margin: 0;
+                padding-left: 24px;
+                list-style-type: none;
+            }
+            .summary-list li {
+                color: #1f2937;
+                padding: 8px 0;
+                position: relative;
+            }
+            .summary-list li:before {
+                content: "•";
+                color: #f97316;
+                font-weight: bold;
+                position: absolute;
+                left: -20px;
+            }
+            .report-header {
+                text-align: center;
+                margin-bottom: 40px;
+                padding-bottom: 30px;
+                border-bottom: 2px solid rgba(249, 115, 22, 0.2);
+            }
+            
+            .report-title {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: #1a2b3c;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #f97316, #c2410c);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                letter-spacing: -0.5px;
+            }
+            
+            .report-subtitle {
+                font-size: 1.1rem;
+                color: #64748b;
+                margin-top: 8px;
+                font-weight: 500;
+            }
+            .scoring { 
+                background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+                border-left: 5px solid #22c55e;
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.1);
+            }
+            .scoring-content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                color: #1f2937;
+                line-height: 1.8;
+            }
+            .scoring-content br + br {
+                content: "";
+                display: block;
+                margin: 12px 0;
+            }
+            .empty-list {
+                color: #6b7280;
+                font-style: italic;
+            }
+            .error-message {
+                color: #dc2626;
+                padding: 12px;
+                background-color: #fef2f2;
+                border-radius: 6px;
+                border-left: 4px solid #dc2626;
+            }
+            .score-badge {
+                background: linear-gradient(135deg, #22c55e, #16a34a);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-size: 1.5rem;
+                font-weight: 700;
+                display: inline-block;
+                margin: 12px 0;
+                box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+                position: relative;
+                top: -10px;
+            }
+            .score-badge::before {
+                content: "Score:";
+                font-size: 0.9rem;
+                font-weight: 500;
+                margin-right: 8px;
+                opacity: 0.9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="report-header">
+                <h1 class="report-title">CASSIA Analysis Report</h1>
+                <p class="report-subtitle">Comprehensive Cell Type Analysis and Annotation</p>
+            </div>
+            
+                <div class="agent-section final-annotation">
+                    <h2>🔍 Final Annotation Analysis</h2>
+                    To annotate the cell type from the provided ranked marker list, we will follow a systematic approach as outlined in the steps. Let's begin:<br><br>### Step 1: List the Key Functional Markers<br>- **ERBB2 (HER2)**: A member of the epidermal growth factor receptor (EGFR) family, often overexpressed in certain types of breast cancer.<br>- **GRB7**: An adaptor protein that interacts with receptor tyrosine kinases like ERBB2, involved in signal transduction pathways.<br>- **TFAP2B**: A transcription factor involved in the regulation of gene expression during development and differentiation.<br>- **SPDEF**: A transcription factor involved in the regulation of prostate and breast epithelial cell differentiation.<br>- **CREB3L4**: A transcription factor involved in the regulation of genes associated with cell proliferation and differentiation.<br><br>### Step 2: List the Key Cell Type Markers<br>- **SOX11**: A transcription factor associated with neural and mesenchymal progenitor cells, but also expressed in certain cancers.<br>- **PNMT**: An enzyme involved in catecholamine biosynthesis, typically expressed in adrenal medulla and some neural tissues.<br>- **KRT7**: A keratin protein expressed in epithelial cells, often used as a marker for glandular and transitional epithelium.<br>- **MUC6**: A mucin protein expressed in glandular tissues, including the stomach and some breast tissues.<br>- **TFF3**: A trefoil factor involved in mucosal protection and repair, expressed in various epithelial tissues.<br>- **PIP (Prolactin-Inducible Protein)**: Expressed in breast tissue and associated with breast cancer.<br>- **CXCL17**: A chemokine involved in immune cell recruitment, expressed in mucosal tissues.<br><br>### Step 3: Cross-reference Known Databases<br>Using databases such as the Human Protein Atlas, CellMarker, and literature on scRNA-seq datasets, we can cross-reference these markers:<br>- **ERBB2, GRB7, and PIP** are strongly associated with breast epithelial cells, particularly in the context of breast cancer.<br>- **KRT7** is a common marker for epithelial cells, including those in the breast.<br>- **SOX11** and **PNMT** are less typical for breast tissue but may indicate a specific subtype or state of differentiation.<br><br>### Step 4: Determine the Most Probable General Cell Type<br>Based on the expression of markers like ERBB2, GRB7, KRT7, and PIP, the most probable general cell type is **breast epithelial cells**, specifically those associated with breast cancer.<br><br>### Step 5: Identify the Top 3 Most Probable Sub Cell Types<br>1. **HER2-positive Breast Cancer Cells**: Due to the high expression of ERBB2 and GRB7, which are characteristic of HER2-positive breast cancer.<br>2. **Luminal Epithelial Cells**: Markers like KRT7 and PIP suggest a luminal epithelial origin, common in breast tissue.<br>3. **Basal-like Breast Cancer Cells**: Although less likely, the presence of certain markers like SOX11 could suggest a basal-like phenotype, which is less differentiated.<br><br>The most likely subtype based on the markers is **HER2-positive Breast Cancer Cells**.<br><br>### Step 6: Provide a Concise Summary of Your Analysis<br>The analysis of the ranked marker list from the breast cancer tissue dataset suggests that the cell cluster is most likely composed of breast epithelial cells, specifically HER2-positive breast cancer cells. This conclusion is supported by the high expression of ERBB2, GRB7, and other epithelial markers like KRT7 and PIP. The presence of additional markers such as SOX11 and PNMT may indicate a unique differentiation state or subtype within the breast cancer context.<br><br>FINAL ANNOTATION COMPLETED
+                </div>
+            
+                <div class="agent-section validator">
+                    <h2>✓ Validation Check</h2>
+                    <div class="validation-result">✅ VALIDATION PASSED</div>
+                    Validation result: VALIDATION PASSED<br><br>The proposed annotation result is consistent with the provided marker list and the identified cell type. Here's the breakdown:<br><br>1. **Marker Consistency**: <br>   - The key functional markers (ERBB2, GRB7, TFAP2B, SPDEF, CREB3L4) and key cell type markers (SOX11, PNMT, KRT7, MUC6, TFF3, PIP, CXCL17) are all present in the provided marker list.<br>   - The markers ERBB2, GRB7, KRT7, and PIP are strongly associated with breast epithelial cells, particularly in the context of breast cancer, supporting the annotation of HER2-positive breast cancer cells.<br><br>2. **Mixed Cell Type Consideration**:<br>   - While SOX11 and PNMT are less typical for breast tissue, their presence does not strongly suggest a mixed cell type population in this context. They may indicate a specific subtype or state of differentiation within the breast cancer context, as noted in the analysis.<br>   - The annotation acknowledges the potential for a unique differentiation state or subtype, which is appropriate given the marker expression.<br><br>The annotation process has been thorough, considering both the primary markers for breast epithelial cells and the potential implications of less typical markers. The conclusion of HER2-positive breast cancer cells is well-supported by the data.
+                </div>
+            
+                        <div class="agent-section formatting">
+                            <h2>📋 Summary</h2>
+                            
+                        <div class="summary-content">
+                            <div class="summary-item">
+                                <span class="summary-label">Main Cell Type:</span>
+                                <span class="summary-value">breast epithelial cells</span>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Sub Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>HER2-positive Breast Cancer Cells</li><li>Luminal Epithelial Cells</li><li>Basal-like Breast Cancer Cells</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Possible Mixed Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li class="empty-list">No mixed cell types identified</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Number of Markers:</span>
+                                <span class="summary-value">50</span>
+                            </div>
+                        </div>
+                    
+                        </div>
+                    
+                    <div class="agent-section scoring">
+                        <h2>🎯 Quality Assessment</h2>
+                        <div class="score-badge">85</div>
+                        <div class="scoring-content">
+                            The annotation results provided demonstrate a thorough and systematic approach to identifying the cell types present in the single-cell dataset. The analysis correctly identifies key markers associated with breast epithelial cells and HER2-positive breast cancer, such as ERBB2, GRB7, KRT7, and PIP. These markers are well-known in the context of breast cancer, particularly HER2-positive subtypes, which supports the primary annotation of HER2-positive breast cancer cells.<br><br>The annotation also considers other markers like SOX11 and PNMT, which are less typical for breast tissue but are acknowledged as potentially indicating a unique differentiation state or subtype within the breast cancer context. This demonstrates a balanced consideration of multiple markers, rather than over-focusing on a specific one, which is a strength of the analysis.<br><br>However, there are a few areas where the annotation could be improved. While the analysis does a good job of identifying the primary cell type, it could have provided more detailed consideration of the potential mixed cell types or subtypes, especially given the presence of markers like SOX11 and PNMT. Additionally, the rank of the markers, with SOX11 appearing first, suggests it might have a more significant role than acknowledged in the final annotation. This could indicate a need for further exploration of the potential implications of these markers in the context of breast cancer.<br><br>Overall, the annotation provides a comprehensive view of the cell types present, with a strong focus on the most likely subtype, HER2-positive breast cancer cells. The analysis is scientifically accurate and well-supported by the data, but there is room for a deeper exploration of the implications of less typical markers.<br>
+                        </div>
+                    </div>
+                
+        </div>
+    </body>
+    </html>
+    

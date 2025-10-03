@@ -1,0 +1,264 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { 
+                font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 20px; 
+                background-color: #f0f2f5;
+                line-height: 1.6;
+            }
+            .container { 
+                background-color: white; 
+                padding: 40px; 
+                border-radius: 16px; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .agent-section { 
+                margin-bottom: 35px; 
+                padding: 25px; 
+                border-radius: 12px; 
+                transition: all 0.3s ease;
+            }
+            .agent-section:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            .final-annotation { 
+                background-color: #f0f7ff; 
+                border-left: 5px solid #2196f3; 
+            }
+            .validator { 
+                background-color: #f0fdf4; 
+                border-left: 5px solid #22c55e; 
+            }
+            .formatting { 
+                background: linear-gradient(145deg, #fff7ed, #ffe4c4);
+                border-left: 5px solid #f97316; 
+                box-shadow: 0 4px 15px rgba(249, 115, 22, 0.1);
+            }
+            h2 { 
+                color: #1a2b3c; 
+                margin-top: 0; 
+                font-size: 1.5rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            ul { 
+                margin: 15px 0; 
+                padding-left: 20px; 
+            }
+            pre { 
+                background-color: #f8fafc; 
+                padding: 20px; 
+                border-radius: 8px; 
+                overflow-x: auto;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            .validation-result { 
+                font-weight: 600; 
+                color: #16a34a; 
+                padding: 12px 20px;
+                background-color: #dcfce7; 
+                border-radius: 8px; 
+                display: inline-block;
+                margin: 10px 0;
+            }
+            br { 
+                margin-bottom: 8px; 
+            }
+            p {
+                margin: 12px 0;
+                color: #374151;
+            }
+            .summary-content {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+            .summary-item {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.7);
+                padding: 16px;
+                border-radius: 12px;
+                backdrop-filter: blur(8px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+            .summary-label {
+                font-weight: 600;
+                color: #c2410c;
+                font-size: 0.95rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .summary-value {
+                color: #1f2937;
+                font-size: 1.1rem;
+                padding: 8px 16px;
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 8px;
+                display: inline-block;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            .summary-list {
+                margin: 0;
+                padding-left: 24px;
+                list-style-type: none;
+            }
+            .summary-list li {
+                color: #1f2937;
+                padding: 8px 0;
+                position: relative;
+            }
+            .summary-list li:before {
+                content: "•";
+                color: #f97316;
+                font-weight: bold;
+                position: absolute;
+                left: -20px;
+            }
+            .report-header {
+                text-align: center;
+                margin-bottom: 40px;
+                padding-bottom: 30px;
+                border-bottom: 2px solid rgba(249, 115, 22, 0.2);
+            }
+            
+            .report-title {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: #1a2b3c;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #f97316, #c2410c);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                letter-spacing: -0.5px;
+            }
+            
+            .report-subtitle {
+                font-size: 1.1rem;
+                color: #64748b;
+                margin-top: 8px;
+                font-weight: 500;
+            }
+            .scoring { 
+                background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+                border-left: 5px solid #22c55e;
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.1);
+            }
+            .scoring-content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                color: #1f2937;
+                line-height: 1.8;
+            }
+            .scoring-content br + br {
+                content: "";
+                display: block;
+                margin: 12px 0;
+            }
+            .empty-list {
+                color: #6b7280;
+                font-style: italic;
+            }
+            .error-message {
+                color: #dc2626;
+                padding: 12px;
+                background-color: #fef2f2;
+                border-radius: 6px;
+                border-left: 4px solid #dc2626;
+            }
+            .score-badge {
+                background: linear-gradient(135deg, #22c55e, #16a34a);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-size: 1.5rem;
+                font-weight: 700;
+                display: inline-block;
+                margin: 12px 0;
+                box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+                position: relative;
+                top: -10px;
+            }
+            .score-badge::before {
+                content: "Score:";
+                font-size: 0.9rem;
+                font-weight: 500;
+                margin-right: 8px;
+                opacity: 0.9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="report-header">
+                <h1 class="report-title">CASSIA Analysis Report</h1>
+                <p class="report-subtitle">Comprehensive Cell Type Analysis and Annotation</p>
+            </div>
+            
+                <div class="agent-section final-annotation">
+                    <h2>🔍 Final Annotation Analysis</h2>
+                    To annotate the cell type based on the provided ranked marker list from a single-cell human dataset derived from breast cancer tissue, we will follow the outlined steps:<br><br>### Step 1: List the Key Functional Markers<br>- **VWF (Von Willebrand Factor):** A glycoprotein involved in hemostasis, typically expressed in endothelial cells.<br>- **PLVAP (Plasmalemma Vesicle Associated Protein):** Involved in the formation of diaphragms in fenestrated endothelia.<br>- **CD34:** A cell surface glycoprotein and a marker of hematopoietic progenitor cells, also expressed in endothelial cells.<br>- **CLEC14A (C-type lectin domain family 14 member A):** Involved in angiogenesis, expressed in endothelial cells.<br>- **CDH5 (Cadherin 5, VE-cadherin):** An endothelial-specific cadherin important for vascular integrity.<br>- **TIE1:** A receptor tyrosine kinase involved in angiogenesis, expressed in endothelial cells.<br>- **ROBO4 (Roundabout Guidance Receptor 4):** Involved in vascular development and endothelial cell migration.<br>- **EMCN (Endomucin):** A sialomucin expressed in endothelial cells, involved in angiogenesis.<br>- **ESAM (Endothelial Cell Adhesion Molecule):** Involved in endothelial cell junctions and angiogenesis.<br>- **PECAM1 (Platelet and Endothelial Cell Adhesion Molecule 1):** Involved in leukocyte transmigration and expressed in endothelial cells.<br>- **KDR (Kinase Insert Domain Receptor, VEGFR2):** A receptor for VEGF, critical for angiogenesis.<br>- **FLT1 (Fms Related Receptor Tyrosine Kinase 1, VEGFR1):** Another receptor for VEGF, involved in angiogenesis.<br>- **ENG (Endoglin):** A co-receptor for TGF-beta, involved in angiogenesis and expressed in endothelial cells.<br>- **ACVRL1 (Activin A Receptor Like Type 1):** Involved in TGF-beta signaling, expressed in endothelial cells.<br><br>### Step 2: List the Key Cell Type Markers<br>- **VWF, CD34, CDH5, PECAM1, KDR, FLT1, ENG, ACVRL1:** These markers are strongly indicative of endothelial cells, which are involved in forming the lining of blood vessels.<br>- **PLVAP, CLEC14A, ROBO4, EMCN, ESAM:** These markers further support the identification of endothelial cells, particularly those involved in angiogenesis and vascular development.<br><br>### Step 3: Cross-reference Known Databases<br>Using databases such as the Human Protein Atlas, CellMarker, and PanglaoDB, these markers are consistently associated with endothelial cells. Literature on endothelial cell markers in cancerous tissues also supports this association, as endothelial cells play a crucial role in tumor angiogenesis.<br><br>### Step 4: Determine the Most Probable General Cell Type<br>Based on the expression of these markers, the most likely general cell type of the cluster is **endothelial cells**. This is supported by the presence of multiple markers specific to endothelial cells and their role in angiogenesis.<br><br>### Step 5: Identify the Top 3 Most Probable Sub Cell Types<br>1. **Vascular Endothelial Cells:** Given the strong expression of angiogenesis-related markers (e.g., VWF, KDR, FLT1), these are the most likely subtype.<br>2. **Lymphatic Endothelial Cells:** While less likely, some markers (e.g., PROX1, not listed here) could suggest lymphatic endothelium if present.<br>3. **Tip Cells:** These are specialized endothelial cells at the forefront of angiogenic sprouts, characterized by high expression of VEGF receptors.<br><br>The most likely subtype based on the markers is **vascular endothelial cells**, given the strong presence of angiogenesis and vascular development markers.<br><br>### Step 6: Provide a Concise Summary of Your Analysis<br>The analysis of the ranked marker list from the breast cancer tissue dataset indicates that the cell cluster is most likely composed of endothelial cells, specifically vascular endothelial cells. This conclusion is supported by the expression of key markers involved in angiogenesis and vascular development, which are critical processes in tumor growth and metastasis.<br><br>**FINAL ANNOTATION COMPLETED**
+                </div>
+            
+                <div class="agent-section validator">
+                    <h2>✓ Validation Check</h2>
+                    <div class="validation-result">✅ VALIDATION PASSED</div>
+                    Validation result: VALIDATION PASSED<br><br>The proposed annotation result for the cell cluster as endothelial cells, specifically vascular endothelial cells, is consistent with the provided marker list and the known functions of these markers. Here's the breakdown of the validation:<br><br>1. **Marker Consistency:**<br>   - The key functional markers listed in the annotation (VWF, PLVAP, CD34, CLEC14A, CDH5, TIE1, ROBO4, EMCN, ESAM, PECAM1, KDR, FLT1, ENG, ACVRL1) are all present in the provided marker list.<br>   - These markers are well-known to be associated with endothelial cells, particularly those involved in angiogenesis and vascular development, which aligns with the annotation of vascular endothelial cells.<br><br>2. **Mixed Cell Type Consideration:**<br>   - The annotation does not suggest the presence of multiple distinct cell types within the cluster. The markers strongly support a single cell type, endothelial cells, with a focus on vascular endothelial cells.<br>   - There is no strong evidence from the marker list to suggest a mixed cell population that would require further investigation.<br><br>The annotation is well-supported by the marker list and aligns with known biological functions and literature, particularly in the context of breast cancer tissue where angiogenesis is a critical process. Therefore, the validation is passed.
+                </div>
+            
+                        <div class="agent-section formatting">
+                            <h2>📋 Summary</h2>
+                            
+                        <div class="summary-content">
+                            <div class="summary-item">
+                                <span class="summary-label">Main Cell Type:</span>
+                                <span class="summary-value">endothelial cells</span>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Sub Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>vascular endothelial cells</li><li>lymphatic endothelial cells</li><li>tip cells</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Possible Mixed Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li class="empty-list">No mixed cell types identified</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Number of Markers:</span>
+                                <span class="summary-value">50</span>
+                            </div>
+                        </div>
+                    
+                        </div>
+                    
+                    <div class="agent-section scoring">
+                        <h2>🎯 Quality Assessment</h2>
+                        <div class="score-badge">90</div>
+                        <div class="scoring-content">
+                            The annotation results provided for the single-cell dataset derived from human breast cancer tissue are generally well-executed, with a strong focus on identifying endothelial cells, specifically vascular endothelial cells. Here are the key points of evaluation:<br><br>1. **Correctness of Annotations:**<br>   - The annotation correctly identifies the main cell type as endothelial cells, which is supported by the presence of key markers such as VWF, CD34, CDH5, PECAM1, KDR, and FLT1. These markers are well-documented in the literature as being associated with endothelial cells, particularly in the context of angiogenesis, which is a critical process in tumor biology.<br><br>2. **Balanced Consideration of Multiple Markers:**<br>   - The analysis effectively considers a wide range of markers, not over-focusing on any single one. The inclusion of markers like PLVAP, CLEC14A, ROBO4, and EMCN further supports the endothelial cell annotation, indicating a comprehensive approach to marker evaluation.<br><br>3. **Ability to Capture the General Picture:**<br>   - The annotation captures the general picture of the cell population by focusing on endothelial cells and their role in angiogenesis. This is particularly relevant in the context of breast cancer, where angiogenesis is a key factor in tumor growth and metastasis.<br><br>4. **Consideration of Marker Rank:**<br>   - The analysis does not explicitly discuss the rank of the markers, which could be an area for improvement. While the presence of key markers is acknowledged, the importance of their rank in the list is not emphasized, which could provide additional insights into the cell type identification.<br><br>5. **Potential Oversights:**<br>   - The annotation does not suggest the presence of mixed cell types, which is reasonable given the strong endothelial signature. However, the possibility of other cell types or subtypes, such as lymphatic endothelial cells or tip cells, is mentioned but not deeply explored, which could be a minor oversight.<br><br>Overall, the annotation is scientifically accurate and provides a comprehensive view of the cell types present, with a strong focus on endothelial cells. The analysis is well-supported by the marker list and aligns with known biological functions and literature.<br>
+                        </div>
+                    </div>
+                
+        </div>
+    </body>
+    </html>
+    

@@ -1,0 +1,264 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { 
+                font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 20px; 
+                background-color: #f0f2f5;
+                line-height: 1.6;
+            }
+            .container { 
+                background-color: white; 
+                padding: 40px; 
+                border-radius: 16px; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .agent-section { 
+                margin-bottom: 35px; 
+                padding: 25px; 
+                border-radius: 12px; 
+                transition: all 0.3s ease;
+            }
+            .agent-section:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            .final-annotation { 
+                background-color: #f0f7ff; 
+                border-left: 5px solid #2196f3; 
+            }
+            .validator { 
+                background-color: #f0fdf4; 
+                border-left: 5px solid #22c55e; 
+            }
+            .formatting { 
+                background: linear-gradient(145deg, #fff7ed, #ffe4c4);
+                border-left: 5px solid #f97316; 
+                box-shadow: 0 4px 15px rgba(249, 115, 22, 0.1);
+            }
+            h2 { 
+                color: #1a2b3c; 
+                margin-top: 0; 
+                font-size: 1.5rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            ul { 
+                margin: 15px 0; 
+                padding-left: 20px; 
+            }
+            pre { 
+                background-color: #f8fafc; 
+                padding: 20px; 
+                border-radius: 8px; 
+                overflow-x: auto;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            .validation-result { 
+                font-weight: 600; 
+                color: #16a34a; 
+                padding: 12px 20px;
+                background-color: #dcfce7; 
+                border-radius: 8px; 
+                display: inline-block;
+                margin: 10px 0;
+            }
+            br { 
+                margin-bottom: 8px; 
+            }
+            p {
+                margin: 12px 0;
+                color: #374151;
+            }
+            .summary-content {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+            .summary-item {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.7);
+                padding: 16px;
+                border-radius: 12px;
+                backdrop-filter: blur(8px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+            .summary-label {
+                font-weight: 600;
+                color: #c2410c;
+                font-size: 0.95rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .summary-value {
+                color: #1f2937;
+                font-size: 1.1rem;
+                padding: 8px 16px;
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 8px;
+                display: inline-block;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            .summary-list {
+                margin: 0;
+                padding-left: 24px;
+                list-style-type: none;
+            }
+            .summary-list li {
+                color: #1f2937;
+                padding: 8px 0;
+                position: relative;
+            }
+            .summary-list li:before {
+                content: "•";
+                color: #f97316;
+                font-weight: bold;
+                position: absolute;
+                left: -20px;
+            }
+            .report-header {
+                text-align: center;
+                margin-bottom: 40px;
+                padding-bottom: 30px;
+                border-bottom: 2px solid rgba(249, 115, 22, 0.2);
+            }
+            
+            .report-title {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: #1a2b3c;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #f97316, #c2410c);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                letter-spacing: -0.5px;
+            }
+            
+            .report-subtitle {
+                font-size: 1.1rem;
+                color: #64748b;
+                margin-top: 8px;
+                font-weight: 500;
+            }
+            .scoring { 
+                background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+                border-left: 5px solid #22c55e;
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.1);
+            }
+            .scoring-content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                color: #1f2937;
+                line-height: 1.8;
+            }
+            .scoring-content br + br {
+                content: "";
+                display: block;
+                margin: 12px 0;
+            }
+            .empty-list {
+                color: #6b7280;
+                font-style: italic;
+            }
+            .error-message {
+                color: #dc2626;
+                padding: 12px;
+                background-color: #fef2f2;
+                border-radius: 6px;
+                border-left: 4px solid #dc2626;
+            }
+            .score-badge {
+                background: linear-gradient(135deg, #22c55e, #16a34a);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-size: 1.5rem;
+                font-weight: 700;
+                display: inline-block;
+                margin: 12px 0;
+                box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+                position: relative;
+                top: -10px;
+            }
+            .score-badge::before {
+                content: "Score:";
+                font-size: 0.9rem;
+                font-weight: 500;
+                margin-right: 8px;
+                opacity: 0.9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="report-header">
+                <h1 class="report-title">CASSIA Analysis Report</h1>
+                <p class="report-subtitle">Comprehensive Cell Type Analysis and Annotation</p>
+            </div>
+            
+                <div class="agent-section final-annotation">
+                    <h2>🔍 Final Annotation Analysis</h2>
+                    To annotate the cell type from the provided ranked marker list, I will follow the outlined steps:<br><br>### Step 1: List the Key Functional Markers<br>- **CXCL1, CXCL2, CXCL3, CXCL8**: These are chemokines involved in the recruitment of immune cells, particularly neutrophils, to sites of inflammation. They play a role in the tumor microenvironment by modulating immune responses.<br>- **IL6**: A cytokine involved in inflammation and the immune response. It is often associated with cancer progression and the tumor microenvironment.<br>- **TNFAIP6**: A protein involved in inflammation and tissue remodeling, often upregulated in response to TNF-alpha.<br>- **FOSL1**: A transcription factor involved in cell proliferation and differentiation, often implicated in cancer progression.<br>- **HMOX1**: An enzyme with a role in oxidative stress response, often upregulated in cancer cells.<br>- **NFKBIA**: An inhibitor of the NF-kB pathway, which is involved in immune response and cell survival.<br>- **SOD2**: An enzyme that protects against oxidative stress, often upregulated in cancer cells.<br>- **SERPINE1**: A serine protease inhibitor involved in the regulation of fibrinolysis and tissue remodeling, often associated with cancer metastasis.<br><br>### Step 2: List the Key Cell Type Markers<br>- **VIM (Vimentin)**: A marker for mesenchymal cells, often associated with epithelial-to-mesenchymal transition (EMT) in cancer.<br>- **TWIST2**: A transcription factor involved in EMT and associated with cancer metastasis.<br>- **PRRX1**: A transcription factor involved in EMT and associated with cancer stem cell properties.<br>- **DCN (Decorin)**: A proteoglycan involved in extracellular matrix organization, often expressed in stromal cells.<br>- **LUM (Lumican)**: A proteoglycan involved in collagen fibril organization, often expressed in stromal cells.<br>- **MFAP4**: A protein associated with the extracellular matrix, often expressed in fibroblasts.<br>- **DPT (Dermatopontin)**: An extracellular matrix protein, often expressed in fibroblasts.<br>- **APOD (Apolipoprotein D)**: A protein involved in lipid metabolism, often expressed in stromal cells.<br><br>### Step 3: Cross-reference Known Databases<br>Using scRNA-seq databases such as the Human Cell Atlas and literature on breast cancer, the markers suggest a stromal cell type, particularly fibroblasts, which are known to express many of these markers, especially those involved in the extracellular matrix and EMT.<br><br>### Step 4: Determine the Most Probable General Cell Type<br>Based on the expression of markers such as VIM, TWIST2, PRRX1, DCN, LUM, and others associated with the extracellular matrix and EMT, the most probable general cell type is **stromal cells**, specifically **fibroblasts**.<br><br>### Step 5: Identify the Top 3 Most Probable Sub Cell Types<br>1. **Cancer-associated fibroblasts (CAFs)**: Given the context of breast cancer tissue and the expression of EMT and ECM-related markers, CAFs are the most likely subtype.<br>2. **Myofibroblasts**: These cells are a subtype of fibroblasts involved in wound healing and tissue remodeling, often expressing markers like VIM and ACTA2 (not listed but related).<br>3. **Normal fibroblasts**: While less likely in a cancer context, they share many markers with CAFs and myofibroblasts.<br><br>The most likely subtype based on the markers is **Cancer-associated fibroblasts (CAFs)**.<br><br>### Step 6: Provide a Concise Summary of Your Analysis<br>The ranked marker list from the breast cancer tissue dataset suggests a stromal cell type, specifically fibroblasts. The expression of markers related to the extracellular matrix, EMT, and inflammation points to cancer-associated fibroblasts (CAFs) as the most probable subtype. These cells play a crucial role in the tumor microenvironment by supporting cancer progression and metastasis.<br><br>FINAL ANNOTATION COMPLETED
+                </div>
+            
+                <div class="agent-section validator">
+                    <h2>✓ Validation Check</h2>
+                    <div class="validation-result">✅ VALIDATION PASSED</div>
+                    Validation result: VALIDATION PASSED<br><br>The proposed annotation result is consistent with the provided marker list and the identified cell type. Here's the breakdown:<br><br>1. **Marker Consistency**: <br>   - The key functional markers (CXCL1, CXCL2, CXCL3, CXCL8, IL6, TNFAIP6, FOSL1, HMOX1, NFKBIA, SOD2, SERPINE1) are present in the provided marker list.<br>   - The key cell type markers (VIM, TWIST2, PRRX1, DCN, LUM, MFAP4, DPT, APOD) are also present in the provided marker list.<br><br>2. **Consistency with Identified Cell Type**:<br>   - The markers identified are consistent with stromal cells, specifically fibroblasts, as they include markers related to the extracellular matrix (DCN, LUM, MFAP4, DPT) and EMT (VIM, TWIST2, PRRX1).<br>   - The presence of inflammation and immune response markers (CXCL1, CXCL2, CXCL3, CXCL8, IL6) supports the identification of cancer-associated fibroblasts (CAFs), which are known to play a role in the tumor microenvironment.<br><br>3. **Mixed Cell Type Consideration**:<br>   - There is no strong evidence of multiple distinct cell types based on the high-ranking markers. The markers consistently point towards a stromal cell type, specifically fibroblasts, with a focus on cancer-associated fibroblasts (CAFs).<br><br>The annotation is well-supported by the marker list and the context provided, leading to a valid conclusion of cancer-associated fibroblasts (CAFs) as the most probable subtype.
+                </div>
+            
+                        <div class="agent-section formatting">
+                            <h2>📋 Summary</h2>
+                            
+                        <div class="summary-content">
+                            <div class="summary-item">
+                                <span class="summary-label">Main Cell Type:</span>
+                                <span class="summary-value">stromal cells</span>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Sub Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>fibroblasts</li><li>Cancer-associated fibroblasts (CAFs)</li><li>myofibroblasts</li><li>normal fibroblasts</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Possible Mixed Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li class="empty-list">No mixed cell types identified</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Number of Markers:</span>
+                                <span class="summary-value">50</span>
+                            </div>
+                        </div>
+                    
+                        </div>
+                    
+                    <div class="agent-section scoring">
+                        <h2>🎯 Quality Assessment</h2>
+                        <div class="score-badge">90</div>
+                        <div class="scoring-content">
+                            The annotation results provided demonstrate a thorough and methodical approach to identifying the cell type from the given marker list. The analysis correctly identifies key functional markers and cell type markers, which are consistent with the context of human breast cancer. The focus on markers such as CXCL1, CXCL2, CXCL3, CXCL8, IL6, and others related to inflammation and the tumor microenvironment is appropriate, as these are relevant to cancer-associated fibroblasts (CAFs).<br><br>The annotation process effectively balances the use of different markers, considering both functional and cell type-specific markers. The identification of stromal cells, specifically fibroblasts, and the emphasis on cancer-associated fibroblasts (CAFs) is well-supported by the presence of markers related to the extracellular matrix and epithelial-to-mesenchymal transition (EMT), such as VIM, TWIST2, and PRRX1.<br><br>The analysis also considers the rank of the markers, giving appropriate weight to those appearing earlier in the list, which is crucial for accurate annotation. The conclusion that CAFs are the most probable subtype is consistent with the marker list and the context of breast cancer, where these cells play a significant role in the tumor microenvironment.<br><br>However, there are a few areas for improvement. While the annotation does not indicate strong evidence of multiple distinct cell types, it could have explored the possibility of mixed cell populations more thoroughly, given the complexity of the tumor microenvironment. Additionally, the analysis could have included a brief discussion on the potential presence of other stromal cell types or immune cells, even if they are less likely, to provide a more comprehensive view.<br><br>Overall, the annotation is scientifically accurate, well-balanced, and captures the general picture of the cell populations present in the dataset. The focus on cancer-associated fibroblasts (CAFs) is justified and aligns with the provided markers and context.<br>
+                        </div>
+                    </div>
+                
+        </div>
+    </body>
+    </html>
+    

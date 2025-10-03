@@ -1,0 +1,264 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { 
+                font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 20px; 
+                background-color: #f0f2f5;
+                line-height: 1.6;
+            }
+            .container { 
+                background-color: white; 
+                padding: 40px; 
+                border-radius: 16px; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .agent-section { 
+                margin-bottom: 35px; 
+                padding: 25px; 
+                border-radius: 12px; 
+                transition: all 0.3s ease;
+            }
+            .agent-section:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            .final-annotation { 
+                background-color: #f0f7ff; 
+                border-left: 5px solid #2196f3; 
+            }
+            .validator { 
+                background-color: #f0fdf4; 
+                border-left: 5px solid #22c55e; 
+            }
+            .formatting { 
+                background: linear-gradient(145deg, #fff7ed, #ffe4c4);
+                border-left: 5px solid #f97316; 
+                box-shadow: 0 4px 15px rgba(249, 115, 22, 0.1);
+            }
+            h2 { 
+                color: #1a2b3c; 
+                margin-top: 0; 
+                font-size: 1.5rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            ul { 
+                margin: 15px 0; 
+                padding-left: 20px; 
+            }
+            pre { 
+                background-color: #f8fafc; 
+                padding: 20px; 
+                border-radius: 8px; 
+                overflow-x: auto;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            .validation-result { 
+                font-weight: 600; 
+                color: #16a34a; 
+                padding: 12px 20px;
+                background-color: #dcfce7; 
+                border-radius: 8px; 
+                display: inline-block;
+                margin: 10px 0;
+            }
+            br { 
+                margin-bottom: 8px; 
+            }
+            p {
+                margin: 12px 0;
+                color: #374151;
+            }
+            .summary-content {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+            .summary-item {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.7);
+                padding: 16px;
+                border-radius: 12px;
+                backdrop-filter: blur(8px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+            .summary-label {
+                font-weight: 600;
+                color: #c2410c;
+                font-size: 0.95rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .summary-value {
+                color: #1f2937;
+                font-size: 1.1rem;
+                padding: 8px 16px;
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 8px;
+                display: inline-block;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            .summary-list {
+                margin: 0;
+                padding-left: 24px;
+                list-style-type: none;
+            }
+            .summary-list li {
+                color: #1f2937;
+                padding: 8px 0;
+                position: relative;
+            }
+            .summary-list li:before {
+                content: "•";
+                color: #f97316;
+                font-weight: bold;
+                position: absolute;
+                left: -20px;
+            }
+            .report-header {
+                text-align: center;
+                margin-bottom: 40px;
+                padding-bottom: 30px;
+                border-bottom: 2px solid rgba(249, 115, 22, 0.2);
+            }
+            
+            .report-title {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: #1a2b3c;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #f97316, #c2410c);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                letter-spacing: -0.5px;
+            }
+            
+            .report-subtitle {
+                font-size: 1.1rem;
+                color: #64748b;
+                margin-top: 8px;
+                font-weight: 500;
+            }
+            .scoring { 
+                background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+                border-left: 5px solid #22c55e;
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.1);
+            }
+            .scoring-content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                color: #1f2937;
+                line-height: 1.8;
+            }
+            .scoring-content br + br {
+                content: "";
+                display: block;
+                margin: 12px 0;
+            }
+            .empty-list {
+                color: #6b7280;
+                font-style: italic;
+            }
+            .error-message {
+                color: #dc2626;
+                padding: 12px;
+                background-color: #fef2f2;
+                border-radius: 6px;
+                border-left: 4px solid #dc2626;
+            }
+            .score-badge {
+                background: linear-gradient(135deg, #22c55e, #16a34a);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-size: 1.5rem;
+                font-weight: 700;
+                display: inline-block;
+                margin: 12px 0;
+                box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+                position: relative;
+                top: -10px;
+            }
+            .score-badge::before {
+                content: "Score:";
+                font-size: 0.9rem;
+                font-weight: 500;
+                margin-right: 8px;
+                opacity: 0.9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="report-header">
+                <h1 class="report-title">CASSIA Analysis Report</h1>
+                <p class="report-subtitle">Comprehensive Cell Type Analysis and Annotation</p>
+            </div>
+            
+                <div class="agent-section final-annotation">
+                    <h2>🔍 Final Annotation Analysis</h2>
+                    To annotate the cell type based on the provided ranked marker list from a single-cell RNA sequencing dataset of breast cancer tissue, we will follow the outlined steps:<br><br>### Step 1: List the Key Functional Markers<br>- **Histone Genes (H3-3A, H2BC12, H2AJ, H3-3B, H1-2, H1-0, H2AC6, H2AW, H1-10, H2AZ1, MACROH2A1, H2AZ2):** These genes are involved in chromatin structure and regulation of gene expression. Histone variants can be indicative of proliferative or cancerous cells due to their role in chromatin remodeling.<br>- **Aminoacyl-tRNA Synthetases (GARS1, IARS1, LARS1, NARS1, DARS1, SARS1):** These enzymes are crucial for protein synthesis and are often upregulated in rapidly dividing cells, such as cancer cells.<br>- **Mitochondrial Genes (MTCO2P12, MICOS10, MICOS13, MTLN):** These genes are involved in mitochondrial function and energy production, which are often upregulated in cancer cells due to increased metabolic demands.<br>- **PLAAT3, PLAAT4:** Involved in lipid metabolism, which can be altered in cancer cells.<br>- **ALDOA:** A glycolytic enzyme, often upregulated in cancer cells due to the Warburg effect.<br>- **SEPTIN9, SEPTIN2:** Involved in cell division and cytoskeletal organization, often associated with cancer cell proliferation.<br><br>### Step 2: List the Key Cell Type Markers<br>- **NIBAN2:** Associated with stress response and has been implicated in cancer progression.<br>- **MARCHF5, MARCHF6:** E3 ubiquitin ligases involved in protein degradation, often dysregulated in cancer.<br>- **TUG1:** A long non-coding RNA associated with cancer cell proliferation and survival.<br>- **RO60:** An RNA-binding protein involved in RNA stability, often upregulated in cancer.<br>- **ZC3H11A:** A zinc finger protein involved in RNA processing, potentially linked to cancer cell survival.<br><br>### Step 3: Cross-reference Known Databases<br>Using databases such as the Human Protein Atlas, CellMarker, and literature on breast cancer scRNA-seq datasets, we can cross-reference these markers:<br>- The presence of histone variants and aminoacyl-tRNA synthetases suggests a highly proliferative cell type, common in cancerous tissues.<br>- The mitochondrial and metabolic markers further support a cancer cell phenotype, likely due to increased metabolic activity.<br><br>### Step 4: Determine the Most Probable General Cell Type<br>Based on the expression of these markers, the most probable general cell type is a **cancer cell**. The combination of histone variants, metabolic enzymes, and stress response genes is characteristic of cancer cells, particularly in breast cancer tissue.<br><br>### Step 5: Identify the Top 3 Most Probable Sub Cell Types<br>1. **Breast Cancer Epithelial Cells:** These cells are the primary cancerous cells in breast tissue and often exhibit high expression of histone variants and metabolic enzymes.<br>2. **Cancer Stem Cells:** These cells have high proliferative capacity and are often characterized by the expression of stress response and metabolic genes.<br>3. **Proliferative Cancer Cells:** A subset of cancer cells with high expression of cell cycle and metabolic genes, indicative of rapid division.<br><br>The most likely subtype based on the markers is **Breast Cancer Epithelial Cells**, given the tissue origin and the expression profile.<br><br>### Step 6: Provide a Concise Summary of Your Analysis<br>The analysis of the ranked marker list from the breast cancer tissue dataset suggests that the cell cluster is composed of cancer cells, specifically breast cancer epithelial cells. The expression of histone variants, metabolic enzymes, and stress response genes aligns with the characteristics of highly proliferative cancer cells. This annotation is consistent with known profiles of breast cancer cells in scRNA-seq datasets.<br><br>FINAL ANNOTATION COMPLETED
+                </div>
+            
+                <div class="agent-section validator">
+                    <h2>✓ Validation Check</h2>
+                    <div class="validation-result">✅ VALIDATION PASSED</div>
+                    Validation result: VALIDATION PASSED<br><br>The proposed annotation result is consistent with the provided marker list and the identified cell type. Here's the breakdown:<br><br>1. **Marker Consistency:**<br>   - The markers used in the annotation, such as histone genes (e.g., H3-3A, H2BC12), aminoacyl-tRNA synthetases (e.g., GARS1, IARS1), and mitochondrial genes (e.g., MTCO2P12, MICOS10), are present in the provided marker list.<br>   - The markers are consistent with the characteristics of cancer cells, particularly in breast cancer tissue, as they are involved in chromatin remodeling, protein synthesis, and metabolic activity, which are often upregulated in cancer cells.<br><br>2. **Mixed Cell Type Consideration:**<br>   - The annotation considers the possibility of mixed cell types by identifying subtypes such as breast cancer epithelial cells, cancer stem cells, and proliferative cancer cells. This is appropriate given the expression of markers related to proliferation, metabolism, and stress response.<br>   - The annotation does not strongly suggest the presence of multiple distinct cell types that would require further investigation, as the markers predominantly support a cancer cell phenotype.<br><br>Overall, the annotation aligns well with the known profiles of breast cancer cells in single-cell RNA sequencing datasets, and the analysis is thorough and consistent with the provided marker list.
+                </div>
+            
+                        <div class="agent-section formatting">
+                            <h2>📋 Summary</h2>
+                            
+                        <div class="summary-content">
+                            <div class="summary-item">
+                                <span class="summary-label">Main Cell Type:</span>
+                                <span class="summary-value">cancer cell</span>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Sub Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Breast Cancer Epithelial Cells</li><li>Cancer Stem Cells</li><li>Proliferative Cancer Cells</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Possible Mixed Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li class="empty-list">No mixed cell types identified</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Number of Markers:</span>
+                                <span class="summary-value">50</span>
+                            </div>
+                        </div>
+                    
+                        </div>
+                    
+                    <div class="agent-section scoring">
+                        <h2>🎯 Quality Assessment</h2>
+                        <div class="score-badge">85</div>
+                        <div class="scoring-content">
+                            The annotation results provided for the single-cell RNA sequencing dataset from breast cancer tissue are generally well-executed, with several strengths and a few areas for improvement.<br><br>**Strengths:**<br>1. **Correctness of Annotations:** The annotation correctly identifies the main cell type as "cancer cell," which is consistent with the provided marker list and the origin of the dataset (human breast cancer). The identification of subtypes such as "Breast Cancer Epithelial Cells," "Cancer Stem Cells," and "Proliferative Cancer Cells" is appropriate given the expression of markers related to proliferation, metabolism, and stress response.<br><br>2. **Balanced Consideration of Markers:** The analysis considers a wide range of markers, including histone genes, aminoacyl-tRNA synthetases, and mitochondrial genes, which are relevant to cancer cell biology. This balanced approach helps in capturing the complexity of the cell population.<br><br>3. **Comprehensive View:** The annotation provides a comprehensive view of the cell types present, considering both the main cell type and potential subtypes. The analysis also acknowledges the possibility of mixed cell types, which is important in the context of cancer heterogeneity.<br><br>**Weaknesses:**<br>1. **Marker Rank Consideration:** While the annotation considers a variety of markers, it does not explicitly address the rank or importance of each marker in the list. For instance, markers appearing earlier in the list might have a higher expression or significance, which should be factored into the analysis.<br><br>2. **Potential Oversights:** Although the annotation is thorough, it could benefit from a more detailed exploration of potential non-cancerous cell types that might be present in the dataset, such as immune cells or stromal cells, which are often found in tumor microenvironments.<br><br>3. **Scientific Accuracy:** The annotation is scientifically accurate in its identification of cancer-related markers. However, the analysis could be strengthened by referencing specific studies or databases that support the association of these markers with breast cancer, enhancing the credibility of the conclusions.<br><br>Overall, the annotation is well-reasoned and aligns with the known profiles of breast cancer cells, but it could be improved by considering the rank of markers and exploring potential non-cancerous cell types.<br>
+                        </div>
+                    </div>
+                
+        </div>
+    </body>
+    </html>
+    

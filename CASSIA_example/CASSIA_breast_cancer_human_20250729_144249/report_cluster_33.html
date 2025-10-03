@@ -1,0 +1,264 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { 
+                font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 20px; 
+                background-color: #f0f2f5;
+                line-height: 1.6;
+            }
+            .container { 
+                background-color: white; 
+                padding: 40px; 
+                border-radius: 16px; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .agent-section { 
+                margin-bottom: 35px; 
+                padding: 25px; 
+                border-radius: 12px; 
+                transition: all 0.3s ease;
+            }
+            .agent-section:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            .final-annotation { 
+                background-color: #f0f7ff; 
+                border-left: 5px solid #2196f3; 
+            }
+            .validator { 
+                background-color: #f0fdf4; 
+                border-left: 5px solid #22c55e; 
+            }
+            .formatting { 
+                background: linear-gradient(145deg, #fff7ed, #ffe4c4);
+                border-left: 5px solid #f97316; 
+                box-shadow: 0 4px 15px rgba(249, 115, 22, 0.1);
+            }
+            h2 { 
+                color: #1a2b3c; 
+                margin-top: 0; 
+                font-size: 1.5rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            ul { 
+                margin: 15px 0; 
+                padding-left: 20px; 
+            }
+            pre { 
+                background-color: #f8fafc; 
+                padding: 20px; 
+                border-radius: 8px; 
+                overflow-x: auto;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            .validation-result { 
+                font-weight: 600; 
+                color: #16a34a; 
+                padding: 12px 20px;
+                background-color: #dcfce7; 
+                border-radius: 8px; 
+                display: inline-block;
+                margin: 10px 0;
+            }
+            br { 
+                margin-bottom: 8px; 
+            }
+            p {
+                margin: 12px 0;
+                color: #374151;
+            }
+            .summary-content {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+            .summary-item {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.7);
+                padding: 16px;
+                border-radius: 12px;
+                backdrop-filter: blur(8px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+            .summary-label {
+                font-weight: 600;
+                color: #c2410c;
+                font-size: 0.95rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .summary-value {
+                color: #1f2937;
+                font-size: 1.1rem;
+                padding: 8px 16px;
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 8px;
+                display: inline-block;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            .summary-list {
+                margin: 0;
+                padding-left: 24px;
+                list-style-type: none;
+            }
+            .summary-list li {
+                color: #1f2937;
+                padding: 8px 0;
+                position: relative;
+            }
+            .summary-list li:before {
+                content: "•";
+                color: #f97316;
+                font-weight: bold;
+                position: absolute;
+                left: -20px;
+            }
+            .report-header {
+                text-align: center;
+                margin-bottom: 40px;
+                padding-bottom: 30px;
+                border-bottom: 2px solid rgba(249, 115, 22, 0.2);
+            }
+            
+            .report-title {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: #1a2b3c;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #f97316, #c2410c);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                letter-spacing: -0.5px;
+            }
+            
+            .report-subtitle {
+                font-size: 1.1rem;
+                color: #64748b;
+                margin-top: 8px;
+                font-weight: 500;
+            }
+            .scoring { 
+                background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+                border-left: 5px solid #22c55e;
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.1);
+            }
+            .scoring-content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                color: #1f2937;
+                line-height: 1.8;
+            }
+            .scoring-content br + br {
+                content: "";
+                display: block;
+                margin: 12px 0;
+            }
+            .empty-list {
+                color: #6b7280;
+                font-style: italic;
+            }
+            .error-message {
+                color: #dc2626;
+                padding: 12px;
+                background-color: #fef2f2;
+                border-radius: 6px;
+                border-left: 4px solid #dc2626;
+            }
+            .score-badge {
+                background: linear-gradient(135deg, #22c55e, #16a34a);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-size: 1.5rem;
+                font-weight: 700;
+                display: inline-block;
+                margin: 12px 0;
+                box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+                position: relative;
+                top: -10px;
+            }
+            .score-badge::before {
+                content: "Score:";
+                font-size: 0.9rem;
+                font-weight: 500;
+                margin-right: 8px;
+                opacity: 0.9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="report-header">
+                <h1 class="report-title">CASSIA Analysis Report</h1>
+                <p class="report-subtitle">Comprehensive Cell Type Analysis and Annotation</p>
+            </div>
+            
+                <div class="agent-section final-annotation">
+                    <h2>🔍 Final Annotation Analysis</h2>
+                    To annotate the cell type based on the provided ranked marker list from a single-cell RNA sequencing dataset of breast cancer tissue, we will follow the outlined steps:<br><br>### Step 1: List the Key Functional Markers<br><br>1. **CRIP1 (Cysteine-Rich Protein 1)**: Often associated with cellular differentiation and proliferation.<br>2. **PIP (Prolactin-Induced Protein)**: Known to be involved in immune response and is often expressed in breast tissue.<br>3. **MUCL1 (Mucin-Like 1)**: Typically expressed in breast tissue and associated with mucin production.<br>4. **SCGB2A2 (Secretoglobin Family 2A Member 2)**: Also known as Mammaglobin, a marker highly specific to breast tissue.<br>5. **AZGP1 (Alpha-2-Glycoprotein 1, Zinc-Binding)**: Involved in lipid metabolism and often expressed in breast tissue.<br>6. **IGFBP5 (Insulin-Like Growth Factor Binding Protein 5)**: Plays a role in cell growth and apoptosis.<br>7. **KRT18 (Keratin 18)**: A type I cytokeratin, often found in epithelial cells.<br>8. **CLDN4 (Claudin 4)**: Involved in tight junction formation in epithelial cells.<br><br>### Step 2: List the Key Cell Type Markers<br><br>1. **SCGB2A2 (Mammaglobin)**: A well-known marker for mammary epithelial cells, particularly luminal epithelial cells.<br>2. **PIP**: Commonly expressed in luminal epithelial cells of the breast.<br>3. **MUCL1**: Associated with breast epithelial cells.<br>4. **KRT18**: A marker for epithelial cells, including luminal epithelial cells in the breast.<br>5. **AZGP1**: Often expressed in luminal epithelial cells of the breast.<br><br>### Step 3: Cross-reference Known Databases<br><br>- **Human Protein Atlas**: Confirms the expression of SCGB2A2, PIP, and MUCL1 in breast tissue, particularly in luminal epithelial cells.<br>- **PanglaoDB**: Lists SCGB2A2 and PIP as markers for breast epithelial cells.<br>- **Literature**: SCGB2A2 and PIP are frequently cited as markers for luminal epithelial cells in breast tissue.<br><br>### Step 4: Determine the Most Probable General Cell Type<br><br>Based on the expression of SCGB2A2, PIP, MUCL1, and KRT18, the most probable general cell type is **epithelial cells**, specifically those associated with breast tissue.<br><br>### Step 5: Identify the Top 3 Most Probable Sub Cell Types<br><br>1. **Luminal Epithelial Cells**: The presence of SCGB2A2 (Mammaglobin) and PIP strongly suggests luminal epithelial cells, which are a major component of the breast epithelium.<br>2. **Myoepithelial Cells**: Although less likely due to the lack of specific myoepithelial markers, they are another component of breast tissue.<br>3. **Basal Epithelial Cells**: While possible, the markers provided are more indicative of luminal rather than basal epithelial cells.<br><br>**Most Likely Subtype**: **Luminal Epithelial Cells**. The expression of SCGB2A2 and PIP, both highly specific to luminal cells, supports this conclusion.<br><br>### Step 6: Provide a Concise Summary of Your Analysis<br><br>The analysis of the ranked marker list from the breast cancer tissue dataset indicates that the cell cluster is most likely composed of epithelial cells, specifically luminal epithelial cells. This conclusion is supported by the high expression of SCGB2A2 (Mammaglobin) and PIP, both of which are well-established markers for luminal epithelial cells in breast tissue. The presence of other markers such as MUCL1 and KRT18 further corroborates this annotation.<br><br>**FINAL ANNOTATION COMPLETED**
+                </div>
+            
+                <div class="agent-section validator">
+                    <h2>✓ Validation Check</h2>
+                    <div class="validation-result">✅ VALIDATION PASSED</div>
+                    Validation result: VALIDATION PASSED<br><br>The proposed annotation result is consistent with the provided marker list and the identified cell type. Here's the breakdown:<br><br>1. **Marker Consistency**: <br>   - The key functional markers and cell type markers listed in the annotation (CRIP1, PIP, MUCL1, SCGB2A2, AZGP1, IGFBP5, KRT18, CLDN4) are all present in the provided marker list.<br>   - The markers SCGB2A2, PIP, MUCL1, and KRT18 are well-known markers for epithelial cells, particularly luminal epithelial cells in breast tissue, which aligns with the annotation.<br><br>2. **Mixed Cell Type Consideration**:<br>   - The annotation primarily supports luminal epithelial cells, with strong evidence from high-ranking markers like SCGB2A2 and PIP.<br>   - There is no strong evidence of mixed cell types based on the provided markers, as the markers predominantly indicate luminal epithelial cells.<br><br>The annotation is well-supported by the marker list and cross-referenced databases, confirming the identification of luminal epithelial cells as the most probable cell type in the cluster.
+                </div>
+            
+                        <div class="agent-section formatting">
+                            <h2>📋 Summary</h2>
+                            
+                        <div class="summary-content">
+                            <div class="summary-item">
+                                <span class="summary-label">Main Cell Type:</span>
+                                <span class="summary-value">Epithelial Cells</span>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Sub Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Luminal Epithelial Cells</li><li>Myoepithelial Cells</li><li>Basal Epithelial Cells</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Possible Mixed Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li class="empty-list">No mixed cell types identified</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Number of Markers:</span>
+                                <span class="summary-value">50</span>
+                            </div>
+                        </div>
+                    
+                        </div>
+                    
+                    <div class="agent-section scoring">
+                        <h2>🎯 Quality Assessment</h2>
+                        <div class="score-badge">90</div>
+                        <div class="scoring-content">
+                            The annotation results provided for the single-cell RNA sequencing dataset from breast cancer tissue are generally well-executed, with a strong focus on identifying the most probable cell type and subtype based on the marker list. Here are the key points of evaluation:<br><br>1. **Correctness of Annotations**: The annotation correctly identifies the main cell type as epithelial cells, specifically luminal epithelial cells, which is consistent with the presence of markers such as SCGB2A2 (Mammaglobin), PIP, MUCL1, and KRT18. These markers are well-documented in the literature and databases as being associated with luminal epithelial cells in breast tissue.<br><br>2. **Balanced Consideration of Markers**: The annotation process demonstrates a balanced consideration of multiple markers. It does not overly focus on a single marker but rather integrates information from several key markers to arrive at the conclusion. The use of databases like the Human Protein Atlas and PanglaoDB to cross-reference marker expression adds robustness to the analysis.<br><br>3. **General Picture of Cell Populations**: The annotation captures the general picture of the cell populations present in the dataset. It acknowledges the possibility of other epithelial subtypes, such as myoepithelial and basal epithelial cells, although the evidence for these is weaker. This consideration of potential subtypes, even if less likely, shows a comprehensive approach.<br><br>4. **Consideration of Marker Rank**: The annotation does take into account the rank of the markers, with high-ranking markers like SCGB2A2 and PIP being given significant weight in the analysis. This is appropriate, as these markers are crucial for identifying luminal epithelial cells.<br><br>5. **Potential Oversights**: One potential oversight is the lack of discussion on the presence of any non-epithelial cell types, which could be present in a breast cancer tissue sample. However, given the marker list provided, the focus on epithelial cells is justified.<br><br>Overall, the annotation is scientifically accurate, well-balanced, and provides a comprehensive view of the cell types present in the dataset. There are no obvious misclassifications, and the analysis is well-supported by the marker data and external references.<br>
+                        </div>
+                    </div>
+                
+        </div>
+    </body>
+    </html>
+    

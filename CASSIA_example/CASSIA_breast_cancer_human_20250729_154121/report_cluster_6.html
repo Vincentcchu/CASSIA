@@ -1,0 +1,264 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { 
+                font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 20px; 
+                background-color: #f0f2f5;
+                line-height: 1.6;
+            }
+            .container { 
+                background-color: white; 
+                padding: 40px; 
+                border-radius: 16px; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .agent-section { 
+                margin-bottom: 35px; 
+                padding: 25px; 
+                border-radius: 12px; 
+                transition: all 0.3s ease;
+            }
+            .agent-section:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            .final-annotation { 
+                background-color: #f0f7ff; 
+                border-left: 5px solid #2196f3; 
+            }
+            .validator { 
+                background-color: #f0fdf4; 
+                border-left: 5px solid #22c55e; 
+            }
+            .formatting { 
+                background: linear-gradient(145deg, #fff7ed, #ffe4c4);
+                border-left: 5px solid #f97316; 
+                box-shadow: 0 4px 15px rgba(249, 115, 22, 0.1);
+            }
+            h2 { 
+                color: #1a2b3c; 
+                margin-top: 0; 
+                font-size: 1.5rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            ul { 
+                margin: 15px 0; 
+                padding-left: 20px; 
+            }
+            pre { 
+                background-color: #f8fafc; 
+                padding: 20px; 
+                border-radius: 8px; 
+                overflow-x: auto;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            .validation-result { 
+                font-weight: 600; 
+                color: #16a34a; 
+                padding: 12px 20px;
+                background-color: #dcfce7; 
+                border-radius: 8px; 
+                display: inline-block;
+                margin: 10px 0;
+            }
+            br { 
+                margin-bottom: 8px; 
+            }
+            p {
+                margin: 12px 0;
+                color: #374151;
+            }
+            .summary-content {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+            .summary-item {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.7);
+                padding: 16px;
+                border-radius: 12px;
+                backdrop-filter: blur(8px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+            .summary-label {
+                font-weight: 600;
+                color: #c2410c;
+                font-size: 0.95rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .summary-value {
+                color: #1f2937;
+                font-size: 1.1rem;
+                padding: 8px 16px;
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 8px;
+                display: inline-block;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            .summary-list {
+                margin: 0;
+                padding-left: 24px;
+                list-style-type: none;
+            }
+            .summary-list li {
+                color: #1f2937;
+                padding: 8px 0;
+                position: relative;
+            }
+            .summary-list li:before {
+                content: "•";
+                color: #f97316;
+                font-weight: bold;
+                position: absolute;
+                left: -20px;
+            }
+            .report-header {
+                text-align: center;
+                margin-bottom: 40px;
+                padding-bottom: 30px;
+                border-bottom: 2px solid rgba(249, 115, 22, 0.2);
+            }
+            
+            .report-title {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: #1a2b3c;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #f97316, #c2410c);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                letter-spacing: -0.5px;
+            }
+            
+            .report-subtitle {
+                font-size: 1.1rem;
+                color: #64748b;
+                margin-top: 8px;
+                font-weight: 500;
+            }
+            .scoring { 
+                background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+                border-left: 5px solid #22c55e;
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.1);
+            }
+            .scoring-content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                color: #1f2937;
+                line-height: 1.8;
+            }
+            .scoring-content br + br {
+                content: "";
+                display: block;
+                margin: 12px 0;
+            }
+            .empty-list {
+                color: #6b7280;
+                font-style: italic;
+            }
+            .error-message {
+                color: #dc2626;
+                padding: 12px;
+                background-color: #fef2f2;
+                border-radius: 6px;
+                border-left: 4px solid #dc2626;
+            }
+            .score-badge {
+                background: linear-gradient(135deg, #22c55e, #16a34a);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-size: 1.5rem;
+                font-weight: 700;
+                display: inline-block;
+                margin: 12px 0;
+                box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+                position: relative;
+                top: -10px;
+            }
+            .score-badge::before {
+                content: "Score:";
+                font-size: 0.9rem;
+                font-weight: 500;
+                margin-right: 8px;
+                opacity: 0.9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="report-header">
+                <h1 class="report-title">CASSIA Analysis Report</h1>
+                <p class="report-subtitle">Comprehensive Cell Type Analysis and Annotation</p>
+            </div>
+            
+                <div class="agent-section final-annotation">
+                    <h2>🔍 Final Annotation Analysis</h2>
+                    To annotate the cell type based on the provided ranked marker list from a single-cell RNA sequencing dataset of breast cancer tissue, we will follow the outlined steps:<br><br>### Step 1: List the Key Functional Markers<br>- **COL1A2, COL1A1, COL3A1, COL5A2, COL6A3, COL6A1, COL6A2, COL10A1, COL5A1, COL12A1**: These are collagen genes, which are structural proteins found in the extracellular matrix (ECM). They play a crucial role in providing structural support and are often associated with fibroblasts.<br>- **LUM, DCN, BGN**: These are small leucine-rich proteoglycans involved in collagen fibrillogenesis and ECM organization, commonly expressed in fibroblasts.<br>- **SPARC, SFRP2, SFRP4, FBN1, THBS2, FAP, SERPINF1, PCOLCE, EMILIN1, HTRA1, FBLN1**: These genes are involved in ECM remodeling, cell adhesion, and tissue repair, often associated with fibroblastic activity.<br>- **CTSK, MMP2, MMP11**: These are matrix metalloproteinases and cathepsins involved in ECM degradation and remodeling, typically expressed in fibroblasts and stromal cells.<br>- **VCAN, FN1, TAGLN, CALD1, CDH11**: These genes are involved in cell adhesion, migration, and cytoskeletal organization, often found in mesenchymal cells.<br>- **CTGF, CCDC80, AEBP1, ASPN, RARRES2, ISLR, CTHRC1, GAS1, FSTL1, CFH, IGFBP7, SULF1, PRRX1**: These genes are involved in cell signaling, ECM interaction, and tissue development, commonly expressed in fibroblasts and stromal cells.<br><br>### Step 2: List the Key Cell Type Markers<br>- **THY1 (CD90)**: A marker commonly associated with fibroblasts and mesenchymal stem cells.<br>- **FAP (Fibroblast Activation Protein)**: A marker specific to activated fibroblasts, particularly in cancer-associated fibroblasts (CAFs).<br>- **CXCL12 (SDF-1)**: A chemokine involved in the recruitment of immune cells and often expressed by fibroblasts in the tumor microenvironment.<br><br>### Step 3: Cross-reference Known Databases<br>Using databases such as the Human Protein Atlas, CellMarker, and literature on scRNA-seq datasets, the expression of these markers is consistent with fibroblasts, particularly cancer-associated fibroblasts (CAFs) in the tumor microenvironment.<br><br>### Step 4: Determine the Most Probable General Cell Type<br>Based on the expression of ECM-related genes, collagen genes, and fibroblast-specific markers (THY1, FAP), the most probable general cell type is **fibroblasts**.<br><br>### Step 5: Identify the Top 3 Most Probable Sub Cell Types<br>1. **Cancer-Associated Fibroblasts (CAFs)**: Given the expression of FAP, THY1, and ECM remodeling genes, CAFs are the most likely subtype, as they are prevalent in the tumor microenvironment of breast cancer.<br>2. **Myofibroblasts**: The presence of TAGLN and CALD1 suggests a contractile phenotype, which is characteristic of myofibroblasts, a subtype of fibroblasts involved in wound healing and fibrosis.<br>3. **Mesenchymal Stem Cells (MSCs)**: The expression of THY1 and ECM-related genes could also indicate mesenchymal stem cells, which can differentiate into fibroblasts.<br><br>### Step 6: Provide a Concise Summary of Your Analysis<br>The ranked marker list from the breast cancer tissue scRNA-seq dataset suggests that the cell cluster is primarily composed of fibroblasts. The high expression of ECM-related genes, collagen genes, and fibroblast-specific markers such as THY1 and FAP strongly indicates the presence of cancer-associated fibroblasts (CAFs), which play a crucial role in the tumor microenvironment by remodeling the ECM and interacting with cancer cells. Myofibroblasts and mesenchymal stem cells are also potential subtypes, but CAFs are the most likely based on the marker profile.<br><br>**FINAL ANNOTATION COMPLETED**
+                </div>
+            
+                <div class="agent-section validator">
+                    <h2>✓ Validation Check</h2>
+                    <div class="validation-result">✅ VALIDATION PASSED</div>
+                    Validation result: VALIDATION PASSED<br><br>The proposed annotation result is consistent with the provided marker list and the identified cell type. Here's the breakdown:<br><br>1. **Marker Consistency**: <br>   - The markers listed in the annotation result are present in the provided marker list. <br>   - The markers are consistent with fibroblasts, particularly cancer-associated fibroblasts (CAFs), as they include ECM-related genes, collagen genes, and fibroblast-specific markers such as THY1 and FAP.<br><br>2. **Mixed Cell Type Consideration**:<br>   - The annotation considers the possibility of mixed cell types by identifying potential subtypes such as myofibroblasts and mesenchymal stem cells (MSCs). <br>   - The presence of markers like TAGLN and CALD1 supports the potential presence of myofibroblasts, while THY1 and ECM-related genes suggest the possibility of MSCs.<br>   - However, the strong presence of CAF-specific markers like FAP and the overall marker profile strongly supports the primary annotation of CAFs.<br><br>The annotation is well-supported by the marker list and the analysis provided, making it a valid conclusion for the cell cluster in question.
+                </div>
+            
+                        <div class="agent-section formatting">
+                            <h2>📋 Summary</h2>
+                            
+                        <div class="summary-content">
+                            <div class="summary-item">
+                                <span class="summary-label">Main Cell Type:</span>
+                                <span class="summary-value">fibroblasts</span>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Sub Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Cancer-Associated Fibroblasts (CAFs)</li><li>Myofibroblasts</li><li>Mesenchymal Stem Cells (MSCs)</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Possible Mixed Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li class="empty-list">No mixed cell types identified</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Number of Markers:</span>
+                                <span class="summary-value">50</span>
+                            </div>
+                        </div>
+                    
+                        </div>
+                    
+                    <div class="agent-section scoring">
+                        <h2>🎯 Quality Assessment</h2>
+                        <div class="score-badge">90</div>
+                        <div class="scoring-content">
+                            The annotation results provided for the single-cell RNA sequencing dataset from human breast cancer tissue are generally well-executed and scientifically sound. The analysis correctly identifies the main cell type as fibroblasts, with a strong emphasis on cancer-associated fibroblasts (CAFs), which is consistent with the expression of key markers such as FAP and THY1. These markers are indeed indicative of fibroblastic activity, particularly in the context of the tumor microenvironment.<br><br>The annotation process demonstrates a balanced consideration of multiple markers, rather than over-focusing on a specific one. The inclusion of ECM-related genes, collagen genes, and fibroblast-specific markers provides a comprehensive view of the cell populations present. The analysis also considers potential subtypes, such as myofibroblasts and mesenchymal stem cells (MSCs), which is a strength as it acknowledges the complexity and heterogeneity of the cell populations within the tumor microenvironment.<br><br>The annotation history shows a systematic approach, using databases and literature to cross-reference known markers, which adds to the robustness of the conclusions drawn. The ranked marker list is appropriately utilized, with the most significant markers being given due consideration in the final annotation.<br><br>However, there are a few areas where the analysis could be improved. While the annotation identifies potential subtypes, it does not delve deeply into the possibility of mixed cell types beyond the primary annotation of CAFs. Additionally, while the rank of the markers is considered, the analysis could benefit from a more explicit discussion of how the rank influenced the final conclusions.<br><br>Overall, the annotation provides a comprehensive and accurate view of the cell types present, with a strong focus on the most relevant markers and a balanced consideration of the data.<br>
+                        </div>
+                    </div>
+                
+        </div>
+    </body>
+    </html>
+    

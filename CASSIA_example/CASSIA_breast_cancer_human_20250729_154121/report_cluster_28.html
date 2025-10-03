@@ -1,0 +1,264 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { 
+                font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 20px; 
+                background-color: #f0f2f5;
+                line-height: 1.6;
+            }
+            .container { 
+                background-color: white; 
+                padding: 40px; 
+                border-radius: 16px; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .agent-section { 
+                margin-bottom: 35px; 
+                padding: 25px; 
+                border-radius: 12px; 
+                transition: all 0.3s ease;
+            }
+            .agent-section:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            .final-annotation { 
+                background-color: #f0f7ff; 
+                border-left: 5px solid #2196f3; 
+            }
+            .validator { 
+                background-color: #f0fdf4; 
+                border-left: 5px solid #22c55e; 
+            }
+            .formatting { 
+                background: linear-gradient(145deg, #fff7ed, #ffe4c4);
+                border-left: 5px solid #f97316; 
+                box-shadow: 0 4px 15px rgba(249, 115, 22, 0.1);
+            }
+            h2 { 
+                color: #1a2b3c; 
+                margin-top: 0; 
+                font-size: 1.5rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            ul { 
+                margin: 15px 0; 
+                padding-left: 20px; 
+            }
+            pre { 
+                background-color: #f8fafc; 
+                padding: 20px; 
+                border-radius: 8px; 
+                overflow-x: auto;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            .validation-result { 
+                font-weight: 600; 
+                color: #16a34a; 
+                padding: 12px 20px;
+                background-color: #dcfce7; 
+                border-radius: 8px; 
+                display: inline-block;
+                margin: 10px 0;
+            }
+            br { 
+                margin-bottom: 8px; 
+            }
+            p {
+                margin: 12px 0;
+                color: #374151;
+            }
+            .summary-content {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+            .summary-item {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.7);
+                padding: 16px;
+                border-radius: 12px;
+                backdrop-filter: blur(8px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+            .summary-label {
+                font-weight: 600;
+                color: #c2410c;
+                font-size: 0.95rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .summary-value {
+                color: #1f2937;
+                font-size: 1.1rem;
+                padding: 8px 16px;
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 8px;
+                display: inline-block;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            .summary-list {
+                margin: 0;
+                padding-left: 24px;
+                list-style-type: none;
+            }
+            .summary-list li {
+                color: #1f2937;
+                padding: 8px 0;
+                position: relative;
+            }
+            .summary-list li:before {
+                content: "•";
+                color: #f97316;
+                font-weight: bold;
+                position: absolute;
+                left: -20px;
+            }
+            .report-header {
+                text-align: center;
+                margin-bottom: 40px;
+                padding-bottom: 30px;
+                border-bottom: 2px solid rgba(249, 115, 22, 0.2);
+            }
+            
+            .report-title {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: #1a2b3c;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #f97316, #c2410c);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                letter-spacing: -0.5px;
+            }
+            
+            .report-subtitle {
+                font-size: 1.1rem;
+                color: #64748b;
+                margin-top: 8px;
+                font-weight: 500;
+            }
+            .scoring { 
+                background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+                border-left: 5px solid #22c55e;
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.1);
+            }
+            .scoring-content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                color: #1f2937;
+                line-height: 1.8;
+            }
+            .scoring-content br + br {
+                content: "";
+                display: block;
+                margin: 12px 0;
+            }
+            .empty-list {
+                color: #6b7280;
+                font-style: italic;
+            }
+            .error-message {
+                color: #dc2626;
+                padding: 12px;
+                background-color: #fef2f2;
+                border-radius: 6px;
+                border-left: 4px solid #dc2626;
+            }
+            .score-badge {
+                background: linear-gradient(135deg, #22c55e, #16a34a);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-size: 1.5rem;
+                font-weight: 700;
+                display: inline-block;
+                margin: 12px 0;
+                box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+                position: relative;
+                top: -10px;
+            }
+            .score-badge::before {
+                content: "Score:";
+                font-size: 0.9rem;
+                font-weight: 500;
+                margin-right: 8px;
+                opacity: 0.9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="report-header">
+                <h1 class="report-title">CASSIA Analysis Report</h1>
+                <p class="report-subtitle">Comprehensive Cell Type Analysis and Annotation</p>
+            </div>
+            
+                <div class="agent-section final-annotation">
+                    <h2>🔍 Final Annotation Analysis</h2>
+                    To annotate the cell type based on the provided ranked marker list from a single-cell human dataset derived from breast cancer tissue, I will follow the outlined steps:<br><br>### Step 1: List the Key Functional Markers<br>- **TCL1A**: Known to be involved in the regulation of cell survival and proliferation, often associated with lymphoid cells.<br>- **IRF8**: A transcription factor involved in the regulation of immune response, particularly in myeloid and lymphoid lineages.<br>- **POU2F2 (OCT2)**: A transcription factor involved in B-cell development and function.<br>- **PRKCB**: Protein kinase C beta, involved in B-cell receptor signaling.<br>- **BCL11A**: A transcription factor involved in B-cell development.<br>- **MEF2C**: A transcription factor involved in lymphocyte differentiation.<br>- **CXCR4**: A chemokine receptor involved in cell migration and homing, particularly in immune cells.<br>- **RAC2**: A small GTPase involved in the regulation of the actin cytoskeleton, important for immune cell function.<br>- **PTPRC (CD45)**: A protein tyrosine phosphatase involved in the regulation of immune cell signaling.<br><br>### Step 2: List the Key Cell Type Markers<br>- **MS4A1 (CD20)**: A well-known marker for B-cells.<br>- **CD79A and CD79B**: Components of the B-cell receptor complex, specific to B-cells.<br>- **JCHAIN**: Associated with immunoglobulin production, particularly in plasma cells.<br>- **IGHM**: Immunoglobulin heavy constant mu, indicative of B-cells, particularly naive or memory B-cells.<br>- **IGKC**: Immunoglobulin kappa constant, associated with B-cells and plasma cells.<br>- **HLA-DRA, HLA-DPA1, HLA-DPB1, HLA-DRB1, HLA-DQA1, HLA-DQB1, HLA-DMB**: MHC class II molecules, typically expressed on antigen-presenting cells, including B-cells.<br>- **CD74**: Invariant chain associated with MHC class II, expressed on B-cells and other antigen-presenting cells.<br>- **CD37, CD52, CD53, CD83**: Surface markers associated with B-cells and other immune cells.<br>- **MZB1**: A marker associated with plasma cells.<br><br>### Step 3: Cross-reference Known Databases<br>Using databases such as the Human Cell Atlas, PanglaoDB, and literature on scRNA-seq datasets, the markers listed are predominantly associated with B-cells and plasma cells. The presence of immunoglobulin-related genes (IGHM, IGKC, JCHAIN) and B-cell receptor components (CD79A, CD79B) strongly suggests a B-cell lineage.<br><br>### Step 4: Determine the Most Probable General Cell Type<br>Based on the expression of these markers, the most likely general cell type is **B-cells**. The presence of both naive/memory B-cell markers and plasma cell markers suggests a mixed population of B-cells.<br><br>### Step 5: Identify the Top 3 Most Probable Sub Cell Types<br>1. **Plasma Cells**: The presence of JCHAIN, IGKC, and MZB1 suggests a significant population of plasma cells, which are differentiated B-cells responsible for antibody production.<br>2. **Memory B-cells**: The expression of IGHM and CD79A/B, along with MHC class II molecules, suggests the presence of memory B-cells.<br>3. **Naive B-cells**: The presence of TCL1A and other B-cell receptor components suggests some naive B-cells.<br><br>The most likely subtype based on the markers is **Plasma Cells**, given the strong expression of immunoglobulin-related genes and plasma cell-specific markers like MZB1.<br><br>### Step 6: Provide a Concise Summary of Your Analysis<br>The analysis of the ranked marker list from the breast cancer tissue dataset indicates that the cell cluster is predominantly composed of B-cells, with a significant presence of plasma cells. The expression of immunoglobulin-related genes and plasma cell-specific markers supports this conclusion. The top three probable subtypes are plasma cells, memory B-cells, and naive B-cells, with plasma cells being the most likely subtype.<br><br>FINAL ANNOTATION COMPLETED
+                </div>
+            
+                <div class="agent-section validator">
+                    <h2>✓ Validation Check</h2>
+                    <div class="validation-result">✅ VALIDATION PASSED</div>
+                    Validation result: VALIDATION PASSED<br><br>The proposed annotation result is consistent with the provided marker list and the identified cell type. Here's the breakdown:<br><br>1. **Marker Consistency**: <br>   - The markers used in the annotation (e.g., TCL1A, MS4A1, CD79A, CD79B, JCHAIN, IGHM, IGKC, MZB1) are present in the provided marker list.<br>   - The markers are consistent with B-cells and plasma cells, as they include well-known B-cell markers (MS4A1, CD79A/B) and plasma cell markers (JCHAIN, IGKC, MZB1).<br><br>2. **Mixed Cell Type Consideration**:<br>   - The annotation correctly identifies a mixed population of B-cells, including plasma cells, memory B-cells, and naive B-cells. This is supported by the presence of both general B-cell markers and specific plasma cell markers.<br>   - The presence of markers like IGHM, CD79A/B, and MHC class II molecules supports the identification of memory and naive B-cells, while markers like JCHAIN and MZB1 strongly indicate plasma cells.<br><br>The annotation is well-supported by the marker list and the analysis steps, leading to a valid conclusion of a predominantly B-cell population with a significant presence of plasma cells.
+                </div>
+            
+                        <div class="agent-section formatting">
+                            <h2>📋 Summary</h2>
+                            
+                        <div class="summary-content">
+                            <div class="summary-item">
+                                <span class="summary-label">Main Cell Type:</span>
+                                <span class="summary-value">B-cells</span>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Sub Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Plasma Cells</li><li>Memory B-cells</li><li>Naive B-cells</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Possible Mixed Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li class="empty-list">No mixed cell types identified</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Number of Markers:</span>
+                                <span class="summary-value">50</span>
+                            </div>
+                        </div>
+                    
+                        </div>
+                    
+                    <div class="agent-section scoring">
+                        <h2>🎯 Quality Assessment</h2>
+                        <div class="score-badge">90</div>
+                        <div class="scoring-content">
+                            The annotation results provided demonstrate a strong understanding of the marker list and its implications for identifying cell types within the dataset. The analysis correctly identifies the main cell type as B-cells, with a significant presence of plasma cells, which is consistent with the expression of key markers such as MS4A1 (CD20), CD79A/B, JCHAIN, IGKC, and MZB1. These markers are well-known indicators of B-cell and plasma cell populations, supporting the annotation's accuracy.<br><br>The annotation process shows a balanced consideration of multiple markers, rather than over-focusing on a specific one. For instance, the analysis takes into account both general B-cell markers and specific plasma cell markers, which is crucial for identifying a mixed population. The inclusion of markers like IGHM, CD79A/B, and MHC class II molecules further supports the identification of memory and naive B-cells, indicating a comprehensive view of the cell types present.<br><br>The annotation also effectively captures the general picture of the cell populations by considering the rank and importance of the markers. The presence of TCL1A, a marker associated with lymphoid cells, and other immune-related markers like IRF8 and CXCR4, supports the identification of a lymphoid lineage, particularly B-cells.<br><br>However, there are some areas for improvement. While the annotation identifies the main and sub-cell types accurately, it could benefit from a more detailed discussion of the potential presence of other immune cell types, given the expression of markers like HLA-DRA and CD74, which are also expressed on other antigen-presenting cells. Additionally, the analysis could have explored the potential implications of the breast cancer origin of the dataset on the cell type composition.<br><br>Overall, the annotation is scientifically accurate, well-balanced in its use of markers, and provides a comprehensive view of the cell types present, with minor areas for improvement in considering the broader context of the dataset.<br>
+                        </div>
+                    </div>
+                
+        </div>
+    </body>
+    </html>
+    

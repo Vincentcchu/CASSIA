@@ -1,0 +1,264 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { 
+                font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 20px; 
+                background-color: #f0f2f5;
+                line-height: 1.6;
+            }
+            .container { 
+                background-color: white; 
+                padding: 40px; 
+                border-radius: 16px; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .agent-section { 
+                margin-bottom: 35px; 
+                padding: 25px; 
+                border-radius: 12px; 
+                transition: all 0.3s ease;
+            }
+            .agent-section:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            .final-annotation { 
+                background-color: #f0f7ff; 
+                border-left: 5px solid #2196f3; 
+            }
+            .validator { 
+                background-color: #f0fdf4; 
+                border-left: 5px solid #22c55e; 
+            }
+            .formatting { 
+                background: linear-gradient(145deg, #fff7ed, #ffe4c4);
+                border-left: 5px solid #f97316; 
+                box-shadow: 0 4px 15px rgba(249, 115, 22, 0.1);
+            }
+            h2 { 
+                color: #1a2b3c; 
+                margin-top: 0; 
+                font-size: 1.5rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            ul { 
+                margin: 15px 0; 
+                padding-left: 20px; 
+            }
+            pre { 
+                background-color: #f8fafc; 
+                padding: 20px; 
+                border-radius: 8px; 
+                overflow-x: auto;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            .validation-result { 
+                font-weight: 600; 
+                color: #16a34a; 
+                padding: 12px 20px;
+                background-color: #dcfce7; 
+                border-radius: 8px; 
+                display: inline-block;
+                margin: 10px 0;
+            }
+            br { 
+                margin-bottom: 8px; 
+            }
+            p {
+                margin: 12px 0;
+                color: #374151;
+            }
+            .summary-content {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+            .summary-item {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.7);
+                padding: 16px;
+                border-radius: 12px;
+                backdrop-filter: blur(8px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+            .summary-label {
+                font-weight: 600;
+                color: #c2410c;
+                font-size: 0.95rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .summary-value {
+                color: #1f2937;
+                font-size: 1.1rem;
+                padding: 8px 16px;
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 8px;
+                display: inline-block;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            .summary-list {
+                margin: 0;
+                padding-left: 24px;
+                list-style-type: none;
+            }
+            .summary-list li {
+                color: #1f2937;
+                padding: 8px 0;
+                position: relative;
+            }
+            .summary-list li:before {
+                content: "•";
+                color: #f97316;
+                font-weight: bold;
+                position: absolute;
+                left: -20px;
+            }
+            .report-header {
+                text-align: center;
+                margin-bottom: 40px;
+                padding-bottom: 30px;
+                border-bottom: 2px solid rgba(249, 115, 22, 0.2);
+            }
+            
+            .report-title {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: #1a2b3c;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #f97316, #c2410c);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                letter-spacing: -0.5px;
+            }
+            
+            .report-subtitle {
+                font-size: 1.1rem;
+                color: #64748b;
+                margin-top: 8px;
+                font-weight: 500;
+            }
+            .scoring { 
+                background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+                border-left: 5px solid #22c55e;
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.1);
+            }
+            .scoring-content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                color: #1f2937;
+                line-height: 1.8;
+            }
+            .scoring-content br + br {
+                content: "";
+                display: block;
+                margin: 12px 0;
+            }
+            .empty-list {
+                color: #6b7280;
+                font-style: italic;
+            }
+            .error-message {
+                color: #dc2626;
+                padding: 12px;
+                background-color: #fef2f2;
+                border-radius: 6px;
+                border-left: 4px solid #dc2626;
+            }
+            .score-badge {
+                background: linear-gradient(135deg, #22c55e, #16a34a);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-size: 1.5rem;
+                font-weight: 700;
+                display: inline-block;
+                margin: 12px 0;
+                box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+                position: relative;
+                top: -10px;
+            }
+            .score-badge::before {
+                content: "Score:";
+                font-size: 0.9rem;
+                font-weight: 500;
+                margin-right: 8px;
+                opacity: 0.9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="report-header">
+                <h1 class="report-title">CASSIA Analysis Report</h1>
+                <p class="report-subtitle">Comprehensive Cell Type Analysis and Annotation</p>
+            </div>
+            
+                <div class="agent-section final-annotation">
+                    <h2>🔍 Final Annotation Analysis</h2>
+                    To annotate the cell type from the provided ranked marker list, we will follow the outlined steps:<br><br>### Step 1: List the Key Functional Markers<br>- **ACTG2 (Actin Gamma 2)**: Involved in smooth muscle contraction.<br>- **TAGLN (Transgelin)**: Associated with smooth muscle cells and involved in actin binding.<br>- **MYLK (Myosin Light Chain Kinase)**: Plays a role in muscle contraction.<br>- **ACTA2 (Actin Alpha 2, Smooth Muscle)**: A marker for smooth muscle cells.<br>- **MYL9 (Myosin Light Chain 9)**: Involved in muscle contraction.<br>- **TPM2 (Tropomyosin 2)**: Involved in muscle contraction.<br>- **SYNM (Synemin)**: Intermediate filament protein associated with muscle cells.<br>- **CTGF (Connective Tissue Growth Factor)**: Involved in cell adhesion and migration, often associated with fibroblasts and myofibroblasts.<br>- **SERPINH1 (Serpin Family H Member 1)**: Involved in collagen synthesis, often associated with fibroblasts.<br><br>### Step 2: List the Key Cell Type Markers<br>- **KRT81, KRT17, KRT16, KRT23**: Keratins are structural proteins in epithelial cells, often associated with epithelial and hair follicle cells.<br>- **DSG3 (Desmoglein 3), DSC2 (Desmocollin 2)**: Desmosomal proteins, important in epithelial cell adhesion.<br>- **GABRP (Gamma-Aminobutyric Acid Type A Receptor Pi Subunit)**: Expressed in epithelial cells, particularly in breast tissue.<br>- **CD24**: A marker often associated with epithelial cells, including breast epithelial cells.<br>- **S100A1, S100P, S100A6**: Calcium-binding proteins, often expressed in epithelial cells.<br>- **LY6E**: Expressed in epithelial cells and involved in immune response.<br>- **MAL2**: Associated with epithelial cells, particularly in breast tissue.<br>- **CRYAB (Alpha-Crystallin B Chain)**: Expressed in epithelial cells and involved in stress response.<br><br>### Step 3: Cross-reference Known Databases<br>Using databases such as the Human Protein Atlas, CellMarker, and literature on scRNA-seq datasets, we can cross-reference these markers. The presence of smooth muscle markers (ACTG2, TAGLN, MYLK, ACTA2, MYL9) suggests a myoepithelial or smooth muscle cell type, while the presence of epithelial markers (KRTs, DSG3, DSC2, CD24) suggests an epithelial origin.<br><br>### Step 4: Determine the Most Probable General Cell Type<br>Given the strong presence of both smooth muscle and epithelial markers, the most probable general cell type is **myoepithelial cells**. These cells are known to express both smooth muscle and epithelial markers and are found in breast tissue.<br><br>### Step 5: Identify the Top 3 Most Probable Sub Cell Types<br>1. **Myoepithelial Cells**: Given the combination of smooth muscle and epithelial markers, this is the most likely subtype.<br>2. **Smooth Muscle Cells**: Due to the high expression of smooth muscle markers, this is a possible subtype, though less likely than myoepithelial cells due to the presence of epithelial markers.<br>3. **Basal Epithelial Cells**: These cells can express some smooth muscle markers and are found in breast tissue, making them a potential subtype.<br><br>### Step 6: Provide a Concise Summary of Your Analysis<br>The analysis of the ranked marker list from the breast cancer tissue dataset suggests that the cell cluster is most likely composed of myoepithelial cells. This conclusion is based on the expression of both smooth muscle and epithelial markers, which are characteristic of myoepithelial cells in breast tissue. The top three probable subtypes are myoepithelial cells, smooth muscle cells, and basal epithelial cells, with myoepithelial cells being the most likely.<br><br>**FINAL ANNOTATION COMPLETED**
+                </div>
+            
+                <div class="agent-section validator">
+                    <h2>✓ Validation Check</h2>
+                    <div class="validation-result">✅ VALIDATION PASSED</div>
+                    Validation result: VALIDATION PASSED<br><br>The proposed annotation result is consistent with the provided marker list and the identified cell type. Here's the breakdown:<br><br>1. **Marker Consistency**:<br>   - The key functional markers for smooth muscle (ACTG2, TAGLN, MYLK, ACTA2, MYL9, TPM2, SYNM) and epithelial markers (KRT81, KRT17, KRT16, KRT23, DSG3, DSC2, GABRP, CD24, S100A1, S100P, S100A6, LY6E, MAL2, CRYAB) are all present in the provided marker list.<br>   - The presence of both smooth muscle and epithelial markers supports the identification of myoepithelial cells, which are known to express markers from both categories.<br><br>2. **Mixed Cell Type Consideration**:<br>   - The analysis correctly identifies the potential for mixed cell types, given the strong presence of both smooth muscle and epithelial markers. The annotation appropriately considers myoepithelial cells as the most likely cell type, with smooth muscle cells and basal epithelial cells as possible subtypes.<br>   - The presence of markers like CTGF and SERPINH1, which are associated with fibroblasts and myofibroblasts, does not strongly contradict the myoepithelial annotation, as these markers can also be expressed in myoepithelial cells.<br><br>Overall, the annotation is well-supported by the marker list and the analysis of potential cell types. The conclusion that the cell cluster is most likely composed of myoepithelial cells is reasonable and aligns with the provided data.
+                </div>
+            
+                        <div class="agent-section formatting">
+                            <h2>📋 Summary</h2>
+                            
+                        <div class="summary-content">
+                            <div class="summary-item">
+                                <span class="summary-label">Main Cell Type:</span>
+                                <span class="summary-value">myoepithelial cells</span>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Sub Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>myoepithelial cells</li><li>smooth muscle cells</li><li>basal epithelial cells</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Possible Mixed Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li class="empty-list">No mixed cell types identified</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Number of Markers:</span>
+                                <span class="summary-value">50</span>
+                            </div>
+                        </div>
+                    
+                        </div>
+                    
+                    <div class="agent-section scoring">
+                        <h2>🎯 Quality Assessment</h2>
+                        <div class="score-badge">90</div>
+                        <div class="scoring-content">
+                            The annotation results provided demonstrate a thorough and methodical approach to identifying the cell types present in the single-cell dataset derived from human breast cancer tissue. The analysis effectively considers a wide range of markers, balancing between smooth muscle and epithelial markers, which is crucial for accurate cell type identification.<br><br>1. **Correctness of Annotations**: The final annotation of myoepithelial cells as the main cell type is scientifically sound. Myoepithelial cells are known to express both smooth muscle and epithelial markers, which aligns with the marker list provided. The presence of markers such as ACTG2, TAGLN, MYLK, and ACTA2 supports the identification of smooth muscle characteristics, while KRT81, KRT17, and CD24 support epithelial characteristics.<br><br>2. **Balanced Consideration of Markers**: The analysis does a commendable job of considering multiple markers rather than over-focusing on a specific one. The inclusion of both functional and cell type markers provides a comprehensive view of the potential cell types. The annotation history shows a balanced approach by listing key functional markers and key cell type markers separately, which aids in a more nuanced understanding of the data.<br><br>3. **General Picture of Cell Populations**: The annotation captures the general picture of the cell populations well. By identifying myoepithelial cells as the primary cell type and considering smooth muscle and basal epithelial cells as potential subtypes, the analysis acknowledges the complexity and heterogeneity of the cell population in breast cancer tissue. This reflects a realistic understanding of the biological context.<br><br>4. **Consideration of Marker Rank**: While the analysis does not explicitly mention the rank of markers, it does prioritize markers that are well-known and relevant to the identified cell types. However, a more explicit consideration of marker rank could enhance the robustness of the conclusions.<br><br>5. **Potential Oversights**: There are no obvious misclassifications, but the analysis could benefit from a more detailed discussion of the potential roles of fibroblast-associated markers like CTGF and SERPINH1. While these markers do not strongly contradict the myoepithelial annotation, their presence could suggest a more complex cell population or mixed cell types.<br><br>Overall, the annotation is well-reasoned and aligns with the scientific understanding of breast tissue cell types. The analysis is comprehensive and considers the necessary aspects to provide a reliable annotation.<br>
+                        </div>
+                    </div>
+                
+        </div>
+    </body>
+    </html>
+    

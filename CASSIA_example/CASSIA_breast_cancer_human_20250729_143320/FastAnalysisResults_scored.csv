@@ -1,0 +1,1962 @@
+True Cell Type,Predicted Main Cell Type,Predicted Sub Cell Types,Possible Mixed Cell Types,Marker Number,Marker List,Iterations,Model,Provider,Tissue,Species,Additional Info,Conversation History,Score,Scoring_Reasoning
+cluster_13,Breast Epithelial Cells,"HER2-positive Breast Cancer Cells, Luminal Epithelial Cells, Infiltrating B Cells/Plasma Cells",,50,"MUCL1, SCGB2A2, AC109826.1, AC025154.2, ERBB2, CALML5, CNTNAP2, AQP5, AL354707.1, KRT10, CEACAM6, TEX9, PPP1R1A, CISD3, NUDT8, DUSP6, FADS2, PSMB3, IGHG1, IGHM, SOCS7, PIP4K2B, GRB7, FAM84B, PGAP3, SCD, MRPL45, MLLT6, LASP1, CWC25, S100A9, RPL23, MIEN1, PCGF2, CXCL17, SQLE, IGKC, G6PD, HMGCS1, MPHOSPH6, CRIP1, LAPTM4B, IGLC2, QPRT, SMARCE1, GALNT7, TMEM99, MGST1, PLGRKT, CBR3",1,gpt-4o-2024-08-06,openai,breast cancer,human,,"Final Annotation Agent: To annotate the cell type from the provided ranked marker list, we will follow the outlined steps:
+
+### Step 1: List the Key Functional Markers
+- **ERBB2 (HER2)**: A receptor tyrosine kinase involved in the growth and differentiation of cells. Overexpression is commonly associated with certain types of breast cancer.
+- **CALML5**: Calmodulin-like protein involved in calcium signaling pathways.
+- **CNTNAP2**: A member of the neurexin family, involved in cell adhesion and communication.
+- **AQP5**: Aquaporin 5, a water channel protein, often associated with glandular tissues.
+- **CEACAM6**: A cell adhesion molecule, often overexpressed in various cancers.
+- **DUSP6**: Dual specificity phosphatase involved in MAPK signaling pathway regulation.
+- **FADS2**: Fatty acid desaturase, involved in lipid metabolism.
+- **PSMB3**: A proteasome subunit, involved in protein degradation.
+- **SOCS7**: Suppressor of cytokine signaling, involved in negative regulation of cytokine signaling.
+- **GRB7**: An adaptor protein that interacts with receptor tyrosine kinases, often co-amplified with ERBB2 in breast cancer.
+- **S100A9**: A calcium-binding protein involved in inflammatory processes.
+- **CXCL17**: A chemokine involved in immune cell recruitment.
+- **SQLE**: Squalene epoxidase, involved in cholesterol biosynthesis.
+- **G6PD**: Glucose-6-phosphate dehydrogenase, involved in the pentose phosphate pathway.
+- **HMGCS1**: Involved in the mevalonate pathway for cholesterol synthesis.
+
+### Step 2: List the Key Cell Type Markers
+- **MUCL1**: Mucin-like protein 1, highly expressed in breast tissue and breast cancer.
+- **SCGB2A2 (Mammaglobin A)**: A secretoglobin family member, highly specific to mammary tissue and breast cancer.
+- **KRT10**: Keratin 10, typically expressed in epithelial cells.
+- **IGHG1, IGHM, IGKC, IGLC2**: Immunoglobulin genes, indicating the presence of B cells or plasma cells.
+- **S100A9**: Also a marker for myeloid cells, particularly neutrophils.
+- **CRIP1**: Cysteine-rich protein, often expressed in epithelial cells.
+
+### Step 3: Cross-reference Known Databases
+Using databases such as the Human Protein Atlas, CellMarker, and literature on breast cancer, we can cross-reference these markers:
+- **MUCL1** and **SCGB2A2** are highly specific to breast epithelial cells and breast cancer.
+- **ERBB2** and **GRB7** are known markers for HER2-positive breast cancer.
+- **IGHG1, IGHM, IGKC, IGLC2** suggest the presence of immune cells, likely infiltrating B cells or plasma cells.
+
+### Step 4: Determine the Most Probable General Cell Type
+Based on the expression of **MUCL1**, **SCGB2A2**, and **ERBB2**, the most probable general cell type is **breast epithelial cells**, specifically those associated with breast cancer.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+1. **HER2-positive Breast Cancer Cells**: Due to the presence of **ERBB2** and **GRB7**.
+2. **Luminal Epithelial Cells**: Indicated by **MUCL1** and **SCGB2A2**.
+3. **Infiltrating B Cells/Plasma Cells**: Suggested by the immunoglobulin genes (**IGHG1, IGHM, IGKC, IGLC2**).
+
+The most likely subtype, given the prominence of **ERBB2** and **GRB7**, is **HER2-positive Breast Cancer Cells**.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+The analysis of the ranked marker list from the breast cancer tissue dataset suggests that the cell cluster is primarily composed of breast epithelial cells, with a strong indication of HER2-positive breast cancer cells. The presence of markers such as **MUCL1**, **SCGB2A2**, and **ERBB2** supports this annotation. Additionally, the expression of immunoglobulin genes suggests some infiltration by B cells or plasma cells, which is common in tumor microenvironments.
+
+**FINAL ANNOTATION COMPLETED** | Coupling Validator: Validation result: VALIDATION PASSED
+
+The proposed annotation result is consistent with the provided marker list and the identified cell type. Here's the breakdown:
+
+1. **Marker Consistency**: 
+   - The key functional markers and cell type markers listed in the annotation are present in the provided marker list. 
+   - The markers such as **MUCL1**, **SCGB2A2**, **ERBB2**, and **GRB7** are well-known markers for breast epithelial cells and HER2-positive breast cancer, which aligns with the annotation of HER2-positive breast cancer cells.
+   - The presence of immunoglobulin genes (**IGHG1, IGHM, IGKC, IGLC2**) supports the identification of infiltrating B cells or plasma cells, which is consistent with the tumor microenvironment.
+
+2. **Mixed Cell Type Consideration**:
+   - The annotation acknowledges the presence of infiltrating B cells or plasma cells, supported by the expression of immunoglobulin genes. This suggests a mixed cell population, which is common in cancerous tissues due to immune cell infiltration.
+   - The annotation correctly flags this as a potential mixed population without rejecting the primary annotation of HER2-positive breast cancer cells.
+
+Overall, the annotation is well-supported by the marker list and the known biology of breast cancer, particularly HER2-positive subtypes. The consideration of potential mixed cell types is appropriately addressed. | Formatting Agent: {
+  ""main_cell_type"": ""Breast Epithelial Cells"",
+  ""sub_cell_types"": [
+    ""HER2-positive Breast Cancer Cells"",
+    ""Luminal Epithelial Cells"",
+    ""Infiltrating B Cells/Plasma Cells""
+  ],
+  ""possible_mixed_cell_types"": [],
+  ""num_markers"": 50
+}",,"Error: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o in organization org-I3IwHpFDeNETrS983Q5UWD6k on tokens per min (TPM): Limit 30000, Used 30000, Requested 1946. Please try again in 3.892s. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
+cluster_11,endothelial cells,"vascular endothelial cells, lymphatic endothelial cells, angiogenic endothelial cells",,50,"PCAT19, SELE, CSF3, ADAMTS9, ECSCR, IL6, AKAP12, ANGPT2, ADGRL4, SERPINE1, HMOX1, S1PR1, CD93, FABP4, CXCL8, TFPI2, CALCRL, CCL2, GNG11, PLVAP, CXCL2, IGFBP7, MT2A, TFPI, SPARCL1, CXCL3, TM4SF1, ADAMTS4, UPP1, CXCL1, PNP, SPRY1, TUBB6, PKIG, STC1, SOD2, FOSL1, CAV1, PLPP3, EMP1, NFKBIA, ICAM1, CD59, PHLDA1, ID3, TXNRD1, TCF4, FAM241A, ETS2, SPHK1",1,gpt-4o-2024-08-06,openai,breast cancer,human,,"Final Annotation Agent: To annotate the cell type based on the provided ranked marker list from a single-cell human dataset derived from breast cancer tissue, I will follow the outlined steps:
+
+### Step 1: List the Key Functional Markers
+- **IL6 (Interleukin 6):** A cytokine involved in inflammation and the maturation of B cells. It plays a role in immune response and is often associated with inflammatory processes.
+- **CSF3 (Colony Stimulating Factor 3):** Also known as G-CSF, it stimulates the production of granulocytes and stem cells and is involved in immune response.
+- **ANGPT2 (Angiopoietin 2):** Involved in angiogenesis and vascular remodeling, often associated with endothelial cells.
+- **SERPINE1 (PAI-1):** A serine protease inhibitor involved in the regulation of fibrinolysis, often associated with endothelial cells and involved in tissue remodeling.
+- **HMOX1 (Heme Oxygenase 1):** An enzyme that provides protection against oxidative stress, often upregulated in response to cellular stress.
+- **CXCL8 (IL-8):** A chemokine involved in the recruitment of neutrophils and other immune cells to sites of inflammation.
+- **CCL2 (MCP-1):** A chemokine that recruits monocytes, memory T cells, and dendritic cells to sites of inflammation.
+- **S1PR1 (Sphingosine-1-phosphate receptor 1):** Involved in immune cell trafficking and vascular maturation.
+- **ICAM1 (Intercellular Adhesion Molecule 1):** Plays a role in leukocyte endothelial transmigration and is often expressed in endothelial cells.
+
+### Step 2: List the Key Cell Type Markers
+- **SELE (E-Selectin):** An adhesion molecule expressed on endothelial cells activated by cytokines, involved in leukocyte adhesion.
+- **ECSCR (Endothelial Cell-Specific Chemotaxis Regulator):** Specifically expressed in endothelial cells, involved in chemotaxis.
+- **CD93:** A marker associated with endothelial cells and involved in cell adhesion and phagocytosis.
+- **PLVAP (Plasmalemma Vesicle Associated Protein):** A marker of endothelial cells, involved in the formation of diaphragms in fenestrated endothelia.
+- **FABP4 (Fatty Acid Binding Protein 4):** Expressed in adipocytes and endothelial cells, involved in fatty acid transport.
+- **SPARCL1 (SPARC-like 1):** Involved in cell adhesion and migration, often expressed in endothelial cells.
+- **TM4SF1 (Transmembrane 4 L Six Family Member 1):** Expressed in endothelial cells and involved in cell proliferation and migration.
+- **CAV1 (Caveolin 1):** A structural protein of caveolae, expressed in endothelial cells and involved in signal transduction.
+
+### Step 3: Cross-reference Known Databases
+Using databases such as the Human Protein Atlas, PanglaoDB, and CellMarker, the markers listed are predominantly associated with endothelial cells. The presence of markers like SELE, ECSCR, CD93, PLVAP, and others strongly suggests an endothelial cell identity.
+
+### Step 4: Determine the Most Probable General Cell Type
+Based on the expression of these markers, the most likely general cell type of the cluster is **endothelial cells**. This is supported by the presence of multiple endothelial-specific markers and functional markers related to vascular processes.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+1. **Vascular Endothelial Cells:** Given the expression of markers like SELE, ECSCR, and PLVAP, these cells are likely involved in forming blood vessels.
+2. **Lymphatic Endothelial Cells:** While less likely, some markers like CCL2 and S1PR1 could also be expressed in lymphatic endothelial cells.
+3. **Angiogenic Endothelial Cells:** The presence of ANGPT2 and SERPINE1 suggests a role in angiogenesis, indicating a subset of endothelial cells involved in new blood vessel formation.
+
+The most likely subtype based on the markers is **vascular endothelial cells**, given the strong expression of classical endothelial markers and those involved in vascular functions.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+The analysis of the ranked marker list from the breast cancer tissue dataset indicates that the cell cluster is most likely composed of endothelial cells, specifically vascular endothelial cells. This conclusion is supported by the presence of key endothelial markers such as SELE, ECSCR, and PLVAP, as well as functional markers related to vascular processes like angiogenesis and inflammation.
+
+FINAL ANNOTATION COMPLETED | Coupling Validator: Validation result: VALIDATION PASSED
+
+The proposed annotation result for the cell cluster as endothelial cells, specifically vascular endothelial cells, is consistent with the provided marker list and the analysis steps outlined. Here's the breakdown:
+
+1. **Marker Consistency:**
+   - The key functional markers and cell type markers listed in the annotation are present in the provided marker list. For example, SELE, ECSCR, CD93, PLVAP, and others are all present in the marker list and are known markers for endothelial cells.
+   - The functional markers such as IL6, CSF3, ANGPT2, and SERPINE1 are also present in the marker list and are consistent with the roles in inflammation, angiogenesis, and vascular processes, which are relevant to endothelial cells.
+
+2. **Mixed Cell Type Consideration:**
+   - The analysis considers the possibility of mixed cell types, such as lymphatic endothelial cells and angiogenic endothelial cells, but the evidence strongly supports vascular endothelial cells as the primary cell type. The presence of multiple high-ranking endothelial-specific markers supports this conclusion.
+
+Overall, the annotation is well-supported by the marker list and the analysis provided, leading to a valid conclusion of endothelial cells, specifically vascular endothelial cells, as the most probable cell type for the cluster. | Formatting Agent: {
+  ""main_cell_type"": ""endothelial cells"",
+  ""sub_cell_types"": [
+    ""vascular endothelial cells"",
+    ""lymphatic endothelial cells"",
+    ""angiogenic endothelial cells""
+  ],
+  ""possible_mixed_cell_types"": [],
+  ""num_markers"": 50
+}",,"Error: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o in organization org-I3IwHpFDeNETrS983Q5UWD6k on tokens per min (TPM): Limit 30000, Used 28863, Requested 2075. Please try again in 1.876s. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
+cluster_12,luminal epithelial cells,"Luminal A Epithelial Cells, Luminal B Epithelial Cells, Normal Luminal Epithelial Cells",,50,"MTCO2P12, CPB1, GSTM1, KCNC2, H3-3A, H1-0, GRIA2, H3-3B, H2AJ, PHGR1, LRP2, PLAAT3, ANKRD50, MTRNR2L12, WBP1, H2AZ1, FAM3B, GABARAP, TPRG1, CA2, PRKACB, RBIS, CXCL14, FSIP1, PTPRT, ATP6V0C, AKR7A3, ASAH1, TFF3, NAT1, ABHD2, GPX1, MICOS13, PSD3, KAT6B, PKIB, NGRN, ALDOA, AFF3, BCAM, LDLRAD4, MAST4, PLAT, ESR1, COX6C, QDPR, GATA3, SLC39A6, IGF1R, MRPS30",1,gpt-4o-2024-08-06,openai,breast cancer,human,,"Final Annotation Agent: To annotate the cell type based on the provided ranked marker list from a single-cell human dataset derived from breast cancer tissue, I will follow the outlined steps:
+
+### Step 1: List the Key Functional Markers
+- **MTCO2P12**: Mitochondrial gene, often involved in energy metabolism.
+- **GSTM1**: Glutathione S-transferase, involved in detoxification processes.
+- **H3-3A, H3-3B, H2AJ, H2AZ1**: Histone proteins, involved in chromatin structure and gene regulation.
+- **GABARAP**: Involved in autophagy and intracellular trafficking.
+- **CA2**: Carbonic anhydrase, involved in pH regulation and ion transport.
+- **PRKACB**: Protein kinase, involved in signal transduction.
+- **CXCL14**: Chemokine, involved in immune response and cell signaling.
+- **GPX1**: Glutathione peroxidase, involved in oxidative stress response.
+- **ESR1**: Estrogen receptor, involved in hormone signaling and breast cancer biology.
+- **GATA3**: Transcription factor, involved in cell differentiation and development.
+- **IGF1R**: Insulin-like growth factor receptor, involved in growth and survival signaling.
+
+### Step 2: List the Key Cell Type Markers
+- **ESR1**: Estrogen receptor, a key marker for luminal epithelial cells in breast tissue.
+- **GATA3**: Often associated with luminal epithelial cells in breast tissue.
+- **CXCL14**: Expressed in various epithelial cells, including those in breast tissue.
+- **IGF1R**: Expressed in epithelial cells and involved in growth signaling.
+
+### Step 3: Cross-reference Known Databases
+Using known scRNA-seq databases and literature, the following markers are commonly associated with breast epithelial cells, particularly luminal epithelial cells:
+- **ESR1** and **GATA3** are well-established markers for luminal epithelial cells in breast tissue.
+- **CXCL14** and **IGF1R** are also expressed in epithelial cells and are involved in signaling pathways relevant to breast tissue.
+
+### Step 4: Determine the Most Probable General Cell Type
+Based on the expression of **ESR1**, **GATA3**, **CXCL14**, and **IGF1R**, the most probable general cell type is **luminal epithelial cells** in breast tissue.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+1. **Luminal A Epithelial Cells**: Characterized by high expression of ESR1 and GATA3, typically associated with hormone receptor-positive breast cancer.
+2. **Luminal B Epithelial Cells**: Similar to Luminal A but with a higher proliferation rate and possibly lower expression of hormone receptors.
+3. **Normal Luminal Epithelial Cells**: Non-cancerous luminal cells that still express ESR1 and GATA3 but may have different expression profiles compared to cancerous cells.
+
+The most likely subtype based on the markers is **Luminal A Epithelial Cells**, given the high expression of ESR1 and GATA3, which are indicative of hormone receptor-positive breast cancer.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+The analysis of the ranked marker list from the breast cancer tissue dataset suggests that the cell cluster is most likely composed of luminal epithelial cells. The expression of key markers such as ESR1 and GATA3 strongly indicates a luminal epithelial origin, with the most probable subtype being Luminal A Epithelial Cells, commonly associated with hormone receptor-positive breast cancer.
+
+FINAL ANNOTATION COMPLETED | Coupling Validator: Validation result: VALIDATION PASSED
+
+The proposed annotation result is consistent with the provided marker list and the identified cell type. Here's the breakdown:
+
+1. **Marker Consistency**: 
+   - The key markers used for annotation, such as **ESR1**, **GATA3**, **CXCL14**, and **IGF1R**, are present in the provided marker list.
+   - These markers are well-known and established markers for luminal epithelial cells in breast tissue, particularly in the context of breast cancer.
+
+2. **Mixed Cell Type Consideration**:
+   - The analysis does not strongly suggest the presence of multiple distinct cell types. The markers used are consistent with a single cell type, specifically luminal epithelial cells.
+   - The annotation appropriately considers potential subtypes within the luminal epithelial category, such as Luminal A and Luminal B epithelial cells, which is a reasonable approach given the context.
+
+Overall, the annotation aligns well with the marker list and the known biology of breast tissue, particularly in the context of breast cancer. The identification of luminal epithelial cells, with a focus on Luminal A Epithelial Cells, is well-supported by the data provided. | Formatting Agent: {
+  ""main_cell_type"": ""luminal epithelial cells"",
+  ""sub_cell_types"": [
+    ""Luminal A Epithelial Cells"",
+    ""Luminal B Epithelial Cells"",
+    ""Normal Luminal Epithelial Cells""
+  ],
+  ""possible_mixed_cell_types"": [],
+  ""num_markers"": 50
+}",,
+cluster_1,luminal epithelial cells,"Luminal A Breast Cancer Cells, Luminal B Breast Cancer Cells, Normal Luminal Epithelial Cells",,50,"CST5, LINC01238, CST2, TRPA1, SLITRK6, CLEC3A, FGF10, PIP, KCNJ3, MRPS30-DT, KCNE4, AC105999.2, RHOBTB3, PI15, BMPR1B, AGR3, SSFA2, TPRG1, TFF1, TCIM, NAT1, CXCL14, MRPS30, IFI27, AGR2, SLC39A6, PLAT, TFF3, GATA3-AS1, COX6C, PKIB, FTH1, GLRX, ISG15, CRABP2, BST2, IFI6, ESR1, GATA3, XBP1, CA12, AZGP1, MGST1, PRSS23, ADIRF, ZG16B, ANKRD30A, PBX1, H2AFJ, PLA2G16",1,gpt-4o-2024-08-06,openai,breast cancer,human,,"Final Annotation Agent: To annotate the cell type based on the provided ranked marker list from a single-cell human dataset derived from breast cancer tissue, I will follow the outlined steps:
+
+### Step 1: List the Key Functional Markers
+- **ESR1 (Estrogen Receptor 1):** A nuclear hormone receptor for estrogen, playing a crucial role in the development and progression of breast cancer.
+- **GATA3:** A transcription factor involved in the regulation of luminal epithelial cell differentiation in the mammary gland.
+- **XBP1:** A transcription factor involved in the unfolded protein response, often associated with breast cancer.
+- **FGF10 (Fibroblast Growth Factor 10):** Involved in epithelial-mesenchymal interactions and plays a role in the development of various tissues, including the mammary gland.
+- **CXCL14:** A chemokine involved in immune cell recruitment and potentially in tumor microenvironment modulation.
+- **TFF1 (Trefoil Factor 1):** Associated with mucosal protection and repair, often expressed in breast cancer.
+- **AGR2 (Anterior Gradient 2):** A protein disulfide isomerase involved in protein folding, often overexpressed in breast cancer.
+
+### Step 2: List the Key Cell Type Markers
+- **ESR1:** A definitive marker for estrogen receptor-positive (ER+) breast cancer cells.
+- **GATA3:** Commonly expressed in luminal epithelial cells of the breast and luminal A subtype of breast cancer.
+- **TFF1 and TFF3:** Typically expressed in luminal epithelial cells and associated with ER+ breast cancer.
+- **PIP (Prolactin-Induced Protein):** Often expressed in luminal epithelial cells and associated with breast cancer.
+- **AZGP1 (Zinc-alpha-2-glycoprotein):** Expressed in secretory epithelial cells, often upregulated in breast cancer.
+- **CA12 (Carbonic Anhydrase 12):** Expressed in luminal epithelial cells and associated with ER+ breast cancer.
+
+### Step 3: Cross-reference Known Databases
+Using databases such as the Human Protein Atlas, CellMarker, and literature on breast cancer, the markers ESR1, GATA3, TFF1, TFF3, and PIP are strongly associated with luminal epithelial cells and ER+ breast cancer subtypes.
+
+### Step 4: Determine the Most Probable General Cell Type
+Based on the expression of markers such as ESR1, GATA3, TFF1, TFF3, and PIP, the most probable general cell type is **luminal epithelial cells** of the breast, specifically those associated with ER+ breast cancer.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+1. **Luminal A Breast Cancer Cells:** Characterized by high expression of ESR1, GATA3, and TFF1, typically associated with a better prognosis.
+2. **Luminal B Breast Cancer Cells:** Similar to Luminal A but with a higher proliferation rate and potentially lower expression of some luminal markers.
+3. **Normal Luminal Epithelial Cells:** While less likely in a cancerous context, these cells share many markers with luminal breast cancer cells.
+
+The most likely subtype based on the markers is **Luminal A Breast Cancer Cells** due to the high expression of ESR1, GATA3, and other luminal markers.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+The analysis of the ranked marker list from the breast cancer tissue dataset suggests that the cell cluster is most likely composed of luminal epithelial cells, specifically those associated with ER+ breast cancer. The expression of key markers such as ESR1, GATA3, TFF1, and PIP strongly indicates a Luminal A breast cancer cell type, which is characterized by hormone receptor positivity and a generally favorable prognosis.
+
+FINAL ANNOTATION COMPLETED | Coupling Validator: To validate the annotation result, let's follow the outlined steps:
+
+### Step 1: Marker Consistency
+- **Markers in the Provided List:** The key functional markers and cell type markers mentioned in the annotation (ESR1, GATA3, XBP1, FGF10, CXCL14, TFF1, AGR2, TFF3, PIP, AZGP1, CA12) are all present in the provided marker list.
+- **Consistency with Identified Cell Type:** The markers ESR1, GATA3, TFF1, TFF3, and PIP are indeed consistent with luminal epithelial cells and ER+ breast cancer, particularly Luminal A subtype. These markers are well-documented in the literature as being associated with these cell types.
+
+### Step 2: Mixed Cell Type Consideration
+- **Potential Mixed Populations:** The annotation does not strongly suggest the presence of multiple distinct cell types. The markers used are predominantly associated with luminal epithelial cells and ER+ breast cancer, specifically Luminal A subtype. There is no strong evidence from the marker list to suggest a significant presence of other distinct cell types.
+
+### Conclusion
+The annotation is consistent with the provided marker list and the identified cell type. The markers used are appropriate for identifying luminal epithelial cells, particularly Luminal A breast cancer cells, in the context of breast cancer tissue.
+
+Validation result: VALIDATION PASSED | Formatting Agent: {
+  ""main_cell_type"": ""luminal epithelial cells"",
+  ""sub_cell_types"": [
+    ""Luminal A Breast Cancer Cells"",
+    ""Luminal B Breast Cancer Cells"",
+    ""Normal Luminal Epithelial Cells""
+  ],
+  ""possible_mixed_cell_types"": [],
+  ""num_markers"": 50
+}",,"Error: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o in organization org-I3IwHpFDeNETrS983Q5UWD6k on tokens per min (TPM): Limit 30000, Used 30000, Requested 1875. Please try again in 3.75s. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
+cluster_0,macrophages,"Tumor-associated macrophages (TAMs), Classical (M1) macrophages, Non-classical (M2) macrophages",,50,"LYZ, TYROBP, OLR1, AIF1, FCER1G, C1QA, C1QB, HLA-DRA, FCGR3A, C1QC, MNDA, MS4A6A, FPR3, IGSF6, APOC1, LST1, CYBB, HLA-DPA1, HLA-DQA1, HLA-DPB1, FCGR2A, SPP1, FGL2, HLA-DRB1, CD14, SPI1, C1orf162, CCL3, CD68, CD74, PLEK, APOE, HLA-DQB1, CTSS, LAPTM5, RNASE6, HLA-DMB, GPR183, SRGN, CLEC7A, RGS1, ITGB2, TNFSF13B, KCTD12, CD83, HLA-DRB5, HLA-DMA, CTSZ, ZEB2, SGK1",1,gpt-4o-2024-08-06,openai,breast cancer,human,,"Final Annotation Agent: To annotate the cell type from the provided ranked marker list, we will follow the outlined steps:
+
+### Step 1: List the Key Functional Markers
+- **LYZ (Lysozyme):** An enzyme that breaks down bacterial cell walls, commonly found in macrophages and neutrophils.
+- **TYROBP (DAP12):** An adaptor protein involved in immune cell signaling, particularly in myeloid cells.
+- **AIF1 (Allograft Inflammatory Factor 1):** Involved in the activation and proliferation of macrophages.
+- **FCER1G (Fc Fragment of IgE Receptor Ig):** Part of the receptor complex for IgE, expressed in various immune cells.
+- **C1QA, C1QB, C1QC:** Components of the complement system, typically expressed in macrophages.
+- **HLA-DRA, HLA-DPA1, HLA-DQA1, HLA-DPB1, HLA-DRB1, HLA-DRB5, HLA-DMA, HLA-DMB, HLA-DQB1:** Major histocompatibility complex class II molecules, crucial for antigen presentation, predominantly expressed in antigen-presenting cells like dendritic cells and macrophages.
+- **CD14:** A co-receptor for the detection of bacterial lipopolysaccharide, expressed in monocytes and macrophages.
+- **SPI1 (PU.1):** A transcription factor important for myeloid and B-cell development.
+- **CD68:** A marker for macrophages and other mononuclear phagocytes.
+- **APOE (Apolipoprotein E):** Involved in lipid metabolism, expressed in macrophages.
+- **CTSS (Cathepsin S):** A protease involved in antigen processing, expressed in antigen-presenting cells.
+- **ITGB2 (Integrin Beta 2):** Part of the integrin complex involved in leukocyte adhesion and signaling.
+
+### Step 2: List the Key Cell Type Markers
+- **CD14, CD68, APOE, LYZ:** Strongly indicative of macrophages.
+- **HLA-DRA, HLA-DPA1, HLA-DQA1, HLA-DPB1, HLA-DRB1, HLA-DRB5, HLA-DMA, HLA-DMB, HLA-DQB1:** Suggest antigen-presenting cells, such as dendritic cells or macrophages.
+- **TYROBP, AIF1, FCER1G, C1QA, C1QB, C1QC:** Associated with myeloid lineage, particularly macrophages and monocytes.
+
+### Step 3: Cross-reference Known Databases
+Using databases such as the Human Cell Atlas and literature on scRNA-seq of breast cancer tissues, the expression of these markers is consistent with myeloid lineage cells, particularly macrophages. The presence of high levels of MHC class II molecules and complement components further supports this.
+
+### Step 4: Determine the Most Probable General Cell Type
+Based on the expression of these markers, the most likely general cell type is **macrophages**. This is supported by the presence of markers like CD14, CD68, and the complement components, which are characteristic of macrophages.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+1. **Tumor-associated macrophages (TAMs):** Given the context of breast cancer tissue, these macrophages are likely to be TAMs, which are known to express many of the listed markers and play a role in tumor progression.
+2. **Classical (M1) macrophages:** Characterized by high expression of MHC class II molecules and pro-inflammatory markers.
+3. **Non-classical (M2) macrophages:** Typically involved in tissue repair and immunosuppression, also expressing many of the listed markers but with a different functional profile.
+
+The most likely subtype, considering the tumor environment, is **Tumor-associated macrophages (TAMs)**.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+The ranked marker list from the breast cancer tissue dataset strongly indicates the presence of macrophages, specifically tumor-associated macrophages (TAMs). This conclusion is based on the high expression of macrophage markers such as CD14, CD68, and APOE, along with MHC class II molecules and complement components. These markers are consistent with the known profile of TAMs, which are prevalent in the tumor microenvironment and play a significant role in cancer progression.
+
+FINAL ANNOTATION COMPLETED | Coupling Validator: Validation result: VALIDATION PASSED
+
+The proposed annotation result is consistent with the provided marker list and the identified cell type. Here's the breakdown:
+
+1. **Marker Consistency:**
+   - The key functional markers listed in the annotation (e.g., LYZ, TYROBP, AIF1, FCER1G, C1QA, C1QB, C1QC, HLA-DRA, CD14, SPI1, CD68, APOE, CTSS, ITGB2) are all present in the provided marker list.
+   - The markers are consistent with the identification of macrophages, particularly tumor-associated macrophages (TAMs), as they are commonly expressed in myeloid lineage cells, especially macrophages.
+
+2. **Mixed Cell Type Consideration:**
+   - The annotation considers the possibility of different macrophage subtypes (e.g., TAMs, M1, M2), which is appropriate given the context of breast cancer tissue. The presence of markers like MHC class II molecules and complement components supports the identification of macrophages and their subtypes.
+   - There is no strong evidence of distinct cell types outside the macrophage lineage based on the high-ranking markers provided, so the annotation does not need to be flagged for mixed cell types.
+
+Overall, the annotation is well-supported by the marker list and the context provided, leading to a valid conclusion of tumor-associated macrophages (TAMs) as the primary cell type. | Formatting Agent: {
+  ""main_cell_type"": ""macrophages"",
+  ""sub_cell_types"": [
+    ""Tumor-associated macrophages (TAMs)"",
+    ""Classical (M1) macrophages"",
+    ""Non-classical (M2) macrophages""
+  ],
+  ""possible_mixed_cell_types"": [],
+  ""num_markers"": 50
+}",,"Error: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o in organization org-I3IwHpFDeNETrS983Q5UWD6k on tokens per min (TPM): Limit 30000, Used 30000, Requested 1937. Please try again in 3.873s. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
+cluster_10,Cancer-Associated Fibroblasts (CAFs),"Activated Cancer-Associated Fibroblasts (aCAFs), Myofibroblastic Cancer-Associated Fibroblasts (myCAFs), Inflammatory Cancer-Associated Fibroblasts (iCAFs)",,50,"AKR1C1, MEDAG, CXCL2, CXCL3, CXCL1, MEG3, GEM, TNFAIP6, TWIST2, IL6, DCN, CTSL, CLMP, CXCL8, MFAP4, DPT, APOD, PLPP3, FOSL1, PRRX1, MT1A, TFPI, IL1R1, CFD, SERPINE1, SOD2, AKAP12, CCDC80, CCL2, MT2A, SPHK1, SRGAP1, FGFR1, HMOX1, LUM, PLIN2, NFKBIA, KDM6B, ERRFI1, ANXA5, PDLIM4, NOP16, VIM, RND3, ARID5B, TNFRSF12A, DDX21, WTAP, ABL2, BTG3",1,gpt-4o-2024-08-06,openai,breast cancer,human,,"Final Annotation Agent: To annotate the cell type from the provided ranked marker list, we will follow the outlined steps:
+
+### Step 1: List the Key Functional Markers
+- **CXCL1, CXCL2, CXCL3, CXCL8**: These are chemokines involved in the recruitment of immune cells, particularly neutrophils, to sites of inflammation. They are often associated with inflammatory responses and can be expressed by various cell types, including immune cells and cancer-associated fibroblasts.
+- **IL6**: A cytokine involved in inflammation and the immune response. It is often produced by immune cells and can also be expressed by cancer cells and stromal cells in the tumor microenvironment.
+- **TNFAIP6**: Also known as TSG-6, this protein is involved in inflammation and tissue remodeling.
+- **FOSL1**: A transcription factor involved in cell proliferation and differentiation, often associated with cancer progression.
+- **HMOX1**: An enzyme involved in heme degradation, often upregulated in response to oxidative stress.
+- **NFKBIA**: An inhibitor of the NF-kB signaling pathway, which is involved in immune and inflammatory responses.
+- **SOD2**: An enzyme that protects against oxidative stress by dismutating superoxide radicals.
+- **SERPINE1**: Also known as PAI-1, involved in the regulation of fibrinolysis and associated with tissue remodeling and cancer progression.
+
+### Step 2: List the Key Cell Type Markers
+- **VIM (Vimentin)**: A marker for mesenchymal cells, often used to identify fibroblasts and cells undergoing epithelial-to-mesenchymal transition (EMT).
+- **DCN (Decorin)**: A small leucine-rich proteoglycan involved in matrix organization, often expressed by fibroblasts.
+- **DPT (Dermatopontin)**: A matrix protein associated with fibroblasts and involved in collagen fibril organization.
+- **LUM (Lumican)**: Another small leucine-rich proteoglycan, typically expressed by fibroblasts and involved in collagen fibril organization.
+- **MFAP4 (Microfibril Associated Protein 4)**: Associated with extracellular matrix and often expressed by fibroblasts.
+- **PRRX1**: A transcription factor associated with mesenchymal cells and EMT.
+- **TWIST2**: A transcription factor involved in EMT and associated with mesenchymal and fibroblast-like cells.
+
+### Step 3: Cross-reference Known Databases
+Using databases such as CellMarker, PanglaoDB, and literature on scRNA-seq in breast cancer, the markers listed are commonly associated with cancer-associated fibroblasts (CAFs) and mesenchymal cells. The presence of chemokines and cytokines like CXCLs and IL6 further supports the involvement of cells in the tumor microenvironment, particularly those involved in inflammation and matrix remodeling.
+
+### Step 4: Determine the Most Probable General Cell Type
+Based on the expression of markers such as VIM, DCN, DPT, LUM, and the presence of inflammatory cytokines and chemokines, the most probable general cell type is **Cancer-Associated Fibroblasts (CAFs)**.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+1. **Activated Cancer-Associated Fibroblasts (aCAFs)**: Characterized by high expression of inflammatory cytokines and chemokines, as well as matrix remodeling proteins.
+2. **Myofibroblastic Cancer-Associated Fibroblasts (myCAFs)**: Typically express markers like VIM, DCN, and LUM, involved in ECM production and remodeling.
+3. **Inflammatory Cancer-Associated Fibroblasts (iCAFs)**: Express high levels of cytokines like IL6 and chemokines, contributing to the inflammatory milieu of the tumor.
+
+The most likely subtype based on the markers is **Activated Cancer-Associated Fibroblasts (aCAFs)**, given the high expression of inflammatory markers and ECM-related proteins.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+The analysis of the ranked marker list from the breast cancer tissue dataset suggests that the cell cluster is most likely composed of Cancer-Associated Fibroblasts (CAFs), with a high probability of being Activated Cancer-Associated Fibroblasts (aCAFs). This is supported by the expression of mesenchymal markers, ECM-related proteins, and inflammatory cytokines and chemokines, which are characteristic of aCAFs involved in tumor progression and remodeling of the tumor microenvironment.
+
+FINAL ANNOTATION COMPLETED | Coupling Validator: To validate the annotation result, let's follow the outlined steps:
+
+### Step 1: Marker Consistency
+- **Markers in the Annotation Result**: CXCL1, CXCL2, CXCL3, CXCL8, IL6, TNFAIP6, FOSL1, HMOX1, NFKBIA, SOD2, SERPINE1, VIM, DCN, DPT, LUM, MFAP4, PRRX1, TWIST2.
+- **Markers in the Provided Marker List**: AKR1C1, MEDAG, CXCL2, CXCL3, CXCL1, MEG3, GEM, TNFAIP6, TWIST2, IL6, DCN, CTSL, CLMP, CXCL8, MFAP4, DPT, APOD, PLPP3, FOSL1, PRRX1, MT1A, TFPI, IL1R1, CFD, SERPINE1, SOD2, AKAP12, CCDC80, CCL2, MT2A, SPHK1, SRGAP1, FGFR1, HMOX1, LUM, PLIN2, NFKBIA, KDM6B, ERRFI1, ANXA5, PDLIM4, NOP16, VIM, RND3, ARID5B, TNFRSF12A, DDX21, WTAP, ABL2, BTG3.
+
+All markers used in the annotation are present in the provided marker list, ensuring consistency.
+
+### Step 2: Mixed Cell Type Consideration
+- The markers used in the annotation are consistent with Cancer-Associated Fibroblasts (CAFs), particularly Activated Cancer-Associated Fibroblasts (aCAFs), as they include mesenchymal markers (VIM, DCN, DPT, LUM, MFAP4, PRRX1, TWIST2) and inflammatory markers (CXCL1, CXCL2, CXCL3, CXCL8, IL6, TNFAIP6, FOSL1, HMOX1, NFKBIA, SOD2, SERPINE1).
+- There is no strong evidence of multiple distinct cell types based on the high-ranking markers provided. The markers predominantly support the presence of CAFs, specifically aCAFs.
+
+### Conclusion
+The annotation is consistent with the provided marker list and supports the identification of Cancer-Associated Fibroblasts, particularly Activated Cancer-Associated Fibroblasts. There is no indication of mixed cell types that would require further investigation.
+
+Validation result: VALIDATION PASSED | Formatting Agent: {
+  ""main_cell_type"": ""Cancer-Associated Fibroblasts (CAFs)"",
+  ""sub_cell_types"": [
+    ""Activated Cancer-Associated Fibroblasts (aCAFs)"",
+    ""Myofibroblastic Cancer-Associated Fibroblasts (myCAFs)"",
+    ""Inflammatory Cancer-Associated Fibroblasts (iCAFs)""
+  ],
+  ""possible_mixed_cell_types"": [],
+  ""num_markers"": 50
+}",,
+cluster_14,Epithelial Cells,"Breast Cancer Epithelial Cells, Luminal Epithelial Cells, Basal-like Epithelial Cells",,50,"PIGR, PI3, ALDH1A3, SAA1, CXCL1, SAA2, CCL20, MMP7, LTF, CXCL3, SOD2, CXCL8, MT2A, S100A9, SNORC, ANXA3, KRT23, LCN2, CCL2, HMGA1, MT1X, CXCL2, BIRC3, S100A6, CD59, KRT7, GLIPR1, SVIL, WFDC2, PDZK1IP1, SLC25A37, TNFRSF12A, SLPI, RPS17, MT-ND6, SDC4, ANXA1, TACSTD2, S100A16, MGST1, CARHSP1, DDX21, PRELID1, SMS, RPL17, S100A10, YBX1, TXN, RPL31, RPL34",1,gpt-4o-2024-08-06,openai,breast cancer,human,,"Final Annotation Agent: To annotate the cell type from the provided ranked marker list, we will follow the outlined steps:
+
+### Step 1: List the Key Functional Markers
+- **PIGR (Polymeric Immunoglobulin Receptor):** Involved in the transcytosis of polymeric immunoglobulin across epithelial cells.
+- **ALDH1A3 (Aldehyde Dehydrogenase 1 Family Member A3):** Plays a role in the oxidation of aldehydes and is often associated with stem cell properties and cancer stem cells.
+- **SAA1 and SAA2 (Serum Amyloid A1 and A2):** Acute-phase proteins involved in inflammation.
+- **CXCL1, CXCL3, CXCL8 (Chemokine Ligands):** Involved in chemotaxis and inflammation.
+- **MMP7 (Matrix Metallopeptidase 7):** Involved in the breakdown of extracellular matrix, important in tissue remodeling and cancer metastasis.
+- **SOD2 (Superoxide Dismutase 2):** Mitochondrial enzyme that protects against oxidative stress.
+- **MT2A (Metallothionein 2A):** Involved in metal ion homeostasis and protection against oxidative damage.
+- **S100A9, S100A6, S100A16 (S100 Calcium Binding Proteins):** Involved in regulation of a variety of cellular processes such as cell cycle progression and differentiation.
+- **ANXA3 (Annexin A3):** Involved in anti-coagulation and inflammation.
+- **KRT23, KRT7 (Keratin 23 and 7):** Intermediate filament proteins, often associated with epithelial cells.
+- **CCL20 (Chemokine Ligand 20):** Involved in immune responses and inflammation.
+- **LTF (Lactotransferrin):** Involved in iron binding and immune response.
+- **BIRC3 (Baculoviral IAP Repeat Containing 3):** Involved in inhibiting apoptosis.
+- **CD59:** Involved in complement regulation and protection of cells from complement-mediated lysis.
+
+### Step 2: List the Key Cell Type Markers
+- **KRT7 and KRT23:** Typically expressed in epithelial cells, including ductal and glandular epithelial cells.
+- **PIGR:** Often expressed in epithelial cells, particularly those involved in mucosal immunity.
+- **ALDH1A3:** Associated with cancer stem cells, particularly in breast cancer.
+- **MMP7:** Often expressed in epithelial cells and associated with cancer progression.
+- **SAA1, SAA2, CXCL1, CXCL8, CCL20:** These markers are often associated with inflammatory responses and can be expressed in epithelial cells during inflammation or cancer.
+
+### Step 3: Cross-reference Known Databases
+Using databases such as the Human Protein Atlas, CellMarker, and literature on breast cancer scRNA-seq, we can cross-reference these markers:
+- **Epithelial Cells:** KRT7, KRT23, PIGR, MMP7, and ALDH1A3 are indicative of epithelial origin, particularly in the context of breast tissue.
+- **Cancer Stem Cells:** ALDH1A3 is a known marker for cancer stem cells in breast cancer.
+- **Inflammatory Response:** SAA1, SAA2, CXCL1, CXCL8, and CCL20 are associated with inflammatory responses, which are common in tumor microenvironments.
+
+### Step 4: Determine the Most Probable General Cell Type
+Based on the expression of these markers, the most likely general cell type is **epithelial cells**, specifically those involved in the breast tissue, given the presence of keratins and PIGR.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+1. **Breast Cancer Epithelial Cells:** Given the presence of ALDH1A3, MMP7, and other markers, these are likely cancerous epithelial cells.
+2. **Luminal Epithelial Cells:** KRT7 and PIGR suggest a luminal epithelial origin, common in breast tissue.
+3. **Basal-like Epithelial Cells:** While less likely, the presence of inflammatory markers could suggest a basal-like phenotype, which is often associated with a more aggressive breast cancer subtype.
+
+The most likely subtype, based on the markers, is **Breast Cancer Epithelial Cells** with a luminal phenotype.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+The cluster of cells from the breast cancer tissue is most likely composed of epithelial cells, specifically breast cancer epithelial cells with a luminal phenotype. This is supported by the expression of keratins (KRT7, KRT23), PIGR, and ALDH1A3, which are indicative of epithelial and cancer stem cell characteristics. The presence of inflammatory markers suggests an active tumor microenvironment.
+
+**FINAL ANNOTATION COMPLETED** | Coupling Validator: To validate the annotation result, let's follow the outlined steps:
+
+### Step 1: Marker Consistency
+- **Consistency Check:** The proposed annotation result lists markers such as PIGR, ALDH1A3, SAA1, CXCL1, SAA2, CCL20, MMP7, LTF, CXCL3, SOD2, CXCL8, MT2A, S100A9, ANXA3, KRT23, S100A6, CD59, and KRT7. All these markers are present in the provided marker list.
+- **Functional Consistency:** The markers are consistent with the identified cell type. For example, KRT7 and KRT23 are associated with epithelial cells, PIGR is involved in mucosal immunity, and ALDH1A3 is linked to cancer stem cells, particularly in breast cancer. The presence of inflammatory markers like SAA1, SAA2, CXCL1, CXCL8, and CCL20 supports the context of an inflammatory tumor microenvironment.
+
+### Step 2: Mixed Cell Type Consideration
+- **Potential Mixed Cell Types:** The annotation suggests a primary identification of breast cancer epithelial cells with a luminal phenotype. The presence of ALDH1A3 and inflammatory markers could indicate a mixed population involving cancer stem cells and an active tumor microenvironment. However, the markers strongly support the epithelial cell type, particularly in the context of breast cancer, and do not strongly suggest multiple distinct cell types.
+
+### Conclusion
+The annotation is consistent with the provided marker list and the identified cell type. The markers support the identification of breast cancer epithelial cells with a luminal phenotype, and there is no strong evidence of multiple distinct cell types that would require further investigation.
+
+Validation result: VALIDATION PASSED | Formatting Agent: {
+  ""main_cell_type"": ""Epithelial Cells"",
+  ""sub_cell_types"": [
+    ""Breast Cancer Epithelial Cells"",
+    ""Luminal Epithelial Cells"",
+    ""Basal-like Epithelial Cells""
+  ],
+  ""possible_mixed_cell_types"": [],
+  ""num_markers"": 50
+}",,
+cluster_16,breast epithelial cells,"luminal epithelial cells, basal/myoepithelial cells, cancerous epithelial cells",,50,"CLIC6, SIM2, STC2, FASN, SLC7A2, MS4A7, TMC5, MUC1, PGR, CA12, COL1A1, PGGHG, MAPT, POLR2J3.1, ZNF552, SLC40A1, FKBP5, GJA1, C1orf21, COL1A2, BATF, DLG5, SEMA3C, KRT19, CRIP1, KDM4B, ZNF652, SLC38A1, COL3A1, ANKRD30A, KRT7, RUNX1, PRLR, S100A14, SREBF1, EVL, RAB11FIP1, DEGS2, ZG16B, CRACR2B, SMIM22, ADIRF, TBC1D9, NPDC1, STOM, IL6ST, UGDH, AZGP1, RAB31, TMSB4X",1,gpt-4o-2024-08-06,openai,breast cancer,human,,"Final Annotation Agent: To annotate the cell type based on the provided ranked marker list from a single-cell human dataset derived from breast cancer tissue, I will follow the outlined steps:
+
+### Step 1: List the Key Functional Markers
+- **FASN (Fatty Acid Synthase):** Involved in lipogenesis, often upregulated in cancer cells to support rapid proliferation.
+- **SLC7A2 (Solute Carrier Family 7 Member 2):** A transporter involved in amino acid transport, which is crucial for cell growth and metabolism.
+- **MS4A7 (Membrane Spanning 4-Domains A7):** Typically associated with immune cells, particularly macrophages.
+- **MUC1 (Mucin 1):** A glycoprotein involved in forming protective mucous barriers and is often overexpressed in breast cancer.
+- **PGR (Progesterone Receptor):** A nuclear receptor that mediates the effects of progesterone, often used as a marker in breast cancer.
+- **CA12 (Carbonic Anhydrase 12):** Involved in pH regulation and often expressed in breast cancer.
+- **COL1A1 and COL1A2 (Collagen Type I Alpha 1 and 2 Chains):** Components of the extracellular matrix, often associated with stromal cells.
+- **MAPT (Microtubule Associated Protein Tau):** Involved in microtubule stabilization, sometimes expressed in breast cancer.
+- **S100A14 (S100 Calcium Binding Protein A14):** Involved in cell cycle progression and differentiation, often linked to cancer.
+- **IL6ST (Interleukin 6 Signal Transducer):** Part of the IL-6 receptor complex, involved in immune response signaling.
+
+### Step 2: List the Key Cell Type Markers
+- **KRT19 (Keratin 19):** A marker for epithelial cells, often used to identify breast epithelial cells.
+- **KRT7 (Keratin 7):** Another epithelial marker, commonly expressed in ductal cells of the breast.
+- **PRLR (Prolactin Receptor):** Expressed in mammary gland cells, involved in lactation and breast development.
+- **ANKRD30A (Ankyrin Repeat Domain 30A):** Known to be expressed in breast tissue, particularly in luminal epithelial cells.
+- **ZG16B (Zymogen Granule Protein 16B):** Associated with secretory cells, including those in the breast.
+- **AZGP1 (Alpha-2-Glycoprotein 1, Zinc-Binding):** Often expressed in breast epithelial cells and associated with cancer progression.
+
+### Step 3: Cross-reference Known Databases
+Using databases such as the Human Protein Atlas, CellMarker, and literature on breast cancer scRNA-seq, the markers identified are consistent with epithelial cells, particularly those of the breast tissue. MUC1, KRT19, and KRT7 are well-documented markers for breast epithelial cells.
+
+### Step 4: Determine the Most Probable General Cell Type
+Based on the expression of markers such as MUC1, KRT19, KRT7, and PRLR, the most probable general cell type is **breast epithelial cells**.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+1. **Luminal Epithelial Cells:** High expression of KRT19, KRT7, PRLR, and ANKRD30A suggests a luminal epithelial phenotype, which is common in breast tissue.
+2. **Basal/Myoepithelial Cells:** Although less likely due to the lack of specific basal markers, the presence of some general epithelial markers could suggest a basal phenotype.
+3. **Cancerous Epithelial Cells:** Given the context of breast cancer tissue, these markers could also represent a cancerous epithelial cell type, particularly luminal-type breast cancer cells.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+The analysis of the ranked marker list from the breast cancer tissue dataset suggests that the cell cluster is most likely composed of breast epithelial cells. The expression of markers such as MUC1, KRT19, KRT7, and PRLR strongly indicates a luminal epithelial cell type, which is common in breast tissue. The presence of cancer-associated markers like FASN and CA12 further supports the likelihood of these being cancerous luminal epithelial cells, possibly representing luminal-type breast cancer cells.
+
+**FINAL ANNOTATION COMPLETED** | Coupling Validator: Validation result: VALIDATION PASSED
+
+The proposed annotation result is consistent with the provided marker list and the context of breast cancer tissue. Here's the breakdown:
+
+1. **Marker Consistency:**
+   - The key functional markers and cell type markers listed in the annotation are present in the provided marker list. For example, FASN, SLC7A2, MS4A7, MUC1, PGR, CA12, COL1A1, COL1A2, MAPT, S100A14, IL6ST, KRT19, KRT7, PRLR, ANKRD30A, ZG16B, and AZGP1 are all included in the marker list.
+   - The markers used to identify breast epithelial cells, particularly luminal epithelial cells, are consistent with known markers for these cell types.
+
+2. **Mixed Cell Type Consideration:**
+   - The annotation considers the possibility of mixed cell types, such as luminal epithelial cells, basal/myoepithelial cells, and cancerous epithelial cells. However, the strongest support is for luminal epithelial cells, which aligns with the context of breast cancer tissue.
+   - The presence of cancer-associated markers like FASN and CA12 supports the identification of cancerous luminal epithelial cells, which is appropriate given the dataset's origin from breast cancer tissue.
+
+Overall, the annotation is well-supported by the marker list and the context provided, leading to a valid conclusion about the cell type. | Formatting Agent: {
+  ""main_cell_type"": ""breast epithelial cells"",
+  ""sub_cell_types"": [
+    ""luminal epithelial cells"",
+    ""basal/myoepithelial cells"",
+    ""cancerous epithelial cells""
+  ],
+  ""possible_mixed_cell_types"": [],
+  ""num_markers"": 50
+}",,
+cluster_19,Epithelial Cells,"Luminal Epithelial Cells, Basal/Myoepithelial Cells, Breast Cancer Cells",,50,"PTN, MGP, KRT15, STAC2, CCL28, SYNM, SCGB2A2, LTF, SNORC, AK5, SFRP1, KLK5, SAA2, SCGB2A1, SAA1, MIA, DEFB1, NTRK2, SCGB1D2, CX3CL1, RARRES1, GABRP, MMP7, NDRG2, NFIB, CRYAB, TSHZ2, WFDC2, CHI3L1, SLPI, SLC12A2, ARL4A, CXCL2, ANXA1, SORBS2, ARID5A, DEPP1, NCOA7, KRT14, CLU, TACSTD2, GBP2, TM4SF1, RCAN1, WEE1, ATF3, CLDN4, KRT17, KRT7, ZBTB20",1,gpt-4o-2024-08-06,openai,breast cancer,human,,"Final Annotation Agent: To annotate the cell type from the provided ranked marker list, we will follow the outlined steps:
+
+### Step 1: List the Key Functional Markers
+- **PTN (Pleiotrophin)**: Involved in cell growth and angiogenesis.
+- **MGP (Matrix Gla Protein)**: Inhibits vascular calcification.
+- **CCL28 (C-C Motif Chemokine Ligand 28)**: Involved in immune response, particularly in mucosal tissues.
+- **SYNM (Synemin)**: Intermediate filament protein, associated with cytoskeletal structure.
+- **LTF (Lactotransferrin)**: Involved in immune response and iron binding.
+- **SFRP1 (Secreted Frizzled Related Protein 1)**: Modulates Wnt signaling pathway.
+- **MMP7 (Matrix Metallopeptidase 7)**: Involved in extracellular matrix remodeling.
+- **NDRG2 (N-Myc Downstream Regulated 2)**: Associated with stress response and cell differentiation.
+- **CRYAB (Alpha-Crystallin B Chain)**: Functions as a molecular chaperone.
+- **SLPI (Secretory Leukocyte Peptidase Inhibitor)**: Inhibits proteases and has antimicrobial properties.
+- **ANXA1 (Annexin A1)**: Involved in anti-inflammatory responses.
+- **WEE1 (WEE1 G2 Checkpoint Kinase)**: Regulates cell cycle progression.
+- **ATF3 (Activating Transcription Factor 3)**: Involved in stress response.
+
+### Step 2: List the Key Cell Type Markers
+- **KRT15, KRT14, KRT17, KRT7**: Keratins are structural proteins typically expressed in epithelial cells, with specific keratins marking different epithelial cell types.
+- **SCGB2A2 (Secretoglobin Family 2A Member 2)**: Also known as Mammaglobin, a marker for breast epithelial cells.
+- **SCGB2A1 (Secretoglobin Family 2A Member 1)**: Related to SCGB2A2, also associated with breast tissue.
+- **KLK5 (Kallikrein Related Peptidase 5)**: Expressed in epithelial tissues, including breast.
+- **SAA1, SAA2 (Serum Amyloid A1 and A2)**: Acute-phase proteins, often upregulated in inflammation.
+- **MIA (Melanoma Inhibitory Activity)**: Involved in cell adhesion and migration.
+- **DEFB1 (Defensin Beta 1)**: Antimicrobial peptide, expressed in epithelial cells.
+- **RARRES1 (Retinoic Acid Receptor Responder 1)**: Associated with epithelial differentiation.
+- **GABRP (Gamma-Aminobutyric Acid Type A Receptor Pi Subunit)**: Expressed in various tissues, including breast.
+- **TACSTD2 (Tumor-Associated Calcium Signal Transducer 2)**: Also known as TROP2, a marker for epithelial cells, including breast cancer cells.
+- **CLDN4 (Claudin 4)**: Tight junction protein, expressed in epithelial cells.
+
+### Step 3: Cross-reference Known Databases
+Using databases such as the Human Protein Atlas, CellMarker, and literature on breast cancer and epithelial cell markers, we can confirm that many of these markers are associated with epithelial cells, particularly those of breast origin.
+
+### Step 4: Determine the Most Probable General Cell Type
+Based on the expression of keratins (KRT15, KRT14, KRT17, KRT7), SCGB2A2, SCGB2A1, and TACSTD2, the most probable general cell type is **epithelial cells**. The presence of SCGB2A2 and SCGB2A1 strongly suggests a breast epithelial origin.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+1. **Luminal Epithelial Cells**: The presence of SCGB2A2 (Mammaglobin) and other secretoglobins suggests luminal epithelial cells, which are a major component of breast tissue.
+2. **Basal/Myoepithelial Cells**: The expression of KRT14 and KRT17, which are markers for basal cells, suggests a possible basal/myoepithelial cell type.
+3. **Breast Cancer Cells**: The presence of TACSTD2 (TROP2) and other markers associated with breast cancer suggests that these could be cancerous epithelial cells.
+
+**Most Likely Subtype**: Luminal Epithelial Cells, due to the strong expression of SCGB2A2 and related markers.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+The analysis of the ranked marker list from the breast cancer tissue dataset suggests that the cell cluster is most likely composed of epithelial cells, specifically luminal epithelial cells. This is supported by the high expression of SCGB2A2 (Mammaglobin) and other epithelial markers. The presence of basal keratins also suggests a potential basal/myoepithelial component, and the expression of TACSTD2 indicates a possible cancerous nature of the cells.
+
+FINAL ANNOTATION COMPLETED | Coupling Validator: Validation result: VALIDATION PASSED
+
+The proposed annotation result is consistent with the provided marker list and the identified cell type. Here's the breakdown:
+
+1. **Marker Consistency**: 
+   - The key functional markers and cell type markers listed in the annotation are present in the provided marker list. 
+   - The markers such as KRT15, KRT14, KRT17, KRT7, SCGB2A2, SCGB2A1, KLK5, TACSTD2, and CLDN4 are all associated with epithelial cells, particularly those of breast origin, which aligns with the annotation of epithelial cells and specifically luminal epithelial cells.
+
+2. **Mixed Cell Type Consideration**:
+   - The annotation acknowledges the potential presence of basal/myoepithelial cells and breast cancer cells, supported by markers like KRT14, KRT17, and TACSTD2. This consideration of mixed cell types is appropriate given the marker expression.
+
+3. **Conclusion**:
+   - The annotation correctly identifies the most likely cell type as epithelial cells, with a strong indication towards luminal epithelial cells due to the expression of SCGB2A2 and related markers.
+   - The potential presence of basal/myoepithelial and cancerous cells is noted, which is a reasonable consideration given the marker data.
+
+Overall, the annotation is well-supported by the marker list and the analysis provided. | Formatting Agent: {
+  ""main_cell_type"": ""Epithelial Cells"",
+  ""sub_cell_types"": [
+    ""Luminal Epithelial Cells"",
+    ""Basal/Myoepithelial Cells"",
+    ""Breast Cancer Cells""
+  ],
+  ""possible_mixed_cell_types"": [],
+  ""num_markers"": 50
+}",,
+cluster_17,epithelial cells,"HER2-positive Breast Cancer Cells, Luminal Epithelial Cells, Basal-like Breast Cancer Cells",,50,"SOX11, PNMT, PPP1R1B, MUC6, ERBB2, RNF43, PIP, TFF3, SPINK8, GUCY1A1, ST8SIA6-AS1, NR2F1, HOPX, AC093001.1, SERHL2, PGAP3, PART1, TFAP2B, MIEN1, GRB7, SLC12A2, CALML5, ORMDL3, NUDT8, MSL1, CXCL17, PSMD3, MED1, AC010642.2, FBXL20, LRRC26, GALNT7, CPD, COIL, ANKRD30A, EPN2, UBE2M, METRN, TRIM28, STARD3, AKAP1, CHMP2A, CDK12, KRT7, APOD, IFT20, KIAA1324, SPDEF, CREB3L4, LIMCH1",1,gpt-4o-2024-08-06,openai,breast cancer,human,,"Final Annotation Agent: To annotate the cell type based on the provided ranked marker list from a single-cell human dataset derived from breast cancer tissue, I will follow the outlined steps:
+
+### Step 1: List the Key Functional Markers
+- **SOX11**: A transcription factor involved in neurogenesis and is also expressed in some cancers.
+- **PNMT**: An enzyme involved in catecholamine biosynthesis, typically associated with adrenal medulla cells.
+- **ERBB2 (HER2)**: A receptor tyrosine kinase involved in cell growth and differentiation, commonly overexpressed in certain breast cancers.
+- **TFF3**: A member of the trefoil factor family, involved in mucosal protection and repair.
+- **SPINK8**: A serine protease inhibitor, potentially involved in regulating protease activity.
+- **GUCY1A1**: Part of the guanylate cyclase enzyme, involved in cyclic GMP synthesis.
+- **HOPX**: A homeodomain-only protein, involved in differentiation and development.
+- **TFAP2B**: A transcription factor involved in the regulation of gene expression during development.
+- **GRB7**: An adaptor protein that interacts with receptor tyrosine kinases, involved in signal transduction.
+- **CXCL17**: A chemokine involved in immune cell recruitment.
+- **KRT7**: A type II keratin, typically expressed in epithelial cells.
+
+### Step 2: List the Key Cell Type Markers
+- **ERBB2 (HER2)**: Strongly associated with breast cancer cells, particularly HER2-positive breast cancer.
+- **KRT7**: Commonly expressed in epithelial cells, including those in the breast.
+- **TFF3**: Often expressed in epithelial tissues, including breast tissue.
+- **HOPX**: Expressed in various tissues, including epithelial cells.
+- **APOD**: Associated with lipid transport and metabolism, expressed in various tissues including breast tissue.
+- **SPDEF**: A transcription factor involved in epithelial cell differentiation, particularly in the prostate and breast.
+- **CREB3L4**: A transcription factor involved in cellular stress responses, expressed in various tissues.
+
+### Step 3: Cross-reference Known Databases
+Using databases such as the Human Protein Atlas, CellMarker, and literature on breast cancer, we can cross-reference these markers:
+- **ERBB2 (HER2)** is a well-known marker for HER2-positive breast cancer.
+- **KRT7** is a marker for epithelial cells, including those in the breast.
+- **TFF3** and **SPDEF** are associated with epithelial differentiation in breast tissue.
+
+### Step 4: Determine the Most Probable General Cell Type
+Based on the expression of markers such as **ERBB2**, **KRT7**, **TFF3**, and **SPDEF**, the most probable general cell type is **epithelial cells** from breast tissue, specifically those associated with breast cancer.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+1. **HER2-positive Breast Cancer Cells**: Due to the high expression of **ERBB2 (HER2)**, which is a hallmark of this subtype.
+2. **Luminal Epithelial Cells**: Given the expression of **KRT7**, **TFF3**, and **SPDEF**, which are associated with luminal epithelial cells in the breast.
+3. **Basal-like Breast Cancer Cells**: Although less likely due to the lack of specific basal markers, the presence of epithelial markers could suggest this subtype.
+
+The most likely subtype based on the markers is **HER2-positive Breast Cancer Cells** due to the prominent expression of **ERBB2 (HER2)**.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+The analysis of the ranked marker list from the breast cancer tissue dataset suggests that the cell cluster is most likely composed of epithelial cells, specifically HER2-positive breast cancer cells. This conclusion is supported by the high expression of **ERBB2 (HER2)**, along with other epithelial markers such as **KRT7** and **TFF3**. The presence of these markers aligns with known characteristics of HER2-positive breast cancer, making it the most probable cell type in this dataset.
+
+FINAL ANNOTATION COMPLETED | Coupling Validator: Validation result: VALIDATION PASSED
+
+The proposed annotation result is consistent with the provided marker list and the identified cell type. Here's the breakdown:
+
+1. **Marker Consistency**:
+   - The key markers used in the annotation, such as **ERBB2 (HER2)**, **KRT7**, **TFF3**, **SPDEF**, and **HOPX**, are present in the provided marker list.
+   - These markers are consistent with the identification of epithelial cells, particularly HER2-positive breast cancer cells, as they are well-documented in the context of breast cancer.
+
+2. **Mixed Cell Type Consideration**:
+   - The analysis does not strongly suggest the presence of multiple distinct cell types. The markers predominantly support the identification of HER2-positive breast cancer cells, with some markers also indicating luminal epithelial characteristics.
+   - There is no strong evidence from the high-ranking markers to suggest a significant presence of other distinct cell types that would require further investigation.
+
+Overall, the annotation aligns well with the known biology of breast cancer and the provided marker list, supporting the conclusion of HER2-positive breast cancer cells as the primary cell type in the dataset. | Formatting Agent: {
+  ""main_cell_type"": ""epithelial cells"",
+  ""sub_cell_types"": [
+    ""HER2-positive Breast Cancer Cells"",
+    ""Luminal Epithelial Cells"",
+    ""Basal-like Breast Cancer Cells""
+  ],
+  ""possible_mixed_cell_types"": [],
+  ""num_markers"": 50
+}",,
+cluster_15,Epithelial Cells,"Luminal Epithelial Cells, Cancerous Epithelial Cells, Basal/Myoepithelial Cells",,50,"SIX3, SNORC, KANK4, MYEOV, FABP7, MT1H, OBP2B, ROCR, SCRG1, KRT15, TTYH1, ACTR3B, PCSK1N, KLK11, NIPAL3, GMDS, KRT19, MT1G, MT-ND2, RAMP2, PPP1R1B, NFIB, NDRG2, RPS17, EIF3L, RPLP0, MT-ND3, LYRM4, NOP53, SNHG7, MT-ND1, RPL23A, MT-CYB, RPSA, RPS20, RPS3, RPL7, RPS12, RPS19, MARCKSL1, RPL27, C6orf48, FBL, SOX4, RPS24, RPL6, PABPC1, RPS6, POLR2F, MT-ND4L",2,gpt-4o-2024-08-06,openai,breast cancer,human,,"Final Annotation Agent: To annotate the cell type from the provided ranked marker list, I will follow the outlined steps:
+
+### Step 1: List the Key Functional Markers
+- **FABP7**: Fatty acid-binding protein 7, involved in fatty acid uptake, transport, and metabolism. Often associated with neural tissues and certain cancer types.
+- **MT1H, MT1G**: Metallothioneins, involved in metal ion binding and detoxification. They play roles in cellular protection against oxidative stress.
+- **RAMP2**: Receptor activity-modifying protein 2, involved in modulating receptor function, particularly in the context of the cardiovascular system.
+- **NDRG2**: N-myc downstream-regulated gene 2, involved in stress responses, cell growth, and differentiation.
+- **MARCKSL1**: Myristoylated alanine-rich C-kinase substrate-like 1, involved in cell motility and cytoskeletal organization.
+
+### Step 2: List the Key Cell Type Markers
+- **KRT15, KRT19**: Keratins, structural proteins in epithelial cells. KRT19 is often used as a marker for epithelial cells, including breast epithelial cells.
+- **SIX3**: A transcription factor involved in development, particularly in the central nervous system and eye.
+- **SOX4**: A transcription factor involved in development and differentiation, often implicated in cancer progression.
+- **NFIB**: Nuclear factor I B, a transcription factor involved in development and differentiation, particularly in the lung and brain.
+
+### Step 3: Cross-reference Known Databases
+Using known scRNA-seq databases and literature, the following observations can be made:
+- **KRT19** is a well-known marker for epithelial cells, particularly luminal epithelial cells in the breast.
+- **FABP7** is often associated with neural tissues but can also be expressed in certain cancer cells, including breast cancer.
+- **SOX4** and **NFIB** are transcription factors that can be expressed in various cell types, including cancer cells.
+
+### Step 4: Determine the Most Probable General Cell Type
+Based on the expression of **KRT19** and **KRT15**, the most probable general cell type is epithelial cells. Given the context of breast cancer tissue, these are likely breast epithelial cells.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+1. **Luminal Epithelial Cells**: High expression of **KRT19** and **KRT15** suggests luminal epithelial cells, which are common in breast tissue.
+2. **Basal/Myoepithelial Cells**: While less likely due to the lower expression of typical basal markers, the presence of keratins suggests this as a possibility.
+3. **Cancer Stem-like Cells**: The expression of markers like **FABP7** and **SOX4** could indicate a stem-like or progenitor state, often seen in cancer.
+
+**Most Likely Subtype**: Luminal Epithelial Cells, given the strong expression of **KRT19** and **KRT15**.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+The analysis of the ranked marker list from the breast cancer tissue dataset suggests that the cell cluster is most likely composed of luminal epithelial cells. This conclusion is based on the high expression of epithelial markers such as **KRT19** and **KRT15**, which are characteristic of luminal epithelial cells in the breast. The presence of other markers like **FABP7** and **SOX4** may indicate a cancerous or stem-like phenotype within these epithelial cells.
+
+FINAL ANNOTATION COMPLETED | Coupling Validator: Validation result: VALIDATION FAILED
+
+Feedback:
+
+1. **Marker Consistency**:
+   - The proposed annotation identifies **KRT19** and **KRT15** as key markers for epithelial cells, particularly luminal epithelial cells. These markers are indeed present in the provided marker list, which supports the annotation.
+   - However, the annotation also heavily relies on markers like **FABP7** and **SOX4** to suggest a cancerous or stem-like phenotype. While **FABP7** is present in the marker list, **SOX4** is not listed, which raises concerns about the consistency of the annotation.
+
+2. **Mixed Cell Type Consideration**:
+   - The annotation suggests the presence of luminal epithelial cells, basal/myoepithelial cells, and cancer stem-like cells. While the presence of **KRT19** and **KRT15** supports the identification of luminal epithelial cells, the evidence for basal/myoepithelial cells and cancer stem-like cells is less clear.
+   - The presence of **FABP7** could indicate a neural or cancerous phenotype, but without additional supporting markers from the list, the evidence for a mixed cell type population is weak.
+
+3. **Instruction for Revising the Annotation**:
+   - Re-evaluate the reliance on markers not present in the provided list, such as **SOX4**. Ensure that all markers used in the annotation are part of the provided marker list.
+   - Consider the possibility of mixed cell types only if there is strong evidence from multiple high-ranking markers. In this case, the evidence for mixed cell types is not sufficiently supported by the provided marker list.
+   - Focus on the markers that are present and highly ranked in the list to refine the annotation. For example, **KRT19** and **KRT15** strongly support the presence of luminal epithelial cells, but further evidence is needed to confidently suggest other cell types.
+
+Please revise the annotation with these considerations in mind, ensuring all markers used are part of the provided list and that mixed cell types are only suggested with strong supporting evidence. | Final Annotation Agent: To address the validation feedback and provide an updated annotation, I will re-evaluate the marker list, focusing on the markers present and ensuring consistency with the provided list. I will also reconsider the evidence for mixed cell types based on the ranked markers.
+
+### Step 1: List the Key Functional Markers
+- **FABP7**: Involved in fatty acid metabolism, often associated with neural tissues and certain cancer types.
+- **MT1H, MT1G**: Metallothioneins involved in metal ion binding and detoxification, playing roles in cellular protection against oxidative stress.
+- **RAMP2**: Involved in modulating receptor function, particularly in the cardiovascular system.
+- **NDRG2**: Involved in stress responses, cell growth, and differentiation.
+- **MARCKSL1**: Involved in cell motility and cytoskeletal organization.
+
+### Step 2: List the Key Cell Type Markers
+- **KRT15, KRT19**: Keratins, structural proteins in epithelial cells. **KRT19** is a well-known marker for epithelial cells, particularly luminal epithelial cells in the breast.
+- **SIX3**: A transcription factor involved in development, particularly in the central nervous system and eye.
+- **NFIB**: A transcription factor involved in development and differentiation, particularly in the lung and brain.
+
+### Step 3: Cross-reference Known Databases
+Using known scRNA-seq databases and literature, the following observations can be made:
+- **KRT19** and **KRT15** are strong markers for epithelial cells, particularly luminal epithelial cells in breast tissue.
+- **FABP7** is associated with neural tissues but can also be expressed in certain cancer cells, including breast cancer.
+
+### Step 4: Determine the Most Probable General Cell Type
+Based on the expression of **KRT19** and **KRT15**, the most probable general cell type is epithelial cells. Given the context of breast cancer tissue, these are likely breast epithelial cells.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+1. **Luminal Epithelial Cells**: The strong expression of **KRT19** and **KRT15** supports the identification of luminal epithelial cells, which are common in breast tissue.
+2. **Cancerous Epithelial Cells**: The presence of **FABP7** suggests a potential cancerous phenotype within the epithelial cells.
+3. **Basal/Myoepithelial Cells**: While less likely due to the lower expression of typical basal markers, the presence of keratins suggests this as a possibility.
+
+**Most Likely Subtype**: Luminal Epithelial Cells, given the strong expression of **KRT19** and **KRT15**.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+The analysis of the ranked marker list from the breast cancer tissue dataset suggests that the cell cluster is most likely composed of luminal epithelial cells. This conclusion is based on the high expression of epithelial markers such as **KRT19** and **KRT15**, which are characteristic of luminal epithelial cells in the breast. The presence of **FABP7** may indicate a cancerous phenotype within these epithelial cells, but the evidence for mixed cell types is not strongly supported by the provided marker list.
+
+FINAL ANNOTATION COMPLETED | Coupling Validator: Validation result: VALIDATION PASSED
+
+The revised annotation has addressed the previous feedback and now aligns well with the provided marker list and context. Here are the key points supporting the validation:
+
+1. **Marker Consistency**:
+   - The annotation now focuses on markers that are present in the provided list, such as **KRT19**, **KRT15**, and **FABP7**. This ensures consistency and reliability in the annotation process.
+   - The reliance on markers not present in the list, such as **SOX4**, has been removed, which strengthens the validity of the annotation.
+
+2. **Mixed Cell Type Consideration**:
+   - The annotation acknowledges the potential for a cancerous phenotype within the epithelial cells due to the presence of **FABP7**, which is consistent with its known expression in certain cancer cells, including breast cancer.
+   - The possibility of basal/myoepithelial cells is mentioned but appropriately downplayed due to the lack of strong supporting markers in the list, which is a reasonable approach given the data.
+
+3. **Conclusion**:
+   - The identification of luminal epithelial cells as the most likely subtype is well-supported by the strong expression of **KRT19** and **KRT15**, which are characteristic markers for this cell type in breast tissue.
+   - The annotation provides a clear and concise summary that aligns with the evidence from the marker list, making it a robust conclusion.
+
+Overall, the revised annotation is consistent with the provided marker list and context, and it appropriately considers the potential for mixed cell types without overextending the evidence. | Formatting Agent: {
+  ""main_cell_type"": ""Epithelial Cells"",
+  ""sub_cell_types"": [
+    ""Luminal Epithelial Cells"",
+    ""Cancerous Epithelial Cells"",
+    ""Basal/Myoepithelial Cells""
+  ],
+  ""possible_mixed_cell_types"": [],
+  ""num_markers"": 50
+}",,
+cluster_21,fibroblasts,"Cancer-Associated Fibroblasts (CAFs), Myofibroblasts, Pericytes",,50,"COL1A1, COL1A2, COL3A1, AEBP1, SPARC, COL11A1, SEPTIN11, ITGA11, MMP11, MTCO2P12, FN1, COL5A1, COL5A2, COL12A1, COL6A3, COL6A2, SFRP2, POSTN, COL6A1, COL10A1, DCN, THY1, THBS2, LUM, MMP2, ADAMTS2, ASPN, BGN, ANTXR1, FBN1, MXRA5, PDGFRB, ISLR, MXRA8, CDH11, COL8A1, MMP14, FBLN2, LRP1, ADAM12, VCAN, CTSK, RARRES2, DPYSL3, PCOLCE, TIMP3, NID1, SULF1, MFAP2, IGFBP7",1,gpt-4o-2024-08-06,openai,breast cancer,human,,"Final Annotation Agent: To annotate the cell type based on the provided ranked marker list from a single-cell human dataset derived from breast cancer tissue, I will follow the outlined steps:
+
+### Step 1: List the Key Functional Markers
+- **Collagens (COL1A1, COL1A2, COL3A1, COL11A1, COL5A1, COL5A2, COL12A1, COL6A3, COL6A2, COL6A1, COL10A1, COL8A1):** These are structural proteins that form the extracellular matrix (ECM) and provide structural support to tissues.
+- **Matrix Metalloproteinases (MMP11, MMP2, MMP14):** Enzymes that degrade various components of the ECM, involved in tissue remodeling and cancer metastasis.
+- **Fibronectin (FN1):** A glycoprotein involved in cell adhesion and migration processes.
+- **Integrin (ITGA11):** A receptor that mediates cell-ECM adhesion.
+- **Secreted Protein Acidic and Rich in Cysteine (SPARC):** Involved in ECM remodeling and cell-matrix interactions.
+- **Periostin (POSTN):** A matricellular protein involved in tissue repair and remodeling.
+- **Thrombospondin (THBS2):** Involved in cell-to-cell and cell-to-matrix communication.
+- **Decorin (DCN), Lumican (LUM), Biglycan (BGN):** Small leucine-rich proteoglycans involved in collagen fibrillogenesis and ECM organization.
+- **ADAMTS2, ADAM12:** Metalloproteinases involved in processing ECM components.
+- **Versican (VCAN):** A large ECM proteoglycan involved in cell adhesion, proliferation, and migration.
+- **Cathepsin K (CTSK):** A protease involved in bone resorption and ECM degradation.
+- **Insulin-like Growth Factor Binding Protein 7 (IGFBP7):** Modulates IGF signaling and is involved in cell adhesion and migration.
+
+### Step 2: List the Key Cell Type Markers
+- **PDGFRB (Platelet-Derived Growth Factor Receptor Beta):** A marker for pericytes and fibroblasts, involved in cell proliferation and migration.
+- **THY1 (CD90):** A marker for fibroblasts and mesenchymal stem cells.
+- **CDH11 (Cadherin 11):** A marker for fibroblasts, involved in cell-cell adhesion.
+- **Fibrillin-1 (FBN1):** Associated with fibroblasts, involved in ECM structure.
+- **ISLR (Immunoglobulin Superfamily Containing Leucine-Rich Repeat):** A marker for mesenchymal cells, including fibroblasts.
+
+### Step 3: Cross-reference Known Databases
+Using scRNA-seq databases such as the Human Cell Atlas and literature, the expression of these markers is consistent with fibroblasts, particularly cancer-associated fibroblasts (CAFs), which are known to play a role in the tumor microenvironment of breast cancer.
+
+### Step 4: Determine the Most Probable General Cell Type
+Based on the expression of ECM components, matrix remodeling enzymes, and fibroblast markers, the most probable general cell type is **fibroblasts**.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+1. **Cancer-Associated Fibroblasts (CAFs):** Highly likely due to the expression of ECM remodeling enzymes and markers like PDGFRB, THY1, and POSTN, which are characteristic of CAFs in the tumor microenvironment.
+2. **Myofibroblasts:** Possible due to the expression of ECM components and remodeling enzymes, although specific markers like ACTA2 (alpha-smooth muscle actin) are not listed.
+3. **Pericytes:** Less likely but possible due to the expression of PDGFRB, although other pericyte-specific markers are not prominent.
+
+The most likely subtype based on the markers is **Cancer-Associated Fibroblasts (CAFs)**.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+The ranked marker list from the breast cancer tissue dataset is indicative of fibroblasts, with a strong emphasis on ECM components and remodeling enzymes. The presence of markers such as PDGFRB, THY1, and POSTN suggests that these cells are likely cancer-associated fibroblasts (CAFs), which are known to contribute to the tumor microenvironment by remodeling the ECM and facilitating cancer progression.
+
+**FINAL ANNOTATION COMPLETED** | Coupling Validator: Validation result: VALIDATION PASSED
+
+The proposed annotation result is consistent with the provided marker list and the identified cell type. Here's the breakdown:
+
+1. **Marker Consistency:**
+   - The markers listed in the annotation result are present in the provided marker list. 
+   - The markers are consistent with fibroblasts, particularly cancer-associated fibroblasts (CAFs), as they include ECM components (e.g., collagens, fibronectin), matrix remodeling enzymes (e.g., MMPs, ADAMTS), and fibroblast markers (e.g., PDGFRB, THY1, CDH11).
+
+2. **Mixed Cell Type Consideration:**
+   - The annotation considers the possibility of mixed cell types, such as myofibroblasts and pericytes, but concludes that the strongest evidence supports cancer-associated fibroblasts (CAFs).
+   - The presence of markers like PDGFRB and THY1 strongly supports the identification of CAFs, which are known to be prominent in the tumor microenvironment of breast cancer.
+
+The analysis is thorough and aligns with known literature and databases, supporting the conclusion that the cell cluster is primarily composed of cancer-associated fibroblasts. | Formatting Agent: {
+  ""main_cell_type"": ""fibroblasts"",
+  ""sub_cell_types"": [
+    ""Cancer-Associated Fibroblasts (CAFs)"",
+    ""Myofibroblasts"",
+    ""Pericytes""
+  ],
+  ""possible_mixed_cell_types"": [],
+  ""num_markers"": 50
+}",,
+cluster_2,Luminal Epithelial Cells,"Luminal Progenitor Cells, Mature Luminal Cells, Luminal Secretory Cells",,50,"SCGB2A2, SCGB1D2, MGP, TFF1, TFF3, GFRA1, AGR3, XBP1, AZGP1, TFAP2B, EVA1B, SRARP, HES1, KRT15, SCUBE2, AGR2, NFIA, CCNG2, SLC40A1, ESR1, GATA3, KIAA1324, BTG2, ANKRD30A, BHLHE40, EGR1, THSD4, FOXA1, MLPH, WFDC2, PIP, TRPS1, FOSB, RHOB, SLC39A6, PBX1, MUC1, TBC1D9, ZFP36, SH3BGRL, STC2, JUND, CRACR2B, AR, ELF3, SMIM22, SPDEF, TSPAN13, KRT18, ERBB3",1,gpt-4o-2024-08-06,openai,breast cancer,human,,"Final Annotation Agent: To annotate the cell type from the provided ranked marker list, we will follow the outlined steps:
+
+### Step 1: List the Key Functional Markers
+- **SCGB2A2 (Secretoglobin Family 2A Member 2)**: Known for its role in the immune response and is a marker for breast tissue.
+- **SCGB1D2 (Secretoglobin Family 1D Member 2)**: Similar to SCGB2A2, involved in immune modulation.
+- **MGP (Matrix Gla Protein)**: Involved in inhibiting vascular calcification.
+- **TFF1 and TFF3 (Trefoil Factor 1 and 3)**: Involved in mucosal protection and repair.
+- **GFRA1 (GDNF Family Receptor Alpha 1)**: Involved in neuronal development.
+- **XBP1 (X-Box Binding Protein 1)**: Plays a role in the unfolded protein response.
+- **AZGP1 (Alpha-2-Glycoprotein 1, Zinc-Binding)**: Involved in lipid metabolism.
+- **TFAP2B (Transcription Factor AP-2 Beta)**: Involved in transcriptional regulation.
+- **HES1 (Hes Family BHLH Transcription Factor 1)**: Involved in developmental processes.
+- **KRT15 (Keratin 15)**: Structural protein in epithelial cells.
+- **ESR1 (Estrogen Receptor 1)**: A key receptor in breast tissue, involved in hormone signaling.
+- **GATA3 (GATA Binding Protein 3)**: A transcription factor critical for luminal cell differentiation in breast tissue.
+- **FOXA1 (Forkhead Box A1)**: A transcription factor involved in hormone-responsive gene expression.
+- **MUC1 (Mucin 1)**: A glycoprotein involved in forming protective mucous barriers on epithelial surfaces.
+
+### Step 2: List the Key Cell Type Markers
+- **SCGB2A2, SCGB1D2, TFF1, TFF3, ESR1, GATA3, FOXA1, MUC1**: These markers are strongly associated with luminal epithelial cells in breast tissue.
+- **KRT15**: Often associated with basal epithelial cells but can also be expressed in certain luminal progenitor cells.
+- **AGR2, AGR3**: Associated with secretory epithelial cells, particularly in the breast.
+- **ERBB3 (Erb-B2 Receptor Tyrosine Kinase 3)**: Often expressed in luminal epithelial cells and involved in growth factor signaling.
+
+### Step 3: Cross-reference Known Databases
+Using databases such as the Human Protein Atlas, CellMarker, and literature on breast cancer scRNA-seq, the markers SCGB2A2, SCGB1D2, TFF1, TFF3, ESR1, GATA3, FOXA1, and MUC1 are consistently associated with luminal epithelial cells in breast tissue.
+
+### Step 4: Determine the Most Probable General Cell Type
+Based on the expression of these markers, the most probable general cell type is **Luminal Epithelial Cells**. These cells are characterized by the expression of hormone receptors and secretory proteins, which are crucial in breast tissue function and pathology.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+1. **Luminal Progenitor Cells**: Characterized by markers like KRT15 and high expression of luminal markers such as ESR1 and GATA3.
+2. **Mature Luminal Cells**: High expression of ESR1, GATA3, FOXA1, and MUC1, indicating fully differentiated luminal cells.
+3. **Luminal Secretory Cells**: Express markers like AGR2, AGR3, and SCGB2A2, indicating a secretory function.
+
+The most likely subtype based on the markers is **Mature Luminal Cells**, given the high expression of ESR1, GATA3, FOXA1, and MUC1, which are indicative of differentiated luminal epithelial cells in breast tissue.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+The analysis of the ranked marker list from the breast cancer tissue dataset suggests that the cell cluster is most likely composed of **Mature Luminal Epithelial Cells**. This conclusion is supported by the high expression of key luminal markers such as ESR1, GATA3, FOXA1, and MUC1, which are characteristic of differentiated luminal cells in the breast. These cells play a crucial role in hormone response and secretory functions within breast tissue.
+
+FINAL ANNOTATION COMPLETED | Coupling Validator: Validation result: VALIDATION PASSED
+
+The proposed annotation of the cell cluster as ""Mature Luminal Epithelial Cells"" is consistent with the provided marker list and the analysis steps outlined. Here's the breakdown:
+
+1. **Marker Consistency**: 
+   - The key markers used in the annotation (SCGB2A2, SCGB1D2, TFF1, TFF3, ESR1, GATA3, FOXA1, MUC1) are present in the provided marker list.
+   - These markers are well-known to be associated with luminal epithelial cells in breast tissue, supporting the annotation.
+
+2. **Mixed Cell Type Consideration**:
+   - The analysis considers potential subtypes within the luminal epithelial category, such as Luminal Progenitor Cells, Mature Luminal Cells, and Luminal Secretory Cells.
+   - The markers used strongly support the identification of Mature Luminal Cells, with no strong evidence of mixed cell types that would necessitate further investigation.
+
+Overall, the annotation is well-supported by the marker list and aligns with known biological roles of the markers in breast tissue. | Formatting Agent: {
+  ""main_cell_type"": ""Luminal Epithelial Cells"",
+  ""sub_cell_types"": [
+    ""Luminal Progenitor Cells"",
+    ""Mature Luminal Cells"",
+    ""Luminal Secretory Cells""
+  ],
+  ""possible_mixed_cell_types"": [],
+  ""num_markers"": 50
+}",,
+cluster_23,Epithelial Cells,"Luminal Epithelial Cells, Basal Epithelial Cells, Myoepithelial Cells",,50,"NPW, S100A7, TFF1, AREG, RAB11FIP1, FAM210B, CLIC3, MRPL15, CST6, TFF3, CALML5, TINCR, LYPLA1, KRT18, ERLIN2, CSTF1, RB1CC1, KRT8, TMEM150C, MGME1, KRT19, ESF1, TFAP2C, RTF2, SNRPB2, CXXC5, CLDN3, S100P, RRBP1, ZNF217, IFI27, EFHD1, STARD10, TCEA1, NSD3, PKP3, AGR2, MUC1, CRIP2, FASN, S100A14, DSTN, PBX1, SDC1, MLPH, ATP6V1H, SNX5, SLC25A1, PRPF6, PLPP5",1,gpt-4o-2024-08-06,openai,breast cancer,human,,"Final Annotation Agent: To annotate the cell type from the provided ranked marker list, I will follow the outlined steps:
+
+### Step 1: List the Key Functional Markers
+- **S100A7**: Known for its role in inflammation and immune response, often associated with epithelial cells.
+- **TFF1 and TFF3**: Trefoil factors involved in mucosal protection and repair, commonly expressed in epithelial tissues.
+- **AREG (Amphiregulin)**: A growth factor involved in epithelial cell proliferation.
+- **MUC1**: A mucin protein that plays a role in forming protective mucous barriers on epithelial surfaces.
+- **FASN (Fatty Acid Synthase)**: Involved in lipid biosynthesis, often upregulated in cancer cells.
+- **CLDN3 (Claudin 3)**: A component of tight junctions in epithelial cells, often overexpressed in cancer.
+- **S100P**: Involved in calcium binding and associated with epithelial cells and cancer progression.
+
+### Step 2: List the Key Cell Type Markers
+- **KRT18, KRT8, KRT19**: Keratins typically expressed in epithelial cells, particularly luminal epithelial cells.
+- **S100A7, S100P**: Markers often associated with epithelial cells and cancerous tissues.
+- **MUC1**: A marker for epithelial cells, particularly in glandular tissues like the breast.
+- **TFAP2C**: A transcription factor involved in the development and differentiation of epithelial cells, particularly in the mammary gland.
+
+### Step 3: Cross-reference Known Databases
+Using databases such as the Human Protein Atlas, CellMarker, and PanglaoDB, these markers are predominantly associated with epithelial cells, particularly those of the luminal subtype in breast tissue. The presence of keratins (KRT18, KRT8, KRT19) and MUC1 strongly suggests an epithelial origin, specifically luminal epithelial cells.
+
+### Step 4: Determine the Most Probable General Cell Type
+Based on the expression of these markers, the most likely general cell type is **epithelial cells**. The presence of keratins and MUC1, along with other epithelial markers, supports this conclusion.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+1. **Luminal Epithelial Cells**: The expression of KRT18, KRT8, KRT19, and MUC1 strongly indicates luminal epithelial cells, which are a major component of breast tissue.
+2. **Basal Epithelial Cells**: Although less likely due to the lack of specific basal markers, some overlap in keratin expression can occur.
+3. **Myoepithelial Cells**: Least likely due to the absence of specific myoepithelial markers like KRT14 or ACTA2.
+
+The most likely subtype based on the markers is **Luminal Epithelial Cells**.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+The ranked marker list from the breast cancer tissue dataset predominantly features markers associated with epithelial cells, particularly those of the luminal subtype. Key markers such as KRT18, KRT8, KRT19, and MUC1, along with functional markers like TFF1, TFF3, and AREG, support this annotation. Cross-referencing with known databases and literature further corroborates the identification of these cells as luminal epithelial cells, which are commonly found in breast tissue and are often implicated in breast cancer.
+
+**FINAL ANNOTATION COMPLETED** | Coupling Validator: Validation result: VALIDATION PASSED
+
+The proposed annotation result is consistent with the provided marker list and the identified cell type. Here's the breakdown:
+
+1. **Marker Consistency**: 
+   - The key functional markers and cell type markers listed in the annotation (S100A7, TFF1, TFF3, AREG, MUC1, FASN, CLDN3, S100P, KRT18, KRT8, KRT19, TFAP2C) are all present in the provided marker list.
+   - These markers are well-known to be associated with epithelial cells, particularly luminal epithelial cells, which aligns with the annotation.
+
+2. **Mixed Cell Type Consideration**:
+   - The annotation primarily supports a single cell type, luminal epithelial cells, with strong evidence from multiple high-ranking markers.
+   - There is no strong indication of mixed cell types based on the provided markers, as the markers predominantly point towards epithelial characteristics.
+
+The annotation is well-supported by the marker list and the analysis provided, indicating that the identified cell type is indeed luminal epithelial cells. | Formatting Agent: {
+  ""main_cell_type"": ""Epithelial Cells"",
+  ""sub_cell_types"": [
+    ""Luminal Epithelial Cells"",
+    ""Basal Epithelial Cells"",
+    ""Myoepithelial Cells""
+  ],
+  ""possible_mixed_cell_types"": [],
+  ""num_markers"": 50
+}",,
+cluster_20,Epithelial Cells,"Luminal Epithelial Cells, Secretory Epithelial Cells, Basal Epithelial Cells",,50,"KCNK15, TMEM64, IFI27, C20orf204, AGR2, CRIP1, KRT18, CST6, HIST1H2BD, CAPS, IFI6, KRT8, IFITM1, HSPB1, ISG15, KRT19, SLC39A6, GSTM3, PARD6B, BCAS4, STARD10, MRPS30-DT, HIST1H1C, CRACR2B, LSM1, H2AFJ, BST2, PPDPF, COX6C, IFITM3, PSMA7, C19orf70, ROMO1, ADRM1, CLDN3, ADIRF, COX6A1, TFF3, MIF, NDUFA13, ERGIC3, AGR3, SMIM22, TMEM205, MDK, TSPAN13, DCXR, LAMTOR5, PAFAH1B3, ATP5F1E",1,gpt-4o-2024-08-06,openai,breast cancer,human,,"Final Annotation Agent: To annotate the cell type based on the provided ranked marker list from a single-cell human dataset derived from breast cancer tissue, we will follow the outlined steps:
+
+### Step 1: List the Key Functional Markers
+- **KCNK15**: A potassium channel involved in maintaining the resting membrane potential.
+- **IFI27, IFI6, ISG15**: Interferon-induced proteins, often associated with immune response and antiviral activities.
+- **HSPB1**: A heat shock protein involved in stress response and protein folding.
+- **GSTM3**: A glutathione S-transferase involved in detoxification processes.
+- **COX6C, COX6A1, NDUFA13, ATP5F1E**: Components of the mitochondrial electron transport chain, indicating active cellular metabolism.
+- **MIF**: Macrophage migration inhibitory factor, involved in immune response regulation.
+
+### Step 2: List the Key Cell Type Markers
+- **KRT18, KRT8, KRT19**: Keratins typically expressed in epithelial cells, particularly luminal epithelial cells in breast tissue.
+- **AGR2, AGR3**: Associated with secretory epithelial cells, often found in breast tissue.
+- **CST6**: Cystatin E/M, a marker for epithelial cells, particularly in breast tissue.
+- **CLDN3**: Claudin 3, a tight junction protein, often found in epithelial cells.
+- **TFF3**: Trefoil factor 3, associated with mucosal protection and repair, often expressed in epithelial cells.
+- **TMEM64, TMEM205**: Transmembrane proteins, often associated with epithelial cells.
+
+### Step 3: Cross-reference Known Databases
+Using databases such as the Human Protein Atlas, CellMarker, and PanglaoDB, we can cross-reference these markers:
+- **KRT18, KRT8, KRT19**: Strongly associated with luminal epithelial cells in breast tissue.
+- **AGR2, AGR3, TFF3**: Commonly expressed in secretory epithelial cells.
+- **CLDN3**: Frequently found in epithelial cells, particularly in breast tissue.
+
+### Step 4: Determine the Most Probable General Cell Type
+Based on the expression of keratins (KRT18, KRT8, KRT19) and other epithelial markers (AGR2, AGR3, CLDN3, TFF3), the most probable general cell type is **epithelial cells**, specifically luminal epithelial cells, which are common in breast tissue.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+1. **Luminal Epithelial Cells**: The presence of KRT18, KRT8, KRT19, AGR2, and AGR3 strongly suggests luminal epithelial cells, which are a major component of breast tissue.
+2. **Secretory Epithelial Cells**: The expression of TFF3 and AGR2/AGR3 indicates a secretory function, aligning with secretory epithelial cells.
+3. **Basal Epithelial Cells**: Although less likely due to the lack of specific basal markers, the presence of general epithelial markers could suggest a basal epithelial subtype.
+
+**Most Likely Subtype**: **Luminal Epithelial Cells** are the most likely subtype due to the strong expression of luminal markers such as KRT18, KRT8, and KRT19.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+The analysis of the ranked marker list from the breast cancer tissue dataset indicates that the cell cluster is most likely composed of epithelial cells, specifically luminal epithelial cells. This conclusion is supported by the high expression of keratins (KRT18, KRT8, KRT19) and other markers associated with luminal and secretory epithelial functions (AGR2, AGR3, TFF3). These findings are consistent with known profiles of breast tissue cell types.
+
+**FINAL ANNOTATION COMPLETED** | Coupling Validator: Validation result: VALIDATION PASSED
+
+The proposed annotation result is consistent with the provided marker list and the identified cell type. Here's the breakdown:
+
+1. **Marker Consistency**: 
+   - The key functional markers and cell type markers listed in the annotation are present in the provided marker list. 
+   - The markers KRT18, KRT8, KRT19, AGR2, AGR3, CLDN3, and TFF3 are all associated with epithelial cells, particularly luminal epithelial cells, which aligns with the annotation.
+
+2. **Mixed Cell Type Consideration**:
+   - The annotation primarily supports luminal epithelial cells, with a secondary consideration for secretory epithelial cells. 
+   - There is no strong evidence of mixed cell types that would necessitate further investigation. The markers strongly point towards epithelial cell types, specifically luminal epithelial cells, which are common in breast tissue.
+
+The annotation is well-supported by the marker list and cross-referenced databases, leading to a coherent and plausible identification of the cell type as luminal epithelial cells. | Formatting Agent: {
+  ""main_cell_type"": ""Epithelial Cells"",
+  ""sub_cell_types"": [
+    ""Luminal Epithelial Cells"",
+    ""Secretory Epithelial Cells"",
+    ""Basal Epithelial Cells""
+  ],
+  ""possible_mixed_cell_types"": [],
+  ""num_markers"": 50
+}",,
+cluster_22,epithelial cells,"luminal epithelial cells, basal epithelial cells, cancer-associated epithelial cells",,50,"CRISP3, TUBA3D, CXCL13, EEF1A2, TMEM238, METRN, S100P, CCDC74A, CLIC6, GJA1, STARD10, UGDH, PREX1, MT-ATP8, SCD, DLG5, SIAH2, SNHG9, DEGS2, ADIRF, CRIP2, MT-ND3, ELOVL5, FASN, NQO1, TRPS1, MT1G, SLC40A1, SMIM22, CHPT1, RUNX1, PLA2G16, PRSS23, KRT19, MT-CO2, H2AFJ, S100A14, RPL18, CRIP1, CIB1, JUND, MT-CYB, NDUFC2, PRDX1, NUPR1, RPS21, BST2, MT-ND4L, HSPA1A, GNAS",1,gpt-4o-2024-08-06,openai,breast cancer,human,,"Final Annotation Agent: To annotate the cell type from the provided ranked marker list, we will follow the outlined steps:
+
+### Step 1: List the Key Functional Markers
+- **CRISP3**: Known to be involved in immune response and is often associated with prostate and breast tissues.
+- **CXCL13**: A chemokine involved in B-cell homing and lymphoid tissue organization.
+- **EEF1A2**: An elongation factor involved in protein synthesis, often overexpressed in certain cancers.
+- **S100P**: A member of the S100 family of proteins, often associated with cancer progression and metastasis.
+- **FASN**: Fatty acid synthase, involved in lipid biosynthesis, often upregulated in cancer cells.
+- **NQO1**: An enzyme involved in detoxification and protection against oxidative stress, often upregulated in cancer.
+- **TRPS1**: A transcription factor involved in development and differentiation, often implicated in breast cancer.
+
+### Step 2: List the Key Cell Type Markers
+- **KRT19**: Keratin 19, a marker for epithelial cells, often used in identifying carcinoma cells, particularly in breast cancer.
+- **GJA1**: Connexin 43, involved in cell communication, often expressed in epithelial and some cancer cells.
+- **S100A14**: Another member of the S100 family, associated with epithelial cells and cancer.
+- **BST2**: Also known as tetherin, involved in immune response, often expressed in epithelial cells.
+- **HSPA1A**: Heat shock protein, often upregulated in stress conditions, including cancer.
+
+### Step 3: Cross-reference Known Databases
+Using databases such as the Human Protein Atlas, CellMarker, and literature on breast cancer scRNA-seq, we can cross-reference these markers:
+- **KRT19** and **S100P** are strongly associated with epithelial cells, particularly luminal epithelial cells in breast tissue.
+- **CXCL13** and **CRISP3** are often found in immune cells but can also be expressed in epithelial cells in the context of cancer.
+- **FASN** and **NQO1** are commonly upregulated in cancerous epithelial cells.
+
+### Step 4: Determine the Most Probable General Cell Type
+Based on the expression of markers like **KRT19**, **S100P**, **FASN**, and **NQO1**, the most probable general cell type is **epithelial cells**, specifically those associated with breast tissue.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+1. **Luminal Epithelial Cells**: High expression of **KRT19**, **S100P**, and **FASN** suggests luminal epithelial cells, which are common in breast tissue and often implicated in breast cancer.
+2. **Basal Epithelial Cells**: While less likely, some markers like **GJA1** and **S100A14** can also be expressed in basal epithelial cells.
+3. **Cancer-associated Epithelial Cells**: Given the context of breast cancer tissue, these markers could also represent a cancerous subtype of epithelial cells.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+The analysis of the ranked marker list from the breast cancer tissue dataset suggests that the cell cluster is most likely composed of epithelial cells, with a strong indication towards luminal epithelial cells. This is supported by the high expression of markers such as **KRT19**, **S100P**, and **FASN**, which are characteristic of luminal epithelial cells in breast tissue. The presence of cancer-associated markers like **NQO1** and **TRPS1** further supports the identification of these cells as potentially cancerous epithelial cells.
+
+**FINAL ANNOTATION COMPLETED** | Coupling Validator: Validation result: VALIDATION PASSED
+
+The proposed annotation result is consistent with the provided marker list and the identified cell type. Here's the breakdown:
+
+1. **Marker Consistency**: 
+   - All the key functional and cell type markers mentioned in the annotation result are present in the provided marker list. 
+   - The markers such as **KRT19**, **S100P**, **FASN**, and **NQO1** are indeed associated with epithelial cells, particularly in the context of breast tissue and cancer, which aligns with the annotation of luminal epithelial cells.
+
+2. **Mixed Cell Type Consideration**:
+   - The annotation acknowledges the potential presence of basal epithelial cells and cancer-associated epithelial cells, which is appropriate given the expression of markers like **GJA1** and **S100A14**. However, the primary focus remains on luminal epithelial cells, which is well-supported by the high-ranking markers.
+
+The annotation is well-supported by the marker list and the context provided, and the potential for mixed cell types has been appropriately considered. Therefore, the validation passes without the need for further revision. | Formatting Agent: {
+  ""main_cell_type"": ""epithelial cells"",
+  ""sub_cell_types"": [
+    ""luminal epithelial cells"",
+    ""basal epithelial cells"",
+    ""cancer-associated epithelial cells""
+  ],
+  ""possible_mixed_cell_types"": [],
+  ""num_markers"": 50
+}",,
+cluster_26,myoepithelial cells,"myoepithelial cells, basal epithelial cells, luminal epithelial cells",,50,"PCP4, HRCT1, ACTG2, SCRG1, KRT81, TAGLN, KRT17, AARD, PCSK1N, MYLK, KRT16, MIA, GABRP, DSG3, CTGF, DSC2, TPM2, FBXO32, MYL9, FBLN2, SYNM, ACTA2, KRT23, PFN2, PLOD1, CRYAB, ITM2C, CD24, S100A1, TUSC3, SDC2, S100P, RBP7, HIST1H2AC, CALML5, LAPTM4B, NDRG1, MDK, MFAP2, IMPA2, CDKN2A, S100A6, LY6E, NFIB, SERPINH1, MAL2, STMN1, RCN1, GSTP1, NDUFB9",1,gpt-4o-2024-08-06,openai,breast cancer,human,,"Final Annotation Agent: To annotate the cell type from the provided ranked marker list, we will follow the outlined steps:
+
+### Step 1: List the Key Functional Markers
+- **ACTG2 (Actin Gamma 2)**: Involved in smooth muscle contraction.
+- **TAGLN (Transgelin)**: Associated with actin-binding and smooth muscle differentiation.
+- **MYLK (Myosin Light Chain Kinase)**: Plays a role in muscle contraction.
+- **ACTA2 (Actin Alpha 2, Smooth Muscle)**: A marker for smooth muscle cells.
+- **MYL9 (Myosin Light Chain 9)**: Involved in muscle contraction.
+- **TPM2 (Tropomyosin 2)**: Involved in muscle contraction.
+- **SYNM (Synemin)**: Intermediate filament protein associated with muscle cells.
+- **CTGF (Connective Tissue Growth Factor)**: Involved in cell adhesion and migration, often associated with fibroblasts and myofibroblasts.
+
+### Step 2: List the Key Cell Type Markers
+- **KRT81, KRT17, KRT16, KRT23**: Keratins are structural proteins in epithelial cells, often associated with skin and hair follicle cells.
+- **DSG3 (Desmoglein 3), DSC2 (Desmocollin 2)**: Components of desmosomes, important for cell-cell adhesion in epithelial tissues.
+- **GABRP (Gamma-Aminobutyric Acid Type A Receptor Pi Subunit)**: Expressed in various tissues, including the brain and some epithelial cells.
+- **CD24**: A marker often found on epithelial cells and some cancer stem cells.
+- **S100A1, S100A6, S100P**: Calcium-binding proteins, often found in epithelial cells and involved in cell cycle progression and differentiation.
+- **CRYAB (Alpha-Crystallin B Chain)**: A small heat shock protein, often expressed in muscle and epithelial cells.
+- **LY6E**: Expressed in various cell types, including epithelial cells and immune cells.
+
+### Step 3: Cross-reference Known Databases
+Using databases such as the Human Protein Atlas, CellMarker, and literature on breast cancer tissue, we can cross-reference these markers:
+- **Smooth Muscle Markers**: ACTG2, TAGLN, MYLK, ACTA2, MYL9, TPM2, SYNM suggest a smooth muscle or myoepithelial origin.
+- **Epithelial Markers**: KRT81, KRT17, KRT16, KRT23, DSG3, DSC2, CD24, S100 proteins suggest an epithelial origin, possibly basal or luminal epithelial cells.
+
+### Step 4: Determine the Most Probable General Cell Type
+Given the strong presence of both smooth muscle and epithelial markers, the most probable general cell type is **myoepithelial cells**. These cells are known to express both smooth muscle and epithelial markers and are found in breast tissue.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+1. **Myoepithelial Cells**: Given the combination of smooth muscle and epithelial markers, myoepithelial cells are the most likely subtype.
+2. **Basal Epithelial Cells**: The presence of keratins and desmosomal proteins suggests a basal epithelial phenotype.
+3. **Luminal Epithelial Cells**: Although less likely due to the strong smooth muscle signature, some markers could also be expressed in luminal epithelial cells.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+The analysis of the ranked marker list from the breast cancer tissue dataset suggests that the cell cluster is most likely composed of **myoepithelial cells**. This conclusion is based on the expression of both smooth muscle markers (e.g., ACTG2, ACTA2, MYLK) and epithelial markers (e.g., KRT17, DSG3, CD24). Myoepithelial cells are known to exhibit characteristics of both cell types and are integral to the structure of breast tissue.
+
+**FINAL ANNOTATION COMPLETED** | Coupling Validator: Validation result: VALIDATION PASSED
+
+The proposed annotation result is consistent with the provided marker list and the identified cell type. Here's the breakdown:
+
+1. **Marker Consistency**:
+   - The markers used in the annotation (e.g., ACTG2, TAGLN, MYLK, ACTA2, MYL9, TPM2, SYNM, KRT81, KRT17, KRT16, KRT23, DSG3, DSC2, CD24, S100 proteins, CRYAB, LY6E) are present in the provided marker list.
+   - The markers are consistent with the identified cell type of myoepithelial cells, which are known to express both smooth muscle and epithelial markers.
+
+2. **Mixed Cell Type Consideration**:
+   - The analysis correctly identifies the potential for mixed cell types, given the presence of both smooth muscle and epithelial markers.
+   - The annotation appropriately concludes that myoepithelial cells are the most likely cell type, as they naturally express markers from both categories.
+
+The annotation process has been thorough, considering both the marker list and known biological characteristics of the cell types involved. The conclusion that the cell cluster is most likely composed of myoepithelial cells is well-supported by the data. | Formatting Agent: {
+  ""main_cell_type"": ""myoepithelial cells"",
+  ""sub_cell_types"": [
+    ""myoepithelial cells"",
+    ""basal epithelial cells"",
+    ""luminal epithelial cells""
+  ],
+  ""possible_mixed_cell_types"": [],
+  ""num_markers"": 50
+}",,
+cluster_32,HER2-positive breast cancer cells,"HER2-Positive Luminal Breast Cancer Cells, HER2-Positive Basal-Like Breast Cancer Cells, HER2-Enriched Breast Cancer Cells",,50,"TBC1D30, RASSF3, EFS, ERBB2, GRB7, GNS, ORMDL3, MSL1, MDM2, CAND1, CASC3, PSMB5, SLC35E3, PSMD3, AC093001.1, MED24, CCT2, MED1, RXYLT1, RGS16, FRS2, MGLL, MRPL52, KCNJ3, ZBTB10, TFAP2B, LRRC59, CDK12, APOD, LRP10, LRRC26, HSPB1, STARD3, RPL19, SQLE, RAP1B, MRPL27, MIEN1, SLC25A1, COMT, SLC35B1, ACIN1, UQCR10, DAD1, CALM3, OXA1L, TPD52, HES1, SLC9A3R1, EIF4EBP1",1,gpt-4o-2024-08-06,openai,breast cancer,human,,"Final Annotation Agent: To annotate the cell type based on the provided ranked marker list from a single-cell human dataset derived from breast cancer tissue, we will follow the outlined steps:
+
+### Step 1: List the Key Functional Markers
+- **ERBB2 (HER2)**: A member of the epidermal growth factor receptor (EGFR) family, often overexpressed in certain breast cancer subtypes, particularly HER2-positive breast cancer.
+- **GRB7**: An adaptor protein that interacts with receptor tyrosine kinases like ERBB2, involved in signal transduction pathways that promote cell proliferation and survival.
+- **MDM2**: An E3 ubiquitin-protein ligase that negatively regulates the p53 tumor suppressor, often implicated in cancer cell survival.
+- **HSPB1 (HSP27)**: A heat shock protein involved in stress response, often associated with cancer cell resistance to apoptosis.
+- **SQLE (Squalene epoxidase)**: An enzyme involved in cholesterol biosynthesis, often upregulated in cancer cells to support rapid cell growth.
+- **RAP1B**: A small GTPase involved in cell adhesion and migration, processes critical for cancer metastasis.
+- **HES1**: A transcriptional repressor involved in the Notch signaling pathway, which can influence cell differentiation and proliferation.
+
+### Step 2: List the Key Cell Type Markers
+- **ERBB2 (HER2)**: Strongly associated with HER2-positive breast cancer cells.
+- **GRB7**: Often co-amplified with ERBB2 in breast cancer, indicating a HER2-positive phenotype.
+- **TFAP2B**: A transcription factor that can be involved in the regulation of genes associated with breast epithelial cells.
+- **APOD (Apolipoprotein D)**: Expressed in various tissues, including breast tissue, and can be involved in lipid metabolism.
+- **STARD3**: A cholesterol transporter often co-amplified with ERBB2 in breast cancer.
+
+### Step 3: Cross-reference Known Databases
+Using databases such as the Human Protein Atlas, CellMarker, and literature on breast cancer, we can confirm that markers like ERBB2, GRB7, and STARD3 are indicative of HER2-positive breast cancer cells. These markers are frequently used in clinical settings to identify and target HER2-positive tumors.
+
+### Step 4: Determine the Most Probable General Cell Type
+Based on the expression of ERBB2, GRB7, and other associated markers, the most probable general cell type is **HER2-positive breast cancer cells**.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+1. **HER2-Positive Luminal Breast Cancer Cells**: Characterized by the overexpression of ERBB2 and luminal markers, often responsive to targeted therapies like trastuzumab.
+2. **HER2-Positive Basal-Like Breast Cancer Cells**: These may express basal markers alongside ERBB2, representing a more aggressive subtype.
+3. **HER2-Enriched Breast Cancer Cells**: A distinct subtype within the HER2-positive category, characterized by high ERBB2 expression and specific gene expression profiles.
+
+The most likely subtype based on the markers is **HER2-Positive Luminal Breast Cancer Cells**, given the presence of ERBB2 and associated luminal markers like TFAP2B.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+The analysis of the ranked marker list from the breast cancer tissue dataset suggests that the cell cluster is most likely composed of HER2-positive breast cancer cells. The expression of key markers such as ERBB2, GRB7, and STARD3 strongly indicates a HER2-positive phenotype. Among the potential subtypes, HER2-positive luminal breast cancer cells are the most probable, given the presence of luminal-associated markers.
+
+**FINAL ANNOTATION COMPLETED** | Coupling Validator: Validation result: VALIDATION PASSED
+
+The proposed annotation result is consistent with the provided marker list and the identified cell type. Here's the breakdown:
+
+1. **Marker Consistency**:
+   - The key functional markers and cell type markers listed in the annotation (ERBB2, GRB7, MDM2, HSPB1, SQLE, RAP1B, HES1, TFAP2B, APOD, STARD3) are all present in the provided marker list.
+   - The markers ERBB2, GRB7, and STARD3 are well-known indicators of HER2-positive breast cancer, which aligns with the annotation of HER2-positive breast cancer cells.
+
+2. **Mixed Cell Type Consideration**:
+   - The annotation does not suggest the presence of multiple distinct cell types strongly supported by several high-ranking markers. The markers provided are consistent with a single cell type, specifically HER2-positive breast cancer cells.
+   - The subtypes identified (HER2-Positive Luminal, HER2-Positive Basal-Like, and HER2-Enriched) are variations within the HER2-positive category and do not indicate a mixed cell population.
+
+The annotation is well-supported by the marker list and the known characteristics of HER2-positive breast cancer cells. Therefore, the validation is passed. | Formatting Agent: {
+  ""main_cell_type"": ""HER2-positive breast cancer cells"",
+  ""sub_cell_types"": [
+    ""HER2-Positive Luminal Breast Cancer Cells"",
+    ""HER2-Positive Basal-Like Breast Cancer Cells"",
+    ""HER2-Enriched Breast Cancer Cells""
+  ],
+  ""possible_mixed_cell_types"": [],
+  ""num_markers"": 50
+}",,
+cluster_33,luminal epithelial cells,"Luminal A Epithelial Cells, Luminal B Epithelial Cells, Normal Luminal Epithelial Cells",,50,"CRIP1, PIP, MUCL1, SCGB2A2, AZGP1, AC093001.1, IGFBP5, HIST1H1C, PCLAF, MIF, CRIP2, RPL36A, AGR3, SMIM22, MGP, ECHS1, HSPB1, CYB5A, NME4, PCBD1, KRT18, POLR2L, BANF1, UQCRQ, RPL31, ATP5IF1, H2AFJ, NDUFC2, COX8A, RPS26, LGALS1, MZT2B, RPS17, DRAP1, RPL13A, H2AFZ, GGCT, LY6E, LSM4, RPLP0, CLDN4, RPS10, ATP5MF, HSPA1B, RPS2, RPL27A, NDUFB1, MT-CO1, NDUFA13, AP2S1",1,gpt-4o-2024-08-06,openai,breast cancer,human,,"Final Annotation Agent: To annotate the cell type from the provided ranked marker list, I will follow the outlined steps to ensure a comprehensive analysis.
+
+### Step 1: List the Key Functional Markers
+- **CRIP1, CRIP2**: Cysteine-rich proteins involved in cellular processes like apoptosis and immune response.
+- **IGFBP5**: Insulin-like growth factor binding protein, involved in cell growth and survival.
+- **HSPB1**: Heat shock protein, involved in stress response and protein folding.
+- **MIF**: Macrophage migration inhibitory factor, involved in immune response and inflammation.
+- **NME4**: Nucleoside diphosphate kinase, involved in cellular energy homeostasis.
+- **CYB5A**: Cytochrome b5 type A, involved in electron transport and fatty acid desaturation.
+- **PCBD1**: Pterin-4 alpha-carbinolamine dehydratase, involved in tetrahydrobiopterin metabolism.
+- **KRT18**: Keratin 18, a type I intermediate filament protein, important for structural integrity in epithelial cells.
+- **CLDN4**: Claudin 4, involved in tight junction formation in epithelial cells.
+
+### Step 2: List the Key Cell Type Markers
+- **PIP (Prolactin Induced Protein)**: Highly expressed in breast tissue, particularly in luminal epithelial cells.
+- **MUCL1 (Mucin-like 1)**: Associated with breast tissue, often expressed in luminal epithelial cells.
+- **SCGB2A2 (Secretoglobin Family 2A Member 2, also known as Mammaglobin A)**: A well-known marker for breast epithelial cells, particularly luminal cells.
+- **AZGP1 (Alpha-2-glycoprotein 1, zinc-binding)**: Expressed in epithelial cells, including those in the breast.
+- **AGR3 (Anterior Gradient 3)**: Associated with secretory epithelial cells, including those in the breast.
+- **KRT18**: As mentioned, a marker for epithelial cells, including luminal epithelial cells in the breast.
+
+### Step 3: Cross-reference Known Databases
+Using databases such as the Human Protein Atlas and literature on breast cancer scRNA-seq datasets, the markers PIP, MUCL1, SCGB2A2, and AZGP1 are strongly associated with luminal epithelial cells in breast tissue. These markers are often used to identify luminal subtypes in breast cancer studies.
+
+### Step 4: Determine the Most Probable General Cell Type
+Based on the expression of markers like PIP, MUCL1, SCGB2A2, AZGP1, and KRT18, the most probable general cell type is **luminal epithelial cells**. These markers are characteristic of cells lining the ducts and lobules in the breast, which are often involved in breast cancer.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+1. **Luminal A Epithelial Cells**: Characterized by high expression of hormone receptors and low proliferation markers. The presence of SCGB2A2 and PIP supports this subtype.
+2. **Luminal B Epithelial Cells**: Similar to Luminal A but with higher proliferation markers. The presence of proliferation-related genes like PCLAF and HIST1H1C suggests this possibility.
+3. **Normal Luminal Epithelial Cells**: Non-cancerous luminal cells, which can also express these markers but typically lack high proliferation markers.
+
+**Most Likely Subtype**: Based on the expression of SCGB2A2, PIP, and the presence of proliferation markers, the most likely subtype is **Luminal B Epithelial Cells**.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+The analysis of the ranked marker list from the breast cancer tissue dataset suggests that the cell cluster is most likely composed of luminal epithelial cells. The expression of key markers such as PIP, MUCL1, SCGB2A2, and AZGP1, along with proliferation markers, indicates that the most probable subtype is Luminal B Epithelial Cells. This subtype is characterized by higher proliferation rates compared to Luminal A, which aligns with the presence of proliferation-related genes in the marker list.
+
+FINAL ANNOTATION COMPLETED | Coupling Validator: Validation result: VALIDATION PASSED
+
+The proposed annotation result for the cell cluster as Luminal B Epithelial Cells is consistent with the provided marker list and the analysis steps outlined. Here's the breakdown:
+
+1. **Marker Consistency**:
+   - The key markers used for identifying luminal epithelial cells (PIP, MUCL1, SCGB2A2, AZGP1, KRT18) are present in the provided marker list.
+   - The additional markers mentioned, such as proliferation-related genes (HIST1H1C, PCLAF), support the identification of Luminal B Epithelial Cells, which are known for higher proliferation rates compared to Luminal A.
+
+2. **Mixed Cell Type Consideration**:
+   - The analysis does not strongly suggest the presence of multiple distinct cell types within the cluster. The markers predominantly support the identification of luminal epithelial cells, specifically the Luminal B subtype.
+   - There is no indication of conflicting high-ranking markers that would suggest a mixed cell population requiring further investigation.
+
+Overall, the annotation aligns well with the marker list and the known characteristics of Luminal B Epithelial Cells, making the validation successful. | Formatting Agent: {
+  ""main_cell_type"": ""luminal epithelial cells"",
+  ""sub_cell_types"": [
+    ""Luminal A Epithelial Cells"",
+    ""Luminal B Epithelial Cells"",
+    ""Normal Luminal Epithelial Cells""
+  ],
+  ""possible_mixed_cell_types"": [],
+  ""num_markers"": 50
+}",,
+cluster_37,B cells,"Naive B Cells, Memory B Cells, Plasma Cells",,50,"MS4A1, VPREB3, CD79A, TNFRSF13C, CD19, BANK1, CD79B, CD22, LRMP, POU2F2, POU2AF1, IGHM, HLA-DRA, CD52, IRF8, IGKC, RIPOR2, LTB, CD37, MEF2C, HLA-DPA1, HLA-DPB1, CORO1A, SP140, CD74, HLA-DQA1, PRKCB, CD53, HLA-DQB1, HLA-DRB1, LIMD2, SEPT6, NCF1, LAPTM5, IGLC2, CD48, IKZF3, RAC2, CD69, HLA-DMB, PTPRC, LCP1, EVI2B, BASP1, CXCR4, RHOH, RCSD1, ACAP1, IKZF1, SMAP2",1,gpt-4o-2024-08-06,openai,breast cancer,human,,"Final Annotation Agent: To annotate the cell type based on the provided ranked marker list from a single-cell RNA sequencing dataset of breast cancer tissue, we will follow the outlined steps:
+
+### Step 1: List the Key Functional Markers
+- **MS4A1 (CD20)**: A well-known marker for B cells, involved in B cell activation and proliferation.
+- **CD79A and CD79B**: Components of the B cell receptor (BCR) complex, crucial for B cell development and signaling.
+- **IGKC, IGHM, IGLC2**: Immunoglobulin components, indicating antibody production, characteristic of B cells.
+- **HLA-DRA, HLA-DPA1, HLA-DPB1, HLA-DQA1, HLA-DQB1, HLA-DRB1**: Major histocompatibility complex (MHC) class II molecules, important for antigen presentation, typically expressed in antigen-presenting cells, including B cells.
+- **IRF8**: A transcription factor involved in the development and function of immune cells, including B cells.
+- **POU2F2 (OCT2) and POU2AF1 (BOB1)**: Transcription factors involved in B cell differentiation and function.
+- **CD19, CD22, CD37, CD53, CD74**: Surface markers associated with B cells, involved in various signaling pathways.
+- **TNFRSF13C (BAFF-R)**: A receptor involved in B cell survival and maturation.
+- **CXCR4**: A chemokine receptor involved in cell migration and homing, expressed in various immune cells, including B cells.
+
+### Step 2: List the Key Cell Type Markers
+- **MS4A1 (CD20), CD19, CD79A, CD79B, CD22**: Classic markers for B cells.
+- **VPREB3, BANK1, LRMP, POU2F2, POU2AF1**: Associated with B cell development and function.
+- **IGKC, IGHM, IGLC2**: Indicative of immunoglobulin production, a hallmark of B cells.
+- **HLA-DRA, HLA-DPA1, HLA-DPB1, HLA-DQA1, HLA-DQB1, HLA-DRB1**: MHC class II molecules, often expressed in B cells.
+
+### Step 3: Cross-reference Known Databases
+Using databases such as CellMarker, PanglaoDB, and the Human Protein Atlas, these markers are predominantly associated with B cells. The presence of immunoglobulin components and BCR complex proteins strongly supports this annotation.
+
+### Step 4: Determine the Most Probable General Cell Type
+Based on the expression of these markers, the most likely general cell type is **B cells**. The presence of B cell-specific markers such as MS4A1, CD19, CD79A, and immunoglobulin components strongly indicates this.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+1. **Naive B Cells**: Characterized by the expression of CD19, CD20 (MS4A1), and other BCR components without high levels of class-switched immunoglobulins.
+2. **Memory B Cells**: May express similar markers but with a higher expression of MHC class II molecules and possibly some class-switched immunoglobulins.
+3. **Plasma Cells**: Although less likely due to the lack of high expression of plasma cell-specific markers like CD138, the presence of immunoglobulin components suggests some level of differentiation.
+
+The most likely subtype based on the markers is **Naive B Cells**, given the strong expression of early B cell markers and the absence of high levels of class-switched immunoglobulins or plasma cell-specific markers.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+The cluster of cells from the breast cancer tissue dataset is most likely composed of B cells, specifically naive B cells. This conclusion is based on the high expression of B cell-specific markers such as MS4A1, CD19, CD79A, and immunoglobulin components, along with MHC class II molecules. The lack of markers specific to more differentiated B cell subtypes like plasma cells supports this annotation.
+
+**FINAL ANNOTATION COMPLETED** | Coupling Validator: Validation result: VALIDATION PASSED
+
+The proposed annotation result is consistent with the provided marker list and the identified cell type. Here's the breakdown:
+
+1. **Marker Consistency**: 
+   - The markers used in the annotation (e.g., MS4A1, CD19, CD79A, CD79B, CD22, IGKC, IGHM, IGLC2, HLA-DRA, HLA-DPA1, HLA-DPB1, HLA-DQA1, HLA-DQB1, HLA-DRB1, POU2F2, POU2AF1, TNFRSF13C, CXCR4) are present in the provided marker list.
+   - These markers are well-known to be associated with B cells, particularly naive B cells, as they include classic B cell markers and components of the B cell receptor complex.
+
+2. **Mixed Cell Type Consideration**:
+   - The annotation does not suggest the presence of mixed cell types. The markers strongly support a B cell identity, specifically naive B cells, without significant evidence for other distinct cell types.
+   - The analysis correctly identifies the potential for memory B cells and plasma cells but concludes that naive B cells are the most likely subtype based on the marker expression profile.
+
+The annotation is well-supported by the marker list and the known functions of these markers in B cell biology. The conclusion that the cell cluster is composed of naive B cells is appropriate given the data. | Formatting Agent: {
+  ""main_cell_type"": ""B cells"",
+  ""sub_cell_types"": [
+    ""Naive B Cells"",
+    ""Memory B Cells"",
+    ""Plasma Cells""
+  ],
+  ""possible_mixed_cell_types"": [],
+  ""num_markers"": 50
+}",,
+cluster_40,Breast Cancer Cell,"Breast Cancer Stem Cells, Luminal Breast Cancer Cells, Basal-like Breast Cancer Cells",,50,"TCEB2, SHFM1, C11orf31, ATP5L, USMG5, ATP5J2, TCEB1, ATP5E, SELM, ATP5C1, ATP5J, GNB2L1, SEPW1, WBP5, C14orf2, LINC00998, FAM127B, ATP5G3, APOA1BP, NGFRAP1, ATP5I, TMEM261, ATP5O, HN1, C7orf73, ATP5G2, C11orf73, MYEOV2, C16orf13, LINC00493, GBAS, ATP5A1, C19orf43, ATPIF1, ATP5F1, VIMP, ATP5H, AC090498.1, C14orf166, ATP5G1, FAM60A, SELK, SELT, WBSCR22, ATP5B, SEP15, STRA13, HBA2, C20orf24, FAM195B",1,gpt-4o-2024-08-06,openai,breast cancer,human,,"Final Annotation Agent: To annotate the cell type based on the provided ranked marker list from a single-cell RNA sequencing dataset of breast cancer tissue, we will follow the outlined steps:
+
+### Step 1: List the Key Functional Markers
+The list contains several genes associated with mitochondrial function and oxidative phosphorylation, which are crucial for energy production in cells. These include:
+
+- **ATP5L, ATP5J2, ATP5E, ATP5C1, ATP5J, ATP5G3, ATP5I, ATP5O, ATP5G2, ATP5A1, ATP5F1, ATP5H, ATP5B**: These genes encode subunits of ATP synthase, a key enzyme in the mitochondrial electron transport chain responsible for ATP production.
+- **USMG5, ATPIF1**: Involved in the regulation of ATP synthase activity.
+- **APOA1BP**: Associated with lipid metabolism and mitochondrial function.
+- **GNB2L1 (RACK1)**: Involved in various signaling pathways, including those related to cell growth and survival.
+
+### Step 2: List the Key Cell Type Markers
+The list includes markers that are more specific to certain cell types:
+
+- **NGFRAP1**: Often associated with nerve growth factor receptor pathways, potentially indicating neural or neuroendocrine features.
+- **HN1**: Known to be involved in cell proliferation and differentiation, often expressed in various cancer types.
+- **HBA2**: Hemoglobin subunit alpha, typically associated with erythroid lineage but can be expressed in other contexts, such as cancer.
+- **SELM, SEPW1, SELK, SELT, SEP15**: Selenoproteins involved in antioxidant defense and cellular stress responses, which can be upregulated in cancer cells.
+
+### Step 3: Cross-reference Known Databases
+Using scRNA-seq databases such as the Human Cell Atlas and literature on breast cancer, we can cross-reference these markers:
+
+- The high expression of ATP synthase subunits suggests a high metabolic activity, common in cancer cells.
+- The presence of selenoproteins and stress response genes aligns with the oxidative stress environment in tumors.
+- NGFRAP1 and HN1 expression may suggest a more aggressive or stem-like cancer cell phenotype.
+
+### Step 4: Determine the Most Probable General Cell Type
+Given the high expression of mitochondrial and stress response genes, the most probable general cell type is a **cancer cell**, specifically a breast cancer cell, due to the dataset's origin.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+Based on the expression profile, the top three most probable sub cell types within the breast cancer context are:
+
+1. **Breast Cancer Stem Cells**: High metabolic activity and stress response genes suggest a stem-like phenotype.
+2. **Luminal Breast Cancer Cells**: Given the expression of certain markers like HN1, which are often upregulated in luminal subtypes.
+3. **Basal-like Breast Cancer Cells**: The presence of stress response and metabolic genes can also be indicative of basal-like subtypes, which are known for high proliferation rates.
+
+The most likely subtype, based on the markers, is **Breast Cancer Stem Cells**, due to the combination of high metabolic activity and potential stem-like features indicated by NGFRAP1 and HN1.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+The analysis of the ranked marker list from the breast cancer tissue dataset suggests that the cell cluster is most likely composed of breast cancer cells with a high metabolic and stress response profile. The top probable sub cell type is breast cancer stem cells, characterized by their stem-like properties and high energy demands.
+
+**FINAL ANNOTATION COMPLETED** | Coupling Validator: Validation result: VALIDATION PASSED
+
+The proposed annotation result is consistent with the provided marker list and the identified cell type. Here's the breakdown:
+
+1. **Marker Consistency**: 
+   - The markers used in the annotation, such as ATP5L, ATP5J2, ATP5E, ATP5C1, ATP5J, ATP5G3, ATP5I, ATP5O, ATP5G2, ATP5A1, ATP5F1, ATP5H, ATP5B, USMG5, ATPIF1, APOA1BP, GNB2L1, NGFRAP1, HN1, HBA2, SELM, SEPW1, SELK, SELT, and SEP15, are all present in the provided marker list.
+   - The markers are consistent with the identified cell type, as they are associated with high metabolic activity, stress response, and potential stem-like features, which are characteristic of cancer cells, particularly breast cancer stem cells.
+
+2. **Mixed Cell Type Consideration**:
+   - The annotation considers the possibility of mixed cell types by identifying three probable sub cell types: breast cancer stem cells, luminal breast cancer cells, and basal-like breast cancer cells. This is appropriate given the expression profile and the context of breast cancer tissue.
+   - The emphasis on breast cancer stem cells as the most likely subtype is well-supported by the markers indicating high metabolic activity and stem-like features.
+
+Overall, the annotation is well-supported by the marker list and the context of the dataset, leading to a valid conclusion about the cell type and its subtypes. | Formatting Agent: {
+  ""main_cell_type"": ""Breast Cancer Cell"",
+  ""sub_cell_types"": [
+    ""Breast Cancer Stem Cells"",
+    ""Luminal Breast Cancer Cells"",
+    ""Basal-like Breast Cancer Cells""
+  ],
+  ""possible_mixed_cell_types"": [],
+  ""num_markers"": 50
+}",,
+cluster_4,basal epithelial cells,"Myoepithelial Cells, Basal-like Breast Cancer Cells, Progenitor Basal Cells",,50,"KRT14, KRT17, KRT6A, FDCSP, SLPI, KRT6B, DDIT4, SERPINB5, S100P, SAA1, RARRES1, PDZK1IP1, ID1, RHOV, NDUFA4L2, MT1X, SFRP1, TACSTD2, CHI3L1, CSTB, MMP7, MFGE8, TMEM45A, DMKN, S100A9, CDKN2A, RPL39L, KRT5, PERP, WFDC2, LGALS3, ANXA2, SOX9, CLDN4, MAL2, PMAIP1, GIPC1, LAMP1, SLC25A37, TPM2, BRI3, CALML5, ATP1B3, MAP3K13, CEBPD, EMP2, CEBPB, GSTP1, BTG2, YBX3",1,gpt-4o-2024-08-06,openai,breast cancer,human,,"Final Annotation Agent: To annotate the cell type from the provided ranked marker list, we will follow the outlined steps:
+
+### Step 1: List the Key Functional Markers
+- **KRT14, KRT17, KRT6A, KRT6B, KRT5**: These are keratins, which are structural proteins typically expressed in epithelial cells, particularly in basal and myoepithelial cells of the breast.
+- **SERPINB5 (Maspin)**: A serine protease inhibitor involved in tumor suppression and often associated with epithelial cells.
+- **S100P, S100A9**: Members of the S100 family of proteins, often involved in calcium binding and associated with epithelial cells and inflammation.
+- **MMP7**: Matrix metalloproteinase involved in the breakdown of extracellular matrix, often expressed in epithelial cells and associated with cancer progression.
+- **SOX9**: A transcription factor involved in the regulation of development and differentiation, often expressed in basal cells.
+- **CLDN4**: Claudin 4, a component of tight junctions in epithelial cells.
+- **SLPI**: Secretory leukocyte protease inhibitor, involved in immune response and often expressed in epithelial tissues.
+- **RARRES1, TACSTD2 (TROP2)**: Associated with epithelial cell differentiation and cancer.
+- **CHI3L1**: Chitinase 3-like 1, involved in tissue remodeling and inflammation, often expressed in cancerous tissues.
+- **CDKN2A**: Cyclin-dependent kinase inhibitor, involved in cell cycle regulation, often altered in cancer.
+- **ANXA2**: Annexin A2, involved in cellular processes such as membrane trafficking and cell signaling, often upregulated in cancer.
+- **CEBPB, CEBPD**: Transcription factors involved in cell differentiation and proliferation.
+
+### Step 2: List the Key Cell Type Markers
+- **KRT14, KRT17, KRT5**: Strongly indicative of basal epithelial cells, particularly myoepithelial cells in the breast.
+- **KRT6A, KRT6B**: Often expressed in stratified epithelial tissues, including basal cells.
+- **SERPINB5, S100P, S100A9**: Associated with epithelial cells and often upregulated in cancerous tissues.
+- **SOX9**: Marker for basal and progenitor cells in the breast.
+- **CLDN4, TACSTD2**: Indicative of epithelial cell types, often upregulated in cancer.
+
+### Step 3: Cross-reference Known Databases
+Using databases such as the Human Protein Atlas, CellMarker, and literature on breast cancer scRNA-seq, these markers are consistent with basal epithelial cells, particularly myoepithelial cells, which are known to express high levels of keratins like KRT14 and KRT5.
+
+### Step 4: Determine the Most Probable General Cell Type
+Based on the expression of these markers, the most likely general cell type is **basal epithelial cells**. These cells are characterized by the expression of specific keratins (KRT14, KRT5) and are often involved in the structural integrity and function of epithelial tissues.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+1. **Myoepithelial Cells**: These cells are a subtype of basal epithelial cells in the breast, characterized by high expression of KRT14, KRT5, and other basal markers.
+2. **Basal-like Breast Cancer Cells**: These cells share a similar expression profile with myoepithelial cells and are often associated with aggressive breast cancer subtypes.
+3. **Progenitor Basal Cells**: These are undifferentiated cells within the basal layer that express markers like SOX9 and are involved in tissue regeneration.
+
+The most likely subtype based on the markers is **Myoepithelial Cells**, given the high expression of KRT14, KRT5, and other basal markers.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+The analysis of the ranked marker list from the breast cancer tissue dataset suggests that the cell cluster is most likely composed of basal epithelial cells, specifically myoepithelial cells. This conclusion is supported by the high expression of basal keratins (KRT14, KRT5), along with other markers associated with epithelial and cancerous tissues. The presence of these markers aligns with known profiles of myoepithelial cells in the breast, which play a crucial role in maintaining the structural integrity and function of the mammary gland.
+
+FINAL ANNOTATION COMPLETED | Coupling Validator: Validation result: VALIDATION PASSED
+
+The proposed annotation result is consistent with the provided marker list and the identified cell type. Here's the breakdown:
+
+1. **Marker Consistency**: 
+   - The key functional markers and cell type markers listed in the annotation (e.g., KRT14, KRT17, KRT6A, KRT6B, KRT5, SERPINB5, S100P, S100A9, MMP7, SOX9, CLDN4, SLPI, RARRES1, TACSTD2, CHI3L1, CDKN2A, ANXA2, CEBPB, CEBPD) are all present in the provided marker list. 
+   - The markers are consistent with the identification of basal epithelial cells, particularly myoepithelial cells, as they are known to express high levels of keratins and other associated markers.
+
+2. **Mixed Cell Type Consideration**:
+   - The annotation considers the possibility of mixed cell types by identifying potential subtypes such as myoepithelial cells, basal-like breast cancer cells, and progenitor basal cells. 
+   - The markers strongly support the presence of myoepithelial cells, which aligns with the annotation's conclusion.
+
+The annotation process has been thorough, using cross-referencing with known databases and literature, and the final annotation aligns well with the marker expression profile. Therefore, the validation is passed. | Formatting Agent: {
+  ""main_cell_type"": ""basal epithelial cells"",
+  ""sub_cell_types"": [
+    ""Myoepithelial Cells"",
+    ""Basal-like Breast Cancer Cells"",
+    ""Progenitor Basal Cells""
+  ],
+  ""possible_mixed_cell_types"": [],
+  ""num_markers"": 50
+}",,
+cluster_43,Plasmacytoid Dendritic Cells (pDCs),"Activated pDCs, Immature Dendritic Cells",,50,"CLEC4C, LILRA4, LINC00996, GZMB, PLAC8, JCHAIN, TCL1A, SMPD3, SCT, PLD4, DNASE1L3, SPIB, IRF8, PTGDS, LAMP5, GAPT, IL3RA, MPEG1, GPR183, BCL11A, SELL, MAP1A, PLEK, IRF7, ALOX5AP, TCF4, RNASE6, CLIC3, PRKCB, SLC15A4, LTB, ITM2C, AC007952.4, FCHSD2, LILRB4, IFI44L, MZB1, CCDC50, CXCR3, CD74, PRMT9, TYROBP, SERPINF1, HLA-DRA, CD4, IGKC, CXCR4, FCER1G, RGS1, IGHM",1,gpt-4o-2024-08-06,openai,breast cancer,human,,"Final Annotation Agent: To annotate the cell type based on the provided ranked marker list from a single-cell human dataset derived from breast cancer tissue, we will follow the outlined steps:
+
+### Step 1: List the Key Functional Markers
+- **CLEC4C**: Known as a marker for plasmacytoid dendritic cells (pDCs), involved in antigen presentation.
+- **LILRA4**: Also known as ILT7, a receptor expressed on pDCs, involved in immune response modulation.
+- **GZMB**: Granzyme B, a serine protease involved in inducing apoptosis, often found in cytotoxic cells.
+- **JCHAIN**: Joining chain of multimeric IgA and IgM, associated with antibody production.
+- **IRF8**: Interferon regulatory factor 8, involved in the development and function of immune cells, particularly dendritic cells.
+- **IRF7**: Another interferon regulatory factor, important in antiviral responses.
+- **SPIB**: A transcription factor involved in the development of pDCs and B cells.
+- **TCF4**: Transcription factor 4, involved in the development of immune cells, including pDCs.
+- **HLA-DRA**: Part of the MHC class II molecule, involved in antigen presentation.
+
+### Step 2: List the Key Cell Type Markers
+- **CLEC4C, LILRA4, IRF8, SPIB, TCF4**: Strongly indicative of plasmacytoid dendritic cells (pDCs).
+- **CD4**: Typically expressed on helper T cells, but also found on pDCs.
+- **CD74, HLA-DRA**: Associated with antigen-presenting cells, including dendritic cells.
+- **IGKC, IGHM**: Immunoglobulin components, suggestive of B cell lineage.
+
+### Step 3: Cross-reference Known Databases
+Using databases such as the Human Cell Atlas and literature on scRNA-seq datasets, the combination of **CLEC4C, LILRA4, IRF8, SPIB, TCF4** is highly specific for plasmacytoid dendritic cells. These markers are consistently used to identify pDCs in various studies.
+
+### Step 4: Determine the Most Probable General Cell Type
+Based on the expression of the markers, the most probable general cell type is **Plasmacytoid Dendritic Cells (pDCs)**. This is supported by the presence of key markers such as CLEC4C and LILRA4, which are definitive for pDCs.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+1. **Plasmacytoid Dendritic Cells (pDCs)**: The presence of CLEC4C, LILRA4, and other associated markers strongly supports this subtype.
+2. **Activated pDCs**: Given the expression of GZMB and IRF7, which are associated with activated states in immune cells, this could indicate an activated form of pDCs.
+3. **Immature Dendritic Cells**: The presence of antigen presentation markers like HLA-DRA and CD74 could suggest a less mature state of dendritic cells, although the specific pDC markers make this less likely.
+
+The most likely subtype based on the markers is **Plasmacytoid Dendritic Cells (pDCs)**.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+The analysis of the ranked marker list from the breast cancer tissue dataset indicates that the cell cluster is most likely composed of plasmacytoid dendritic cells (pDCs). This conclusion is supported by the presence of specific markers such as CLEC4C and LILRA4, which are definitive for pDCs. The expression of additional markers like IRF8, SPIB, and TCF4 further corroborates this annotation. The potential for an activated state is suggested by the presence of GZMB and IRF7.
+
+FINAL ANNOTATION COMPLETED | Coupling Validator: Validation result: VALIDATION PASSED
+
+The proposed annotation of the cell cluster as Plasmacytoid Dendritic Cells (pDCs) is consistent with the provided marker list and the analysis steps outlined. Here's the breakdown:
+
+1. **Marker Consistency**: 
+   - The key markers used for the annotation, such as CLEC4C, LILRA4, IRF8, SPIB, and TCF4, are present in the provided marker list. These markers are well-known and specific for identifying pDCs.
+   - Additional markers like GZMB and IRF7, which suggest an activated state, are also present in the list and support the identification of activated pDCs.
+
+2. **Mixed Cell Type Consideration**:
+   - While there are markers like IGKC and IGHM that suggest B cell lineage, the strong presence and high ranking of pDC-specific markers (CLEC4C, LILRA4, IRF8, SPIB, TCF4) strongly support the primary identification as pDCs.
+   - The presence of antigen presentation markers (HLA-DRA, CD74) aligns with the dendritic cell lineage, further supporting the annotation.
+   - There is no strong evidence of multiple distinct cell types that would necessitate flagging for mixed cell type consideration.
+
+Overall, the annotation is well-supported by the marker list and the analysis provided, leading to a valid conclusion of Plasmacytoid Dendritic Cells (pDCs) as the primary cell type in the cluster. | Formatting Agent: {
+  ""main_cell_type"": ""Plasmacytoid Dendritic Cells (pDCs)"",
+  ""sub_cell_types"": [
+    ""Activated pDCs"",
+    ""Immature Dendritic Cells""
+  ],
+  ""possible_mixed_cell_types"": [],
+  ""num_markers"": 50
+}",,
+cluster_44,basal/myoepithelial cells,"Myoepithelial Cells, Basal Epithelial Cells, Reactive Basal Cells",,50,"KRT17, ACTG2, MT2A, KRT14, CAV1, SFN, KRT5, TAGLN, SAA1, ACTA2, MT1X, ITGA2, CRYAB, NNMT, GPC1, CXCL8, CXCL2, CAV2, TPM2, CXCL1, TNFRSF12A, FHL2, TUBB6, GLIPR1, MYC, DST, CALD1, ITGB1, DDX21, NOP16, KRT7, PDLIM4, MTHFD2, ACTN1, SLC3A2, BRIX1, PRMT1, CEBPD, ARID5B, PUM3, EIF4A1, EBNA1BP2, ANXA1, GNL3, MT1E, GPATCH4, NCL, YBX3, NOP56, TUBB4B",1,gpt-4o-2024-08-06,openai,breast cancer,human,,"Final Annotation Agent: To annotate the cell type from the provided ranked marker list, we will follow the outlined steps:
+
+### Step 1: List the Key Functional Markers
+- **KRT17, KRT14, KRT5, KRT7**: These are keratins, which are structural proteins typically expressed in epithelial cells. They play a role in maintaining cell integrity and are often used as markers for epithelial cell types.
+- **ACTG2, ACTA2**: These are actin proteins, with ACTA2 (alpha-smooth muscle actin) being a marker for smooth muscle cells and myofibroblasts.
+- **MT2A, MT1X, MT1E**: Metallothioneins involved in metal ion homeostasis and protection against oxidative stress.
+- **CAV1, CAV2**: Caveolins are involved in the formation of caveolae, small invaginations in the plasma membrane, and are associated with various signaling pathways.
+- **CXCL8, CXCL2, CXCL1**: Chemokines involved in immune cell recruitment and inflammation.
+- **MYC**: A transcription factor involved in cell cycle regulation, growth, and apoptosis.
+- **ITGA2, ITGB1**: Integrins involved in cell adhesion and signaling.
+- **CRYAB**: A small heat shock protein involved in stress response.
+- **NNMT**: Nicotinamide N-methyltransferase, involved in cellular metabolism.
+- **SAA1**: Serum amyloid A1, an acute-phase protein involved in inflammation.
+- **TNFRSF12A**: A receptor involved in cell survival and apoptosis.
+- **FHL2**: A LIM domain protein involved in signal transduction and gene expression.
+- **GLIPR1**: A protein involved in apoptosis and immune response.
+- **CALD1**: Caldesmon, involved in smooth muscle contraction.
+- **TPM2**: Tropomyosin, involved in muscle contraction.
+- **TUBB6, TUBB4B**: Tubulins, structural components of microtubules.
+- **ANXA1**: Annexin A1, involved in anti-inflammatory responses.
+- **NCL, YBX3**: Nucleolin and Y-box binding protein, involved in RNA metabolism and regulation.
+
+### Step 2: List the Key Cell Type Markers
+- **KRT17, KRT14, KRT5**: Strong markers for basal epithelial cells, often found in the basal layer of stratified epithelia, including the breast.
+- **ACTA2, TAGLN, CALD1**: Markers for myoepithelial cells, which are contractile cells found in glandular tissue like the breast.
+- **CAV1, CAV2**: Expressed in various cell types, including endothelial and epithelial cells.
+- **SAA1, CXCL8, CXCL2, CXCL1**: Associated with inflammatory responses, possibly indicating immune cell involvement or a reactive state in epithelial cells.
+
+### Step 3: Cross-reference Known Databases
+Using databases such as the Human Protein Atlas, CellMarker, and literature on breast tissue cell types:
+- **Basal epithelial cells**: Characterized by high expression of KRT5, KRT14, and KRT17.
+- **Myoepithelial cells**: Characterized by ACTA2, TAGLN, and CALD1 expression.
+- **Inflammatory markers**: Suggest a possible reactive or tumor-associated environment.
+
+### Step 4: Determine the Most Probable General Cell Type
+Based on the expression of keratins (KRT5, KRT14, KRT17) and myoepithelial markers (ACTA2, TAGLN), the most probable general cell type is **basal/myoepithelial cells**.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+1. **Myoepithelial Cells**: Due to the presence of ACTA2, TAGLN, and CALD1, which are specific to myoepithelial cells in the breast.
+2. **Basal Epithelial Cells**: Due to the high expression of KRT5, KRT14, and KRT17.
+3. **Reactive Basal Cells**: Given the presence of inflammatory markers (SAA1, CXCL8), these could be basal cells in a reactive state.
+
+The most likely subtype based on the markers is **Myoepithelial Cells**.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+The analysis of the ranked marker list from the breast cancer tissue dataset suggests that the cell cluster is most likely composed of myoepithelial cells. This conclusion is supported by the expression of key markers such as ACTA2, TAGLN, and CALD1, which are characteristic of myoepithelial cells in the breast. The presence of basal keratins (KRT5, KRT14, KRT17) also indicates a basal epithelial origin, with a possible reactive state suggested by inflammatory markers.
+
+FINAL ANNOTATION COMPLETED | Coupling Validator: Validation result: VALIDATION PASSED
+
+The proposed annotation result is consistent with the provided marker list and the identified cell type. Here's the breakdown:
+
+1. **Marker Consistency**: 
+   - The key functional markers and cell type markers listed in the annotation are present in the provided marker list. 
+   - The markers KRT17, KRT14, KRT5, ACTA2, TAGLN, and CALD1 are correctly identified as markers for basal epithelial and myoepithelial cells, respectively.
+   - The presence of inflammatory markers such as SAA1, CXCL8, CXCL2, and CXCL1 is noted, which supports the possibility of a reactive state.
+
+2. **Mixed Cell Type Consideration**:
+   - The annotation acknowledges the presence of both basal epithelial and myoepithelial markers, suggesting a mixed population of basal/myoepithelial cells.
+   - The potential for a reactive state is also considered due to the presence of inflammatory markers, which is appropriate given the context of breast tissue.
+
+The annotation process has been thorough, considering both the primary cell type markers and the potential for mixed cell types or reactive states. The final annotation of ""Myoepithelial Cells"" is well-supported by the marker evidence provided. | Formatting Agent: {
+  ""main_cell_type"": ""basal/myoepithelial cells"",
+  ""sub_cell_types"": [
+    ""Myoepithelial Cells"",
+    ""Basal Epithelial Cells"",
+    ""Reactive Basal Cells""
+  ],
+  ""possible_mixed_cell_types"": [],
+  ""num_markers"": 50
+}",,
+cluster_42,Plasma Cells,"Mature Plasma Cells, Plasmablasts, Memory B-cells",,50,"IGKV1-12, IGKV1-17, IGLL5, TXNDC5, IGLV3-1, IGHG1, MZB1, DERL3, IGHG2, JCHAIN, IGHG3, IGKV3-20, IGKC, CD79A, MTCO2P12, POU2AF1, FCRL5, TNFRSF17, IGHG4, IGHM, ZBP1, PIM2, ITM2C, CPNE5, CD38, LIME1, TENT5C, SEL1L3, MEI1, FKBP11, IGLC2, SLAMF7, SPAG4, TXNDC11, EAF2, ST6GAL1, HSH2D, UBE2J1, SEC11C, ST6GALNAC4, PDK1, MAN2B1, SEPTIN6, SSR4, CCDC69, H3-3B, ICAM2, CIAO2A, ARSA, H3-3A",1,gpt-4o-2024-08-06,openai,breast cancer,human,,"Final Annotation Agent: To annotate the cell type based on the provided ranked marker list from a single-cell human dataset derived from breast cancer tissue, we will follow the outlined steps:
+
+### Step 1: List the Key Functional Markers
+- **IGKV1-12, IGKV1-17, IGLL5, IGLV3-1, IGHG1, IGHG2, IGHG3, IGHG4, IGHM, IGKC, IGLC2**: These are immunoglobulin (Ig) genes, which are critical components of antibodies. They are involved in the immune response, specifically in antigen recognition and binding.
+- **JCHAIN**: This gene encodes the joining chain of multimeric IgA and IgM, which is important for the polymerization of these immunoglobulins.
+- **CD79A**: Part of the B-cell receptor complex, essential for B-cell development and signaling.
+- **MZB1**: Involved in the regulation of immunoglobulin secretion and is associated with plasma cells.
+- **POU2AF1**: A transcriptional coactivator involved in B-cell development and function.
+- **FCRL5, TNFRSF17 (BCMA), SLAMF7**: These are receptors and signaling molecules associated with B-cell and plasma cell function.
+- **CD38**: A multifunctional enzyme and receptor involved in cell adhesion, signal transduction, and calcium signaling, often expressed in plasma cells.
+- **ST6GAL1**: Involved in the sialylation of glycoproteins, which can affect cell-cell interactions and signaling.
+- **TXNDC5, DERL3, FKBP11**: These are involved in protein folding and endoplasmic reticulum stress responses, which are critical for cells with high secretory activity, such as plasma cells.
+
+### Step 2: List the Key Cell Type Markers
+- **IG genes (e.g., IGKV, IGHG, IGHM, IGKC, IGLC2)**: Strongly indicative of B-cells and plasma cells due to their role in antibody production.
+- **CD79A**: A marker for B-cells, part of the B-cell receptor complex.
+- **MZB1, JCHAIN, CD38, SLAMF7**: Markers associated with plasma cells, which are differentiated B-cells specialized in antibody secretion.
+- **TNFRSF17 (BCMA)**: A marker for plasma cells, involved in their survival and function.
+
+### Step 3: Cross-reference Known Databases
+Using databases such as the Human Cell Atlas, PanglaoDB, and literature on scRNA-seq of immune cells, the expression of these markers is consistent with B-cells and more specifically, plasma cells. Plasma cells are known for their high expression of immunoglobulin genes and markers like CD38, SLAMF7, and BCMA.
+
+### Step 4: Determine the Most Probable General Cell Type
+Based on the expression of immunoglobulin genes and plasma cell markers, the most probable general cell type is **Plasma Cells**.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+1. **Mature Plasma Cells**: Characterized by high expression of immunoglobulin genes, CD38, SLAMF7, and BCMA.
+2. **Plasmablasts**: Transitional cells between B-cells and mature plasma cells, may express some of these markers but typically at lower levels.
+3. **Memory B-cells**: While less likely due to the high expression of plasma cell markers, they can express some immunoglobulin genes and CD79A.
+
+The most likely subtype based on the markers is **Mature Plasma Cells**.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+The ranked marker list from the breast cancer tissue dataset is indicative of a cluster of **Plasma Cells**, specifically **Mature Plasma Cells**. This conclusion is supported by the high expression of immunoglobulin genes and plasma cell-specific markers such as CD38, SLAMF7, and BCMA. These cells are specialized in antibody production and secretion, playing a crucial role in the humoral immune response.
+
+FINAL ANNOTATION COMPLETED | Coupling Validator: Validation result: VALIDATION PASSED
+
+The proposed annotation of the cell cluster as ""Plasma Cells,"" specifically ""Mature Plasma Cells,"" is consistent with the provided marker list and the analysis steps outlined. Here's the breakdown:
+
+1. **Marker Consistency**: 
+   - The key markers identified in the annotation (e.g., IGKV1-12, IGKV1-17, IGLL5, IGHG1, IGHG2, IGHG3, IGHG4, IGHM, IGKC, IGLC2, JCHAIN, CD79A, MZB1, POU2AF1, FCRL5, TNFRSF17, SLAMF7, CD38, ST6GAL1, TXNDC5, DERL3, FKBP11) are present in the provided marker list.
+   - These markers are well-known to be associated with B-cells and plasma cells, particularly mature plasma cells, which are specialized in antibody production.
+
+2. **Mixed Cell Type Consideration**:
+   - The analysis does not strongly suggest the presence of multiple distinct cell types. The markers predominantly indicate a plasma cell identity, with a strong emphasis on mature plasma cells.
+   - While plasmablasts and memory B-cells are mentioned as potential subtypes, the high expression of plasma cell-specific markers like CD38, SLAMF7, and BCMA supports the primary annotation of mature plasma cells.
+
+The annotation is well-supported by the marker list and aligns with known databases and literature on immune cell types. Therefore, the validation is passed, and the annotation is deemed accurate. | Formatting Agent: {
+  ""main_cell_type"": ""Plasma Cells"",
+  ""sub_cell_types"": [
+    ""Mature Plasma Cells"",
+    ""Plasmablasts"",
+    ""Memory B-cells""
+  ],
+  ""possible_mixed_cell_types"": [],
+  ""num_markers"": 50
+}",,
+cluster_46,fibroblasts,"cancer-associated fibroblasts (CAFs), normal fibroblasts, myofibroblasts",,50,"LHFP, PTRF, SELM, PRKCDBP, NGFRAP1, GNB2L1, WBP5, ATP5E, AC090498.1, ATP5L, GLTSCR2, LINC00657, TCEB2, SEPP1, ATP5I, ATP5D, C14orf2, USMG5, MYEOV2, SHFM1, ATP5G2, C19orf43, ATP5G1, SEP15, C19orf60, ATP5J, ATPIF1, ATP5H, MESDC2, ATP5O, ATP5G3, SEPW1, LINC01420, SELK, VIMP, C14orf166, ATP5J2, ATP5B, COL3A1, ATP5A1, ATP5C1, COL1A1, PVRL2, FAM195B, ATP5F1, COL1A2, LINC00493, DCN, C7orf73, IGFBP4",1,gpt-4o-2024-08-06,openai,breast cancer,human,,"Final Annotation Agent: To annotate the cell type from the provided ranked marker list, we will follow the outlined steps:
+
+### Step 1: List the Key Functional Markers
+- **ATP Synthase Subunits (ATP5E, ATP5L, ATP5I, ATP5D, ATP5G2, ATP5G1, ATP5J, ATP5H, ATP5O, ATP5G3, ATP5J2, ATP5B, ATP5A1, ATP5C1, ATP5F1):** These genes encode subunits of ATP synthase, a key enzyme in the mitochondrial electron transport chain responsible for ATP production. High expression of these genes suggests a high metabolic activity, often seen in cells with high energy demands.
+- **COL1A1, COL1A2, COL3A1, DCN (Decorin):** These are extracellular matrix (ECM) components. Collagen genes (COL1A1, COL1A2, COL3A1) are involved in the structural integrity of tissues, while Decorin is a small leucine-rich proteoglycan involved in matrix assembly and cell signaling.
+- **IGFBP4 (Insulin-like Growth Factor Binding Protein 4):** This protein modulates the activity of insulin-like growth factors, which are involved in cell growth and survival.
+
+### Step 2: List the Key Cell Type Markers
+- **PTRF (Cavin-1):** Known to be involved in caveolae formation and is often associated with adipocytes and stromal cells.
+- **DCN (Decorin):** Commonly expressed in fibroblasts and stromal cells.
+- **COL1A1, COL1A2, COL3A1:** These collagen genes are typically expressed in fibroblasts, which are responsible for producing and remodeling the ECM.
+- **LHFP (Lipoma HMGIC Fusion Partner):** While not a classic marker, it has been associated with lipomas and may be expressed in stromal or mesenchymal cells.
+
+### Step 3: Cross-reference Known Databases
+Using databases such as the Human Protein Atlas, CellMarker, and PanglaoDB, we can cross-reference these markers:
+- **Fibroblasts:** Known to express high levels of collagen genes (COL1A1, COL1A2, COL3A1) and Decorin (DCN).
+- **Stromal Cells:** Often express PTRF and ECM components.
+- **Adipocytes:** May express PTRF, but the lack of other adipocyte-specific markers makes this less likely.
+
+### Step 4: Determine the Most Probable General Cell Type
+Based on the expression of collagen genes, Decorin, and PTRF, the most probable general cell type is **fibroblasts**. These cells are known for their role in producing and remodeling the ECM, which aligns with the high expression of collagen and Decorin.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+1. **Cancer-associated Fibroblasts (CAFs):** Given the breast cancer tissue context, fibroblasts in the tumor microenvironment are likely to be CAFs, which are known to express ECM components and modulate tumor progression.
+2. **Normal Fibroblasts:** These are the typical fibroblasts found in connective tissue, responsible for ECM production.
+3. **Myofibroblasts:** A specialized type of fibroblast involved in wound healing and fibrosis, characterized by ECM production and contractile activity.
+
+**Most Likely Subtype:** Cancer-associated Fibroblasts (CAFs) are the most likely subtype due to the breast cancer tissue context and the expression of ECM components.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+The analysis of the ranked marker list from the breast cancer tissue dataset suggests that the cell cluster is most likely composed of fibroblasts, specifically cancer-associated fibroblasts (CAFs). This conclusion is based on the high expression of collagen genes, Decorin, and PTRF, which are characteristic of fibroblasts and stromal cells. The context of breast cancer further supports the identification of CAFs, which play a crucial role in the tumor microenvironment by remodeling the ECM and influencing tumor progression.
+
+FINAL ANNOTATION COMPLETED | Coupling Validator: Validation result: VALIDATION PASSED
+
+The proposed annotation result is consistent with the provided marker list and the identified cell type. Here's the breakdown:
+
+1. **Marker Consistency:**
+   - The key functional markers and cell type markers listed in the annotation (e.g., ATP synthase subunits, COL1A1, COL1A2, COL3A1, DCN, PTRF, LHFP) are present in the provided marker list.
+   - The expression of collagen genes (COL1A1, COL1A2, COL3A1) and Decorin (DCN) aligns with the identification of fibroblasts, particularly cancer-associated fibroblasts (CAFs), in the context of breast cancer tissue.
+
+2. **Mixed Cell Type Consideration:**
+   - The annotation considers the possibility of mixed cell types by identifying potential subtypes such as normal fibroblasts and myofibroblasts. However, the strong presence of ECM components and the context of breast cancer support the primary identification of CAFs.
+   - There is no strong evidence of multiple distinct cell types that would necessitate flagging for further investigation.
+
+Overall, the annotation is well-supported by the marker list and the context provided, leading to a valid conclusion of cancer-associated fibroblasts as the most likely cell type. | Formatting Agent: {
+  ""main_cell_type"": ""fibroblasts"",
+  ""sub_cell_types"": [
+    ""cancer-associated fibroblasts (CAFs)"",
+    ""normal fibroblasts"",
+    ""myofibroblasts""
+  ],
+  ""possible_mixed_cell_types"": [],
+  ""num_markers"": 50
+}",,
+cluster_47,B cells,"Naive B Cells, Memory B Cells, Activated B Cells",,50,"MS4A1, CD19, BLK, MTCO2P12, CD79A, BANK1, CD74, CD79B, CD37, NCF1, PTPRCAP, CD52, H3-3B, LTB, HLA-DRB5, POU2F2, HLA-DPA1, HLA-DPB1, SELL, SEPTIN6, ADAM28, RAC2, LIMD2, H3-3A, POLD4, HLA-DQA1, FCMR, HLA-DRA, HLA-DQB1, H4C3, IGHM, SEPTIN9, LAPTM5, HLA-DRB1, CORO1A, MTRNR2L12, RCSD1, PTPN6, TBC1D10C, GPSM3, MEF2C, CD69, RGS19, RALGPS2, HLA-DMA, CD53, GABARAP, LSP1, CSK, STK17A",1,gpt-4o-2024-08-06,openai,breast cancer,human,,"Final Annotation Agent: To annotate the cell type based on the provided ranked marker list from a single-cell RNA sequencing dataset of breast cancer tissue, I will follow the outlined steps:
+
+### Step 1: List the Key Functional Markers
+- **MS4A1 (CD20)**: A well-known marker for B cells, involved in B cell activation and proliferation.
+- **CD19**: A critical component of the B cell receptor complex, essential for B cell signaling.
+- **BLK**: A tyrosine kinase involved in B cell receptor signaling.
+- **CD79A and CD79B**: Components of the B cell receptor complex, crucial for B cell development and signaling.
+- **BANK1**: A B cell scaffold protein that modulates B cell receptor-mediated calcium mobilization.
+- **PTPRCAP (CD45-AP)**: Associated with the regulation of B cell receptor signaling.
+- **CD52**: Expressed on the surface of mature lymphocytes, including B cells.
+- **HLA-DRB5, HLA-DPA1, HLA-DPB1, HLA-DQA1, HLA-DQB1, HLA-DRA, HLA-DRB1, HLA-DMA**: Part of the major histocompatibility complex (MHC) class II, involved in antigen presentation, typically expressed on antigen-presenting cells, including B cells.
+- **IGHM**: Immunoglobulin heavy constant mu, part of the B cell receptor complex.
+- **POU2F2 (OCT2)**: A transcription factor involved in B cell development and function.
+
+### Step 2: List the Key Cell Type Markers
+- **MS4A1 (CD20)**, **CD19**, **CD79A**, **CD79B**, **BANK1**, **IGHM**: These are classic markers for B cells, indicating a B cell lineage.
+- **HLA-DRB5, HLA-DPA1, HLA-DPB1, HLA-DQA1, HLA-DQB1, HLA-DRA, HLA-DRB1, HLA-DMA**: These MHC class II molecules are typically expressed on B cells and other antigen-presenting cells.
+
+### Step 3: Cross-reference Known Databases
+Using databases such as the Human Cell Atlas, CellMarker, and PanglaoDB, these markers are predominantly associated with B cells. The presence of MS4A1, CD19, CD79A, and CD79B strongly suggests a B cell identity.
+
+### Step 4: Determine the Most Probable General Cell Type
+Based on the expression of these markers, the most likely general cell type of the cluster is **B cells**. The presence of multiple B cell-specific markers, such as MS4A1, CD19, and components of the B cell receptor complex, supports this conclusion.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+1. **Naive B Cells**: Characterized by the expression of CD19, CD20 (MS4A1), and MHC class II molecules, but lacking markers of activation or differentiation.
+2. **Memory B Cells**: Express CD19, CD20, and MHC class II molecules, with potential expression of CD27 (not listed here but often associated with memory B cells).
+3. **Activated B Cells**: May express additional activation markers such as CD69, which is present in the list, indicating potential activation.
+
+The most likely subtype based on the markers is **Naive B Cells**, given the strong presence of classical B cell markers without additional activation or differentiation markers.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+The analysis of the ranked marker list from the breast cancer tissue dataset indicates that the cell cluster is most likely composed of B cells. The expression of key B cell markers such as MS4A1, CD19, CD79A, and CD79B, along with MHC class II molecules, supports this annotation. Among the B cell subtypes, naive B cells are the most probable, given the absence of strong activation or differentiation markers.
+
+**FINAL ANNOTATION COMPLETED** | Coupling Validator: Validation result: VALIDATION PASSED
+
+The proposed annotation result is consistent with the provided marker list and the identified cell type. Here's the breakdown:
+
+1. **Marker Consistency**: 
+   - The key functional markers listed in the annotation (e.g., MS4A1, CD19, CD79A, CD79B, BANK1, IGHM, and MHC class II molecules) are present in the provided marker list.
+   - These markers are well-known and widely accepted as indicative of B cells, supporting the annotation of the cell cluster as B cells.
+
+2. **Mixed Cell Type Consideration**:
+   - The analysis does not strongly suggest the presence of multiple distinct cell types. The markers predominantly indicate a B cell identity, with no significant evidence of other cell types based on the high-ranking markers provided.
+   - The annotation correctly identifies potential subtypes (Naive B Cells, Memory B Cells, Activated B Cells) based on the expression of these markers, with Naive B Cells being the most probable subtype due to the absence of strong activation or differentiation markers.
+
+Overall, the annotation is well-supported by the marker list and aligns with known databases and literature on B cell markers. There is no indication of mixed cell types that would necessitate further investigation. | Formatting Agent: {
+  ""main_cell_type"": ""B cells"",
+  ""sub_cell_types"": [
+    ""Naive B Cells"",
+    ""Memory B Cells"",
+    ""Activated B Cells""
+  ],
+  ""possible_mixed_cell_types"": [],
+  ""num_markers"": 50
+}",,
+cluster_5,Epithelial Cells,"Basal-like Breast Cancer Cells, Myoepithelial Cells, Progenitor-like Epithelial Cells",,50,"KRT6A, FDCSP, KRT14, KRT17, ASF1B, UBE2C, PCLAF, SLPI, KRT6B, DDIT4, TYMS, SERPINB5, CDK1, BIRC5, GGH, RPL39L, TK1, HMGB2, RHOV, SAA1, TACSTD2, CDKN2A, HIST1H4C, NDUFA4L2, STMN1, TEX30, ID1, UBE2T, TFDP1, MT1X, CSTB, CKS1B, MFGE8, SFRP1, DMKN, RARRES1, PTTG1, S100P, PMAIP1, WFDC2, KRT5, GADD45A, PDZK1IP1, PHGDH, RHEB, PERP, LSR, TPM2, MAL2, SOX9",1,gpt-4o-2024-08-06,openai,breast cancer,human,,"Final Annotation Agent: To annotate the cell type based on the provided ranked marker list from a single-cell human dataset derived from breast cancer tissue, I will follow the outlined steps:
+
+### Step 1: List the Key Functional Markers
+- **KRT6A, KRT14, KRT17, KRT6B, KRT5**: These are keratins, which are structural proteins typically expressed in epithelial cells. They play a role in the structural integrity and function of epithelial tissues.
+- **ASF1B, UBE2C, PCLAF, CDK1, BIRC5, TYMS, STMN1, CKS1B, PTTG1**: These are associated with cell cycle regulation and proliferation. They are often upregulated in rapidly dividing cells, such as cancer cells.
+- **DDIT4, GADD45A, PMAIP1**: Involved in stress response and apoptosis regulation.
+- **SAA1, SERPINB5, SLPI, WFDC2**: These are involved in immune response and inflammation, often seen in cancerous tissues.
+- **HMGB2, RHOV, TACSTD2, ID1, TFDP1**: These are involved in transcription regulation and cellular differentiation.
+- **MT1X, CSTB, S100P**: These are involved in metal ion binding and cellular stress response.
+- **PHGDH, RHEB**: Involved in metabolic pathways, particularly in cancer metabolism.
+- **SOX9**: A transcription factor involved in cell differentiation and development.
+
+### Step 2: List the Key Cell Type Markers
+- **KRT5, KRT14, KRT17**: These are markers for basal epithelial cells, often found in the basal layer of the epidermis and in certain types of breast cancer cells.
+- **KRT6A, KRT6B**: These are markers for hyperproliferative keratinocytes, often seen in wound healing and certain cancers.
+- **SERPINB5 (Maspin)**: A marker for myoepithelial cells in the breast.
+- **SOX9**: While broadly expressed, it is also a marker for stem/progenitor cells in various tissues, including the breast.
+
+### Step 3: Cross-reference Known Databases
+Using databases such as the Human Protein Atlas, CellMarker, and literature on breast cancer scRNA-seq, the expression of these markers is consistent with epithelial cells, particularly those associated with basal-like breast cancer.
+
+### Step 4: Determine the Most Probable General Cell Type
+The expression of multiple keratins (KRT5, KRT14, KRT17) and proliferation markers suggests that these cells are likely epithelial in origin, specifically basal epithelial cells. This is consistent with basal-like breast cancer, which is characterized by high expression of basal cytokeratins.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+1. **Basal-like Breast Cancer Cells**: High expression of basal keratins and proliferation markers aligns with this subtype.
+2. **Myoepithelial Cells**: Presence of SERPINB5 and certain keratins suggests a myoepithelial phenotype, although less likely due to the high proliferation markers.
+3. **Progenitor-like Epithelial Cells**: Expression of SOX9 and proliferation markers could indicate a progenitor-like state within the epithelial lineage.
+
+The most likely subtype, based on the markers, is **Basal-like Breast Cancer Cells**.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+The cluster of cells from the breast cancer tissue is most likely composed of basal-like breast cancer cells. This conclusion is supported by the high expression of basal keratins (KRT5, KRT14, KRT17), proliferation markers (e.g., CDK1, BIRC5), and stress response genes. These markers are characteristic of basal epithelial cells, which are often associated with aggressive breast cancer subtypes.
+
+FINAL ANNOTATION COMPLETED | Coupling Validator: Validation result: VALIDATION PASSED
+
+The proposed annotation result is consistent with the provided marker list and the identified cell type. Here's the breakdown:
+
+1. **Marker Consistency**: 
+   - The key functional markers and cell type markers listed in the annotation are present in the provided marker list. 
+   - The markers such as KRT5, KRT14, KRT17, KRT6A, and KRT6B are indeed associated with basal epithelial cells and are consistent with basal-like breast cancer.
+   - Proliferation markers like CDK1, BIRC5, and others are also present in the marker list, supporting the annotation of a highly proliferative cell type, such as cancer cells.
+
+2. **Mixed Cell Type Consideration**:
+   - The annotation considers the possibility of myoepithelial cells and progenitor-like epithelial cells, but the evidence strongly supports basal-like breast cancer cells as the primary cell type. 
+   - The presence of SERPINB5 and SOX9 is noted, but the high expression of basal keratins and proliferation markers aligns more closely with basal-like breast cancer cells.
+
+Overall, the annotation is well-supported by the marker list and the analysis provided. The conclusion that the cell cluster is composed of basal-like breast cancer cells is appropriate given the data. | Formatting Agent: {
+  ""main_cell_type"": ""Epithelial Cells"",
+  ""sub_cell_types"": [
+    ""Basal-like Breast Cancer Cells"",
+    ""Myoepithelial Cells"",
+    ""Progenitor-like Epithelial Cells""
+  ],
+  ""possible_mixed_cell_types"": [],
+  ""num_markers"": 50
+}",,
+cluster_6,T-cells,"CD4+ T-cells, CD8+ T-cells, Regulatory T-cells (Tregs)",,50,"PTPRCAP, SEPTIN1, CD3E, MTCO2P12, SEPTIN6, ZAP70, H3-3B, CD7, CD2, PLAAT4, RESF1, LCK, CD3D, SPOCK2, CCL5, CST7, RAC2, IL2RG, CD52, TBC1D10C, SEPTIN9, TRBC2, CD247, LAT, H3-3A, CD27, CD3G, CORO1A, SEPTIN7, TRBC1, H4C3, LTB, IFITM1, IL32, LIMD2, TRAF3IP3, HCST, PTPRC, GIMAP7, ACAP1, CD37, H2AZ1, LCP2, TRAC, CD69, GIMAP4, LSP1, FYB1, DUSP2, GPSM3",1,gpt-4o-2024-08-06,openai,breast cancer,human,,"Final Annotation Agent: To annotate the cell type based on the provided ranked marker list from a single-cell human dataset derived from breast cancer tissue, I will follow the outlined steps:
+
+### Step 1: List the Key Functional Markers
+- **ZAP70**: A tyrosine kinase involved in T-cell receptor signaling.
+- **LCK**: A tyrosine kinase that plays a crucial role in T-cell activation.
+- **LAT**: A linker for activation of T cells, involved in T-cell receptor signaling.
+- **CD247 (CD3Z)**: Part of the T-cell receptor-CD3 complex, essential for T-cell activation.
+- **IL2RG**: Common gamma chain, part of the receptor for interleukins involved in T-cell development.
+- **RAC2**: A small GTPase involved in the regulation of cell signaling pathways.
+- **TRAC, TRBC1, TRBC2**: T-cell receptor alpha and beta chains, essential for antigen recognition.
+- **PTPRC (CD45)**: A protein tyrosine phosphatase, critical for T-cell activation and signaling.
+
+### Step 2: List the Key Cell Type Markers
+- **CD3E, CD3D, CD3G**: Components of the T-cell receptor complex, specific to T-cells.
+- **CD2**: A cell adhesion molecule found on the surface of T-cells.
+- **CD7**: A transmembrane protein expressed on T-cells and NK cells.
+- **CD27**: A member of the TNF-receptor superfamily, expressed on T-cells.
+- **CD52**: A glycoprotein expressed on the surface of mature lymphocytes, including T-cells.
+- **CCL5 (RANTES)**: A chemokine involved in recruiting T-cells to sites of inflammation.
+- **CST7**: Cystatin F, expressed in immune cells, including T-cells.
+- **IFITM1**: Interferon-induced transmembrane protein, expressed in activated T-cells.
+- **IL32**: A cytokine involved in the activation of T-cells.
+
+### Step 3: Cross-reference Known Databases
+Using databases such as CellMarker, PanglaoDB, and the Human Protein Atlas, the markers listed are predominantly associated with T-cells. The presence of multiple T-cell receptor components (CD3E, CD3D, CD3G, TRAC, TRBC1, TRBC2) and signaling molecules (ZAP70, LCK, LAT) strongly indicates a T-cell identity.
+
+### Step 4: Determine the Most Probable General Cell Type
+Based on the expression of these markers, the most likely general cell type of the cluster is **T-cells**. The presence of T-cell receptor components and signaling molecules is definitive for T-cell identification.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+1. **CD4+ T-cells**: Given the expression of CD3 complex and signaling molecules, CD4+ T-cells are a likely subtype, especially if helper T-cell markers are present.
+2. **CD8+ T-cells**: Another probable subtype, as CD8+ T-cells also express the CD3 complex and similar signaling molecules.
+3. **Regulatory T-cells (Tregs)**: If markers such as FOXP3 were present, Tregs would be considered, but they are less likely without specific markers.
+
+The most likely subtype, based on the markers provided, is **CD4+ T-cells**, as they are commonly found in breast cancer tissue and are involved in immune response modulation.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+The analysis of the ranked marker list from the breast cancer tissue dataset indicates that the cell cluster is most likely composed of T-cells. The presence of T-cell receptor components and signaling molecules strongly supports this annotation. Among T-cells, CD4+ T-cells are the most probable subtype due to their role in immune response and prevalence in tumor microenvironments.
+
+**FINAL ANNOTATION COMPLETED** | Coupling Validator: Validation result: VALIDATION PASSED
+
+The proposed annotation result for the cell cluster as T-cells, specifically CD4+ T-cells, is consistent with the provided marker list and the known functions of the markers. Here's the breakdown of the validation:
+
+1. **Marker Consistency**: 
+   - The key functional markers listed in the annotation (ZAP70, LCK, LAT, CD247, IL2RG, RAC2, TRAC, TRBC1, TRBC2, PTPRC) are present in the provided marker list.
+   - The key cell type markers (CD3E, CD3D, CD3G, CD2, CD7, CD27, CD52, CCL5, CST7, IFITM1, IL32) are also present in the marker list.
+   - These markers are well-known to be associated with T-cells, particularly in the context of T-cell receptor signaling and activation.
+
+2. **Mixed Cell Type Consideration**:
+   - The markers strongly support a T-cell identity, with no significant evidence of mixed cell types based on the high-ranking markers provided. The annotation does not suggest the presence of other distinct cell types that would require further investigation.
+
+The annotation is well-supported by the marker list and aligns with known databases and literature regarding T-cell markers. Therefore, the validation is passed, and the annotation is considered accurate for the cell cluster in question. | Formatting Agent: {
+  ""main_cell_type"": ""T-cells"",
+  ""sub_cell_types"": [
+    ""CD4+ T-cells"",
+    ""CD8+ T-cells"",
+    ""Regulatory T-cells (Tregs)""
+  ],
+  ""possible_mixed_cell_types"": [],
+  ""num_markers"": 50
+}",,
+cluster_49,Mast Cells,"Connective Tissue Mast Cells, Mucosal Mast Cells, Immature Mast Cells",,50,"AL157895.1, CPA3, TPSAB1, TPSB2, MS4A2, HPGDS, SLC18A2, HPGD, RGS13, RHEX, SLC45A3, GATA2, HDC, VWA5A, TMEM233, KIT, FCER1A, LTC4S, SAMSN1, GRAP2, CD69, IL1RL1, RGS1, BTK, PTGS1, ADRB2, RGS2, SRGN, LYL1, ALOX5AP, ALOX5, CNRIP1, RENBP, ACSL4, FCER1G, LAT2, GPR65, CD52, RAC2, MAOB, LAT, LAPTM5, CD37, ANXA1, TYROBP, CLU, C1orf162, ITM2A, S100A4, SMYD3",1,gpt-4o-2024-08-06,openai,breast cancer,human,,"Final Annotation Agent: To annotate the cell type based on the provided ranked marker list from a single-cell human dataset derived from breast cancer tissue, we will follow a systematic approach:
+
+### Step 1: List the Key Functional Markers
+
+1. **CPA3 (Carboxypeptidase A3)**: An enzyme involved in the degradation of proteins, commonly associated with mast cells.
+2. **TPSAB1 and TPSB2 (Tryptase Alpha/Beta 1 and 2)**: Serine proteases that are major components of mast cell granules.
+3. **MS4A2 (Membrane Spanning 4-Domains A2)**: Also known as FcεRIβ, a high-affinity IgE receptor subunit, crucial for mast cell activation.
+4. **HPGDS (Hematopoietic Prostaglandin D Synthase)**: Involved in prostaglandin D2 synthesis, a mediator in allergic responses, often found in mast cells.
+5. **SLC18A2 (Solute Carrier Family 18 Member A2)**: Also known as VMAT2, involved in the transport of monoamines into synaptic vesicles.
+6. **HDC (Histidine Decarboxylase)**: Enzyme responsible for histamine production, a key mediator in mast cells.
+7. **KIT (CD117)**: A receptor tyrosine kinase important for mast cell development and function.
+8. **FCER1A (High Affinity IgE Receptor Subunit Alpha)**: Part of the IgE receptor complex, critical for mast cell activation.
+9. **LTC4S (Leukotriene C4 Synthase)**: Enzyme involved in leukotriene synthesis, important in inflammatory responses.
+10. **IL1RL1 (Interleukin 1 Receptor Like 1)**: Also known as ST2, involved in the immune response, often expressed in mast cells.
+
+### Step 2: List the Key Cell Type Markers
+
+1. **CPA3, TPSAB1, TPSB2, MS4A2, HPGDS, HDC, KIT, FCER1A, LTC4S**: These markers are strongly indicative of mast cells, which are involved in allergic responses and inflammation.
+2. **GATA2**: A transcription factor important for hematopoietic cell differentiation, including mast cells.
+3. **CD69**: An early activation marker on various immune cells, including mast cells.
+4. **RGS13, RHEX, SAMSN1, GRAP2, BTK, PTGS1, ADRB2, RGS2, SRGN, LYL1, ALOX5AP, ALOX5**: These genes are associated with immune cell signaling and function, supporting a mast cell identity.
+
+### Step 3: Cross-reference Known Databases
+
+Using scRNA-seq databases such as the Human Cell Atlas and literature on mast cell markers, the presence of CPA3, TPSAB1, TPSB2, MS4A2, HPGDS, HDC, KIT, and FCER1A strongly supports the identification of these cells as mast cells. These markers are well-documented in the literature as being highly specific to mast cells.
+
+### Step 4: Determine the Most Probable General Cell Type
+
+Based on the expression of the key markers, the most probable general cell type for this cluster is **Mast Cells**. The presence of multiple mast cell-specific markers such as CPA3, TPSAB1, TPSB2, MS4A2, and KIT strongly supports this conclusion.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+
+1. **Connective Tissue Mast Cells**: Typically found in tissues and characterized by the expression of tryptase and chymase.
+2. **Mucosal Mast Cells**: Found in mucosal tissues, often expressing tryptase but not chymase.
+3. **Immature Mast Cells**: May express some but not all mature mast cell markers, indicating a developmental stage.
+
+Given the expression of a broad range of mast cell-specific markers, the most likely subtype is **Connective Tissue Mast Cells**, as they are commonly found in various tissues, including breast tissue, and express a wide array of mast cell markers.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+
+The analysis of the ranked marker list from the breast cancer tissue dataset indicates that the cell cluster is most likely composed of mast cells. The expression of key markers such as CPA3, TPSAB1, TPSB2, MS4A2, and KIT, which are specific to mast cells, supports this conclusion. Among the subtypes, connective tissue mast cells are the most probable due to their presence in various tissues and the expression of a comprehensive set of mast cell markers.
+
+**FINAL ANNOTATION COMPLETED** | Coupling Validator: Validation result: VALIDATION PASSED
+
+The proposed annotation of the cell cluster as mast cells is consistent with the provided marker list and the known literature on mast cell markers. The key markers identified in the annotation, such as CPA3, TPSAB1, TPSB2, MS4A2, HPGDS, HDC, KIT, and FCER1A, are all present in the provided marker list and are well-documented as being specific to mast cells. Additionally, the consideration of subtypes, particularly connective tissue mast cells, is appropriate given the expression of a comprehensive set of mast cell markers. There is no indication of mixed cell types based on the high-ranking markers provided, and the annotation aligns well with the known biology of mast cells in breast tissue. | Formatting Agent: {
+  ""main_cell_type"": ""Mast Cells"",
+  ""sub_cell_types"": [
+    ""Connective Tissue Mast Cells"",
+    ""Mucosal Mast Cells"",
+    ""Immature Mast Cells""
+  ],
+  ""possible_mixed_cell_types"": [],
+  ""num_markers"": 50
+}",,
+cluster_8,Basal Epithelial Cells,"Basal-like Breast Cancer Cells, Myoepithelial Cells, Progenitor Basal Cells",,50,"TTYH1, KRT5, TMEM213, KRT14, CDKN2A, CALML5, CRYAB, NDUFA4L2, SLPI, IGFBP5, S100A1, TSEN34, TCTEX1D2, CBR3, CRABP1, KRT6B, PHGDH, PERP, LMO4, MDFI, NFIX, ACTL6A, GMPS, NUDT5, FABP5, EPCAM, NDUFB5, VCAN, CSTB, ATP5F1C, CBR1, FXYD3, POLR2H, ATP5PO, UQCRH, CCT8, ETFB, CRABP2, MRPL47, SF3B6, GSTP1, ATP5F1B, C6orf48, TMEM123, PSMB2, KRT8, FBL, CDK4, TRIR, AP2M1",1,gpt-4o-2024-08-06,openai,breast cancer,human,,"Final Annotation Agent: To annotate the cell type based on the provided ranked marker list from a single-cell human dataset derived from breast cancer tissue, I will follow the outlined steps:
+
+### Step 1: List the Key Functional Markers
+- **CDKN2A**: Known for its role in cell cycle regulation, often associated with tumor suppression.
+- **PHGDH**: Involved in serine biosynthesis, often upregulated in cancer cells.
+- **FABP5**: Fatty acid-binding protein, involved in lipid metabolism, often linked to cancer progression.
+- **EPCAM**: Epithelial cell adhesion molecule, involved in cell adhesion, proliferation, and differentiation.
+- **VCAN**: Versican, a chondroitin sulfate proteoglycan involved in cell adhesion, proliferation, and migration.
+- **GSTP1**: Glutathione S-transferase P, involved in detoxification processes, often overexpressed in cancer.
+
+### Step 2: List the Key Cell Type Markers
+- **KRT5, KRT14, KRT6B, KRT8**: Keratins are structural proteins in epithelial cells. KRT5 and KRT14 are typically associated with basal epithelial cells, while KRT8 is more common in luminal epithelial cells.
+- **TTYH1**: TTYH1 is less commonly discussed but has been associated with certain epithelial and neural tissues.
+- **CRYAB**: Alpha-crystallin B chain, a small heat shock protein, often expressed in basal-like breast cancer.
+- **SLPI**: Secretory leukocyte protease inhibitor, expressed in epithelial tissues and associated with immune response.
+- **IGFBP5**: Insulin-like growth factor-binding protein 5, involved in cell growth and survival, often expressed in epithelial cells.
+- **S100A1**: A member of the S100 protein family, involved in calcium-binding and often expressed in epithelial cells.
+
+### Step 3: Cross-reference Known Databases
+Using databases such as the Human Protein Atlas, CellMarker, and literature on breast cancer scRNA-seq data, we can cross-reference these markers:
+- **Basal Epithelial Cells**: KRT5, KRT14, and CRYAB are strong indicators of basal epithelial cells, often found in basal-like breast cancer.
+- **Luminal Epithelial Cells**: KRT8 and EPCAM are more indicative of luminal epithelial cells.
+
+### Step 4: Determine the Most Probable General Cell Type
+Based on the expression of KRT5, KRT14, CRYAB, and other markers, the most probable general cell type is **Basal Epithelial Cells**. These cells are often associated with basal-like breast cancer, which is characterized by the expression of basal cytokeratins.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+1. **Basal-like Breast Cancer Cells**: Characterized by high expression of KRT5, KRT14, and CRYAB.
+2. **Myoepithelial Cells**: These cells also express basal markers like KRT5 and KRT14 but are more involved in structural support and contraction.
+3. **Progenitor Basal Cells**: These cells are precursors to basal epithelial cells and may express a similar set of markers.
+
+The most likely subtype based on the markers is **Basal-like Breast Cancer Cells** due to the strong expression of basal cytokeratins and CRYAB.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+The analysis of the ranked marker list from the breast cancer tissue dataset suggests that the cell cluster is most likely composed of basal epithelial cells, specifically basal-like breast cancer cells. This conclusion is supported by the high expression of basal cytokeratins (KRT5, KRT14) and CRYAB, which are characteristic of basal-like breast cancer. The presence of other markers such as EPCAM and IGFBP5 further supports the epithelial nature of these cells.
+
+FINAL ANNOTATION COMPLETED | Coupling Validator: Validation result: VALIDATION PASSED
+
+The proposed annotation result is consistent with the provided marker list and the identified cell type. Here's the breakdown:
+
+1. **Marker Consistency**:
+   - The key functional markers (CDKN2A, PHGDH, FABP5, EPCAM, VCAN, GSTP1) and key cell type markers (KRT5, KRT14, KRT6B, KRT8, TTYH1, CRYAB, SLPI, IGFBP5, S100A1) are all present in the provided marker list.
+   - The markers used to identify basal epithelial cells, specifically basal-like breast cancer cells, are consistent with known literature and databases. KRT5, KRT14, and CRYAB are strong indicators of basal epithelial cells, which are often associated with basal-like breast cancer.
+
+2. **Mixed Cell Type Consideration**:
+   - The analysis considers the possibility of mixed cell types by identifying potential subtypes such as myoepithelial cells and progenitor basal cells. However, the strong expression of basal cytokeratins and CRYAB supports the primary annotation of basal-like breast cancer cells.
+   - There is no strong evidence of multiple distinct cell types that would necessitate flagging for further investigation.
+
+Overall, the annotation is well-supported by the marker list and aligns with the expected cell types in breast cancer tissue. | Formatting Agent: {
+  ""main_cell_type"": ""Basal Epithelial Cells"",
+  ""sub_cell_types"": [
+    ""Basal-like Breast Cancer Cells"",
+    ""Myoepithelial Cells"",
+    ""Progenitor Basal Cells""
+  ],
+  ""possible_mixed_cell_types"": [],
+  ""num_markers"": 50
+}",,
+cluster_48,Mast Cells,"Connective Tissue Mast Cells, Mucosal Mast Cells, Neoplastic Mast Cells",,50,"TPSD1, MS4A2, CPA3, TPSAB1, SLC18A2, TPSB2, HDC, HPGDS, RHEX, SLC45A3, HPGD, GATA2, RGS13, VWA5A, MTCO2P12, KIT, PTGS1, HS3ST1, ALOX5, TESPA1, ADRB2, BTK, ARMH1, IL1RL1, GRAP2, TESC, H3-3B, LTC4S, RAC2, CNRIP1, HLA-DQA2, SEPTIN2, GPX1, SAMSN1, ARHGEF6, TDRD3, CD37, HLA-DRB5, FCER1G, LAT2, H3-3A, ATP6V0A2, MSRA, LAT, ALOX5AP, VIM, TYROBP, CARD16, ACSL4, RAB27B",1,gpt-4o-2024-08-06,openai,breast cancer,human,,"Final Annotation Agent: To annotate the cell type based on the provided ranked marker list from a single-cell human dataset derived from breast cancer tissue, I will follow the outlined steps:
+
+### Step 1: List the Key Functional Markers
+- **TPSD1, TPSAB1, TPSB2**: These are tryptase genes, which are serine proteases predominantly found in mast cells. They play a role in the degradation of extracellular matrix components and are involved in inflammatory responses.
+- **CPA3**: Carboxypeptidase A3 is another enzyme highly expressed in mast cells, involved in the processing of bioactive peptides.
+- **HDC**: Histidine decarboxylase is responsible for the production of histamine, a key mediator in allergic reactions and inflammation, primarily found in mast cells.
+- **HPGDS**: Hematopoietic prostaglandin D synthase is involved in the production of prostaglandin D2, a lipid mediator involved in allergic and inflammatory responses, commonly associated with mast cells.
+- **ALOX5, LTC4S, ALOX5AP**: These are involved in leukotriene synthesis, which are inflammatory mediators, again pointing towards mast cell function.
+- **KIT**: A receptor tyrosine kinase that is crucial for mast cell development, survival, and function.
+
+### Step 2: List the Key Cell Type Markers
+- **MS4A2 (FCER1B)**: This gene encodes the beta chain of the high-affinity IgE receptor, which is a hallmark of mast cells.
+- **GATA2**: A transcription factor important for the development of hematopoietic lineages, including mast cells.
+- **RGS13**: Regulator of G-protein signaling 13, known to be expressed in mast cells.
+- **IL1RL1 (ST2)**: A receptor involved in the immune response, expressed in mast cells.
+- **FCER1G**: The gamma chain of the high-affinity IgE receptor, also associated with mast cells.
+
+### Step 3: Cross-reference Known Databases
+Cross-referencing with databases such as the Human Protein Atlas, CellMarker, and literature on scRNA-seq datasets, the expression of these markers is highly indicative of mast cells. The combination of tryptases, carboxypeptidase A3, histidine decarboxylase, and the high-affinity IgE receptor components strongly supports this annotation.
+
+### Step 4: Determine the Most Probable General Cell Type
+Based on the expression of the markers listed, the most probable general cell type is **Mast Cells**. These cells are known for their role in allergic reactions and are characterized by the expression of the markers identified.
+
+### Step 5: Identify the Top 3 Most Probable Sub Cell Types
+1. **Connective Tissue Mast Cells**: Typically found in tissues such as the skin and breast, characterized by high levels of tryptase and chymase.
+2. **Mucosal Mast Cells**: Found in mucosal tissues, but less likely given the tissue origin (breast cancer).
+3. **Neoplastic Mast Cells**: Given the context of breast cancer tissue, there could be a neoplastic transformation of mast cells, although this is less common.
+
+The most likely subtype, based on the markers and tissue context, is **Connective Tissue Mast Cells**.
+
+### Step 6: Provide a Concise Summary of Your Analysis
+The analysis of the ranked marker list from the breast cancer tissue dataset strongly indicates that the cell type is mast cells. The presence of key functional markers such as tryptases, carboxypeptidase A3, and histidine decarboxylase, along with cell type-specific markers like MS4A2 and KIT, supports this annotation. The most probable subtype within this general cell type is connective tissue mast cells, given the tissue origin and marker expression profile.
+
+FINAL ANNOTATION COMPLETED | Coupling Validator: Validation result: VALIDATION PASSED
+
+The proposed annotation of the cell type as mast cells is consistent with the provided marker list and the context of the dataset derived from breast cancer tissue. The key functional markers and cell type markers listed in the annotation are present in the provided marker list and are well-known indicators of mast cells. 
+
+1. **Marker Consistency**: 
+   - The markers such as TPSD1, TPSAB1, TPSB2, CPA3, HDC, HPGDS, ALOX5, LTC4S, ALOX5AP, KIT, MS4A2, GATA2, RGS13, IL1RL1, and FCER1G are all present in the provided marker list and are consistent with mast cell identification.
+   
+2. **Mixed Cell Type Consideration**:
+   - There is no strong evidence of multiple distinct cell types based on the high-ranking markers provided. The markers predominantly support the identification of mast cells, specifically connective tissue mast cells, given the tissue origin and marker expression profile.
+
+The annotation is well-supported by the marker list and the context of the dataset, and no further investigation into mixed cell types is necessary at this time. | Formatting Agent: {
+  ""main_cell_type"": ""Mast Cells"",
+  ""sub_cell_types"": [
+    ""Connective Tissue Mast Cells"",
+    ""Mucosal Mast Cells"",
+    ""Neoplastic Mast Cells""
+  ],
+  ""possible_mixed_cell_types"": [],
+  ""num_markers"": 50
+}",,

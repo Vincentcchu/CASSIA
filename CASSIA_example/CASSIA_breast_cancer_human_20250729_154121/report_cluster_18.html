@@ -1,0 +1,264 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { 
+                font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 20px; 
+                background-color: #f0f2f5;
+                line-height: 1.6;
+            }
+            .container { 
+                background-color: white; 
+                padding: 40px; 
+                border-radius: 16px; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .agent-section { 
+                margin-bottom: 35px; 
+                padding: 25px; 
+                border-radius: 12px; 
+                transition: all 0.3s ease;
+            }
+            .agent-section:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            .final-annotation { 
+                background-color: #f0f7ff; 
+                border-left: 5px solid #2196f3; 
+            }
+            .validator { 
+                background-color: #f0fdf4; 
+                border-left: 5px solid #22c55e; 
+            }
+            .formatting { 
+                background: linear-gradient(145deg, #fff7ed, #ffe4c4);
+                border-left: 5px solid #f97316; 
+                box-shadow: 0 4px 15px rgba(249, 115, 22, 0.1);
+            }
+            h2 { 
+                color: #1a2b3c; 
+                margin-top: 0; 
+                font-size: 1.5rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            ul { 
+                margin: 15px 0; 
+                padding-left: 20px; 
+            }
+            pre { 
+                background-color: #f8fafc; 
+                padding: 20px; 
+                border-radius: 8px; 
+                overflow-x: auto;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            .validation-result { 
+                font-weight: 600; 
+                color: #16a34a; 
+                padding: 12px 20px;
+                background-color: #dcfce7; 
+                border-radius: 8px; 
+                display: inline-block;
+                margin: 10px 0;
+            }
+            br { 
+                margin-bottom: 8px; 
+            }
+            p {
+                margin: 12px 0;
+                color: #374151;
+            }
+            .summary-content {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+            .summary-item {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.7);
+                padding: 16px;
+                border-radius: 12px;
+                backdrop-filter: blur(8px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+            .summary-label {
+                font-weight: 600;
+                color: #c2410c;
+                font-size: 0.95rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .summary-value {
+                color: #1f2937;
+                font-size: 1.1rem;
+                padding: 8px 16px;
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 8px;
+                display: inline-block;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            .summary-list {
+                margin: 0;
+                padding-left: 24px;
+                list-style-type: none;
+            }
+            .summary-list li {
+                color: #1f2937;
+                padding: 8px 0;
+                position: relative;
+            }
+            .summary-list li:before {
+                content: "•";
+                color: #f97316;
+                font-weight: bold;
+                position: absolute;
+                left: -20px;
+            }
+            .report-header {
+                text-align: center;
+                margin-bottom: 40px;
+                padding-bottom: 30px;
+                border-bottom: 2px solid rgba(249, 115, 22, 0.2);
+            }
+            
+            .report-title {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: #1a2b3c;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #f97316, #c2410c);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                letter-spacing: -0.5px;
+            }
+            
+            .report-subtitle {
+                font-size: 1.1rem;
+                color: #64748b;
+                margin-top: 8px;
+                font-weight: 500;
+            }
+            .scoring { 
+                background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+                border-left: 5px solid #22c55e;
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.1);
+            }
+            .scoring-content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                color: #1f2937;
+                line-height: 1.8;
+            }
+            .scoring-content br + br {
+                content: "";
+                display: block;
+                margin: 12px 0;
+            }
+            .empty-list {
+                color: #6b7280;
+                font-style: italic;
+            }
+            .error-message {
+                color: #dc2626;
+                padding: 12px;
+                background-color: #fef2f2;
+                border-radius: 6px;
+                border-left: 4px solid #dc2626;
+            }
+            .score-badge {
+                background: linear-gradient(135deg, #22c55e, #16a34a);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-size: 1.5rem;
+                font-weight: 700;
+                display: inline-block;
+                margin: 12px 0;
+                box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+                position: relative;
+                top: -10px;
+            }
+            .score-badge::before {
+                content: "Score:";
+                font-size: 0.9rem;
+                font-weight: 500;
+                margin-right: 8px;
+                opacity: 0.9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="report-header">
+                <h1 class="report-title">CASSIA Analysis Report</h1>
+                <p class="report-subtitle">Comprehensive Cell Type Analysis and Annotation</p>
+            </div>
+            
+                <div class="agent-section final-annotation">
+                    <h2>🔍 Final Annotation Analysis</h2>
+                    To annotate the cell type from the provided ranked marker list, we will follow the outlined steps:<br><br>### Step 1: List the Key Functional Markers<br>- **PTN (Pleiotrophin)**: Involved in cell growth and angiogenesis.<br>- **MGP (Matrix Gla Protein)**: Inhibits vascular calcification.<br>- **CCL28 (C-C Motif Chemokine Ligand 28)**: Involved in immune response and chemotaxis.<br>- **SYNM (Synemin)**: Intermediate filament protein, involved in cytoskeletal organization.<br>- **LTF (Lactotransferrin)**: Antimicrobial and anti-inflammatory properties.<br>- **SFRP1 (Secreted Frizzled Related Protein 1)**: Modulates Wnt signaling pathway.<br>- **MMP7 (Matrix Metallopeptidase 7)**: Involved in the breakdown of extracellular matrix.<br>- **NDRG2 (N-Myc Downstream Regulated 2)**: Involved in stress response and cell differentiation.<br>- **CRYAB (Alpha-Crystallin B Chain)**: Acts as a molecular chaperone.<br>- **SLPI (Secretory Leukocyte Peptidase Inhibitor)**: Protects epithelial tissues from proteolytic enzymes.<br>- **CHI3L1 (Chitinase 3 Like 1)**: Involved in tissue remodeling and inflammation.<br>- **WFDC2 (WAP Four-Disulfide Core Domain 2)**: Involved in immune response.<br><br>### Step 2: List the Key Cell Type Markers<br>- **KRT15 (Keratin 15)**: Marker for basal epithelial cells.<br>- **SCGB2A2 (Secretoglobin Family 2A Member 2)**: Highly expressed in mammary gland epithelial cells.<br>- **KRT14 (Keratin 14)**: Basal cell marker, often found in myoepithelial cells.<br>- **KRT17 (Keratin 17)**: Associated with basal/myoepithelial cells.<br>- **KRT7 (Keratin 7)**: Expressed in simple epithelia and some glandular tissues.<br>- **SCGB2A1 (Secretoglobin Family 2A Member 1)**: Expressed in mammary gland epithelial cells.<br>- **MIA (Melanoma Inhibitory Activity)**: Expressed in some epithelial cells.<br>- **GABRP (Gamma-Aminobutyric Acid Type A Receptor Pi Subunit)**: Expressed in epithelial cells of the breast.<br>- **CLDN4 (Claudin 4)**: Tight junction protein, expressed in epithelial cells.<br>- **TACSTD2 (Tumor-Associated Calcium Signal Transducer 2)**: Expressed in epithelial cells.<br><br>### Step 3: Cross-reference Known Databases<br>Using databases such as the Human Protein Atlas, CellMarker, and PanglaoDB, we can cross-reference these markers. The presence of keratins (KRT15, KRT14, KRT17, KRT7) and secretoglobins (SCGB2A2, SCGB2A1) strongly suggests an epithelial origin, specifically related to mammary gland tissue.<br><br>### Step 4: Determine the Most Probable General Cell Type<br>Based on the expression of keratins and secretoglobins, the most probable general cell type is **epithelial cells** from the mammary gland.<br><br>### Step 5: Identify the Top 3 Most Probable Sub Cell Types<br>1. **Luminal Epithelial Cells**: High expression of SCGB2A2 and SCGB2A1, along with KRT7, suggests luminal epithelial cells.<br>2. **Basal/Myoepithelial Cells**: Expression of KRT14, KRT15, and KRT17 indicates basal or myoepithelial cells.<br>3. **Ductal Epithelial Cells**: Expression of CLDN4 and TACSTD2 can be associated with ductal epithelial cells.<br><br>**Most Likely Subtype**: The presence of SCGB2A2 and SCGB2A1, along with KRT7, strongly suggests that the most likely subtype is **Luminal Epithelial Cells**.<br><br>### Step 6: Provide a Concise Summary of Your Analysis<br>The analysis of the ranked marker list from the breast cancer tissue dataset indicates that the cell cluster is most likely composed of epithelial cells, specifically from the mammary gland. The expression of secretoglobins and keratins points towards luminal epithelial cells as the most probable subtype, with basal/myoepithelial and ductal epithelial cells as other potential subtypes.<br><br>**FINAL ANNOTATION COMPLETED**
+                </div>
+            
+                <div class="agent-section validator">
+                    <h2>✓ Validation Check</h2>
+                    <div class="validation-result">✅ VALIDATION PASSED</div>
+                    Validation result: VALIDATION PASSED<br><br>The proposed annotation result is consistent with the provided marker list and the identified cell type. Here's the breakdown:<br><br>1. **Marker Consistency**: <br>   - The key functional markers and cell type markers listed in the annotation are present in the provided marker list. <br>   - The markers such as KRT15, KRT14, KRT17, KRT7, SCGB2A2, and SCGB2A1 are all present in the marker list and are consistent with epithelial cells, particularly those from the mammary gland.<br><br>2. **Mixed Cell Type Consideration**:<br>   - The annotation correctly identifies the potential for mixed cell types, such as luminal epithelial cells, basal/myoepithelial cells, and ductal epithelial cells, based on the expression of specific markers.<br>   - The presence of multiple high-ranking markers supporting different subtypes (e.g., KRT14, KRT15, KRT17 for basal/myoepithelial cells and SCGB2A2, SCGB2A1 for luminal epithelial cells) is acknowledged, and the annotation appropriately flags these as potential subtypes.<br><br>The annotation process has been thorough, using cross-referencing with known databases and providing a logical conclusion based on the marker expression patterns. The final annotation of luminal epithelial cells as the most likely subtype is well-supported by the data.
+                </div>
+            
+                        <div class="agent-section formatting">
+                            <h2>📋 Summary</h2>
+                            
+                        <div class="summary-content">
+                            <div class="summary-item">
+                                <span class="summary-label">Main Cell Type:</span>
+                                <span class="summary-value">Epithelial Cells</span>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Sub Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Luminal Epithelial Cells</li><li>Basal/Myoepithelial Cells</li><li>Ductal Epithelial Cells</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Possible Mixed Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li class="empty-list">No mixed cell types identified</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Number of Markers:</span>
+                                <span class="summary-value">50</span>
+                            </div>
+                        </div>
+                    
+                        </div>
+                    
+                    <div class="agent-section scoring">
+                        <h2>🎯 Quality Assessment</h2>
+                        <div class="score-badge">90</div>
+                        <div class="scoring-content">
+                            The annotation results provided demonstrate a well-structured and comprehensive approach to identifying the cell types present in the single-cell dataset derived from human breast cancer tissue. The analysis effectively utilizes a combination of functional and cell type-specific markers to arrive at a conclusion, which is a key strength of this annotation.<br><br>1. **Correctness of Annotations**: The annotations are scientifically accurate. The identification of epithelial cells, particularly luminal epithelial cells, is well-supported by the presence of markers such as SCGB2A2, SCGB2A1, and KRT7, which are known to be associated with luminal epithelial cells in the mammary gland. The consideration of basal/myoepithelial cells and ductal epithelial cells as potential subtypes further strengthens the annotation's accuracy.<br><br>2. **Balanced Consideration of Markers**: The annotation process demonstrates a balanced consideration of multiple markers. It does not overly focus on a single marker but rather integrates information from various markers, such as keratins and secretoglobins, to provide a comprehensive view of the cell types. This balanced approach is crucial in single-cell annotation, where multiple markers often contribute to the identification of cell types.<br><br>3. **General Picture of Cell Populations**: The annotation captures the general picture of the cell populations present in the dataset. By identifying the main cell type as epithelial cells and further distinguishing between luminal, basal/myoepithelial, and ductal subtypes, the analysis provides a nuanced understanding of the cell populations. This is particularly important in the context of breast cancer, where different epithelial subtypes can have distinct roles and implications.<br><br>4. **Consideration of Marker Rank**: The annotation does not explicitly discuss the rank of markers, which could be an area for improvement. While the presence of key markers is acknowledged, a more detailed consideration of their rank and relative importance could enhance the analysis.<br><br>5. **Potential Oversights**: There are no obvious misclassifications or oversights in the annotation. The analysis is thorough and considers the possibility of mixed cell types, which is a realistic scenario in complex tissues like breast cancer.<br><br>Overall, the annotation results are robust, scientifically sound, and provide a comprehensive view of the cell types present in the dataset. The analysis could be further strengthened by explicitly considering the rank of markers, but this does not significantly detract from the overall quality of the annotation.<br>
+                        </div>
+                    </div>
+                
+        </div>
+    </body>
+    </html>
+    

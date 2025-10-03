@@ -1,0 +1,264 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { 
+                font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 20px; 
+                background-color: #f0f2f5;
+                line-height: 1.6;
+            }
+            .container { 
+                background-color: white; 
+                padding: 40px; 
+                border-radius: 16px; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .agent-section { 
+                margin-bottom: 35px; 
+                padding: 25px; 
+                border-radius: 12px; 
+                transition: all 0.3s ease;
+            }
+            .agent-section:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            .final-annotation { 
+                background-color: #f0f7ff; 
+                border-left: 5px solid #2196f3; 
+            }
+            .validator { 
+                background-color: #f0fdf4; 
+                border-left: 5px solid #22c55e; 
+            }
+            .formatting { 
+                background: linear-gradient(145deg, #fff7ed, #ffe4c4);
+                border-left: 5px solid #f97316; 
+                box-shadow: 0 4px 15px rgba(249, 115, 22, 0.1);
+            }
+            h2 { 
+                color: #1a2b3c; 
+                margin-top: 0; 
+                font-size: 1.5rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            ul { 
+                margin: 15px 0; 
+                padding-left: 20px; 
+            }
+            pre { 
+                background-color: #f8fafc; 
+                padding: 20px; 
+                border-radius: 8px; 
+                overflow-x: auto;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            .validation-result { 
+                font-weight: 600; 
+                color: #16a34a; 
+                padding: 12px 20px;
+                background-color: #dcfce7; 
+                border-radius: 8px; 
+                display: inline-block;
+                margin: 10px 0;
+            }
+            br { 
+                margin-bottom: 8px; 
+            }
+            p {
+                margin: 12px 0;
+                color: #374151;
+            }
+            .summary-content {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+            .summary-item {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.7);
+                padding: 16px;
+                border-radius: 12px;
+                backdrop-filter: blur(8px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+            .summary-label {
+                font-weight: 600;
+                color: #c2410c;
+                font-size: 0.95rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .summary-value {
+                color: #1f2937;
+                font-size: 1.1rem;
+                padding: 8px 16px;
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 8px;
+                display: inline-block;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            .summary-list {
+                margin: 0;
+                padding-left: 24px;
+                list-style-type: none;
+            }
+            .summary-list li {
+                color: #1f2937;
+                padding: 8px 0;
+                position: relative;
+            }
+            .summary-list li:before {
+                content: "•";
+                color: #f97316;
+                font-weight: bold;
+                position: absolute;
+                left: -20px;
+            }
+            .report-header {
+                text-align: center;
+                margin-bottom: 40px;
+                padding-bottom: 30px;
+                border-bottom: 2px solid rgba(249, 115, 22, 0.2);
+            }
+            
+            .report-title {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: #1a2b3c;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #f97316, #c2410c);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                letter-spacing: -0.5px;
+            }
+            
+            .report-subtitle {
+                font-size: 1.1rem;
+                color: #64748b;
+                margin-top: 8px;
+                font-weight: 500;
+            }
+            .scoring { 
+                background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+                border-left: 5px solid #22c55e;
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.1);
+            }
+            .scoring-content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                color: #1f2937;
+                line-height: 1.8;
+            }
+            .scoring-content br + br {
+                content: "";
+                display: block;
+                margin: 12px 0;
+            }
+            .empty-list {
+                color: #6b7280;
+                font-style: italic;
+            }
+            .error-message {
+                color: #dc2626;
+                padding: 12px;
+                background-color: #fef2f2;
+                border-radius: 6px;
+                border-left: 4px solid #dc2626;
+            }
+            .score-badge {
+                background: linear-gradient(135deg, #22c55e, #16a34a);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-size: 1.5rem;
+                font-weight: 700;
+                display: inline-block;
+                margin: 12px 0;
+                box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+                position: relative;
+                top: -10px;
+            }
+            .score-badge::before {
+                content: "Score:";
+                font-size: 0.9rem;
+                font-weight: 500;
+                margin-right: 8px;
+                opacity: 0.9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="report-header">
+                <h1 class="report-title">CASSIA Analysis Report</h1>
+                <p class="report-subtitle">Comprehensive Cell Type Analysis and Annotation</p>
+            </div>
+            
+                <div class="agent-section final-annotation">
+                    <h2>🔍 Final Annotation Analysis</h2>
+                    To annotate the cell type based on the provided ranked marker list from a single-cell human dataset derived from breast cancer tissue, I will follow the outlined steps:<br><br>### Step 1: List the Key Functional Markers<br>- **ZAP70**: A tyrosine kinase involved in T-cell receptor signaling.<br>- **LCK**: A tyrosine kinase that plays a crucial role in T-cell activation.<br>- **LAT**: A linker for activation of T cells, involved in T-cell receptor signaling.<br>- **IL2RB**: Part of the receptor for interleukin-2, important for T-cell proliferation.<br>- **IL2RG**: Common gamma chain, part of multiple interleukin receptors, crucial for lymphocyte development.<br>- **RAC2**: A small GTPase involved in the regulation of cell migration and immune response.<br>- **TRAF3IP3**: Involved in T-cell receptor signaling.<br>- **FYB1**: An adapter protein involved in T-cell receptor signaling.<br><br>### Step 2: List the Key Cell Type Markers<br>- **CD3E, CD3D, CD3G**: Components of the CD3 complex, essential for T-cell receptor signaling, indicating T cells.<br>- **CD2**: A surface protein found on T cells and natural killer cells.<br>- **CD7**: A marker found on T cells and natural killer cells.<br>- **CD247 (CD3Z)**: Part of the T-cell receptor-CD3 complex.<br>- **TRBC1, TRBC2, TRAC**: T-cell receptor beta and alpha chain components, specific to T cells.<br>- **CD27**: A member of the TNF receptor family, expressed on T cells.<br>- **CD52**: A glycoprotein found on the surface of mature lymphocytes.<br>- **PTPRCAP**: Associated with T-cell activation.<br>- **CCL5**: A chemokine involved in recruiting T cells to sites of inflammation.<br>- **CST7**: Cystatin F, expressed in cytotoxic T cells and natural killer cells.<br>- **GIMAP4, GIMAP7**: GTPases involved in T-cell survival and development.<br><br>### Step 3: Cross-reference Known Databases<br>Using databases such as CellMarker, PanglaoDB, and the Human Protein Atlas, the markers listed are predominantly associated with T cells. The presence of CD3 complex components, T-cell receptor chains, and T-cell signaling molecules strongly suggests a T-cell identity.<br><br>### Step 4: Determine the Most Probable General Cell Type<br>Based on the expression of these markers, the most likely general cell type of the cluster is **T cells**. The presence of multiple T-cell receptor components and signaling molecules specific to T cells supports this conclusion.<br><br>### Step 5: Identify the Top 3 Most Probable Sub Cell Types<br>1. **Cytotoxic T Cells (CD8+ T Cells)**: The presence of markers like CST7 and RAC2, which are associated with cytotoxic functions, suggests this subtype.<br>2. **Helper T Cells (CD4+ T Cells)**: The expression of IL2RB and IL2RG, which are important for T-cell proliferation and function, could indicate helper T cells.<br>3. **Regulatory T Cells (Tregs)**: Although not directly indicated by the markers, the presence of CD27 and IL2RG could suggest a regulatory role.<br><br>The most likely subtype based on the markers is **Cytotoxic T Cells (CD8+ T Cells)**, given the presence of CST7 and other markers associated with cytotoxic activity.<br><br>### Step 6: Provide a Concise Summary of Your Analysis<br>The analysis of the ranked marker list from the breast cancer tissue dataset indicates that the cell cluster is most likely composed of T cells, specifically cytotoxic T cells. This conclusion is supported by the presence of T-cell receptor components, signaling molecules, and markers associated with cytotoxic functions.<br><br>**FINAL ANNOTATION COMPLETED**
+                </div>
+            
+                <div class="agent-section validator">
+                    <h2>✓ Validation Check</h2>
+                    <div class="validation-result">✅ VALIDATION PASSED</div>
+                    Validation result: VALIDATION PASSED<br><br>The proposed annotation result is consistent with the provided marker list and the identified cell type. Here's the breakdown:<br><br>1. **Marker Consistency**: <br>   - The key functional markers and cell type markers listed in the annotation are present in the provided marker list. <br>   - Markers such as CD3E, CD3D, CD3G, CD2, CD7, CD247, TRBC1, TRBC2, TRAC, and others are consistent with T-cell identity.<br>   - Functional markers like ZAP70, LCK, LAT, IL2RB, IL2RG, RAC2, and others are involved in T-cell receptor signaling and activation, supporting the T-cell annotation.<br><br>2. **Mixed Cell Type Consideration**:<br>   - The annotation considers potential subtypes within the T-cell population, such as cytotoxic T cells, helper T cells, and regulatory T cells.<br>   - The presence of markers like CST7 and RAC2 supports the identification of cytotoxic T cells as the most likely subtype.<br>   - There is no strong evidence of mixed cell types beyond the T-cell subtypes, as the markers predominantly indicate T-cell identity.<br><br>The annotation is well-supported by the marker list and the analysis steps, leading to a valid conclusion of T cells, specifically cytotoxic T cells, as the primary cell type in the cluster.
+                </div>
+            
+                        <div class="agent-section formatting">
+                            <h2>📋 Summary</h2>
+                            
+                        <div class="summary-content">
+                            <div class="summary-item">
+                                <span class="summary-label">Main Cell Type:</span>
+                                <span class="summary-value">T cells</span>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Sub Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Cytotoxic T Cells (CD8+ T Cells)</li><li>Helper T Cells (CD4+ T Cells)</li><li>Regulatory T Cells (Tregs)</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Possible Mixed Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li class="empty-list">No mixed cell types identified</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Number of Markers:</span>
+                                <span class="summary-value">50</span>
+                            </div>
+                        </div>
+                    
+                        </div>
+                    
+                    <div class="agent-section scoring">
+                        <h2>🎯 Quality Assessment</h2>
+                        <div class="score-badge">95</div>
+                        <div class="scoring-content">
+                            The annotation results provided for the single-cell dataset derived from human breast cancer tissue are generally well-executed, with a strong focus on identifying T cells as the primary cell type. The analysis effectively utilizes a comprehensive list of markers, including both functional and cell type-specific markers, to support the conclusion of T cells, specifically cytotoxic T cells, as the main cell type.<br><br>1. **Correctness of the Annotations**: The annotation correctly identifies T cells as the main cell type, supported by the presence of key markers such as CD3E, CD3D, CD3G, CD2, CD7, and CD247, which are well-known T-cell markers. The functional markers like ZAP70, LCK, and LAT further reinforce the T-cell identity due to their roles in T-cell receptor signaling.<br><br>2. **Balanced Consideration of Multiple Markers**: The analysis demonstrates a balanced approach by considering a wide range of markers rather than over-focusing on a specific one. The inclusion of both surface markers and signaling molecules provides a robust basis for the annotation.<br><br>3. **Ability to Capture the General Picture**: The annotation captures the general picture of the cell populations by considering potential subtypes within the T-cell population, such as cytotoxic T cells, helper T cells, and regulatory T cells. This comprehensive view is supported by markers like CST7 and RAC2, which are associated with cytotoxic functions.<br><br>4. **Consideration of Marker Rank**: While the annotation does not explicitly discuss the rank of markers, it effectively identifies key markers that appear early in the list, such as PTPRCAP and CD3E, which are crucial for T-cell identification.<br><br>5. **Potential Oversights**: There are no significant misclassifications or oversights in the annotation. The analysis is thorough and aligns well with the known biology of T cells.<br><br>Overall, the annotation is scientifically accurate, well-balanced, and provides a comprehensive view of the cell types present in the dataset. The focus on T cells is justified given the marker list, and the consideration of subtypes adds depth to the analysis.<br>
+                        </div>
+                    </div>
+                
+        </div>
+    </body>
+    </html>
+    

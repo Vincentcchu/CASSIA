@@ -1,0 +1,264 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { 
+                font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 20px; 
+                background-color: #f0f2f5;
+                line-height: 1.6;
+            }
+            .container { 
+                background-color: white; 
+                padding: 40px; 
+                border-radius: 16px; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .agent-section { 
+                margin-bottom: 35px; 
+                padding: 25px; 
+                border-radius: 12px; 
+                transition: all 0.3s ease;
+            }
+            .agent-section:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            .final-annotation { 
+                background-color: #f0f7ff; 
+                border-left: 5px solid #2196f3; 
+            }
+            .validator { 
+                background-color: #f0fdf4; 
+                border-left: 5px solid #22c55e; 
+            }
+            .formatting { 
+                background: linear-gradient(145deg, #fff7ed, #ffe4c4);
+                border-left: 5px solid #f97316; 
+                box-shadow: 0 4px 15px rgba(249, 115, 22, 0.1);
+            }
+            h2 { 
+                color: #1a2b3c; 
+                margin-top: 0; 
+                font-size: 1.5rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            ul { 
+                margin: 15px 0; 
+                padding-left: 20px; 
+            }
+            pre { 
+                background-color: #f8fafc; 
+                padding: 20px; 
+                border-radius: 8px; 
+                overflow-x: auto;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            .validation-result { 
+                font-weight: 600; 
+                color: #16a34a; 
+                padding: 12px 20px;
+                background-color: #dcfce7; 
+                border-radius: 8px; 
+                display: inline-block;
+                margin: 10px 0;
+            }
+            br { 
+                margin-bottom: 8px; 
+            }
+            p {
+                margin: 12px 0;
+                color: #374151;
+            }
+            .summary-content {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+            .summary-item {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.7);
+                padding: 16px;
+                border-radius: 12px;
+                backdrop-filter: blur(8px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+            .summary-label {
+                font-weight: 600;
+                color: #c2410c;
+                font-size: 0.95rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .summary-value {
+                color: #1f2937;
+                font-size: 1.1rem;
+                padding: 8px 16px;
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 8px;
+                display: inline-block;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            .summary-list {
+                margin: 0;
+                padding-left: 24px;
+                list-style-type: none;
+            }
+            .summary-list li {
+                color: #1f2937;
+                padding: 8px 0;
+                position: relative;
+            }
+            .summary-list li:before {
+                content: "•";
+                color: #f97316;
+                font-weight: bold;
+                position: absolute;
+                left: -20px;
+            }
+            .report-header {
+                text-align: center;
+                margin-bottom: 40px;
+                padding-bottom: 30px;
+                border-bottom: 2px solid rgba(249, 115, 22, 0.2);
+            }
+            
+            .report-title {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: #1a2b3c;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #f97316, #c2410c);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                letter-spacing: -0.5px;
+            }
+            
+            .report-subtitle {
+                font-size: 1.1rem;
+                color: #64748b;
+                margin-top: 8px;
+                font-weight: 500;
+            }
+            .scoring { 
+                background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+                border-left: 5px solid #22c55e;
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.1);
+            }
+            .scoring-content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                color: #1f2937;
+                line-height: 1.8;
+            }
+            .scoring-content br + br {
+                content: "";
+                display: block;
+                margin: 12px 0;
+            }
+            .empty-list {
+                color: #6b7280;
+                font-style: italic;
+            }
+            .error-message {
+                color: #dc2626;
+                padding: 12px;
+                background-color: #fef2f2;
+                border-radius: 6px;
+                border-left: 4px solid #dc2626;
+            }
+            .score-badge {
+                background: linear-gradient(135deg, #22c55e, #16a34a);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-size: 1.5rem;
+                font-weight: 700;
+                display: inline-block;
+                margin: 12px 0;
+                box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+                position: relative;
+                top: -10px;
+            }
+            .score-badge::before {
+                content: "Score:";
+                font-size: 0.9rem;
+                font-weight: 500;
+                margin-right: 8px;
+                opacity: 0.9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="report-header">
+                <h1 class="report-title">CASSIA Analysis Report</h1>
+                <p class="report-subtitle">Comprehensive Cell Type Analysis and Annotation</p>
+            </div>
+            
+                <div class="agent-section final-annotation">
+                    <h2>🔍 Final Annotation Analysis</h2>
+                    To annotate the cell type based on the provided ranked marker list from a single-cell human dataset derived from breast cancer tissue, I will follow the outlined steps:<br><br>### Step 1: List the Key Functional Markers<br>- **IGFBP5, IGFBP2**: Insulin-like growth factor binding proteins, involved in modulating IGF signaling, which is crucial for cell growth and survival.<br>- **ERBB2 (HER2)**: A receptor tyrosine kinase involved in cell growth and differentiation, often overexpressed in certain breast cancers.<br>- **AR (Androgen Receptor)**: A nuclear hormone receptor involved in regulating gene expression and affecting cell proliferation.<br>- **GRB7**: An adaptor protein that interacts with receptor tyrosine kinases like ERBB2, involved in signal transduction pathways.<br>- **TNFSF10 (TRAIL)**: A cytokine involved in inducing apoptosis, particularly in cancer cells.<br>- **SRCIN1**: A protein involved in the regulation of Src family kinases, which play roles in cell proliferation and survival.<br><br>### Step 2: List the Key Cell Type Markers<br>- **ERBB2 (HER2)**: Strongly associated with HER2-positive breast cancer cells.<br>- **AR (Androgen Receptor)**: Often expressed in certain subtypes of breast cancer, such as molecular apocrine tumors.<br>- **IGFBP5, IGFBP2**: Frequently expressed in breast cancer cells, involved in cancer cell proliferation and survival.<br>- **GRB7**: Often co-amplified with ERBB2 in breast cancer, indicating a HER2-positive phenotype.<br><br>### Step 3: Cross-reference Known Databases<br>- **ERBB2 (HER2)**: Known to be a key marker for HER2-positive breast cancer cells, as per databases like the Human Protein Atlas and literature.<br>- **AR**: Associated with molecular apocrine breast cancer, as per literature and databases.<br>- **IGFBP5, IGFBP2**: Known to be expressed in breast cancer cells, supporting their role in cancer progression.<br><br>### Step 4: Determine the Most Probable General Cell Type<br>Based on the expression of ERBB2, AR, and IGFBP proteins, the most probable general cell type is a **breast cancer epithelial cell**, specifically those associated with HER2-positive breast cancer.<br><br>### Step 5: Identify the Top 3 Most Probable Sub Cell Types<br>1. **HER2-Positive Breast Cancer Cells**: Due to the high expression of ERBB2 and co-expression of GRB7.<br>2. **Molecular Apocrine Breast Cancer Cells**: Due to the expression of AR, which is characteristic of this subtype.<br>3. **Luminal B Breast Cancer Cells**: These can also express ERBB2 and AR, though typically with lower ERBB2 expression compared to HER2-positive cells.<br><br>The most likely subtype based on the markers is **HER2-Positive Breast Cancer Cells**, given the prominence of ERBB2 and GRB7.<br><br>### Step 6: Provide a Concise Summary of Your Analysis<br>The analysis of the ranked marker list from the breast cancer tissue dataset suggests that the cell cluster is most likely composed of HER2-positive breast cancer epithelial cells. This conclusion is supported by the high expression of ERBB2 and GRB7, which are hallmark markers of this subtype. Additionally, the presence of AR suggests a potential overlap with molecular apocrine characteristics, but the dominance of ERBB2 expression strongly points towards a HER2-positive phenotype.<br><br>FINAL ANNOTATION COMPLETED
+                </div>
+            
+                <div class="agent-section validator">
+                    <h2>✓ Validation Check</h2>
+                    <div class="validation-result">✅ VALIDATION PASSED</div>
+                    Validation result: VALIDATION PASSED<br><br>The proposed annotation result is consistent with the provided marker list and the identified cell type. Here's the breakdown:<br><br>1. **Marker Consistency**:<br>   - The key markers used in the annotation (IGFBP5, IGFBP2, ERBB2, AR, GRB7, TNFSF10, SRCIN1) are all present in the provided marker list.<br>   - The markers are consistent with the identified cell type, as they are known to be associated with breast cancer, particularly HER2-positive breast cancer cells.<br><br>2. **Mixed Cell Type Consideration**:<br>   - The annotation acknowledges the potential presence of mixed cell types, such as molecular apocrine breast cancer cells and luminal B breast cancer cells, due to the expression of AR and other markers.<br>   - However, the dominance of ERBB2 and GRB7 supports the primary annotation of HER2-positive breast cancer cells, which is a reasonable conclusion given the marker expression profile.<br><br>The analysis is thorough and considers the possibility of mixed cell types, but the evidence strongly supports the primary annotation of HER2-positive breast cancer epithelial cells. Therefore, the validation is passed.
+                </div>
+            
+                        <div class="agent-section formatting">
+                            <h2>📋 Summary</h2>
+                            
+                        <div class="summary-content">
+                            <div class="summary-item">
+                                <span class="summary-label">Main Cell Type:</span>
+                                <span class="summary-value">breast cancer epithelial cell</span>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Sub Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>HER2-Positive Breast Cancer Cells</li><li>Molecular Apocrine Breast Cancer Cells</li><li>Luminal B Breast Cancer Cells</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Possible Mixed Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li class="empty-list">No mixed cell types identified</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Number of Markers:</span>
+                                <span class="summary-value">50</span>
+                            </div>
+                        </div>
+                    
+                        </div>
+                    
+                    <div class="agent-section scoring">
+                        <h2>🎯 Quality Assessment</h2>
+                        <div class="score-badge">85</div>
+                        <div class="scoring-content">
+                            The annotation results provided demonstrate a strong understanding of the key markers associated with breast cancer, particularly HER2-positive breast cancer cells. The analysis correctly identifies ERBB2 (HER2) as a central marker, which is crucial given its prominence in the marker list and its well-documented role in HER2-positive breast cancer. The inclusion of GRB7, often co-amplified with ERBB2, further supports this annotation.<br><br>The analysis also considers other markers such as AR (Androgen Receptor) and IGFBP proteins, which are relevant to breast cancer subtypes like molecular apocrine and luminal B breast cancer cells. This indicates a balanced consideration of multiple markers, rather than an over-focus on a single one, which is a strength of the annotation.<br><br>However, while the annotation does a good job of identifying the primary cell type and potential subtypes, it could have further explored the implications of other markers in the list, such as TNFSF10 and SRCIN1, which are mentioned but not deeply integrated into the subtype analysis. Additionally, the rank of the markers, with IGFBP5 and MIPEP appearing first, suggests they might have a more significant role than acknowledged in the final annotation.<br><br>Overall, the annotation provides a comprehensive view of the cell types present, with a strong focus on HER2-positive breast cancer cells, which is appropriate given the marker list. There are no obvious misclassifications, but a deeper exploration of the full marker list could enhance the analysis.<br>
+                        </div>
+                    </div>
+                
+        </div>
+    </body>
+    </html>
+    

@@ -1,0 +1,264 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { 
+                font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 20px; 
+                background-color: #f0f2f5;
+                line-height: 1.6;
+            }
+            .container { 
+                background-color: white; 
+                padding: 40px; 
+                border-radius: 16px; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .agent-section { 
+                margin-bottom: 35px; 
+                padding: 25px; 
+                border-radius: 12px; 
+                transition: all 0.3s ease;
+            }
+            .agent-section:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            .final-annotation { 
+                background-color: #f0f7ff; 
+                border-left: 5px solid #2196f3; 
+            }
+            .validator { 
+                background-color: #f0fdf4; 
+                border-left: 5px solid #22c55e; 
+            }
+            .formatting { 
+                background: linear-gradient(145deg, #fff7ed, #ffe4c4);
+                border-left: 5px solid #f97316; 
+                box-shadow: 0 4px 15px rgba(249, 115, 22, 0.1);
+            }
+            h2 { 
+                color: #1a2b3c; 
+                margin-top: 0; 
+                font-size: 1.5rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            ul { 
+                margin: 15px 0; 
+                padding-left: 20px; 
+            }
+            pre { 
+                background-color: #f8fafc; 
+                padding: 20px; 
+                border-radius: 8px; 
+                overflow-x: auto;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            .validation-result { 
+                font-weight: 600; 
+                color: #16a34a; 
+                padding: 12px 20px;
+                background-color: #dcfce7; 
+                border-radius: 8px; 
+                display: inline-block;
+                margin: 10px 0;
+            }
+            br { 
+                margin-bottom: 8px; 
+            }
+            p {
+                margin: 12px 0;
+                color: #374151;
+            }
+            .summary-content {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+            .summary-item {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.7);
+                padding: 16px;
+                border-radius: 12px;
+                backdrop-filter: blur(8px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+            .summary-label {
+                font-weight: 600;
+                color: #c2410c;
+                font-size: 0.95rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .summary-value {
+                color: #1f2937;
+                font-size: 1.1rem;
+                padding: 8px 16px;
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 8px;
+                display: inline-block;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            .summary-list {
+                margin: 0;
+                padding-left: 24px;
+                list-style-type: none;
+            }
+            .summary-list li {
+                color: #1f2937;
+                padding: 8px 0;
+                position: relative;
+            }
+            .summary-list li:before {
+                content: "•";
+                color: #f97316;
+                font-weight: bold;
+                position: absolute;
+                left: -20px;
+            }
+            .report-header {
+                text-align: center;
+                margin-bottom: 40px;
+                padding-bottom: 30px;
+                border-bottom: 2px solid rgba(249, 115, 22, 0.2);
+            }
+            
+            .report-title {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: #1a2b3c;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #f97316, #c2410c);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                letter-spacing: -0.5px;
+            }
+            
+            .report-subtitle {
+                font-size: 1.1rem;
+                color: #64748b;
+                margin-top: 8px;
+                font-weight: 500;
+            }
+            .scoring { 
+                background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+                border-left: 5px solid #22c55e;
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.1);
+            }
+            .scoring-content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                color: #1f2937;
+                line-height: 1.8;
+            }
+            .scoring-content br + br {
+                content: "";
+                display: block;
+                margin: 12px 0;
+            }
+            .empty-list {
+                color: #6b7280;
+                font-style: italic;
+            }
+            .error-message {
+                color: #dc2626;
+                padding: 12px;
+                background-color: #fef2f2;
+                border-radius: 6px;
+                border-left: 4px solid #dc2626;
+            }
+            .score-badge {
+                background: linear-gradient(135deg, #22c55e, #16a34a);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-size: 1.5rem;
+                font-weight: 700;
+                display: inline-block;
+                margin: 12px 0;
+                box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+                position: relative;
+                top: -10px;
+            }
+            .score-badge::before {
+                content: "Score:";
+                font-size: 0.9rem;
+                font-weight: 500;
+                margin-right: 8px;
+                opacity: 0.9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="report-header">
+                <h1 class="report-title">CASSIA Analysis Report</h1>
+                <p class="report-subtitle">Comprehensive Cell Type Analysis and Annotation</p>
+            </div>
+            
+                <div class="agent-section final-annotation">
+                    <h2>🔍 Final Annotation Analysis</h2>
+                    To annotate the cell type based on the provided ranked marker list from a single-cell human dataset derived from breast cancer tissue, I will follow the outlined steps:<br><br>### Step 1: List the Key Functional Markers<br>- **TPSD1, TPSAB1, TPSB2**: These are tryptase genes, which are serine proteases predominantly found in mast cells. They play a role in the degradation of extracellular matrix components and are involved in allergic responses.<br>- **CPA3**: Carboxypeptidase A3 is another enzyme highly expressed in mast cells, involved in the processing of bioactive peptides.<br>- **SLC18A2**: This gene encodes a vesicular monoamine transporter, which is involved in the storage and release of neurotransmitters.<br>- **HDC**: Histidine decarboxylase is responsible for the production of histamine, a key mediator in allergic reactions and inflammation.<br>- **HPGDS**: Hematopoietic prostaglandin D synthase is involved in the production of prostaglandin D2, a lipid mediator involved in allergic and inflammatory responses.<br>- **ALOX5, LTC4S**: These are involved in the leukotriene synthesis pathway, which is crucial for inflammatory responses.<br>- **KIT**: A receptor tyrosine kinase that is essential for mast cell development, survival, and function.<br><br>### Step 2: List the Key Cell Type Markers<br>- **MS4A2 (FCER1B)**: This gene encodes the beta chain of the high-affinity IgE receptor, which is a hallmark of mast cells.<br>- **GATA2**: A transcription factor important for the development and function of mast cells.<br>- **RGS13**: A regulator of G-protein signaling, expressed in mast cells.<br>- **IL1RL1 (ST2)**: A receptor involved in the IL-33 signaling pathway, which is important in mast cell activation.<br>- **FCER1G**: The gamma chain of the high-affinity IgE receptor, also associated with mast cells.<br><br>### Step 3: Cross-reference Known Databases<br>Cross-referencing with databases such as the Human Protein Atlas, CellMarker, and literature on scRNA-seq datasets, the markers listed are predominantly associated with mast cells. The presence of tryptases, carboxypeptidase A3, and high-affinity IgE receptor components strongly suggests a mast cell identity.<br><br>### Step 4: Determine the Most Probable General Cell Type<br>Based on the expression of these markers, the most likely general cell type of the cluster is **Mast Cells**. These cells are known for their role in allergic reactions and are characterized by the expression of tryptases, carboxypeptidase A3, and high-affinity IgE receptors.<br><br>### Step 5: Identify the Top 3 Most Probable Sub Cell Types<br>1. **Connective Tissue Mast Cells**: Typically found in tissues and characterized by the expression of tryptases and carboxypeptidase A3.<br>2. **Mucosal Mast Cells**: Found in mucosal tissues, they may express similar markers but are often distinguished by their response to different stimuli.<br>3. **Tumor-Associated Mast Cells**: These may have a unique expression profile due to the tumor microenvironment, potentially showing altered expression of some markers.<br><br>The most likely subtype based on the markers and the context of breast cancer tissue is **Tumor-Associated Mast Cells**. These cells can influence tumor progression and the immune response within the tumor microenvironment.<br><br>### Step 6: Provide a Concise Summary of Your Analysis<br>The analysis of the ranked marker list from the breast cancer tissue dataset indicates that the cell cluster is most likely composed of mast cells. The expression of key markers such as tryptases, carboxypeptidase A3, and components of the high-affinity IgE receptor strongly supports this annotation. Within the context of breast cancer, these are likely tumor-associated mast cells, which play a role in modulating the tumor microenvironment and immune response.<br><br>FINAL ANNOTATION COMPLETED
+                </div>
+            
+                <div class="agent-section validator">
+                    <h2>✓ Validation Check</h2>
+                    <div class="validation-result">✅ VALIDATION PASSED</div>
+                    Validation result: VALIDATION PASSED<br><br>The proposed annotation of the cell cluster as "Mast Cells," specifically "Tumor-Associated Mast Cells," is consistent with the provided marker list and the context of breast cancer tissue. Here's the breakdown of the validation:<br><br>1. **Marker Consistency**: <br>   - The key functional markers and cell type markers listed in the annotation (e.g., TPSD1, TPSAB1, TPSB2, CPA3, MS4A2, KIT, GATA2, etc.) are present in the provided marker list.<br>   - These markers are well-known to be associated with mast cells, particularly in the context of their role in allergic responses, inflammation, and tumor microenvironment modulation.<br><br>2. **Mixed Cell Type Consideration**:<br>   - The markers predominantly support a mast cell identity, with no strong evidence of multiple distinct cell types based on the high-ranking markers provided.<br>   - The annotation correctly identifies the potential subtype as "Tumor-Associated Mast Cells," which is appropriate given the breast cancer tissue context.<br><br>Overall, the annotation is well-supported by the marker list and aligns with known biological roles of mast cells in the tumor microenvironment.
+                </div>
+            
+                        <div class="agent-section formatting">
+                            <h2>📋 Summary</h2>
+                            
+                        <div class="summary-content">
+                            <div class="summary-item">
+                                <span class="summary-label">Main Cell Type:</span>
+                                <span class="summary-value">Mast Cells</span>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Sub Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Connective Tissue Mast Cells</li><li>Mucosal Mast Cells</li><li>Tumor-Associated Mast Cells</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Possible Mixed Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li class="empty-list">No mixed cell types identified</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Number of Markers:</span>
+                                <span class="summary-value">50</span>
+                            </div>
+                        </div>
+                    
+                        </div>
+                    
+                    <div class="agent-section scoring">
+                        <h2>🎯 Quality Assessment</h2>
+                        <div class="score-badge">90</div>
+                        <div class="scoring-content">
+                            The annotation results provided for the single-cell dataset derived from breast cancer tissue are largely accurate and well-reasoned. The analysis correctly identifies the cell type as "Mast Cells," specifically "Tumor-Associated Mast Cells," which is consistent with the expression of key markers such as TPSD1, TPSAB1, TPSB2, CPA3, and MS4A2. These markers are well-known to be associated with mast cells, particularly in the context of their role in allergic responses, inflammation, and modulation of the tumor microenvironment.<br><br>The annotation process demonstrates a balanced consideration of multiple markers, rather than over-focusing on a specific one. The analysis includes a comprehensive list of functional and cell type markers, such as KIT, GATA2, and FCER1G, which are crucial for identifying mast cells. The use of databases and literature to cross-reference the markers further strengthens the validity of the annotation.<br><br>The annotation also captures the general picture of the cell populations by considering the context of breast cancer tissue and identifying the most probable subtypes, including "Tumor-Associated Mast Cells." This consideration of the tumor microenvironment is crucial for understanding the role of mast cells in cancer.<br><br>However, there are a few areas where the analysis could be improved. While the annotation is well-supported by the marker list, it could benefit from a more detailed discussion of potential mixed cell types or other cell populations that might be present, even if they are less likely. Additionally, the rank of the markers could be more explicitly considered, as markers appearing first may hold more significance.<br><br>Overall, the annotation is scientifically accurate, well-balanced, and provides a comprehensive view of the cell types present in the dataset. There are no obvious misclassifications or oversights, and the analysis effectively captures the general picture of the cell populations.<br>
+                        </div>
+                    </div>
+                
+        </div>
+    </body>
+    </html>
+    

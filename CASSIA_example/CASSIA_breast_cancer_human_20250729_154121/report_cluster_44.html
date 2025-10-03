@@ -1,0 +1,264 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { 
+                font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 20px; 
+                background-color: #f0f2f5;
+                line-height: 1.6;
+            }
+            .container { 
+                background-color: white; 
+                padding: 40px; 
+                border-radius: 16px; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .agent-section { 
+                margin-bottom: 35px; 
+                padding: 25px; 
+                border-radius: 12px; 
+                transition: all 0.3s ease;
+            }
+            .agent-section:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            .final-annotation { 
+                background-color: #f0f7ff; 
+                border-left: 5px solid #2196f3; 
+            }
+            .validator { 
+                background-color: #f0fdf4; 
+                border-left: 5px solid #22c55e; 
+            }
+            .formatting { 
+                background: linear-gradient(145deg, #fff7ed, #ffe4c4);
+                border-left: 5px solid #f97316; 
+                box-shadow: 0 4px 15px rgba(249, 115, 22, 0.1);
+            }
+            h2 { 
+                color: #1a2b3c; 
+                margin-top: 0; 
+                font-size: 1.5rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            ul { 
+                margin: 15px 0; 
+                padding-left: 20px; 
+            }
+            pre { 
+                background-color: #f8fafc; 
+                padding: 20px; 
+                border-radius: 8px; 
+                overflow-x: auto;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            .validation-result { 
+                font-weight: 600; 
+                color: #16a34a; 
+                padding: 12px 20px;
+                background-color: #dcfce7; 
+                border-radius: 8px; 
+                display: inline-block;
+                margin: 10px 0;
+            }
+            br { 
+                margin-bottom: 8px; 
+            }
+            p {
+                margin: 12px 0;
+                color: #374151;
+            }
+            .summary-content {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+            .summary-item {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.7);
+                padding: 16px;
+                border-radius: 12px;
+                backdrop-filter: blur(8px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+            .summary-label {
+                font-weight: 600;
+                color: #c2410c;
+                font-size: 0.95rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .summary-value {
+                color: #1f2937;
+                font-size: 1.1rem;
+                padding: 8px 16px;
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 8px;
+                display: inline-block;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            .summary-list {
+                margin: 0;
+                padding-left: 24px;
+                list-style-type: none;
+            }
+            .summary-list li {
+                color: #1f2937;
+                padding: 8px 0;
+                position: relative;
+            }
+            .summary-list li:before {
+                content: "•";
+                color: #f97316;
+                font-weight: bold;
+                position: absolute;
+                left: -20px;
+            }
+            .report-header {
+                text-align: center;
+                margin-bottom: 40px;
+                padding-bottom: 30px;
+                border-bottom: 2px solid rgba(249, 115, 22, 0.2);
+            }
+            
+            .report-title {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: #1a2b3c;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #f97316, #c2410c);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                letter-spacing: -0.5px;
+            }
+            
+            .report-subtitle {
+                font-size: 1.1rem;
+                color: #64748b;
+                margin-top: 8px;
+                font-weight: 500;
+            }
+            .scoring { 
+                background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+                border-left: 5px solid #22c55e;
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.1);
+            }
+            .scoring-content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                color: #1f2937;
+                line-height: 1.8;
+            }
+            .scoring-content br + br {
+                content: "";
+                display: block;
+                margin: 12px 0;
+            }
+            .empty-list {
+                color: #6b7280;
+                font-style: italic;
+            }
+            .error-message {
+                color: #dc2626;
+                padding: 12px;
+                background-color: #fef2f2;
+                border-radius: 6px;
+                border-left: 4px solid #dc2626;
+            }
+            .score-badge {
+                background: linear-gradient(135deg, #22c55e, #16a34a);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-size: 1.5rem;
+                font-weight: 700;
+                display: inline-block;
+                margin: 12px 0;
+                box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+                position: relative;
+                top: -10px;
+            }
+            .score-badge::before {
+                content: "Score:";
+                font-size: 0.9rem;
+                font-weight: 500;
+                margin-right: 8px;
+                opacity: 0.9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="report-header">
+                <h1 class="report-title">CASSIA Analysis Report</h1>
+                <p class="report-subtitle">Comprehensive Cell Type Analysis and Annotation</p>
+            </div>
+            
+                <div class="agent-section final-annotation">
+                    <h2>🔍 Final Annotation Analysis</h2>
+                    To annotate the cell type from the provided ranked marker list, we will follow the outlined steps:<br><br>### Step 1: List the Key Functional Markers<br>- **KRT17, KRT14, KRT5, KRT7**: These are keratins, which are structural proteins typically expressed in epithelial cells. They play a role in maintaining cell integrity and are often used as markers for epithelial cell types.<br>- **ACTG2, ACTA2**: These are actin proteins, with ACTA2 (alpha-smooth muscle actin) being a marker for smooth muscle cells and myofibroblasts.<br>- **MT2A, MT1X, MT1E**: Metallothioneins involved in metal ion homeostasis and protection against oxidative stress.<br>- **CAV1, CAV2**: Caveolins are involved in the formation of caveolae (small invaginations in the cell membrane) and are associated with various signaling pathways.<br>- **SFN (14-3-3 sigma)**: Involved in cell cycle control and apoptosis.<br>- **TAGLN (Transgelin)**: A marker for smooth muscle cells and myofibroblasts.<br>- **SAA1 (Serum Amyloid A1)**: An acute-phase protein involved in inflammation.<br>- **CXCL8, CXCL2, CXCL1**: Chemokines involved in immune cell recruitment and inflammation.<br>- **MYC**: A transcription factor involved in cell proliferation and growth.<br>- **ITGA2, ITGB1**: Integrins involved in cell adhesion and signaling.<br>- **CRYAB (Alpha B-crystallin)**: A small heat shock protein involved in stress response.<br>- **NNMT (Nicotinamide N-methyltransferase)**: Involved in cellular metabolism.<br>- **GPC1 (Glypican 1)**: Involved in cell growth and differentiation.<br>- **FHL2 (Four and a half LIM domains protein 2)**: Involved in cell signaling and cytoskeletal organization.<br>- **TNFRSF12A (TWEAK receptor)**: Involved in inflammation and apoptosis.<br>- **TUBB6, TUBB4B, TUBA1C**: Tubulins involved in microtubule formation and cell structure.<br>- **CALD1 (Caldesmon 1)**: Involved in smooth muscle contraction.<br>- **DST (Dystonin)**: Involved in cytoskeletal organization.<br>- **DDX21, NOP16, NOP56**: Involved in ribosome biogenesis and RNA processing.<br>- **MTHFD2**: Involved in folate metabolism.<br>- **SLC3A2**: A component of amino acid transporters.<br>- **ANXA1 (Annexin A1)**: Involved in anti-inflammatory responses.<br>- **NCL (Nucleolin)**: Involved in ribosome biogenesis and cell proliferation.<br>- **YBX3 (Y-box binding protein 3)**: Involved in transcriptional regulation.<br>- **PRMT1**: Involved in protein arginine methylation.<br>- **CEBPD (CCAAT/enhancer-binding protein delta)**: A transcription factor involved in immune and inflammatory responses.<br>- **ARID5B**: A transcriptional regulator.<br>- **PUM3**: Involved in RNA binding and regulation.<br>- **EIF4A1**: Involved in translation initiation.<br>- **EBNA1BP2**: Involved in cell cycle regulation.<br>- **GNL3**: Involved in cell proliferation and nucleolar function.<br><br>### Step 2: List the Key Cell Type Markers<br>- **KRT17, KRT14, KRT5, KRT7**: Strongly suggest epithelial origin, particularly basal epithelial cells.<br>- **ACTA2, TAGLN**: Suggest myoepithelial or myofibroblast characteristics.<br>- **CAV1, CAV2**: Often expressed in epithelial and endothelial cells.<br>- **SAA1, CXCL8, CXCL2, CXCL1**: Indicate an inflammatory or immune response component.<br><br>### Step 3: Cross-reference Known Databases<br>Using databases such as the Human Protein Atlas, CellMarker, and literature on breast tissue and cancer, we can cross-reference these markers:<br>- **Basal epithelial cells** in breast tissue often express KRT5, KRT14, and KRT17.<br>- **Myoepithelial cells** express ACTA2 and TAGLN, along with some keratins.<br>- **Inflammatory markers** like CXCL8 and SAA1 suggest an immune response, common in tumor microenvironments.<br><br>### Step 4: Determine the Most Probable General Cell Type<br>The expression of keratins (KRT5, KRT14, KRT17) and ACTA2 suggests that the general cell type is likely **epithelial**, specifically basal epithelial or myoepithelial cells, which are common in breast tissue.<br><br>### Step 5: Identify the Top 3 Most Probable Sub Cell Types<br>1. **Basal Epithelial Cells**: High expression of KRT5, KRT14, and KRT17 strongly indicates basal epithelial cells.<br>2. **Myoepithelial Cells**: The presence of ACTA2 and TAGLN suggests myoepithelial characteristics.<br>3. **Inflammatory Epithelial Cells**: The presence of inflammatory markers like CXCL8 and SAA1 suggests an epithelial cell type involved in an immune response, possibly due to the tumor microenvironment.<br><br>The most likely subtype based on the markers is **Basal Epithelial Cells**.<br><br>### Step 6: Provide a Concise Summary of Your Analysis<br>The cluster of cells from the breast cancer tissue is most likely composed of basal epithelial cells, characterized by the high expression of keratins KRT5, KRT14, and KRT17. These cells are integral to the structure of the breast epithelium and are often involved in the basal-like subtype of breast cancer. The presence of ACTA2 and TAGLN also suggests some myoepithelial characteristics, while inflammatory markers indicate an active tumor microenvironment.<br><br>FINAL ANNOTATION COMPLETED
+                </div>
+            
+                <div class="agent-section validator">
+                    <h2>✓ Validation Check</h2>
+                    <div class="validation-result">✅ VALIDATION PASSED</div>
+                    Validation result: VALIDATION PASSED<br><br>The proposed annotation result is consistent with the provided marker list and the identified cell type. Here's the breakdown:<br><br>1. **Marker Consistency**: <br>   - The key functional markers listed in the annotation (e.g., KRT17, KRT14, KRT5, KRT7, ACTA2, TAGLN, CXCL8, SAA1) are present in the provided marker list.<br>   - The markers used to identify the cell type as basal epithelial cells, myoepithelial cells, and inflammatory epithelial cells are consistent with known literature and databases.<br><br>2. **Mixed Cell Type Consideration**:<br>   - The annotation acknowledges the presence of multiple cell type characteristics, such as basal epithelial, myoepithelial, and inflammatory epithelial cells. This is supported by several high-ranking markers, such as keratins for epithelial cells and ACTA2 and TAGLN for myoepithelial cells.<br>   - The presence of inflammatory markers like CXCL8 and SAA1 is noted, indicating a potential mixed population due to the tumor microenvironment, which is appropriately flagged in the analysis.<br><br>Overall, the annotation is well-supported by the marker list and provides a comprehensive analysis of the potential cell types present in the cluster.
+                </div>
+            
+                        <div class="agent-section formatting">
+                            <h2>📋 Summary</h2>
+                            
+                        <div class="summary-content">
+                            <div class="summary-item">
+                                <span class="summary-label">Main Cell Type:</span>
+                                <span class="summary-value">Epithelial</span>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Sub Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Basal Epithelial Cells</li><li>Myoepithelial Cells</li><li>Inflammatory Epithelial Cells</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Possible Mixed Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li class="empty-list">No mixed cell types identified</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Number of Markers:</span>
+                                <span class="summary-value">50</span>
+                            </div>
+                        </div>
+                    
+                        </div>
+                    
+                    <div class="agent-section scoring">
+                        <h2>🎯 Quality Assessment</h2>
+                        <div class="score-badge">90</div>
+                        <div class="scoring-content">
+                            The annotation results provided demonstrate a thorough and well-reasoned analysis of the single-cell data from human breast cancer tissue. The strengths of the annotation include:<br><br>1. **Correctness of Annotations**: The identification of basal epithelial cells as the main cell type is scientifically accurate, given the prominence of keratin markers (KRT17, KRT14, KRT5, KRT7) in the list. These markers are well-known indicators of epithelial origin, particularly basal epithelial cells, which are relevant in the context of breast cancer.<br><br>2. **Balanced Consideration of Multiple Markers**: The analysis effectively balances the use of different markers, considering not only the keratins but also actin proteins (ACTA2, TAGLN) and inflammatory markers (CXCL8, SAA1). This comprehensive approach ensures that the annotation captures the complexity of the cell population, acknowledging the presence of myoepithelial and inflammatory characteristics.<br><br>3. **Comprehensive View of Cell Types**: The annotation provides a detailed view of the potential cell types present, including basal epithelial, myoepithelial, and inflammatory epithelial cells. This reflects an understanding of the tumor microenvironment, which often includes a mix of cell types due to the inflammatory response and cellular heterogeneity in cancer.<br><br>4. **Consideration of Marker Rank**: The analysis appropriately considers the rank of markers, giving priority to those that appear first, such as the keratins, which are crucial for identifying the main cell type.<br><br>However, there are some areas for improvement:<br><br>1. **Potential Oversight of Mixed Cell Types**: While the annotation acknowledges the presence of multiple cell type characteristics, it could further explore the possibility of mixed cell types or transitional states, which are common in cancerous tissues.<br><br>2. **Emphasis on Inflammatory Markers**: Although inflammatory markers are noted, their role in the tumor microenvironment could be more explicitly integrated into the overall cell type characterization, potentially identifying specific immune cell types or stromal interactions.<br><br>Overall, the annotation is scientifically sound, well-balanced, and provides a comprehensive view of the cell populations present in the data. It effectively captures the general picture while considering the complexity of the tumor microenvironment.<br>
+                        </div>
+                    </div>
+                
+        </div>
+    </body>
+    </html>
+    

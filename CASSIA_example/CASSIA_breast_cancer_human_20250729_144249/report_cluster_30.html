@@ -1,0 +1,264 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { 
+                font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 20px; 
+                background-color: #f0f2f5;
+                line-height: 1.6;
+            }
+            .container { 
+                background-color: white; 
+                padding: 40px; 
+                border-radius: 16px; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .agent-section { 
+                margin-bottom: 35px; 
+                padding: 25px; 
+                border-radius: 12px; 
+                transition: all 0.3s ease;
+            }
+            .agent-section:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            .final-annotation { 
+                background-color: #f0f7ff; 
+                border-left: 5px solid #2196f3; 
+            }
+            .validator { 
+                background-color: #f0fdf4; 
+                border-left: 5px solid #22c55e; 
+            }
+            .formatting { 
+                background: linear-gradient(145deg, #fff7ed, #ffe4c4);
+                border-left: 5px solid #f97316; 
+                box-shadow: 0 4px 15px rgba(249, 115, 22, 0.1);
+            }
+            h2 { 
+                color: #1a2b3c; 
+                margin-top: 0; 
+                font-size: 1.5rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            ul { 
+                margin: 15px 0; 
+                padding-left: 20px; 
+            }
+            pre { 
+                background-color: #f8fafc; 
+                padding: 20px; 
+                border-radius: 8px; 
+                overflow-x: auto;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            .validation-result { 
+                font-weight: 600; 
+                color: #16a34a; 
+                padding: 12px 20px;
+                background-color: #dcfce7; 
+                border-radius: 8px; 
+                display: inline-block;
+                margin: 10px 0;
+            }
+            br { 
+                margin-bottom: 8px; 
+            }
+            p {
+                margin: 12px 0;
+                color: #374151;
+            }
+            .summary-content {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+            .summary-item {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.7);
+                padding: 16px;
+                border-radius: 12px;
+                backdrop-filter: blur(8px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+            .summary-label {
+                font-weight: 600;
+                color: #c2410c;
+                font-size: 0.95rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .summary-value {
+                color: #1f2937;
+                font-size: 1.1rem;
+                padding: 8px 16px;
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 8px;
+                display: inline-block;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            .summary-list {
+                margin: 0;
+                padding-left: 24px;
+                list-style-type: none;
+            }
+            .summary-list li {
+                color: #1f2937;
+                padding: 8px 0;
+                position: relative;
+            }
+            .summary-list li:before {
+                content: "•";
+                color: #f97316;
+                font-weight: bold;
+                position: absolute;
+                left: -20px;
+            }
+            .report-header {
+                text-align: center;
+                margin-bottom: 40px;
+                padding-bottom: 30px;
+                border-bottom: 2px solid rgba(249, 115, 22, 0.2);
+            }
+            
+            .report-title {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: #1a2b3c;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #f97316, #c2410c);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                letter-spacing: -0.5px;
+            }
+            
+            .report-subtitle {
+                font-size: 1.1rem;
+                color: #64748b;
+                margin-top: 8px;
+                font-weight: 500;
+            }
+            .scoring { 
+                background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+                border-left: 5px solid #22c55e;
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.1);
+            }
+            .scoring-content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                color: #1f2937;
+                line-height: 1.8;
+            }
+            .scoring-content br + br {
+                content: "";
+                display: block;
+                margin: 12px 0;
+            }
+            .empty-list {
+                color: #6b7280;
+                font-style: italic;
+            }
+            .error-message {
+                color: #dc2626;
+                padding: 12px;
+                background-color: #fef2f2;
+                border-radius: 6px;
+                border-left: 4px solid #dc2626;
+            }
+            .score-badge {
+                background: linear-gradient(135deg, #22c55e, #16a34a);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-size: 1.5rem;
+                font-weight: 700;
+                display: inline-block;
+                margin: 12px 0;
+                box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+                position: relative;
+                top: -10px;
+            }
+            .score-badge::before {
+                content: "Score:";
+                font-size: 0.9rem;
+                font-weight: 500;
+                margin-right: 8px;
+                opacity: 0.9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="report-header">
+                <h1 class="report-title">CASSIA Analysis Report</h1>
+                <p class="report-subtitle">Comprehensive Cell Type Analysis and Annotation</p>
+            </div>
+            
+                <div class="agent-section final-annotation">
+                    <h2>🔍 Final Annotation Analysis</h2>
+                    To annotate the cell type based on the provided ranked marker list from a single-cell RNA sequencing dataset of breast cancer tissue, we will follow the outlined steps:<br><br>### Step 1: List the Key Functional Markers<br>- **MARCHF1**: Involved in protein ubiquitination, potentially regulating immune responses.<br>- **GPX1**: Encodes glutathione peroxidase, involved in detoxifying hydrogen peroxide, indicating oxidative stress response.<br>- **TYROBP**: An adaptor protein involved in immune cell signaling, particularly in myeloid cells.<br>- **SPI1 (PU.1)**: A transcription factor critical for myeloid and lymphoid lineage development.<br>- **CSF1R**: A receptor for colony-stimulating factor 1, crucial for macrophage differentiation and survival.<br>- **CYBB**: Encodes a component of the NADPH oxidase complex, involved in reactive oxygen species production in phagocytes.<br>- **FPR3**: A receptor involved in chemotaxis of immune cells.<br>- **LYZ**: Encodes lysozyme, an enzyme with antibacterial properties, often expressed in myeloid cells.<br><br>### Step 2: List the Key Cell Type Markers<br>- **CD74, HLA-DPA1, HLA-DRB5, HLA-DRB1, HLA-DRA, HLA-DPB1, HLA-DQA1, HLA-DQB1, HLA-DMB**: These are MHC class II molecules and associated proteins, indicating antigen-presenting cells, such as macrophages or dendritic cells.<br>- **C1QC, C1QB, C1QA**: Components of the complement system, often expressed in macrophages.<br>- **CD68**: A marker for macrophages and other myeloid cells.<br>- **AIF1 (IBA1)**: A marker for microglia and macrophages.<br>- **MS4A6A**: Associated with myeloid cells, particularly macrophages.<br>- **FCGR3A (CD16), FCGR2A**: Receptors for the Fc region of IgG, expressed in natural killer cells and macrophages.<br>- **LILRB4**: An inhibitory receptor expressed on myeloid cells.<br>- **CD14**: A co-receptor for the detection of bacterial lipopolysaccharide, expressed in monocytes and macrophages.<br><br>### Step 3: Cross-reference Known Databases<br>Using databases such as the Human Cell Atlas, PanglaoDB, and literature on breast cancer microenvironment, the markers listed are predominantly associated with myeloid lineage cells, particularly macrophages.<br><br>### Step 4: Determine the Most Probable General Cell Type<br>Based on the expression of MHC class II molecules, complement components, and macrophage-specific markers, the most probable general cell type is **macrophages**.<br><br>### Step 5: Identify the Top 3 Most Probable Sub Cell Types<br>1. **Tumor-associated macrophages (TAMs)**: Given the breast cancer tissue context, these macrophages are likely involved in tumor progression and immune modulation.<br>2. **Classical macrophages (M1-like)**: Characterized by high expression of MHC class II and pro-inflammatory markers.<br>3. **Non-classical macrophages (M2-like)**: Typically involved in tissue repair and anti-inflammatory responses, but in the tumor context, they may support tumor growth.<br><br>The most likely subtype, considering the tumor environment and the expression of markers like CD68, CD14, and MHC class II molecules, is **tumor-associated macrophages (TAMs)**.<br><br>### Step 6: Provide a Concise Summary of Your Analysis<br>The analysis of the ranked marker list from the breast cancer tissue scRNA-seq dataset indicates that the cell cluster is most likely composed of macrophages, specifically tumor-associated macrophages (TAMs). This conclusion is supported by the high expression of MHC class II molecules, complement components, and macrophage-specific markers such as CD68 and CD14. These TAMs play a crucial role in the tumor microenvironment, contributing to immune modulation and tumor progression.<br><br>FINAL ANNOTATION COMPLETED
+                </div>
+            
+                <div class="agent-section validator">
+                    <h2>✓ Validation Check</h2>
+                    <div class="validation-result">✅ VALIDATION PASSED</div>
+                    Validation result: VALIDATION PASSED<br><br>The proposed annotation result is consistent with the provided marker list and the identified cell type. Here's the breakdown:<br><br>1. **Marker Consistency**: <br>   - The markers used in the annotation, such as MARCHF1, GPX1, TYROBP, SPI1, CSF1R, CYBB, FPR3, and LYZ, are present in the provided marker list.<br>   - The key cell type markers, including CD74, HLA-DPA1, HLA-DRB5, HLA-DRB1, HLA-DRA, HLA-DPB1, HLA-DQA1, HLA-DQB1, HLA-DMB, C1QC, C1QB, C1QA, CD68, AIF1, MS4A6A, FCGR3A, FCGR2A, LILRB4, and CD14, are also present in the marker list.<br><br>2. **Consistency with Identified Cell Type**:<br>   - The markers are predominantly associated with myeloid lineage cells, particularly macrophages, which aligns with the annotation of the cell type as macrophages.<br>   - The presence of MHC class II molecules, complement components, and macrophage-specific markers supports the identification of tumor-associated macrophages (TAMs) in the breast cancer tissue context.<br><br>3. **Mixed Cell Type Consideration**:<br>   - There is no strong evidence of multiple distinct cell types based on the high-ranking markers. The markers consistently point towards a macrophage lineage, specifically TAMs, in the context of breast cancer tissue.<br><br>Overall, the annotation is well-supported by the marker list and the context provided, leading to a valid conclusion of tumor-associated macrophages (TAMs) as the primary cell type in the cluster.
+                </div>
+            
+                        <div class="agent-section formatting">
+                            <h2>📋 Summary</h2>
+                            
+                        <div class="summary-content">
+                            <div class="summary-item">
+                                <span class="summary-label">Main Cell Type:</span>
+                                <span class="summary-value">macrophages</span>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Sub Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>tumor-associated macrophages (TAMs)</li><li>classical macrophages (M1-like)</li><li>non-classical macrophages (M2-like)</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Possible Mixed Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li class="empty-list">No mixed cell types identified</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Number of Markers:</span>
+                                <span class="summary-value">50</span>
+                            </div>
+                        </div>
+                    
+                        </div>
+                    
+                    <div class="agent-section scoring">
+                        <h2>🎯 Quality Assessment</h2>
+                        <div class="score-badge">90</div>
+                        <div class="scoring-content">
+                            The annotation results provided for the single-cell RNA sequencing dataset from breast cancer tissue are generally well-executed, with a strong focus on identifying macrophages, specifically tumor-associated macrophages (TAMs). Here are the key points of evaluation:<br><br>1. **Correctness of Annotations**: The annotation correctly identifies the main cell type as macrophages, which is consistent with the presence of markers such as CD68, CD14, and MHC class II molecules. These markers are well-known indicators of macrophage lineage, particularly in the context of tumor microenvironments.<br><br>2. **Balanced Consideration of Multiple Markers**: The analysis effectively considers a wide range of markers, including those involved in immune response (e.g., TYROBP, SPI1), oxidative stress (e.g., GPX1), and antigen presentation (e.g., HLA-DPA1, HLA-DRB1). This comprehensive approach ensures that the annotation is not overly reliant on a single marker but rather integrates multiple lines of evidence.<br><br>3. **Ability to Capture the General Picture**: The annotation captures the general picture of the cell populations by identifying not only the main cell type (macrophages) but also potential subtypes (TAMs, M1-like, and M2-like macrophages). This reflects an understanding of the complexity and heterogeneity of the tumor microenvironment.<br><br>4. **Consideration of Marker Rank**: The analysis does not explicitly discuss the rank of markers, which could be a minor oversight. However, the markers identified as key functional and cell type markers are indeed among the most relevant for macrophage identification, suggesting an implicit consideration of their importance.<br><br>5. **Potential Oversights**: There are no obvious misclassifications or oversights in the annotation. The focus on macrophages is appropriate given the marker list and the breast cancer context. However, the analysis could have briefly considered the possibility of other immune cell types, even if only to rule them out.<br><br>Overall, the annotation is scientifically accurate, well-balanced, and provides a comprehensive view of the cell types present in the dataset. The focus on macrophages, particularly TAMs, is justified and aligns with current understanding of the breast cancer microenvironment.<br>
+                        </div>
+                    </div>
+                
+        </div>
+    </body>
+    </html>
+    
