@@ -1,0 +1,264 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { 
+                font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 20px; 
+                background-color: #f0f2f5;
+                line-height: 1.6;
+            }
+            .container { 
+                background-color: white; 
+                padding: 40px; 
+                border-radius: 16px; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .agent-section { 
+                margin-bottom: 35px; 
+                padding: 25px; 
+                border-radius: 12px; 
+                transition: all 0.3s ease;
+            }
+            .agent-section:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            .final-annotation { 
+                background-color: #f0f7ff; 
+                border-left: 5px solid #2196f3; 
+            }
+            .validator { 
+                background-color: #f0fdf4; 
+                border-left: 5px solid #22c55e; 
+            }
+            .formatting { 
+                background: linear-gradient(145deg, #fff7ed, #ffe4c4);
+                border-left: 5px solid #f97316; 
+                box-shadow: 0 4px 15px rgba(249, 115, 22, 0.1);
+            }
+            h2 { 
+                color: #1a2b3c; 
+                margin-top: 0; 
+                font-size: 1.5rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            ul { 
+                margin: 15px 0; 
+                padding-left: 20px; 
+            }
+            pre { 
+                background-color: #f8fafc; 
+                padding: 20px; 
+                border-radius: 8px; 
+                overflow-x: auto;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            .validation-result { 
+                font-weight: 600; 
+                color: #16a34a; 
+                padding: 12px 20px;
+                background-color: #dcfce7; 
+                border-radius: 8px; 
+                display: inline-block;
+                margin: 10px 0;
+            }
+            br { 
+                margin-bottom: 8px; 
+            }
+            p {
+                margin: 12px 0;
+                color: #374151;
+            }
+            .summary-content {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+            .summary-item {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.7);
+                padding: 16px;
+                border-radius: 12px;
+                backdrop-filter: blur(8px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+            .summary-label {
+                font-weight: 600;
+                color: #c2410c;
+                font-size: 0.95rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .summary-value {
+                color: #1f2937;
+                font-size: 1.1rem;
+                padding: 8px 16px;
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 8px;
+                display: inline-block;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            .summary-list {
+                margin: 0;
+                padding-left: 24px;
+                list-style-type: none;
+            }
+            .summary-list li {
+                color: #1f2937;
+                padding: 8px 0;
+                position: relative;
+            }
+            .summary-list li:before {
+                content: "•";
+                color: #f97316;
+                font-weight: bold;
+                position: absolute;
+                left: -20px;
+            }
+            .report-header {
+                text-align: center;
+                margin-bottom: 40px;
+                padding-bottom: 30px;
+                border-bottom: 2px solid rgba(249, 115, 22, 0.2);
+            }
+            
+            .report-title {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: #1a2b3c;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #f97316, #c2410c);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                letter-spacing: -0.5px;
+            }
+            
+            .report-subtitle {
+                font-size: 1.1rem;
+                color: #64748b;
+                margin-top: 8px;
+                font-weight: 500;
+            }
+            .scoring { 
+                background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+                border-left: 5px solid #22c55e;
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.1);
+            }
+            .scoring-content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                color: #1f2937;
+                line-height: 1.8;
+            }
+            .scoring-content br + br {
+                content: "";
+                display: block;
+                margin: 12px 0;
+            }
+            .empty-list {
+                color: #6b7280;
+                font-style: italic;
+            }
+            .error-message {
+                color: #dc2626;
+                padding: 12px;
+                background-color: #fef2f2;
+                border-radius: 6px;
+                border-left: 4px solid #dc2626;
+            }
+            .score-badge {
+                background: linear-gradient(135deg, #22c55e, #16a34a);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-size: 1.5rem;
+                font-weight: 700;
+                display: inline-block;
+                margin: 12px 0;
+                box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+                position: relative;
+                top: -10px;
+            }
+            .score-badge::before {
+                content: "Score:";
+                font-size: 0.9rem;
+                font-weight: 500;
+                margin-right: 8px;
+                opacity: 0.9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="report-header">
+                <h1 class="report-title">CASSIA Analysis Report</h1>
+                <p class="report-subtitle">Comprehensive Cell Type Analysis and Annotation</p>
+            </div>
+            
+                <div class="agent-section final-annotation">
+                    <h2>🔍 Final Annotation Analysis</h2>
+                    1. Key functional markers and pathways (with roles)<br>---------------------------------------------------<br><br>I’ll first group the most informative genes by function, focusing on pathways that are distinctive in brain cell types.<br><br>**a. Neurotransmission / neuronal signaling**<br><br>- **SCG2 (Secretogranin II)** – Dense-core vesicle protein, strongly enriched in neurons (especially peptidergic/monoaminergic neurons); marker of secretory granules in neuroendocrine cells.<br>- **GRM7** – Metabotropic glutamate receptor (mGluR7), presynaptic GPCR modulating glutamatergic transmission; neuronal.<br>- **NOS1 (nNOS)** – Neuronal nitric oxide synthase; canonical neuronal marker, especially in specific interneuron populations and some projection neurons.<br>- **SLC6A4 (SERT)** – Serotonin transporter; hallmark of **serotonergic neurons** (raphe nuclei, some hindbrain populations). In human brain scRNA-seq, SLC6A4 is highly specific for 5-HT neurons.<br>- **NMU (Neuromedin U)** – Neuropeptide; expressed in specific hypothalamic/brainstem peptidergic neurons and some peripheral neuroendocrine cells.<br>- **NECAB2** – Neuronal calcium-binding protein; enriched in excitatory neurons in cortex/hippocampus and some brainstem nuclei.<br>- **STXBP6** – Syntaxin-binding protein 6 (amisyn); synaptic vesicle exocytosis regulator, neuronal.<br><br>These strongly support a **neuronal, synaptically active, neuromodulatory** identity.<br><br>**b. Axon guidance / patterning / developmental transcription factors**<br><br>- **EN1 (Engrailed-1)** – Homeobox TF; classic marker of **midbrain–hindbrain** lineages (e.g., midbrain dopaminergic neurons, some brainstem neurons, cerebellar interneurons). In adult brain, EN1 expression is largely restricted to specific midbrain/brainstem populations.<br>- **PAX2** – Paired box TF; in CNS, marks **hindbrain and spinal cord inhibitory interneurons**, cerebellar interneurons, and some brainstem nuclei. Also expressed in kidney/inner ear development, but in brain scRNA-seq, PAX2+ neurons are typically inhibitory interneurons in hindbrain/cerebellum.<br>- **ID4** – HLH transcriptional regulator; involved in neural stem/progenitor maintenance and some interneuron lineages; also seen in specific mature neuronal subtypes.<br>- **SHISA8** – Modulator of AMPA receptor trafficking; enriched in specific neuronal populations (e.g., cerebellar and brainstem neurons).<br>- **BRINP1** – BMP/retinoic acid–inducible neural-specific protein; expressed in postmitotic neurons, especially in hindbrain/cerebellum and limbic structures.<br><br>These point to a **hindbrain / midbrain–hindbrain boundary–derived neuronal population**, with a strong developmental patterning signature.<br><br>**c. Neurotrophic / receptor signaling**<br><br>- **GFRA1** – GDNF family receptor alpha 1; co-receptor for GDNF signaling. In CNS, expressed in subsets of **dopaminergic and other brainstem neurons**, as well as some peripheral neurons.<br>- **BMPR1B, BMPR1B-DT** – BMP receptor type 1B and its divergent transcript; involved in neural patterning and differentiation, especially in dorsal spinal cord and cerebellum.<br>- **FGF7, FGF9** – Fibroblast growth factors; FGF9 is important in CNS development (e.g., midbrain, cerebellum), FGF7 more often in glia/epithelium but can be expressed in specific neuronal niches.<br>- **TGFBR3L** – TGF-β receptor 3-like; modulator of TGF-β signaling.<br>- **SFRP2** – Secreted frizzled-related protein 2; Wnt pathway modulator, often in developmental contexts and some specialized adult neurons/glia.<br><br>These reinforce a **developmentally patterned, signaling-rich neuronal subtype**, likely with specific trophic dependencies (GDNF/BMP/FGF).<br><br>**d. Extracellular matrix (ECM), adhesion, and mechanosensation**<br><br>- **DPT (Dermatopontin)** – ECM protein; in brain, seen in specialized perivascular/meningeal or niche-associated cells, but also in some specialized neuronal populations with strong ECM remodeling.<br>- **MFAP5** – Microfibril-associated protein 5; ECM component, often in fibroblast-like cells but also in some specialized neuronal niches.<br>- **MGP (Matrix Gla protein)** – ECM-associated; often vascular/perivascular, but can appear in specialized neuronal or perivascular neuron-like populations.<br>- **NPNT (Nephronectin)** – ECM protein; integrin ligand; in CNS, associated with specific niche/axon guidance contexts.<br>- **COL23A1** – Collagen type XXIII; transmembrane collagen, enriched in some neurons and certain tumors; involved in cell adhesion.<br>- **OMD (Osteomodulin)** – ECM protein; typically bone/ligament, but in brain scRNA-seq, when present, often marks **meningeal/perivascular fibroblast-like** or specialized niche cells.<br>- **EGFL6** – EGF-like domain multiple 6; secreted ECM-associated protein, often in endothelial/fibroblast-like cells, but also in some specialized neuronal niches.<br>- **ISMR1 (ISM1)** – Isthmin 1; secreted protein, involved in angiogenesis and neurodevelopment; enriched at midbrain–hindbrain boundary and in some brainstem regions.<br>- **PIEZO2** – Mechanosensitive ion channel; canonical in **somatosensory neurons** (DRG, trigeminal), but also in some brainstem sensory nuclei and specialized mechanosensory circuits.<br><br>This ECM/mechanosensory signature suggests a **specialized sensory or perivascular-associated neuronal population**, not a generic cortical neuron.<br><br>**e. Cell–cell adhesion / protocadherins / gap junctions**<br><br>- **PCDHA1, PCDHB7, PCDHGA12** – Protocadherin alpha/beta/gamma cluster members; classic neuronal adhesion molecules, important for synaptic specificity and dendritic self-avoidance. Strongly support a **neuronal identity**.<br>- **GJA5 (Connexin 40)** – Gap junction protein; classically vascular/endothelial, but also expressed in some specialized neurons (e.g., brainstem nuclei with electrical coupling).<br>- **GJB2 (Connexin 26)** – Another gap junction protein; typically cochlear supporting cells, some glia, but can appear in specialized brainstem/inner ear–related lineages.<br><br>The combination of multiple protocadherins plus connexins is consistent with **neurons in a highly coupled, patterned circuit**, often in hindbrain/brainstem.<br><br>**f. Retinoic acid metabolism and signaling**<br><br>- **ALDH1A2** – Retinaldehyde dehydrogenase 2; synthesizes retinoic acid. In CNS, enriched in hindbrain/spinal cord patterning regions and some adult hindbrain neurons.<br>- **CYP26A1** – Cytochrome P450 retinoic acid–degrading enzyme; shapes RA gradients, strongly expressed at **midbrain–hindbrain boundary and hindbrain** during development, with residual expression in specific adult neurons.<br>- **CYP17A1-AS1** – Antisense to CYP17A1; less specific, but steroid/RA-related loci often co-occur in endocrine/neuroendocrine contexts.<br><br>The ALDH1A2–CYP26A1 combination is a classic **hindbrain / midbrain–hindbrain boundary RA signaling signature**, strongly pointing to that anatomical origin.<br><br>**g. Other notable genes**<br><br>- **AQP5** – Aquaporin 5; typically epithelial, but in brain scRNA-seq, when present in neuronal clusters, often marks **specialized sensory or circumventricular/ependymal-associated neurons**.<br>- **FGL2** – Fibrinogen-like protein 2; immune/coagulation-related, but can be expressed in perivascular or niche-associated cells.<br>- **ITM2A** – Integral membrane protein 2A; expressed in neurons and some glia; involved in differentiation.<br>- **LRP1B** – LDL receptor-related protein; large receptor, often in neurons and some tumors.<br>- **TTC29, PRR15, NKAPL, PLCE1-AS1, AC078785.2, AC079298.3, AL160272.1, C2orf40** – Less well-characterized in CNS; some are lncRNAs or broadly expressed genes, not strongly cell-type-defining here.<br><br>2. Key cell-type–defining markers<br>----------------------------------<br><br>Now, focusing on markers that are particularly informative for **brain cell type**:<br><br>**Strong neuronal markers:**<br><br>- **SCG2, GRM7, NOS1, NECAB2, STXBP6, protocadherins (PCDHA1/PCDHB7/PCDHGA12)** – These collectively define a **mature neuron** with synaptic machinery and neuronal adhesion.<br><br>**Markers arguing against glia/endothelial/pericyte:**<br><br>- No strong astrocyte markers (e.g., GFAP, AQP4, SLC1A2, SLC1A3).<br>- No oligodendrocyte markers (MBP, PLP1, MOG, MAG).<br>- No microglial markers (CX3CR1, P2RY12, TMEM119).<br>- No canonical endothelial markers (PECAM1, VWF, KDR) or pericyte markers (PDGFRB, RGS5).<br>- ECM genes (DPT, MFAP5, OMD, EGFL6, NPNT, MGP) could suggest fibroblast-like cells, but the **strong neuronal synaptic and neurotransmission signature** overrides that and indicates these ECM genes are part of a specialized neuronal niche program.<br><br>**Regionally informative markers:**<br><br>- **EN1, PAX2, ALDH1A2, CYP26A1, ISM1, BMPR1B, FGF9** – Together, these are highly characteristic of **midbrain–hindbrain boundary / hindbrain / cerebellar–brainstem lineages**.<br>- **SLC6A4, NMU, NOS1, PIEZO2, GFRA1** – Point to **brainstem neuromodulatory/sensory neurons**, especially serotonergic and/or peptidergic populations.<br><br>3. Cross-referencing with scRNA-seq databases and literature<br>------------------------------------------------------------<br><br>Using known human and mouse brain scRNA-seq atlases (e.g., Allen Brain Atlas, DropViz, Lake et al., Hodge et al., and more recent human hindbrain/brainstem datasets):<br><br>- **SLC6A4** is a canonical marker of **serotonergic (5-HT) neurons** in the **raphe nuclei** (dorsal/median raphe in midbrain and pons). In these datasets, SLC6A4+ clusters almost always co-express:<br>  - Neuronal markers (SCG2, synaptic genes).<br>  - Often **NOS1** in specific 5-HT subtypes.<br>  - Various neuropeptides (e.g., NMU, others).<br>- **EN1** and **ALDH1A2/CYP26A1** are enriched in **midbrain–hindbrain boundary and hindbrain**; EN1 is also seen in midbrain dopaminergic neurons, but:<br>  - This cluster lacks **TH, SLC6A3, DDC**, so it is unlikely to be dopaminergic.<br>  - Presence of **SLC6A4** instead strongly favors **serotonergic** rather than dopaminergic identity.<br>- **PAX2** in adult CNS is characteristic of **hindbrain/cerebellar inhibitory interneurons** and some brainstem nuclei. However, serotonergic neurons are classically **excitatory monoaminergic** (though they can co-release GABA in some subtypes). PAX2 here likely reflects a **hindbrain developmental lineage** rather than a purely GABAergic identity.<br>- **PIEZO2** is well-known in **somatosensory neurons (DRG, trigeminal)** and in some **brainstem sensory nuclei** (e.g., nucleus of the solitary tract, parabrachial nucleus, some cranial nerve nuclei). Co-expression with **SLC6A4 and NMU** is consistent with **brainstem sensory/viscerosensory serotonergic or peptidergic neurons**.<br>- **GFRA1** is expressed in subsets of **brainstem monoaminergic neurons** (including some serotonergic and noradrenergic populations) that depend on GDNF signaling.<br>- ECM genes like **DPT, MFAP5, OMD, EGFL6, NPNT, MGP** have been reported in **meningeal/perivascular fibroblast-like cells**, but in some high-resolution atlases, **brainstem serotonergic and other neuromodulatory neurons** show upregulated ECM and adhesion programs, especially in human, likely reflecting niche specialization and vascular association.<br><br>Cross-referencing this combination (SLC6A4+SCG2+NOS1+NMU+EN1+PAX2+ALDH1A2+CYP26A1+PIEZO2+GFRA1) with published brainstem/raphe scRNA-seq datasets strongly points to **hindbrain/brainstem serotonergic neurons**, particularly **raphe or adjacent neuromodulatory nuclei**.<br><br>4. Most probable general cell type<br>----------------------------------<br><br>Given:<br><br>- Strong neuronal markers (SCG2, GRM7, NOS1, NECAB2, STXBP6, protocadherins).<br>- Monoaminergic-specific transporter **SLC6A4**.<br>- Neuropeptide **NMU**.<br>- Developmental patterning markers **EN1, PAX2, ALDH1A2, CYP26A1, BMPR1B, ISM1** consistent with **midbrain–hindbrain / hindbrain**.<br>- Mechanosensory channel **PIEZO2** and ECM/adhesion genes suggesting a specialized sensory/viscerosensory or perivascular niche.<br><br>The **most probable general cell type** is:<br><br>> **Neuronal – brainstem/hindbrain neuromodulatory neuron (serotonergic lineage).**<br><br>5. Top 3 most probable sub cell types (ranked)<br>----------------------------------------------<br><br>Within this general class, I’ll rank the three most likely subtypes.<br><br>### 1) Brainstem / hindbrain serotonergic neuron (raphe-like) – most likely<br><br>**Supporting markers:**<br><br>- **SLC6A4** – Defining marker of serotonergic neurons.<br>- **SCG2** – Dense-core vesicle protein, typical of monoaminergic/peptidergic neurons.<br>- **NOS1** – Expressed in specific subsets of serotonergic neurons (e.g., dorsal raphe subpopulations).<br>- **NMU** – Neuropeptide co-expressed in some brainstem serotonergic/viscerosensory nuclei.<br>- **EN1, ALDH1A2, CYP26A1, ISM1, BMPR1B** – Strongly consistent with midbrain–hindbrain/hindbrain developmental origin, where raphe nuclei reside.<br>- **GFRA1** – GDNF-responsive neuromodulatory neurons, including some 5-HT populations.<br>- **NECAB2, GRM7, STXBP6, protocadherins** – Mature synaptic neuron with complex connectivity.<br>- **PIEZO2** – Fits with some **viscerosensory/respiratory-related serotonergic neurons** in brainstem that integrate mechanical/visceral signals.<br>- ECM/adhesion genes (DPT, MFAP5, NPNT, COL23A1, EGFL6, OMD, MGP) – Consistent with **perivascular/meningeal-associated neuromodulatory neurons** in human brainstem.<br><br>**Against alternative identities:**<br><br>- Absence of dopaminergic markers (TH, SLC6A3, DDC) argues against midbrain DA neurons.<br>- Lack of strong GABAergic markers (GAD1/2, SLC6A1) or glycinergic markers (SLC6A5) argues against classic PAX2+ inhibitory interneurons as the primary identity.<br>- Strong SLC6A4 is hard to reconcile with non-serotonergic neuronal types.<br><br>**Conclusion:**  <br>Most likely subtype: **Brainstem/hindbrain serotonergic neuron (raphe or raphe-adjacent 5-HT neuron), likely viscerosensory/neuromodulatory subtype.**<br><br>### 2) Brainstem/hindbrain peptidergic sensory/viscerosensory neuron (non-5-HT) – second<br><br>If one downweights SLC6A4 (e.g., assuming low-level or ectopic expression), an alternative is:<br><br>- **PIEZO2, NMU, NOS1, GRM7, NECAB2, SCG2** – consistent with **viscerosensory or somatosensory brainstem neurons** (e.g., nucleus of the solitary tract, parabrachial nucleus, cranial nerve sensory nuclei).<br>- **EN1, PAX2, ALDH1A2, CYP26A1, ISM1** – still point to hindbrain origin.<br>- ECM/adhesion genes – consistent with sensory nuclei embedded in perivascular/meningeal niches.<br><br>However, the presence of **SLC6A4** at high rank is difficult to ignore; in most datasets, that is highly specific to serotonergic neurons. Thus this is a **plausible but less likely** alternative.<br><br>### 3) Hindbrain/cerebellar inhibitory interneuron (PAX2+/EN1+) – least likely of the three<br><br>PAX2 and EN1 are classic markers of:<br><br>- **Cerebellar and hindbrain inhibitory interneurons** (e.g., Golgi cells, some brainstem inhibitory interneurons).<br>- These often express GABAergic markers (GAD1/2, SLC6A1) and lack SLC6A4.<br><br>In this cluster:<br><br>- We see **PAX2 and EN1**, but **no strong GABAergic transporter/enzymes** in the top markers.<br>- Instead, we see **SLC6A4, NMU, SCG2, NOS1**, which are more consistent with **monoaminergic/peptidergic** neurons.<br><br>Thus, a **PAX2+/EN1+ inhibitory interneuron** identity is possible but **less consistent** with the transporter and neuropeptide profile than a serotonergic neuron.<br><br>**Ranking:**<br><br>1. **Brainstem/hindbrain serotonergic neuron (raphe-like, viscerosensory/neuromodulatory subtype)** – most likely.<br>2. **Brainstem/hindbrain peptidergic sensory/viscerosensory neuron (non-5-HT)** – plausible but less likely given SLC6A4.<br>3. **Hindbrain/cerebellar PAX2+/EN1+ inhibitory interneuron** – least likely among the three.<br><br>6. Concise summary<br>------------------<br><br>- The marker set is dominated by **neuronal and synaptic genes** (SCG2, GRM7, NOS1, NECAB2, STXBP6, protocadherins), excluding glia/endothelial/pericyte identities.<br>- **SLC6A4 (serotonin transporter)**, together with **SCG2, NOS1, NMU, GFRA1**, strongly indicates a **monoaminergic, serotonergic neuron**.<br>- Developmental patterning and RA-signaling genes (**EN1, PAX2, ALDH1A2, CYP26A1, BMPR1B, ISM1**) point to a **midbrain–hindbrain/hindbrain origin**, consistent with **raphe nuclei and adjacent brainstem neuromodulatory centers**.<br>- **PIEZO2** and a rich ECM/adhesion program (DPT, MFAP5, NPNT, COL23A1, EGFL6, OMD, MGP, GJA5, GJB2) suggest a **specialized viscerosensory/perivascular niche** within the brainstem.<br><br>**Final annotation:**<br><br>- **General cell type:** Neuron – brainstem/hindbrain neuromodulatory neuron.<br>- **Most likely subtype:** **Brainstem/hindbrain serotonergic neuron (raphe-like, viscerosensory/neuromodulatory subtype).**<br><br>FINAL ANNOTATION COMPLETED
+                </div>
+            
+                <div class="agent-section validator">
+                    <h2>✓ Validation Check</h2>
+                    <div class="validation-result">✅ VALIDATION PASSED</div>
+                    Validation result: VALIDATION PASSED
+                </div>
+            
+                        <div class="agent-section formatting">
+                            <h2>📋 Summary</h2>
+                            
+                        <div class="summary-content">
+                            <div class="summary-item">
+                                <span class="summary-label">Main Cell Type:</span>
+                                <span class="summary-value">Neuron – brainstem/hindbrain neuromodulatory neuron (serotonergic lineage)</span>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Sub Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Brainstem/hindbrain serotonergic neuron (raphe-like, viscerosensory/neuromodulatory subtype)</li><li>Brainstem/hindbrain peptidergic sensory/viscerosensory neuron (non-serotonergic)</li><li>Hindbrain/cerebellar PAX2+/EN1+ inhibitory interneuron</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Possible Mixed Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Neuronal (serotonergic/peptidergic) with perivascular/meningeal fibroblast-like or ECM-rich niche-associated features</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Number of Markers:</span>
+                                <span class="summary-value">50</span>
+                            </div>
+                        </div>
+                    
+                        </div>
+                    
+                    <div class="agent-section scoring">
+                        <h2>🎯 Quality Assessment</h2>
+                        <div class="score-badge">nan</div>
+                        <div class="scoring-content">
+                            Error: Error code: 400 - {'error': {'message': "Unsupported parameter: 'max_tokens' is not supported with this model. Use 'max_completion_tokens' instead.", 'type': 'invalid_request_error', 'param': 'max_tokens', 'code': 'unsupported_parameter'}}<br>
+                        </div>
+                    </div>
+                
+        </div>
+    </body>
+    </html>
+    

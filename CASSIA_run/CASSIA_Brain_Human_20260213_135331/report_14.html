@@ -1,0 +1,264 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { 
+                font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 20px; 
+                background-color: #f0f2f5;
+                line-height: 1.6;
+            }
+            .container { 
+                background-color: white; 
+                padding: 40px; 
+                border-radius: 16px; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .agent-section { 
+                margin-bottom: 35px; 
+                padding: 25px; 
+                border-radius: 12px; 
+                transition: all 0.3s ease;
+            }
+            .agent-section:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            .final-annotation { 
+                background-color: #f0f7ff; 
+                border-left: 5px solid #2196f3; 
+            }
+            .validator { 
+                background-color: #f0fdf4; 
+                border-left: 5px solid #22c55e; 
+            }
+            .formatting { 
+                background: linear-gradient(145deg, #fff7ed, #ffe4c4);
+                border-left: 5px solid #f97316; 
+                box-shadow: 0 4px 15px rgba(249, 115, 22, 0.1);
+            }
+            h2 { 
+                color: #1a2b3c; 
+                margin-top: 0; 
+                font-size: 1.5rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            ul { 
+                margin: 15px 0; 
+                padding-left: 20px; 
+            }
+            pre { 
+                background-color: #f8fafc; 
+                padding: 20px; 
+                border-radius: 8px; 
+                overflow-x: auto;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            .validation-result { 
+                font-weight: 600; 
+                color: #16a34a; 
+                padding: 12px 20px;
+                background-color: #dcfce7; 
+                border-radius: 8px; 
+                display: inline-block;
+                margin: 10px 0;
+            }
+            br { 
+                margin-bottom: 8px; 
+            }
+            p {
+                margin: 12px 0;
+                color: #374151;
+            }
+            .summary-content {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+            .summary-item {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.7);
+                padding: 16px;
+                border-radius: 12px;
+                backdrop-filter: blur(8px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+            .summary-label {
+                font-weight: 600;
+                color: #c2410c;
+                font-size: 0.95rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .summary-value {
+                color: #1f2937;
+                font-size: 1.1rem;
+                padding: 8px 16px;
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 8px;
+                display: inline-block;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            .summary-list {
+                margin: 0;
+                padding-left: 24px;
+                list-style-type: none;
+            }
+            .summary-list li {
+                color: #1f2937;
+                padding: 8px 0;
+                position: relative;
+            }
+            .summary-list li:before {
+                content: "•";
+                color: #f97316;
+                font-weight: bold;
+                position: absolute;
+                left: -20px;
+            }
+            .report-header {
+                text-align: center;
+                margin-bottom: 40px;
+                padding-bottom: 30px;
+                border-bottom: 2px solid rgba(249, 115, 22, 0.2);
+            }
+            
+            .report-title {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: #1a2b3c;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #f97316, #c2410c);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                letter-spacing: -0.5px;
+            }
+            
+            .report-subtitle {
+                font-size: 1.1rem;
+                color: #64748b;
+                margin-top: 8px;
+                font-weight: 500;
+            }
+            .scoring { 
+                background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+                border-left: 5px solid #22c55e;
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.1);
+            }
+            .scoring-content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                color: #1f2937;
+                line-height: 1.8;
+            }
+            .scoring-content br + br {
+                content: "";
+                display: block;
+                margin: 12px 0;
+            }
+            .empty-list {
+                color: #6b7280;
+                font-style: italic;
+            }
+            .error-message {
+                color: #dc2626;
+                padding: 12px;
+                background-color: #fef2f2;
+                border-radius: 6px;
+                border-left: 4px solid #dc2626;
+            }
+            .score-badge {
+                background: linear-gradient(135deg, #22c55e, #16a34a);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-size: 1.5rem;
+                font-weight: 700;
+                display: inline-block;
+                margin: 12px 0;
+                box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+                position: relative;
+                top: -10px;
+            }
+            .score-badge::before {
+                content: "Score:";
+                font-size: 0.9rem;
+                font-weight: 500;
+                margin-right: 8px;
+                opacity: 0.9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="report-header">
+                <h1 class="report-title">CASSIA Analysis Report</h1>
+                <p class="report-subtitle">Comprehensive Cell Type Analysis and Annotation</p>
+            </div>
+            
+                <div class="agent-section final-annotation">
+                    <h2>🔍 Final Annotation Analysis</h2>
+                    1. Key functional markers and pathways<br><br>I’ll first group the most informative genes by function, focusing on CNS-relevant biology.<br><br>**a. Neurotransmission / neuronal excitability**<br>- **CHRNA4** – Nicotinic acetylcholine receptor α4 subunit; classic neuronal receptor, strongly enriched in specific cortical/hippocampal excitatory and some inhibitory neuron populations. Clear neuronal marker.<br>- **KCNIP1** – Kv channel–interacting protein; modulates A-type K⁺ channels (Kv4.x), shaping action potentials and firing properties; enriched in neurons.<br>- **KCNJ4** – Inward-rectifier K⁺ channel (Kir2.3); contributes to resting membrane potential and excitability; neuronal expression, often in specific projection neuron subsets.<br>- **RGS6** – Regulator of G-protein signaling; modulates GPCR signaling, including neurotransmitter receptors; enriched in neurons, especially certain interneuron and projection neuron populations.<br>- **SLC6A13** – GABA transporter 2 (GAT2/BGT1); GABA and betaine transporter, associated with inhibitory neurotransmission and osmolyte balance; expressed in neurons and some glia, but in brain often linked to GABAergic circuitry.<br>- **NTNG1** – Netrin-G1; synaptic adhesion/axon guidance molecule, strongly enriched in excitatory neurons (especially cortical/hippocampal pyramidal neurons) and some thalamic neurons; marks specific projection neuron subtypes.<br>- **EPHA5** – Eph receptor tyrosine kinase; involved in axon guidance, synaptic development; neuronal, especially in developing and circuit-specific projection neurons.<br><br>**b. Neuropeptides / neuromodulators**<br>- **TAC3** – Encodes neurokinin B; in human brain, a hallmark of specific interneuron populations (e.g., TAC3⁺ interneurons in striatum and cortex) and some hypothalamic neurons. Strongly points to a neuronal, neuromodulatory identity.<br>- **PTN** – Pleiotrophin; secreted growth factor/neuromodulator, expressed by subsets of neurons and glia; often enriched in specific neuronal subtypes and developmental contexts.<br><br>**c. Lipid / prostaglandin / transport-related**<br>- **PTGDS** – Prostaglandin D2 synthase (lipocalin-type); in brain, a classic marker of **leptomeningeal cells and arachnoid barrier cells**, and also expressed in some oligodendrocytes and choroid plexus. Very high expression in leptomeninges/arachnoid in human and mouse scRNA-seq atlases. Also involved in sleep regulation via PGD2.<br>- **LCNL1 / LCN12** – Lipocalin family members; secreted lipid-binding proteins, often enriched in non-neuronal barrier/meningeal or choroid plexus–like cells rather than canonical neurons.<br>- **GPC3** – Glypican-3; heparan sulfate proteoglycan; in CNS, more associated with developmental and non-neuronal/epithelial-like compartments than with mature neurons.<br><br>**d. Extracellular matrix / adhesion / barrier-like features**<br>- **CDH7** – Cadherin-7; cell adhesion molecule; expressed in specific neuronal populations during development, but also in some non-neuronal barrier/epithelial-like cells in adult datasets.<br>- **FAT3** – Atypical cadherin; involved in neuronal morphogenesis and axon guidance; neuronal, but also marks specific morphologically complex cells.<br>- **C1QTNF4** – C1q and TNF-related protein; secreted; can be associated with barrier/vascular/meningeal-like cells.<br>- **ITIH2** – Inter-α-trypsin inhibitor heavy chain 2; ECM/stabilization of hyaluronan; often enriched in barrier, meningeal, or choroid plexus–like cells.<br>- **SFRP4** – Secreted frizzled-related protein 4; Wnt pathway antagonist; in brain, often enriched in non-neuronal barrier/meningeal or choroid plexus–like cells.<br>- **STRA6** – Receptor for retinol-binding protein; vitamin A transport; enriched in barrier/epithelial-like cells (e.g., choroid plexus, meninges, retinal pigment epithelium analogs).<br>- **SERPIND1** – Heparin cofactor II; serpin family; associated with vascular/blood–brain barrier/meningeal environments.<br>- **KLK1** – Kallikrein 1; secreted serine protease; often associated with vascular/meningeal or choroid plexus–like cells rather than neurons.<br><br>**e. Muscle/contractile-associated genes**<br>- **TNNC1, TNNT1, TNNI3, LMOD1** – Canonical smooth/cardiac muscle contractile apparatus genes (troponin C1, troponin T1, troponin I3, leiomodin 1). In brain scRNA-seq, these are typically:<br>  - Highly expressed in **vascular smooth muscle cells (VSMCs)/pericytes**, or<br>  - Occasionally in **meningeal myofibroblast-like cells**.<br>  Their co-expression strongly indicates a contractile, mural/meningeal component rather than neurons.<br><br>**f. Developmental / patterning / signaling**<br>- **BMP3** – Bone morphogenetic protein 3; TGF-β family; signaling molecule, can be expressed in non-neuronal niche cells.<br>- **DHH** – Desert hedgehog; in CNS, a classic marker of **peripheral nerve Schwann cells** and **meningeal/arachnoid barrier cells** in some atlases; also expressed in perivascular/meningeal niche cells.<br>- **CCR10** – Chemokine receptor; in brain, more typical of barrier/immune-interacting cells (e.g., meningeal/epithelial-like) than neurons.<br><br>**g. Stress/metabolic**<br>- **DDIT4L** – DNA-damage-inducible transcript 4-like; mTOR pathway regulator; stress/metabolic response; not cell-type specific but often upregulated in hypoxia/stress contexts.<br><br>**h. Long noncoding RNAs / uncharacterized**<br>- **LINC01088, LINC01389, LINC01381, LINC02269, OVCH1-AS1, AC010907.1, AC027306.1, AC104051.2, AL139420.1, SMCO3, CCDC33, ANKRD62, C7, C21orf62, ECEL1, GAS2, GPC3, LY6H, ZNF385B, LCNL1** – Many of these are lncRNAs or poorly characterized genes; several (e.g., LY6H, ZNF385B, ECEL1) are enriched in neurons, especially specific cortical/hippocampal or sensory neuron subtypes, but others are more barrier/meningeal-associated in atlases.<br><br>2. Key cell-type–informative markers<br><br>Now, grouping by what they say about cell identity in brain atlases:<br><br>**Neuronal markers (general)**<br>- **CHRNA4, KCNIP1, KCNJ4, RGS6, NTNG1, EPHA5, LY6H, ZNF385B, ECEL1, TAC3, SLC6A13**  <br>These are strongly consistent with **neuronal** identity, particularly:<br>- CHRNA4/NTNG1/EPHA5/LY6H/ZNF385B – often enriched in **excitatory projection neurons** (cortex/hippocampus, thalamus).<br>- TAC3/SLC6A13/RGS6 – more typical of **interneurons or neuromodulatory neurons**, especially TAC3⁺ interneurons.<br><br>**Mural / vascular smooth muscle / pericyte / meningeal markers**<br>- **TNNC1, TNNT1, TNNI3, LMOD1** – Strong mural/contractile signature.<br>- **PTGDS** – Very strong in **leptomeningeal/arachnoid barrier cells** and some oligodendrocytes; also in choroid plexus.<br>- **DHH** – Hedgehog ligand; in CNS, associated with **meningeal/arachnoid barrier cells, perineurial-like cells, and Schwann cells**.<br>- **STRA6, SFRP4, ITIH2, SERPIND1, KLK1, C1QTNF4, GPC3, LCNL1/LCN12** – A constellation of genes that, in human/mouse brain scRNA-seq (e.g., Allen Brain Atlas, Hodge et al., Zeisel et al., Saunders et al.), are enriched in:<br>  - **Leptomeningeal/arachnoid barrier cells**<br>  - **Choroid plexus epithelial–like cells**<br>  - **Perivascular/vascular-associated fibroblast-like cells**<br><br>This combination (PTGDS + DHH + STRA6 + SFRP4 + ITIH2 + SERPIND1 + KLK1 + contractile genes) is highly characteristic of **meningeal/arachnoid barrier or vascular-associated fibroblast/mural cells**, not canonical neurons or glia.<br><br>**Glial markers**<br>- There are **no strong astrocyte markers** (e.g., AQP4, GFAP, SLC1A2, ALDH1L1),  <br>  **no strong oligodendrocyte markers** (MBP, PLP1, MOG, MAG),  <br>  **no microglial markers** (CX3CR1, P2RY12, TMEM119).  <br>So classical CNS glia are unlikely.<br><br>**Immune/hematopoietic**<br>- No canonical T/B/myeloid markers (CD3D/E, CD14, PTPRC, MS4A1, etc.), so not immune.<br><br>3. Cross-referencing with scRNA-seq atlases and literature<br><br>Using known human/mouse brain single-cell references:<br><br>- **PTGDS-high meningeal/arachnoid cells**:<br>  - In multiple atlases (e.g., Saunders et al. 2018, Zeisel et al. 2018, and more recent human cortex atlases), PTGDS is a hallmark of **leptomeningeal/arachnoid barrier cells** and **choroid plexus–like cells**. These cells often co-express:<br>    - ECM and barrier genes (ITIH2, SFRP family, SERPIND1, KLK1),<br>    - Lipocalins (LCN family),<br>    - Hedgehog pathway components (DHH in some meningeal/perineurial-like populations),<br>    - Retinoid transport (STRA6).<br>- **DHH**:<br>  - In CNS single-cell data, DHH is enriched in **peripheral nerve Schwann cells** and **meningeal/perineurial-like cells** rather than neurons or astrocytes.<br>- **Contractile genes (TNNC1/TNNT1/TNNI3/LMOD1)**:<br>  - In brain atlases, these cluster with **vascular smooth muscle cells, pericytes, and meningeal myofibroblast-like cells**, not with neurons.<br>- **TAC3**:<br>  - In human brain, TAC3 marks specific interneuron populations (e.g., TAC3⁺ striatal interneurons, some cortical interneurons) and hypothalamic neurons. However, TAC3 alone, especially when not accompanied by a broad GABAergic program (GAD1/2, SLC6A1, etc.), is not sufficient to call a pure neuronal cluster.<br>- **CHRNA4/NTNG1/EPHA5/LY6H/ZNF385B**:<br>  - These are indeed neuronal, but in many high-depth datasets, **low-level neuronal transcripts can appear in non-neuronal barrier/vascular/meningeal clusters** due to:<br>    - Ambient RNA contamination from abundant neurons,<br>    - Doublets,<br>    - Low-level expression of some neuronal genes in perivascular/meningeal niche cells.<br><br>The **dominant** and **highest-ranked** markers here are **PTGDS, DHH, contractile genes, STRA6, SFRP4, SERPIND1, ITIH2, KLK1, C1QTNF4, LCNL1/LCN12**, which align much more strongly with **meningeal/arachnoid barrier or vascular-associated fibroblast/mural cells** than with any canonical neuronal subtype.<br><br>4. Most probable general cell type<br><br>Balancing all markers and their rank:<br><br>- The **top of the list** is dominated by:<br>  - **PTGDS, DHH** – classic leptomeningeal/arachnoid/perineurial/Schwann/meningeal niche markers.<br>  - **Contractile genes (TNNC1, TNNT1, TNNI3, LMOD1)** – mural/vascular/meningeal myofibroblast-like.<br>  - **Barrier/ECM/secreted factors (STRA6, SFRP4, ITIH2, SERPIND1, KLK1, C1QTNF4, GPC3, LCNL1/LCN12)** – barrier/meningeal/choroid plexus–like.<br>- Neuronal markers (CHRNA4, TAC3, NTNG1, etc.) are present but not accompanied by a full neuronal transcriptional program (no pan-neuronal structural genes like NEFL/NEFM/NEFH, SYN1, SNAP25, etc., in the top list).<br><br>Given this, the **most probable general cell type** is:<br><br>> **Non-neuronal, mesenchymal-like brain barrier cell – specifically a meningeal/arachnoid barrier or vascular-associated fibroblast/mural cell type.**<br><br>5. Top 3 most probable sub cell types (ranked)<br><br>Within that general category, the three most plausible subtypes are:<br><br>**1) Leptomeningeal / arachnoid barrier cell (most likely)**  <br>- Supporting markers:<br>  - **PTGDS** – hallmark of leptomeningeal/arachnoid cells in human/mouse brain.<br>  - **DHH** – expressed in meningeal/perineurial-like cells.<br>  - **STRA6, SFRP4, ITIH2, SERPIND1, KLK1, C1QTNF4, GPC3, LCNL1/LCN12** – typical of barrier/epithelial-like, ECM-rich meningeal cells.<br>  - **Contractile genes (TNNC1/TNNT1/TNNI3/LMOD1)** – consistent with meningeal myofibroblast-like cells that have contractile properties.<br>- These cells often sit at the interface of CSF and brain parenchyma, secrete lipocalins and proteases, and express Wnt modulators (SFRP4) and retinoid transporters (STRA6).<br><br>**2) Vascular smooth muscle cell / pericyte–like meningeal mural cell**  <br>- Supporting markers:<br>  - **TNNC1, TNNT1, TNNI3, LMOD1** – strong mural/contractile signature.<br>  - **SERPIND1, KLK1, ITIH2** – vascular/ECM-associated.<br>  - **PTGDS, DHH** – can be expressed in perivascular/meningeal niche cells.<br>- Against a pure VSMC identity:<br>  - Classic VSMC markers (ACTA2, TAGLN, MYH11, RGS5, PDGFRB) are not listed among the top markers.<br>  - Presence of strong PTGDS and barrier-like genes leans more toward meningeal than pure vascular mural.<br><br>**3) Choroid plexus–like epithelial / barrier fibroblast-like cell**  <br>- Supporting markers:<br>  - **PTGDS, STRA6, SFRP4, ITIH2, SERPIND1, KLK1, GPC3, LCNL1/LCN12** – consistent with secretory, barrier, ECM-rich epithelial-like cells.<br>- Against:<br>  - Lack of canonical choroid plexus markers (e.g., TTR, KCNK1, AQP1, OTX2) in the top list.<br>  - DHH and contractile genes are more typical of meningeal/perivascular than classic choroid plexus epithelium.<br><br>**Most likely subtype:**  <br>> **Leptomeningeal / arachnoid barrier cell (PTGDS⁺ DHH⁺ STRA6⁺ SFRP4⁺ meningeal fibroblast-like cell).**<br><br>6. Concise summary<br><br>- The marker profile is dominated by **PTGDS, DHH, contractile genes (TNNC1/TNNT1/TNNI3/LMOD1), and barrier/ECM/secreted factors (STRA6, SFRP4, ITIH2, SERPIND1, KLK1, C1QTNF4, LCNL1/LCN12)**.<br>- This constellation is characteristic of **leptomeningeal/arachnoid barrier or meningeal fibroblast-like cells** in human brain scRNA-seq atlases, not of canonical neurons or glia.<br>- Neuronal markers (CHRNA4, TAC3, NTNG1, EPHA5, KCNIP1, KCNJ4) are present but likely reflect ambient RNA or minor neuronal contamination/doublets, as they are not accompanied by a full neuronal program and are outweighed by strong meningeal/barrier signatures.<br>- Therefore, the cluster is best annotated as:<br><br>> **General cell type:** Non-neuronal mesenchymal-like brain barrier cell  <br>> **Final subtype annotation:** **Leptomeningeal / arachnoid barrier (PTGDS⁺ DHH⁺ meningeal fibroblast-like) cell**<br><br>FINAL ANNOTATION COMPLETED
+                </div>
+            
+                <div class="agent-section validator">
+                    <h2>✓ Validation Check</h2>
+                    <div class="validation-result">✅ VALIDATION PASSED</div>
+                    Validation result: VALIDATION PASSED
+                </div>
+            
+                        <div class="agent-section formatting">
+                            <h2>📋 Summary</h2>
+                            
+                        <div class="summary-content">
+                            <div class="summary-item">
+                                <span class="summary-label">Main Cell Type:</span>
+                                <span class="summary-value">Non-neuronal mesenchymal-like brain barrier cell</span>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Sub Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Leptomeningeal / arachnoid barrier (PTGDS⁺ DHH⁺ meningeal fibroblast-like) cell</li><li>Vascular smooth muscle / pericyte-like meningeal mural cell</li><li>Choroid plexus–like epithelial / barrier fibroblast-like cell</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Possible Mixed Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Neuronal (excitatory projection neuron–like, based on CHRNA4, NTNG1, EPHA5, LY6H, ZNF385B)</li><li>Neuronal (interneuron / neuromodulatory TAC3⁺, based on TAC3, SLC6A13, RGS6)</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Number of Markers:</span>
+                                <span class="summary-value">50</span>
+                            </div>
+                        </div>
+                    
+                        </div>
+                    
+                    <div class="agent-section scoring">
+                        <h2>🎯 Quality Assessment</h2>
+                        <div class="score-badge">nan</div>
+                        <div class="scoring-content">
+                            Error: Error code: 400 - {'error': {'message': "Unsupported parameter: 'max_tokens' is not supported with this model. Use 'max_completion_tokens' instead.", 'type': 'invalid_request_error', 'param': 'max_tokens', 'code': 'unsupported_parameter'}}<br>
+                        </div>
+                    </div>
+                
+        </div>
+    </body>
+    </html>
+    

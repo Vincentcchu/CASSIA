@@ -1,0 +1,264 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { 
+                font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 20px; 
+                background-color: #f0f2f5;
+                line-height: 1.6;
+            }
+            .container { 
+                background-color: white; 
+                padding: 40px; 
+                border-radius: 16px; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .agent-section { 
+                margin-bottom: 35px; 
+                padding: 25px; 
+                border-radius: 12px; 
+                transition: all 0.3s ease;
+            }
+            .agent-section:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            .final-annotation { 
+                background-color: #f0f7ff; 
+                border-left: 5px solid #2196f3; 
+            }
+            .validator { 
+                background-color: #f0fdf4; 
+                border-left: 5px solid #22c55e; 
+            }
+            .formatting { 
+                background: linear-gradient(145deg, #fff7ed, #ffe4c4);
+                border-left: 5px solid #f97316; 
+                box-shadow: 0 4px 15px rgba(249, 115, 22, 0.1);
+            }
+            h2 { 
+                color: #1a2b3c; 
+                margin-top: 0; 
+                font-size: 1.5rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            ul { 
+                margin: 15px 0; 
+                padding-left: 20px; 
+            }
+            pre { 
+                background-color: #f8fafc; 
+                padding: 20px; 
+                border-radius: 8px; 
+                overflow-x: auto;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            .validation-result { 
+                font-weight: 600; 
+                color: #16a34a; 
+                padding: 12px 20px;
+                background-color: #dcfce7; 
+                border-radius: 8px; 
+                display: inline-block;
+                margin: 10px 0;
+            }
+            br { 
+                margin-bottom: 8px; 
+            }
+            p {
+                margin: 12px 0;
+                color: #374151;
+            }
+            .summary-content {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+            .summary-item {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.7);
+                padding: 16px;
+                border-radius: 12px;
+                backdrop-filter: blur(8px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+            .summary-label {
+                font-weight: 600;
+                color: #c2410c;
+                font-size: 0.95rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .summary-value {
+                color: #1f2937;
+                font-size: 1.1rem;
+                padding: 8px 16px;
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 8px;
+                display: inline-block;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            .summary-list {
+                margin: 0;
+                padding-left: 24px;
+                list-style-type: none;
+            }
+            .summary-list li {
+                color: #1f2937;
+                padding: 8px 0;
+                position: relative;
+            }
+            .summary-list li:before {
+                content: "•";
+                color: #f97316;
+                font-weight: bold;
+                position: absolute;
+                left: -20px;
+            }
+            .report-header {
+                text-align: center;
+                margin-bottom: 40px;
+                padding-bottom: 30px;
+                border-bottom: 2px solid rgba(249, 115, 22, 0.2);
+            }
+            
+            .report-title {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: #1a2b3c;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #f97316, #c2410c);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                letter-spacing: -0.5px;
+            }
+            
+            .report-subtitle {
+                font-size: 1.1rem;
+                color: #64748b;
+                margin-top: 8px;
+                font-weight: 500;
+            }
+            .scoring { 
+                background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+                border-left: 5px solid #22c55e;
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.1);
+            }
+            .scoring-content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                color: #1f2937;
+                line-height: 1.8;
+            }
+            .scoring-content br + br {
+                content: "";
+                display: block;
+                margin: 12px 0;
+            }
+            .empty-list {
+                color: #6b7280;
+                font-style: italic;
+            }
+            .error-message {
+                color: #dc2626;
+                padding: 12px;
+                background-color: #fef2f2;
+                border-radius: 6px;
+                border-left: 4px solid #dc2626;
+            }
+            .score-badge {
+                background: linear-gradient(135deg, #22c55e, #16a34a);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-size: 1.5rem;
+                font-weight: 700;
+                display: inline-block;
+                margin: 12px 0;
+                box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+                position: relative;
+                top: -10px;
+            }
+            .score-badge::before {
+                content: "Score:";
+                font-size: 0.9rem;
+                font-weight: 500;
+                margin-right: 8px;
+                opacity: 0.9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="report-header">
+                <h1 class="report-title">CASSIA Analysis Report</h1>
+                <p class="report-subtitle">Comprehensive Cell Type Analysis and Annotation</p>
+            </div>
+            
+                <div class="agent-section final-annotation">
+                    <h2>🔍 Final Annotation Analysis</h2>
+                    1. Key functional markers and pathways (with roles)<br>---------------------------------------------------<br><br>I’ll first pull out the most functionally informative genes and group them by pathway/biological process.<br><br>**a. Developmental patterning / transcription factors**<br><br>- **LHX1** (and antisense **LHX1-DT**): LIM homeobox TF, critical in early embryonic patterning, kidney and interneuron development; in brain, associated with specific GABAergic interneuron lineages and early patterning of forebrain/hindbrain regions.<br>- **DMRTA1**: DMRT family TF, involved in telencephalic development, cortical progenitor patterning; enriched in embryonic dorsal telencephalon and some progenitor/interneuron populations.<br>- **BARX1**: Homeobox TF, classically craniofacial/mesenchymal, but also appears in some developmental brain contexts; strong developmental/mesenchymal signature.<br>- **MEOX1**: Mesodermal homeobox 1, involved in somitic/mesodermal differentiation; again a developmental/mesenchymal TF.<br>- **HOXA4, HOXB9**: Posterior HOX TFs, strong developmental patterning signature, usually not a hallmark of mature cortical neurons; more typical of early patterning or non-neural mesenchyme.<br>- **GLIS3**: Krüppel-like zinc finger TF, roles in endocrine pancreas, thyroid, and also in neural progenitors; associated with developmental regulation and survival.<br>- **RCOR2**: Co-repressor interacting with REST/CoREST complexes; involved in neuronal gene regulation and chromatin remodeling.<br><br>These collectively indicate a **developmentally biased, patterning/TF-rich population**, not a fully mature, canonical neuronal subtype.<br><br>**b. ECM, matrix remodeling, and mesenchymal-like programs**<br><br>- **COL5A1, COL7A1**: Collagen type V and VII; ECM structural components, often up in fibroblast-like or mesenchymal cells, or in reactive states.<br>- **LOXL2**: Lysyl oxidase-like 2, crosslinks collagen and elastin; hallmark of ECM remodeling, fibrosis, EMT-like programs.<br>- **MMP7**: Matrix metalloproteinase 7, ECM degradation, tissue remodeling, often in invasive/repair contexts.<br>- **ADAMTS6, ADAMTS16**: Metalloproteinases (ADAMTS family) involved in ECM processing and tissue remodeling.<br>- **CCBE1**: ECM-associated protein, roles in lymphangiogenesis and tissue morphogenesis.<br>- **DCBLD2**: Transmembrane receptor-like protein, associated with vascular/mesenchymal and injury responses.<br>- **SERPINE1** (PAI-1): Plasminogen activator inhibitor; classic marker of TGFβ-driven, mesenchymal/EMT-like, reactive states.<br>- **GREM1**: BMP antagonist, secreted; involved in developmental patterning and mesenchymal signaling.<br>- **NOG** (Noggin): Another BMP antagonist; strong developmental morphogen, often in progenitors or specialized signaling cells.<br><br>This is a **strong ECM-remodeling + BMP/TGFβ-modulatory signature**, more typical of **non-neuronal or reactive mesenchymal-like programs** than of canonical mature neurons or glia.<br><br>**c. Cell adhesion / structural / junctional**<br><br>- **L1CAM**: Neural cell adhesion molecule, classic neuronal axon guidance and neurite outgrowth marker; widely used as a neuronal/axonal marker.<br>- **PKP3**: Plakophilin 3, desmosomal component; more epithelial/mesenchymal than neuronal, but can appear in some non-epithelial contexts.<br>- **INA** (α-internexin): Intermediate filament protein, neuronal cytoskeleton, especially in developing neurons and some specific neuronal subtypes.<br>- **TMEM132D**: Transmembrane protein, associated with neuronal adhesion and anxiety-related traits; enriched in certain neuronal populations.<br>- **PTPRR**: Receptor-type protein tyrosine phosphatase, enriched in neurons, involved in MAPK signaling and synaptic regulation.<br><br>These suggest **neuronal identity or at least neuronal lineage**, with L1CAM, INA, PTPRR, TMEM132D being particularly supportive.<br><br>**d. Signaling receptors / neuropeptide-related**<br><br>- **OXTR**: Oxytocin receptor; in brain, expressed in specific neuronal populations (e.g., hypothalamus, amygdala, some cortical interneurons), mediating social/affective behaviors.<br>- **WNT7B**: Wnt ligand; in CNS, involved in synapse formation, vascularization, and developmental patterning.<br>- **MME** (CD10, neprilysin): Metallopeptidase that degrades neuropeptides (e.g., enkephalins, substance P, amyloid-β); expressed in some neuronal and non-neuronal populations, including perivascular and progenitor-like cells.<br>- **ST6GAL2, B4GALNT4**: Glycosyltransferases; modulate glycosylation of surface proteins, including receptors and adhesion molecules; ST6GAL2 is enriched in brain and associated with neuronal function.<br><br>**e. Stress/apoptosis / survival**<br><br>- **HRK**: Pro-apoptotic BH3-only protein; indicates apoptotic priming or stress.<br>- **S100A2**: Calcium-binding protein, often upregulated in stress, epithelial/mesenchymal activation, and some glial/vascular contexts.<br>- **ACTBL2**: Actin beta-like 2; cytoskeletal, often up in migratory/activated states.<br><br>**f. Others / less specific but informative**<br><br>- **GCK**: Glucokinase; canonical in liver/pancreas, but low-level expression can appear in some neural/glial contexts; not a strong brain cell-type marker.<br>- **SHISA9** (CKAMP44): AMPA receptor auxiliary subunit, **strongly neuronal/synaptic**, enriched in hippocampal and cortical excitatory neurons, modulating AMPAR kinetics.<br>- **TMEM132D** (already noted): neuronal, synaptic/adhesion.<br>- Multiple lncRNAs (LINC01583, LINC02086, JAKMIP2-AS1, LINC00973, LINC01615, PICSAR, etc.) are harder to interpret functionally but some (e.g., JAKMIP2-AS1) are associated with neuronal genes.<br><br>2. Key cell-type–associated markers<br>-----------------------------------<br><br>Now, focusing on markers that are informative for **brain cell identity**:<br><br>**Neuronal / synaptic markers**<br><br>- **L1CAM** – pan-neuronal/axonal adhesion; strong neuronal lineage indicator.<br>- **INA** – neuronal intermediate filament; typical of neurons (especially developing or specific subtypes).<br>- **SHISA9** – AMPA receptor auxiliary subunit; highly enriched in **excitatory glutamatergic neurons** (hippocampus, cortex).<br>- **TMEM132D** – neuronal transmembrane protein, associated with synaptic/adhesion functions.<br>- **PTPRR** – neuronal phosphatase, enriched in CNS neurons.<br>- **OXTR** – expressed in specific neuronal populations (hypothalamic, limbic, some cortical neurons).<br>- **WNT7B** – expressed in neural progenitors and some neurons; also in vascular/astrocytic niches but with strong developmental CNS roles.<br><br>**Developmental / progenitor / patterning markers (brain-relevant)**<br><br>- **LHX1, DMRTA1, GLIS3, RCOR2** – all associated with **neural development**, progenitor states, or specific interneuron lineages.<br>- **NOG, GREM1, WNT7B** – morphogen modulators; often expressed in progenitors or specialized signaling cells in the developing brain.<br><br>**Non-neuronal / mesenchymal-like / ECM**<br><br>- **COL5A1, COL7A1, LOXL2, MMP7, ADAMTS6, ADAMTS16, SERPINE1, CCBE1, DCBLD2, S100A2** – more typical of **fibroblast-like, perivascular, or reactive mesenchymal programs** than of canonical neurons or glia.<br>- However, in human brain scRNA-seq, **perivascular fibroblast-like cells and meningeal/vascular-associated cells** often show such ECM-heavy signatures.<br><br>**Epithelial/secretory-like**<br><br>- **ZP1, ODAPH, WFDC3** – these are unusual in brain:<br>  - **ZP1**: zona pellucida glycoprotein; oocyte-specific in classical annotation.<br>  - **ODAPH**: odontogenesis-associated; tooth enamel-related.<br>  - **WFDC3**: whey acidic protein family; secreted protease inhibitor.<br>  <br>  Their presence suggests either:<br>  - Misannotation/ambient RNA, or<br>  - A **secretory/epithelial-like transcriptional program** (e.g., choroid plexus epithelium, ependyma, or meningeal/vascular lining cells) that shares some regulatory modules with non-brain epithelia.<br><br>3. Cross-referencing with scRNA-seq databases and literature<br>-----------------------------------------------------------<br><br>Using known human brain scRNA-seq atlases (e.g., **Hodge et al. 2019**, **Lake et al.**, **Allen Brain Cell Types Database**, **DropViz**, and more recent human/mouse brain atlases):<br><br>- **L1CAM, INA, SHISA9, TMEM132D, PTPRR**:  <br>  - These cluster strongly with **neuronal populations**, especially **excitatory glutamatergic neurons** (SHISA9 is particularly enriched in hippocampal/cortical pyramidal neurons).<br>- **OXTR**:<br>  - In human/mouse brain, OXTR is enriched in **specific neuronal subsets** (hypothalamus, amygdala, some cortical layers), often GABAergic or layer-specific excitatory neurons.<br>- **DMRTA1**:<br>  - Reported in **dorsal telencephalic progenitors** and some early cortical neurons; in adult, residual expression can mark specialized or immature-like neurons.<br>- **ECM-heavy signature (COL5A1, LOXL2, SERPINE1, ADAMTS6/16, MMP7)**:<br>  - In brain atlases, such signatures are typical of:<br>    - **Perivascular fibroblast-like cells / meningeal fibroblasts**<br>    - **Pericytes / vascular smooth muscle** (though those usually also show PDGFRB, ACTA2, RGS5, etc., which are not listed here)<br>    - **Choroid plexus epithelium** (which can show strong ECM and secretory programs, but also TTR, KRT8/18, etc., not present here).<br>- **NOG, GREM1, WNT7B**:<br>  - These appear in **developmental datasets** (fetal brain) in progenitors and signaling centers (e.g., cortical hem, midline structures, meninges, choroid plexus).<br>  - In adult, they can persist in **niche-like or perivascular signaling cells**.<br><br>The **co-occurrence** of:<br>- Strong neuronal markers (L1CAM, INA, SHISA9, TMEM132D, PTPRR, OXTR),<br>- Developmental TFs (LHX1, DMRTA1, GLIS3, HOX genes),<br>- And a robust ECM/remodeling program (COL5A1, LOXL2, ADAMTS, SERPINE1, MMP7),<br><br>is **not typical of canonical mature excitatory or inhibitory neurons** in adult cortex/hippocampus. Instead, it suggests either:<br><br>1. A **developmentally immature / progenitor-like neuronal population** with mesenchymal/ECM activation (e.g., fetal or reactive neurons), or  <br>2. A **perivascular/meningeal or fibroblast-like cell type** that has acquired/retained some neuronal gene expression (L1CAM, INA, etc.), or  <br>3. A **choroid plexus / ependymal / barrier-associated epithelial-like cell** with some neuronal gene leakage.<br><br>Given the dataset is “Human brain” without further context (adult vs fetal), the presence of **HOX genes, BARX1, MEOX1, NOG, GREM1** strongly suggests a **developmental or non-parenchymal lineage** rather than mature cortical neurons.<br><br>4. Most probable general cell type<br>----------------------------------<br><br>Balancing the evidence:<br><br>- **For neuronal identity:**<br>  - L1CAM, INA, SHISA9, TMEM132D, PTPRR, OXTR, WNT7B – all strongly neuronal/synaptic.<br>- **Against canonical mature neuron:**<br>  - Very strong ECM/mesenchymal program (COL5A1, COL7A1, LOXL2, MMP7, ADAMTS6/16, SERPINE1, CCBE1).<br>  - Developmental/mesodermal TFs (MEOX1, BARX1, HOXA4, HOXB9) atypical for mature neurons.<br>  - Presence of odd epithelial/secretory markers (ZP1, ODAPH, WFDC3).<br><br>In human brain atlases, **perivascular fibroblast-like / meningeal cells** often show:<br>- ECM collagens, LOXL2, SERPINE1, ADAMTS, CCBE1, DCBLD2.<br>- Some may express L1CAM or other adhesion molecules, but they generally lack strong synaptic genes like SHISA9.<br><br>Conversely, **neuronal progenitors / immature neurons** can show:<br>- Developmental TFs (DMRTA1, GLIS3, LHX1),<br>- Some ECM remodeling (but usually not as collagen-heavy as fibroblasts),<br>- Strong neuronal markers (INA, L1CAM, SHISA9).<br><br>Given the **presence of SHISA9 (a very specific neuronal synaptic gene)** and **INA**, plus **L1CAM, TMEM132D, PTPRR, OXTR**, I interpret this cluster as **neuronal lineage**, but with a **strong developmental and ECM-remodeling program**, possibly reflecting:<br><br>- **Immature / developmentally patterned excitatory neurons** (or a specialized subset) in a **reactive or remodeling state**, or<br>- A **borderline neuronal–mesenchymal transitional program** (e.g., neurons at a pial/meningeal interface, or in a developmental niche).<br><br>Thus, the **most probable general cell type** is:<br><br>> **Neurons (glutamatergic/excitatory lineage), developmentally patterned and ECM-remodeling–enriched.**<br><br>5. Top 3 most probable sub cell types (ranked)<br>----------------------------------------------<br><br>### 1) Immature / developmentally patterned excitatory neurons (most likely)<br><br>**Rationale:**<br><br>- **Neuronal markers**: L1CAM, INA, SHISA9, TMEM132D, PTPRR, OXTR – consistent with neuronal identity; SHISA9 is particularly associated with **excitatory glutamatergic neurons**.<br>- **Developmental TFs**: DMRTA1, LHX1, GLIS3, RCOR2 – consistent with **immature or developmentally specified neurons**, possibly from dorsal telencephalon or specific interneuron lineages, but SHISA9 biases toward excitatory.<br>- **Morphogen modulators**: NOG, GREM1, WNT7B – typical of developmental signaling environments; could mark neurons in a specialized niche (e.g., cortical hem–like or hippocampal border regions).<br>- **ECM/remodeling**: COL5A1, LOXL2, ADAMTS6/16, SERPINE1, MMP7 – may reflect a **reactive or remodeling state** of these neurons (e.g., in disease, injury, or developmental remodeling), or contamination from surrounding ECM-rich cells.<br><br>This fits best with a **non-canonical, developmentally biased excitatory neuronal subtype**, possibly from **hippocampal or limbic regions** where SHISA9 and OXTR co-expression is plausible.<br><br>### 2) Perivascular / meningeal fibroblast-like cells with neuronal gene expression<br><br>**Rationale:**<br><br>- Strong ECM/fibroblast-like signature: COL5A1, COL7A1, LOXL2, ADAMTS6/16, SERPINE1, CCBE1, DCBLD2 – classic for **perivascular fibroblasts / meningeal cells**.<br>- Developmental TFs (MEOX1, BARX1, HOX genes) – consistent with **mesodermal/mesenchymal lineages** (meninges, vasculature-associated mesenchyme).<br>- Such cells in brain atlases often show **NOG, GREM1, WNT ligands** as niche signals.<br>- The neuronal markers (L1CAM, INA, SHISA9, TMEM132D, PTPRR) could be:<br>  - Low-level expression due to shared regulatory modules, or<br>  - Ambient RNA contamination from nearby neurons, or<br>  - A small neuronal subset contaminating the cluster.<br><br>If the dataset is from **adult human brain** and the ECM signature is very strong at the single-cell level, this interpretation becomes more plausible.<br><br>### 3) Choroid plexus / ependymal or barrier-associated epithelial-like cells<br><br>**Rationale:**<br><br>- Odd epithelial/secretory markers: ZP1, ODAPH, WFDC3 – suggest an **epithelial/secretory program**.<br>- ECM and morphogen modulators (NOG, GREM1, WNT7B) – consistent with **choroid plexus / barrier niche** that secretes signaling molecules and ECM.<br>- Choroid plexus epithelium often expresses **L1CAM** and some neuronal adhesion molecules, though typically also TTR, KRT8/18, etc., which are not listed.<br>- Neuronal markers could be partially shared or due to contamination.<br><br>This is less well supported than (1) and (2) because we lack strong canonical choroid plexus markers (e.g., TTR, KRTs, AQP1).<br><br>### Most likely subtype<br><br>Given the **strength and specificity of SHISA9, INA, L1CAM, TMEM132D, PTPRR, OXTR** and the presence of **developmental TFs** that are known in neural lineages, I favor:<br><br>> **Most likely subtype:**  <br>> **Immature / developmentally patterned excitatory neurons (SHISA9+ L1CAM+ INA+), with a strong ECM-remodeling and BMP/Wnt-modulatory program (NOG+, GREM1+, WNT7B+, COL5A1+, LOXL2+, ADAMTS6/16+, SERPINE1+).**<br><br>If the dataset is fetal or early postnatal, this fits particularly well with **developing cortical/hippocampal excitatory neurons in a morphogen-rich niche**.<br><br>6. Concise summary<br>------------------<br><br>- The marker set combines:<br>  - **Strong neuronal/synaptic genes** (L1CAM, INA, SHISA9, TMEM132D, PTPRR, OXTR),<br>  - **Developmental TFs** (LHX1, DMRTA1, GLIS3, HOX genes, RCOR2),<br>  - **Robust ECM/remodeling and BMP/Wnt-modulatory genes** (COL5A1, COL7A1, LOXL2, ADAMTS6/16, SERPINE1, MMP7, NOG, GREM1, WNT7B),<br>  - Plus some atypical epithelial/secretory markers (ZP1, ODAPH, WFDC3).<br>- Cross-referencing brain atlases, the neuronal markers and SHISA9 in particular argue strongly for **neuronal lineage**, most consistent with **excitatory glutamatergic neurons**.<br>- The developmental and ECM signatures suggest these are **immature / developmentally patterned neurons** or neurons in a **reactive/remodeling niche**, rather than canonical mature cortical pyramidal cells.<br>- Alternative interpretations (perivascular fibroblast-like cells or choroid plexus/epithelial-like cells) are possible but less consistent with the strong synaptic/neuronal gene set.<br><br>**Final annotation:**  <br>**General cell type:** Neuron  <br>**Subtype (most likely):** Immature / developmentally patterned **excitatory (glutamatergic) neurons**, SHISA9+ L1CAM+ INA+, with pronounced ECM-remodeling and BMP/Wnt signaling features.<br><br>FINAL ANNOTATION COMPLETED
+                </div>
+            
+                <div class="agent-section validator">
+                    <h2>✓ Validation Check</h2>
+                    <div class="validation-result">✅ VALIDATION PASSED</div>
+                    Validation result: VALIDATION PASSED
+                </div>
+            
+                        <div class="agent-section formatting">
+                            <h2>📋 Summary</h2>
+                            
+                        <div class="summary-content">
+                            <div class="summary-item">
+                                <span class="summary-label">Main Cell Type:</span>
+                                <span class="summary-value">Neuron</span>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Sub Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Immature / developmentally patterned excitatory (glutamatergic) neurons (SHISA9+ L1CAM+ INA+)</li><li>Perivascular / meningeal fibroblast-like cells with neuronal gene expression</li><li>Choroid plexus / ependymal or barrier-associated epithelial-like cells</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Possible Mixed Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Neuronal (excitatory glutamatergic) and mesenchymal / fibroblast-like (perivascular/meningeal) programs</li><li>Neuronal and epithelial/secretory-like (choroid plexus / barrier-associated) programs</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Number of Markers:</span>
+                                <span class="summary-value">50</span>
+                            </div>
+                        </div>
+                    
+                        </div>
+                    
+                    <div class="agent-section scoring">
+                        <h2>🎯 Quality Assessment</h2>
+                        <div class="score-badge">nan</div>
+                        <div class="scoring-content">
+                            Error: Error code: 400 - {'error': {'message': "Unsupported parameter: 'max_tokens' is not supported with this model. Use 'max_completion_tokens' instead.", 'type': 'invalid_request_error', 'param': 'max_tokens', 'code': 'unsupported_parameter'}}<br>
+                        </div>
+                    </div>
+                
+        </div>
+    </body>
+    </html>
+    

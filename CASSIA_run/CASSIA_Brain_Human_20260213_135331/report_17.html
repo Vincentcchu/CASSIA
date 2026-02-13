@@ -1,0 +1,264 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { 
+                font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 20px; 
+                background-color: #f0f2f5;
+                line-height: 1.6;
+            }
+            .container { 
+                background-color: white; 
+                padding: 40px; 
+                border-radius: 16px; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .agent-section { 
+                margin-bottom: 35px; 
+                padding: 25px; 
+                border-radius: 12px; 
+                transition: all 0.3s ease;
+            }
+            .agent-section:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            .final-annotation { 
+                background-color: #f0f7ff; 
+                border-left: 5px solid #2196f3; 
+            }
+            .validator { 
+                background-color: #f0fdf4; 
+                border-left: 5px solid #22c55e; 
+            }
+            .formatting { 
+                background: linear-gradient(145deg, #fff7ed, #ffe4c4);
+                border-left: 5px solid #f97316; 
+                box-shadow: 0 4px 15px rgba(249, 115, 22, 0.1);
+            }
+            h2 { 
+                color: #1a2b3c; 
+                margin-top: 0; 
+                font-size: 1.5rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            ul { 
+                margin: 15px 0; 
+                padding-left: 20px; 
+            }
+            pre { 
+                background-color: #f8fafc; 
+                padding: 20px; 
+                border-radius: 8px; 
+                overflow-x: auto;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            .validation-result { 
+                font-weight: 600; 
+                color: #16a34a; 
+                padding: 12px 20px;
+                background-color: #dcfce7; 
+                border-radius: 8px; 
+                display: inline-block;
+                margin: 10px 0;
+            }
+            br { 
+                margin-bottom: 8px; 
+            }
+            p {
+                margin: 12px 0;
+                color: #374151;
+            }
+            .summary-content {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+            .summary-item {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.7);
+                padding: 16px;
+                border-radius: 12px;
+                backdrop-filter: blur(8px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+            .summary-label {
+                font-weight: 600;
+                color: #c2410c;
+                font-size: 0.95rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .summary-value {
+                color: #1f2937;
+                font-size: 1.1rem;
+                padding: 8px 16px;
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 8px;
+                display: inline-block;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            .summary-list {
+                margin: 0;
+                padding-left: 24px;
+                list-style-type: none;
+            }
+            .summary-list li {
+                color: #1f2937;
+                padding: 8px 0;
+                position: relative;
+            }
+            .summary-list li:before {
+                content: "•";
+                color: #f97316;
+                font-weight: bold;
+                position: absolute;
+                left: -20px;
+            }
+            .report-header {
+                text-align: center;
+                margin-bottom: 40px;
+                padding-bottom: 30px;
+                border-bottom: 2px solid rgba(249, 115, 22, 0.2);
+            }
+            
+            .report-title {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: #1a2b3c;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #f97316, #c2410c);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                letter-spacing: -0.5px;
+            }
+            
+            .report-subtitle {
+                font-size: 1.1rem;
+                color: #64748b;
+                margin-top: 8px;
+                font-weight: 500;
+            }
+            .scoring { 
+                background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+                border-left: 5px solid #22c55e;
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.1);
+            }
+            .scoring-content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                color: #1f2937;
+                line-height: 1.8;
+            }
+            .scoring-content br + br {
+                content: "";
+                display: block;
+                margin: 12px 0;
+            }
+            .empty-list {
+                color: #6b7280;
+                font-style: italic;
+            }
+            .error-message {
+                color: #dc2626;
+                padding: 12px;
+                background-color: #fef2f2;
+                border-radius: 6px;
+                border-left: 4px solid #dc2626;
+            }
+            .score-badge {
+                background: linear-gradient(135deg, #22c55e, #16a34a);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-size: 1.5rem;
+                font-weight: 700;
+                display: inline-block;
+                margin: 12px 0;
+                box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+                position: relative;
+                top: -10px;
+            }
+            .score-badge::before {
+                content: "Score:";
+                font-size: 0.9rem;
+                font-weight: 500;
+                margin-right: 8px;
+                opacity: 0.9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="report-header">
+                <h1 class="report-title">CASSIA Analysis Report</h1>
+                <p class="report-subtitle">Comprehensive Cell Type Analysis and Annotation</p>
+            </div>
+            
+                <div class="agent-section final-annotation">
+                    <h2>🔍 Final Annotation Analysis</h2>
+                    1. Key functional markers and pathways<br><br>I’ll first pull out the most functionally informative genes and group them:<br><br>**a. Neuronal identity / synaptic function**<br>- **STMN2** – Microtubule-destabilizing protein, strongly induced in developing and mature neurons; widely used as a pan-neuronal marker, especially in projection neurons.<br>- **SYT1, SYT8** – Synaptotagmins; Ca²⁺-sensing components of synaptic vesicle exocytosis, hallmark of synaptically active neurons.<br>- **LIN7A** – Synaptic scaffolding protein at excitatory synapses; enriched in glutamatergic neurons.<br>- **ROBO2** – Axon guidance receptor; expressed in developing and mature projection neurons, involved in laminar/areal wiring.<br>- **SEMA3A** – Secreted semaphorin; classic axon guidance cue, important in cortical circuit formation.<br>- **LRRN3** – Leucine-rich repeat neuronal protein; enriched in cortical excitatory neurons, especially in upper layers in human/mouse cortex.<br>- **MMP24** – Membrane-type MMP; expressed in neurons, modulates pericellular matrix and synaptic plasticity.<br><br>These collectively indicate a **neuronal, synaptically active, projection neuron–like population**, not glia.<br><br>**b. Extracellular matrix / adhesion / axon–dendrite organization**<br>- **HAPLN1** – ECM link protein; in brain, associated with perineuronal nets and specialized ECM structures. In cortex, often seen around specific neuronal subtypes (e.g., some RELN+ populations, Cajal–Retzius–like or layer I neurons).<br>- **COL25A1** – Neuron-specific collagen associated with neurites and amyloid plaques; strongly neuronal, especially in cortical projection neurons.<br>- **COL5A1, TNC, MFAP2, THBS2, HMCN1** – ECM/adhesion molecules; TNC and THBS2 are often enriched in developing or remodeling cortical regions and in specific neuronal subtypes with rich ECM.<br>- **PCDH7** – Protocadherin; cell-adhesion molecule enriched in specific cortical projection neuron subtypes.<br>- **SORCS3** – VPS10-domain receptor; synaptic receptor involved in plasticity, enriched in cortical and hippocampal excitatory neurons.<br><br>This ECM/adhesion profile is consistent with **cortical excitatory neurons with specialized ECM and synaptic architecture**, often in upper layers or marginal zone.<br><br>**c. Neuropeptides / secreted factors**<br>- **RELN** – Reelin; classic marker of Cajal–Retzius cells and layer I neurons in development, and of specific GABAergic interneuron subtypes in adult cortex. Also expressed in some excitatory neurons in early development and in certain human upper-layer excitatory subtypes.<br>- **NPY** – Neuropeptide Y; canonical marker of a major class of inhibitory interneurons, but can be transiently expressed in some developing excitatory neurons or in mixed-lineage states.<br>- **NPPC** – C-type natriuretic peptide; secreted factor, expressed in subsets of neurons and vascular/meningeal cells; in cortex, can mark specialized neuronal or border-zone populations.<br>- **CXCL5, CXCL6** – Chemokines; in brain, often associated with vasculature, meninges, or reactive states, but can be expressed by specialized border-zone neurons or neuron–glia interface populations.<br><br>The combination of **RELN + HAPLN1 + ECM collagens + chemokines** is strongly reminiscent of **marginal zone / layer I border neurons or Cajal–Retzius–like populations**, which often have a distinctive ECM and signaling milieu.<br><br>**d. Developmental / patterning / transcriptional regulators**<br>- **PAX3** – Paired box TF; classically dorsal neural tube, neural crest, and some hindbrain/spinal populations. In human fetal brain, can appear in specific dorsal telencephalic progenitors or migratory lineages.<br>- **PITX2** – Homeobox TF; involved in patterning of forebrain and hindbrain, including some GABAergic lineages and specific cortical/striatal neuron subsets.<br>- **HOXA3, HOXB3, HOXA-AS2** – HOX cluster genes; typically posterior CNS (hindbrain/spinal cord). Their presence in a “brain” dataset suggests either:<br>  - developmental stage with residual HOX expression in migrating cells, or  <br>  - off-target / ectopic expression in a tumor-like or aberrant population.<br>- **MKX** – Mohawk homeobox; more typical of tendon/mesenchyme, but can appear in some neural crest–derived or mesenchymal-like cells.<br>- **FOXD3-AS1** – lncRNA associated with neural crest / pluripotent-like programs.<br>- **HMGA2, IGF2BP3** – Oncofetal RNA-binding and chromatin proteins; strongly associated with **proliferative, immature, or tumor-like neural cells** (e.g., embryonic neural progenitors, gliomas, embryonal tumors).<br>- **NUAK1** – AMPK-related kinase; important in axon growth and neuronal development, enriched in projection neurons.<br><br>This set points to a **developmentally immature / oncofetal neuronal lineage**, possibly with **neural crest–like or posterior patterning signatures**, rather than a fully mature adult cortical neuron.<br><br>**e. Other notable markers**<br>- **GPR143** – GPCR best known in melanocytes (ocular albinism); can be expressed in pigment cell–related or neural crest–derived lineages. Its presence again hints at **neural crest–like or ectopic developmental programs**.<br>- **TRIL** – TLR4 interactor; innate immune-related, but also expressed in neurons and radial glia during development.<br>- **KIF26B, ARMC4** – Ciliary/axonemal or kinesin-related proteins; can be expressed in neurons with specialized cilia/axon structures.<br>- **ACTG2, KRT8** – Smooth muscle actin gamma 2 and simple epithelial keratin; these are **non-neuronal lineage markers**. Their co-expression with strong neuronal markers suggests either:<br>  - a **tumor / transdifferentiated** state with mixed-lineage expression, or  <br>  - technical contamination is unlikely given their high rank, so more likely a **neuroepithelial / oncofetal hybrid** phenotype.<br><br>Overall functional picture: **neuronal, synaptically competent, ECM-rich, developmentally immature/oncofetal, with some neural crest/mesenchymal and posterior HOX signatures**.<br><br>---<br><br>2. Key cell-type–defining markers<br><br>Now focusing on markers that are classically used for cell-type annotation in brain scRNA-seq:<br><br>**Neuronal vs non-neuronal**<br>- Strong neuronal: **STMN2, SYT1, SYT8, LIN7A, ROBO2, SORCS3, LRRN3, COL25A1, NUAK1, MMP24**  <br>- No canonical glial markers (no GFAP, AQP4, SLC1A3, OLIG1/2, MBP, PLP1, PDGFRA, etc.).<br>→ This is **clearly a neuronal cluster**, not astrocytes, oligodendrocytes, microglia, or endothelial cells.<br><br>**Excitatory vs inhibitory**<br>- Typical excitatory markers (e.g., SLC17A7/VGLUT1, TBR1, BCL11B/CTIP2, SATB2) are not listed, but:<br>  - **SORCS3, LRRN3, PCDH7, COL25A1, ROBO2, LIN7A** are all strongly associated with **cortical glutamatergic projection neurons** in human/mouse scRNA-seq atlases.<br>- Typical inhibitory markers (GAD1/2, SLC6A1, DLX1/2, LHX6, PVALB, SST, VIP) are absent.  <br>- **RELN + NPY** are classic interneuron markers, but here they co-occur with a strong **excitatory projection neuron signature** and oncofetal markers, which is more consistent with:<br>  - **RELN+ excitatory-like marginal zone / Cajal–Retzius–like neurons**, or  <br>  - a **tumor derived from a RELN+ developmental excitatory lineage**.<br><br>Given the weight of projection-neuron-associated genes, I interpret this as **predominantly excitatory-lineage neurons** with RELN/NPY expression as a subtype feature, not as canonical mature interneurons.<br><br>**Cortical layer / regional identity**<br>- **RELN, HAPLN1, TNC, THBS2, COL25A1, SORCS3, LRRN3, PCDH7**:  <br>  - RELN+ neurons in cortex are enriched in **layer I (marginal zone)** and in specific upper-layer excitatory subtypes.  <br>  - HAPLN1+ RELN+ neurons are characteristic of **Cajal–Retzius and layer I neurons** with specialized ECM.  <br>  - LRRN3 and SORCS3 are enriched in **cortical excitatory neurons**, often upper layers in human datasets.<br>- The presence of **HOX genes (HOXA3, HOXB3)** is atypical for canonical telencephalic cortex and suggests either:<br>  - a **posterior CNS origin** (hindbrain/spinal) if the “brain” sample is broad, or  <br>  - **dysregulated developmental program** in a tumor.<br><br>Given the dataset is “Human brain tissue” without further restriction, and the strong cortical-like markers (SORCS3, LRRN3, PCDH7, COL25A1, ROBO2), I lean toward **cortical / telencephalic excitatory neurons** with aberrant HOX expression rather than pure hindbrain.<br><br>**Developmental / tumor-like features**<br>- **HMGA2, IGF2BP3, PAGE1, PAGE5** (PAGE family cancer/testis antigens), **ACTG2, KRT8**, and HOX expression together are highly suggestive of:<br>  - **oncofetal / embryonic neural cells**, or  <br>  - **brain tumor cells of neuronal lineage** (e.g., embryonal tumors, neuroblastoma-like, or high-grade glioma with neuronal differentiation).<br><br>In adult normal cortex atlases, you rarely see this combination at high levels in a single neuronal cluster.<br><br>---<br><br>3. Cross-referencing with scRNA-seq databases and literature<br><br>Using known atlases and marker patterns:<br><br>- **Human/mouse cortical atlases (e.g., Tasic, Hodge, Yao, Lake, HCA brain)**:<br>  - **RELN + HAPLN1 + ECM collagens + TNC/THBS2**:  <br>    - Matches **Cajal–Retzius / layer I RELN+ excitatory-like neurons** and some **upper-layer RELN+ excitatory subtypes**.  <br>    - HAPLN1 is a known marker of **layer I RELN+ neurons** in mouse and human.<br>  - **SORCS3, LRRN3, PCDH7, COL25A1, ROBO2, LIN7A**:  <br>    - Enriched in **cortical glutamatergic projection neurons**, especially **upper-layer intratelencephalic (IT) neurons**.<br>- **Interneuron atlases**:<br>  - RELN+ interneurons typically co-express **GAD1/2, LHX1/2, LHX6, or VIP/SST**; these are not present in the top markers.  <br>  - NPY+ interneurons usually show strong GABAergic machinery; again, not evident here.<br>  → This argues against a canonical **GABAergic interneuron** identity.<br><br>- **Tumor / oncofetal datasets**:<br>  - **HMGA2, IGF2BP3, PAGE1, PAGE5** are recurrent in **embryonal brain tumors, high-grade gliomas, and neuroblastoma-like tumors** with neuronal differentiation.<br>  - Co-expression of **neuronal markers (STMN2, SYT1)** with **epithelial/mesenchymal markers (KRT8, ACTG2)** is typical of **malignant, partially dedifferentiated neural tumors** rather than normal neurons.<br><br>Thus, cross-referencing suggests:  <br>**Neuronal-lineage, RELN+/HAPLN1+ ECM-rich, cortical-like excitatory neurons with strong oncofetal/tumor-like signature.**<br><br>---<br><br>4. Most probable general cell type<br><br>At the broad level (ignoring tumor vs normal for a moment):<br><br>- **General lineage**: Neuronal  <br>- **Neurotransmitter class**: Predominantly **excitatory (glutamatergic) projection neuron–like**, not canonical inhibitory interneuron.  <br>- **Anatomical context**: **Cortical / telencephalic**, likely **marginal zone / layer I or upper-layer excitatory neurons** with RELN+ phenotype.<br><br>Given the strong oncofetal markers, in a realistic annotation pipeline I would label this as:<br><br>> **General cell type: Neuronal (excitatory-lineage), RELN+/HAPLN1+ cortical-like neurons with oncofetal/tumor-like features**<br><br>If the dataset is known or suspected to include tumor, I would explicitly call them **“tumor cells with neuronal differentiation (RELN+ excitatory-like)”**.<br><br>---<br><br>5. Top 3 most probable sub cell types (ranked)<br><br>Within the general “neuronal, excitatory-lineage” category, the three most plausible subtypes:<br><br>### 1) RELN+/HAPLN1+ marginal zone / Cajal–Retzius–like excitatory neurons (most likely)<br><br>**Supporting markers:**<br>- **RELN, HAPLN1, TNC, THBS2, COL25A1, MFAP2, COL5A1, HMCN1** – ECM-rich, perineuronal net–associated profile typical of **layer I / marginal zone neurons**.<br>- **SORCS3, LRRN3, PCDH7, ROBO2, LIN7A, STMN2, SYT1, SYT8, NUAK1** – Strong **cortical excitatory projection neuron** signature.<br>- **NPPC, CXCL5, CXCL6** – Secreted factors/chemokines consistent with a **border-zone signaling niche** (pia/marginal zone, meninges–cortex interface).<br>- **Developmental/oncofetal markers (HMGA2, IGF2BP3, PAGE1, PAGE5)** – Suggest these are **immature or tumor-derived** from a RELN+ marginal zone–like lineage.<br><br>This combination is highly characteristic of **RELN+/HAPLN1+ layer I neurons / Cajal–Retzius–like cells**, albeit with aberrant developmental/tumor features.<br><br>### 2) Upper-layer RELN+ excitatory intratelencephalic (IT) cortical neurons<br><br>**Supporting markers:**<br>- **SORCS3, LRRN3, PCDH7, COL25A1, ROBO2, LIN7A** – Strongly associated with **IT-type cortical projection neurons**, especially in upper layers (L2/3).<br>- **RELN** – In human cortex, some **upper-layer excitatory neurons** express RELN, not only interneurons.<br>- **HAPLN1, ECM genes** – Could also be present in some upper-layer RELN+ excitatory subtypes.<br>- **Oncofetal markers** – Would fit a **developing fetal upper-layer excitatory neuron** or a tumor derived from that lineage.<br><br>This is a plausible alternative if the marginal zone signature is interpreted more broadly as “upper-layer RELN+ excitatory neurons.”<br><br>### 3) Neuronal tumor cells with mixed-lineage / neural crest–like features (e.g., embryonal brain tumor with neuronal differentiation)<br><br>**Supporting markers:**<br>- **HMGA2, IGF2BP3, PAGE1, PAGE5** – Strongly oncofetal / cancer-testis profile.<br>- **KRT8, ACTG2, GPR143, PAX3, FOXD3-AS1, HOXA3, HOXB3, MKX** – Mixed epithelial/mesenchymal/neural crest and posterior patterning signatures.<br>- Co-expression of **strong neuronal markers (STMN2, SYT1, RELN, NPY)** with **non-neuronal lineage markers** is typical of malignant dedifferentiation.<br>- The neuronal subtype features (RELN+/HAPLN1+, SORCS3+, LRRN3+) would then reflect the **direction of differentiation** of the tumor cells.<br><br>If the dataset is from a brain tumor sample, this would be the primary interpretation; the “subtype” would then be something like **“RELN+/HAPLN1+ excitatory-like tumor cells”**.<br><br>---<br><br>**Most likely subtype (for annotation purposes)**<br><br>Assuming the dataset is annotated as “human brain tissue” without explicit tumor context, and following typical scRNA-seq annotation conventions (which usually label by normal lineage even in tumor samples), the most informative and specific label is:<br><br>> **Most likely subtype: RELN+/HAPLN1+ marginal zone / Cajal–Retzius–like excitatory neurons (cortical, oncofetal/tumor-like signature)**<br><br>If you prefer a shorter label for a cell-type column:<br><br>- **“RELN+ Cajal–Retzius–like excitatory neurons”**  <br>or, if tumor context is known:  <br>- **“RELN+ excitatory-like tumor neurons (CR-like)”**<br><br>---<br><br>6. Concise summary<br><br>- The marker set is strongly **neuronal**, with robust synaptic and axon-guidance genes (STMN2, SYT1/8, ROBO2, SORCS3, LRRN3, LIN7A, COL25A1).<br>- The presence of **RELN, HAPLN1, TNC, THBS2, ECM collagens** points to **marginal zone / layer I RELN+ neurons (Cajal–Retzius–like)** or closely related upper-layer RELN+ excitatory neurons.<br>- Classical inhibitory interneuron markers are absent; instead, multiple markers (SORCS3, LRRN3, PCDH7, COL25A1) support an **excitatory projection neuron lineage**.<br>- Oncofetal and mixed-lineage markers (HMGA2, IGF2BP3, PAGE1/5, KRT8, ACTG2, HOX genes) indicate a **developmentally immature or tumor-like state** of these neurons.<br>- Final interpretation: **RELN+/HAPLN1+ cortical excitatory-lineage neurons, most consistent with Cajal–Retzius–like / marginal zone neurons, with strong oncofetal/tumor-like features.**<br><br>**FINAL ANNOTATION COMPLETED**
+                </div>
+            
+                <div class="agent-section validator">
+                    <h2>✓ Validation Check</h2>
+                    <div class="validation-result">✅ VALIDATION PASSED</div>
+                    Validation result: VALIDATION PASSED
+                </div>
+            
+                        <div class="agent-section formatting">
+                            <h2>📋 Summary</h2>
+                            
+                        <div class="summary-content">
+                            <div class="summary-item">
+                                <span class="summary-label">Main Cell Type:</span>
+                                <span class="summary-value">Neuronal (excitatory-lineage), RELN+/HAPLN1+ cortical-like neurons with oncofetal/tumor-like features</span>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Sub Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>RELN+/HAPLN1+ marginal zone / Cajal–Retzius–like excitatory neurons (cortical, oncofetal/tumor-like signature)</li><li>Upper-layer RELN+ excitatory intratelencephalic (IT) cortical neurons</li><li>Neuronal tumor cells with mixed-lineage / neural crest–like features (RELN+ excitatory-like tumor neurons)</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Possible Mixed Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Neuronal cells co-expressing non-neuronal lineage markers (e.g., ACTG2, KRT8) suggesting neuroepithelial / oncofetal hybrid phenotype</li><li>Neuronal tumor cells with neural crest–like and posterior HOX patterning signatures</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Number of Markers:</span>
+                                <span class="summary-value">50</span>
+                            </div>
+                        </div>
+                    
+                        </div>
+                    
+                    <div class="agent-section scoring">
+                        <h2>🎯 Quality Assessment</h2>
+                        <div class="score-badge">nan</div>
+                        <div class="scoring-content">
+                            Error: Error code: 400 - {'error': {'message': "Unsupported parameter: 'max_tokens' is not supported with this model. Use 'max_completion_tokens' instead.", 'type': 'invalid_request_error', 'param': 'max_tokens', 'code': 'unsupported_parameter'}}<br>
+                        </div>
+                    </div>
+                
+        </div>
+    </body>
+    </html>
+    

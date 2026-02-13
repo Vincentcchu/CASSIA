@@ -1,0 +1,264 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { 
+                font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 20px; 
+                background-color: #f0f2f5;
+                line-height: 1.6;
+            }
+            .container { 
+                background-color: white; 
+                padding: 40px; 
+                border-radius: 16px; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .agent-section { 
+                margin-bottom: 35px; 
+                padding: 25px; 
+                border-radius: 12px; 
+                transition: all 0.3s ease;
+            }
+            .agent-section:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            .final-annotation { 
+                background-color: #f0f7ff; 
+                border-left: 5px solid #2196f3; 
+            }
+            .validator { 
+                background-color: #f0fdf4; 
+                border-left: 5px solid #22c55e; 
+            }
+            .formatting { 
+                background: linear-gradient(145deg, #fff7ed, #ffe4c4);
+                border-left: 5px solid #f97316; 
+                box-shadow: 0 4px 15px rgba(249, 115, 22, 0.1);
+            }
+            h2 { 
+                color: #1a2b3c; 
+                margin-top: 0; 
+                font-size: 1.5rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            ul { 
+                margin: 15px 0; 
+                padding-left: 20px; 
+            }
+            pre { 
+                background-color: #f8fafc; 
+                padding: 20px; 
+                border-radius: 8px; 
+                overflow-x: auto;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            .validation-result { 
+                font-weight: 600; 
+                color: #16a34a; 
+                padding: 12px 20px;
+                background-color: #dcfce7; 
+                border-radius: 8px; 
+                display: inline-block;
+                margin: 10px 0;
+            }
+            br { 
+                margin-bottom: 8px; 
+            }
+            p {
+                margin: 12px 0;
+                color: #374151;
+            }
+            .summary-content {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+            .summary-item {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.7);
+                padding: 16px;
+                border-radius: 12px;
+                backdrop-filter: blur(8px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+            .summary-label {
+                font-weight: 600;
+                color: #c2410c;
+                font-size: 0.95rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .summary-value {
+                color: #1f2937;
+                font-size: 1.1rem;
+                padding: 8px 16px;
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 8px;
+                display: inline-block;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            .summary-list {
+                margin: 0;
+                padding-left: 24px;
+                list-style-type: none;
+            }
+            .summary-list li {
+                color: #1f2937;
+                padding: 8px 0;
+                position: relative;
+            }
+            .summary-list li:before {
+                content: "•";
+                color: #f97316;
+                font-weight: bold;
+                position: absolute;
+                left: -20px;
+            }
+            .report-header {
+                text-align: center;
+                margin-bottom: 40px;
+                padding-bottom: 30px;
+                border-bottom: 2px solid rgba(249, 115, 22, 0.2);
+            }
+            
+            .report-title {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: #1a2b3c;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #f97316, #c2410c);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                letter-spacing: -0.5px;
+            }
+            
+            .report-subtitle {
+                font-size: 1.1rem;
+                color: #64748b;
+                margin-top: 8px;
+                font-weight: 500;
+            }
+            .scoring { 
+                background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+                border-left: 5px solid #22c55e;
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.1);
+            }
+            .scoring-content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                color: #1f2937;
+                line-height: 1.8;
+            }
+            .scoring-content br + br {
+                content: "";
+                display: block;
+                margin: 12px 0;
+            }
+            .empty-list {
+                color: #6b7280;
+                font-style: italic;
+            }
+            .error-message {
+                color: #dc2626;
+                padding: 12px;
+                background-color: #fef2f2;
+                border-radius: 6px;
+                border-left: 4px solid #dc2626;
+            }
+            .score-badge {
+                background: linear-gradient(135deg, #22c55e, #16a34a);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-size: 1.5rem;
+                font-weight: 700;
+                display: inline-block;
+                margin: 12px 0;
+                box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+                position: relative;
+                top: -10px;
+            }
+            .score-badge::before {
+                content: "Score:";
+                font-size: 0.9rem;
+                font-weight: 500;
+                margin-right: 8px;
+                opacity: 0.9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="report-header">
+                <h1 class="report-title">CASSIA Analysis Report</h1>
+                <p class="report-subtitle">Comprehensive Cell Type Analysis and Annotation</p>
+            </div>
+            
+                <div class="agent-section final-annotation">
+                    <h2>🔍 Final Annotation Analysis</h2>
+                    1. Key functional markers and pathways  <br>(What these genes say about function/activation state)<br><br>- **Cytotoxic effector program / cytolytic machinery**  <br>  - **GZMB, GZMH, GZMK, GZMA** – Granzyme family serine proteases; hallmark of cytotoxic lymphocytes (CD8 T cells, NK cells). GZMK often enriched in “effector memory / exhausted-like” CD8 T cells.  <br>  - **PRF1** – Perforin; essential for granule-mediated cytotoxicity.  <br>  - **NKG7, CTSW, CST7** – Granule-associated proteins in cytotoxic T and NK cells; CST7 (cystatin F) is strongly associated with cytotoxic lymphocytes.  <br>  - **FASLG** – Fas ligand; mediates activation-induced cell death and target cell killing.  <br>  → Strong, classic **cytotoxic lymphocyte** signature.<br><br>- **T cell receptor (TCR) signaling / T cell identity**  <br>  - **TRBC1, TRAC, CD3D, CD3E, CD3G, CD2, CD7, CD27, SIRPG, TRAT1** – Core TCR complex and pan-T cell markers; TRBC1/TRAC confirm αβ TCR.  <br>  - **CD27** – Costimulatory receptor; often retained in less terminally differentiated memory/effector T cells (though can be downregulated in terminal effectors).  <br>  → Confirms **T lineage**, not NK-only.<br><br>- **CD8 lineage and Th1/cytotoxic polarization**  <br>  - **CD8A, CD8B** – CD8 co-receptor; defines CD8 T cells (vs CD4).  <br>  - **IFNG** – Canonical Th1/cytotoxic cytokine; produced by activated CD8 T cells and NK cells.  <br>  - **CXCR6** – Chemokine receptor enriched in tissue-resident and tumor-infiltrating CD8 T cells (TRM-like, especially in non-lymphoid tissues including brain tumors).  <br>  - **CXCL13** – B cell–attracting chemokine; in T cells, strongly associated with **T follicular helper–like / T peripheral helper–like / exhausted CD8 T cells** in chronic inflammation and tumors (e.g., “CXCL13+ CD8 T_EX”).  <br>  → Strongly points to **CD8 cytotoxic T cells**, with a **CXCL13+ tissue-resident/exhausted-like phenotype**.<br><br>- **Inhibitory/checkpoint and exhaustion-associated molecules**  <br>  - **PDCD1 (PD-1)** – Canonical exhaustion marker in chronically stimulated T cells (tumor, chronic infection).  <br>  - **CTLA4** – Immune checkpoint; upregulated in activated/exhausted T cells.  <br>  - **TIGIT** – Co-inhibitory receptor; enriched in exhausted/chronically stimulated CD8 and CD4 T cells.  <br>  - **TIMD4** – Typically a macrophage receptor; its presence here is unusual and may reflect ambient RNA or misannotation, but TIM family context is notable.  <br>  - **ZBTB32** – Transcription factor associated with terminal effector/exhausted-like CD8 T cells and memory inflation.  <br>  - **EOMES** – T-box TF; in chronic stimulation, EOMES^hi PD-1^hi CD8 T cells are often terminally exhausted; also marks cytotoxic effector/memory CD8 T cells.  <br>  - **DUSP4, TNIP3, RGS1** – Negative regulators of TCR/NF-κB/GPCR signaling; often induced in chronically activated/exhausted T cells.  <br>  → Strong **chronic activation / exhaustion / regulatory** signature.<br><br>- **NK receptor / innate-like features**  <br>  - **KIR2DL4** – KIR family inhibitory receptor; typically NK cells, but can be expressed by some cytotoxic CD8 T cells (especially in tissues/tumors).  <br>  - **KLRC4** – NKG2 family receptor; NK and some CD8 T cells.  <br>  - **CRTAM** – Adhesion molecule enriched in activated cytotoxic CD8 T cells and NK cells; associated with tissue retention and cytotoxicity.  <br>  → Indicates **NK-like, highly cytotoxic CD8 T cells**, not classical naïve/central memory.<br><br>- **Other regulatory/activation markers**  <br>  - **SIT1** – Negative regulator of TCR signaling; expressed in T cells.  <br>  - **JAKMIP1** – JAK–STAT pathway–associated; enriched in activated T cells.  <br>  - **FXYD2** – Ion transport regulator; occasionally up in activated lymphocytes but not lineage-defining.  <br>  - **FCRL3** – Fc receptor–like; more typical of B cells/Tregs in some contexts, but can appear in activated/exhausted T cells in tumors.  <br>  - **RGS1** – G-protein signaling regulator; enriched in tissue-resident and chronically stimulated lymphocytes.  <br><br>- **Non-coding / less-characterized RNAs**  <br>  - **LINC00158, LINC01934, LINC01871, AC243829.4, AL158071.3, AL158071.4, CCDC141, DTHD1** – Several of these (e.g., LINC01871, DTHD1) have been reported as enriched in activated/exhausted T cells in tumor microenvironments, but they are not primary lineage markers.<br><br>Overall functional program: **Highly cytotoxic, chronically activated, checkpoint-high CD8 T cells with NK-like features and a CXCL13+ tissue-resident/exhausted phenotype.**<br><br>---<br><br>2. Key cell type markers (tissue/cell identity)<br><br>- **T cell core markers**  <br>  - **CD3D/E/G, TRAC, TRBC1, CD2, CD7, TRAT1, SIRPG** → Unambiguous **αβ T cell** identity.  <br>- **CD8 lineage**  <br>  - **CD8A, CD8B** → **CD8+ T cells**, not CD4 T cells.  <br>- **Cytotoxic program**  <br>  - **GZMB/H/K/A, PRF1, NKG7, CTSW, CST7, FASLG** → **Cytotoxic effector CD8 T cells / NK-T-like**.  <br>- **Exhaustion / tumor-infiltrating phenotype**  <br>  - **PDCD1, CTLA4, TIGIT, CXCL13, CXCR6, ZBTB32, EOMES, RGS1, TNIP3, DUSP4** → Strongly matches **tumor-infiltrating exhausted CD8 T cells**, especially the **CXCL13+ “T_EX” subset** described in human cancers (including brain tumors such as glioblastoma).  <br>- **NK-like receptors**  <br>  - **KIR2DL4, KLRC4, CRTAM** → NK-like CD8 T cells, often seen in tissue-resident or tumor-infiltrating cytotoxic T cells.<br><br>No markers of other brain-resident lineages (e.g., no GFAP, AQP4, MBP, PLP1, OLIG1/2, PDGFRA, P2RY12, CX3CR1, TMEM119, SLC17A7, GAD1/2, etc.), so this is clearly an **infiltrating immune (T) cell cluster**, not a neural/glial population.<br><br>---<br><br>3. Cross-referencing with scRNA-seq databases and literature<br><br>- **Human brain / brain tumor scRNA-seq atlases**  <br>  - In glioblastoma and other brain tumors, multiple studies (e.g., Neftel et al., Cell 2019; Pombo Antunes et al., Cell 2021; and subsequent atlases) describe **CXCL13+ PD-1^hi TIGIT^hi CD8 T cells** as a distinct exhausted T cell subset. These cells often co-express **GZMB, PRF1, NKG7, EOMES, ZBTB32, CXCR6**.  <br>  - These CXCL13+ CD8 T_EX cells are enriched in tumor regions and are thought to be clonally expanded, chronically stimulated T cells.<br><br>- **Public immune atlases (e.g., Azimuth, CellTypist, ImmGen-like resources)**  <br>  - Marker combinations **CD3D/E, CD8A/B, GZMB, PRF1, NKG7, CTSW, IFNG** map to **CD8 cytotoxic T cells**.  <br>  - Addition of **PDCD1, CTLA4, TIGIT, CXCL13, CXCR6, ZBTB32, EOMES** maps specifically to **“exhausted CD8 T cells” / “CXCL13+ CD8 T_EX”** clusters in multiple tumor and chronic infection datasets.  <br>  - **KIR2DL4, KLRC4** are often seen in **“NK-like CD8 T cells”** or **“CD8 T/NK hybrid”** clusters, but the strong TCR/CD3 signature and lack of canonical NK-only markers (e.g., NCAM1/CD56, KLRD1, KLRB1, etc.) favor **CD8 T** over NK.<br><br>- **Key literature parallels**  <br>  - CXCL13+ PD-1^hi CD8 T cells have been described as a hallmark of **tertiary lymphoid structure–associated, tumor-reactive exhausted CD8 T cells** (e.g., Savas et al., Nat Immunol 2018; Jansen et al., Cancer Cell 2019; multiple recent glioma T cell atlases).  <br>  - **EOMES^hi PD-1^hi TIGIT^hi** CD8 T cells with high granzyme/perforin and CXCR6 are a canonical **terminally exhausted / tissue-resident effector** phenotype.<br><br>The marker constellation here is almost textbook for **CXCL13+ exhausted CD8 T cells in a tumor or chronically inflamed tissue**, which fits a human brain dataset (likely tumor or inflamed brain).<br><br>---<br><br>4. Most probable general cell type<br><br>- General class: **T lymphocyte**  <br>- More specific: **CD8+ cytotoxic T cell**  <br>- Functional state: **chronically activated, checkpoint-high, exhausted/tissue-resident, NK-like**<br><br>Thus, the most probable general cell type is:<br><br>> **Infiltrating CD8+ cytotoxic T cell (exhausted / tumor-infiltrating phenotype)**<br><br>---<br><br>5. Top 3 most probable sub cell types (ranked)  <br><br>**1) CXCL13+ exhausted CD8+ T cell (tumor-infiltrating / tissue-resident-like)** – Most likely  <br>- Supporting markers:  <br>  - **CXCL13, PDCD1, CTLA4, TIGIT, EOMES, ZBTB32, TNIP3, DUSP4, RGS1** → chronic activation and exhaustion.  <br>  - **GZMB, GZMH, GZMK, GZMA, PRF1, NKG7, CTSW, CST7, FASLG** → potent cytotoxic machinery retained despite exhaustion.  <br>  - **CXCR6, CRTAM, KIR2DL4, KLRC4** → tissue-resident / NK-like features, typical of tumor-infiltrating CD8 T cells.  <br>- This matches the well-described **CXCL13+ PD-1^hi CD8 T_EX** subset in human tumors, including brain.<br><br>**2) Tissue-resident memory–like CD8+ T cell (TRM-like, CXCR6+ cytotoxic CD8)** – Second most likely  <br>- Supporting markers:  <br>  - **CXCR6, CRTAM, RGS1** → tissue retention and TRM-like behavior.  <br>  - **GZMK, GZMB, PRF1, NKG7** → effector memory / TRM cytotoxic profile.  <br>- Against pure TRM:  <br>  - The **very high PDCD1, CTLA4, TIGIT, CXCL13** and strong exhaustion TFs (EOMES, ZBTB32) push this beyond classical TRM into a **TRM-like exhausted** state.  <br>- So this is plausible but likely a subset of the exhausted phenotype above rather than a distinct alternative.<br><br>**3) NK-like CD8+ T cell / CD8 T–NK hybrid cytotoxic cell** – Third most likely  <br>- Supporting markers:  <br>  - **KIR2DL4, KLRC4, CRTAM, NKG7, CTSW, CST7** → NK receptor and granule program.  <br>- Against pure NK:  <br>  - Strong **TCR/CD3 (TRAC, TRBC1, CD3D/E/G)** and **CD8A/B, CD27, SIRPG** with no canonical NK-only markers (e.g., NCAM1/CD56, KLRD1, KLRF1, FCGR3A) in the top list.  <br>- Best interpreted as **NK-receptor–expressing cytotoxic CD8 T cells**, not bona fide NK cells.<br><br>**Most likely subtype annotation:**  <br>> **CXCL13+ exhausted CD8+ cytotoxic T cells (tumor-infiltrating / tissue-resident-like) in human brain tissue**<br><br>---<br><br>6. Concise summary<br><br>- The marker set is dominated by **TCR/CD3 components and CD8A/B**, confirming **CD8+ αβ T cells**.  <br>- Strong expression of **granzymes (GZMB/H/K/A), PRF1, NKG7, CTSW, CST7, FASLG** defines a **highly cytotoxic effector program**.  <br>- Co-expression of **PDCD1, CTLA4, TIGIT, CXCL13, CXCR6, EOMES, ZBTB32, TNIP3, DUSP4, RGS1** indicates **chronic activation and exhaustion**, characteristic of **tumor-infiltrating or chronically stimulated CD8 T cells**.  <br>- NK-like receptors **KIR2DL4, KLRC4, CRTAM** further support a **tissue-resident, NK-like cytotoxic CD8 phenotype**.  <br>- No neuronal, glial, or microglial markers are present, so these are **infiltrating immune cells** in brain tissue.<br><br>**Final annotation:**  <br>- **General cell type:** CD8+ cytotoxic T cell  <br>- **Subtype:** CXCL13+ exhausted / tumor-infiltrating, tissue-resident-like CD8+ T cell<br><br>FINAL ANNOTATION COMPLETED
+                </div>
+            
+                <div class="agent-section validator">
+                    <h2>✓ Validation Check</h2>
+                    <div class="validation-result">✅ VALIDATION PASSED</div>
+                    Validation result: VALIDATION PASSED
+                </div>
+            
+                        <div class="agent-section formatting">
+                            <h2>📋 Summary</h2>
+                            
+                        <div class="summary-content">
+                            <div class="summary-item">
+                                <span class="summary-label">Main Cell Type:</span>
+                                <span class="summary-value">CD8+ cytotoxic T cell</span>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Sub Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>CXCL13+ exhausted CD8+ T cell (tumor-infiltrating / tissue-resident-like)</li><li>Tissue-resident memory–like cytotoxic CD8+ T cell (TRM-like, CXCR6+)</li><li>NK-like CD8+ T cell / CD8 T–NK hybrid cytotoxic cell</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Possible Mixed Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>CD8+ T cell with NK-like features (T/NK hybrid phenotype)</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Number of Markers:</span>
+                                <span class="summary-value">50</span>
+                            </div>
+                        </div>
+                    
+                        </div>
+                    
+                    <div class="agent-section scoring">
+                        <h2>🎯 Quality Assessment</h2>
+                        <div class="score-badge">nan</div>
+                        <div class="scoring-content">
+                            Error: Error code: 400 - {'error': {'message': "Unsupported parameter: 'max_tokens' is not supported with this model. Use 'max_completion_tokens' instead.", 'type': 'invalid_request_error', 'param': 'max_tokens', 'code': 'unsupported_parameter'}}<br>
+                        </div>
+                    </div>
+                
+        </div>
+    </body>
+    </html>
+    

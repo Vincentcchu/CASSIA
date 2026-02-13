@@ -1,0 +1,264 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { 
+                font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 20px; 
+                background-color: #f0f2f5;
+                line-height: 1.6;
+            }
+            .container { 
+                background-color: white; 
+                padding: 40px; 
+                border-radius: 16px; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .agent-section { 
+                margin-bottom: 35px; 
+                padding: 25px; 
+                border-radius: 12px; 
+                transition: all 0.3s ease;
+            }
+            .agent-section:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            .final-annotation { 
+                background-color: #f0f7ff; 
+                border-left: 5px solid #2196f3; 
+            }
+            .validator { 
+                background-color: #f0fdf4; 
+                border-left: 5px solid #22c55e; 
+            }
+            .formatting { 
+                background: linear-gradient(145deg, #fff7ed, #ffe4c4);
+                border-left: 5px solid #f97316; 
+                box-shadow: 0 4px 15px rgba(249, 115, 22, 0.1);
+            }
+            h2 { 
+                color: #1a2b3c; 
+                margin-top: 0; 
+                font-size: 1.5rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            ul { 
+                margin: 15px 0; 
+                padding-left: 20px; 
+            }
+            pre { 
+                background-color: #f8fafc; 
+                padding: 20px; 
+                border-radius: 8px; 
+                overflow-x: auto;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            .validation-result { 
+                font-weight: 600; 
+                color: #16a34a; 
+                padding: 12px 20px;
+                background-color: #dcfce7; 
+                border-radius: 8px; 
+                display: inline-block;
+                margin: 10px 0;
+            }
+            br { 
+                margin-bottom: 8px; 
+            }
+            p {
+                margin: 12px 0;
+                color: #374151;
+            }
+            .summary-content {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+            .summary-item {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.7);
+                padding: 16px;
+                border-radius: 12px;
+                backdrop-filter: blur(8px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+            .summary-label {
+                font-weight: 600;
+                color: #c2410c;
+                font-size: 0.95rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .summary-value {
+                color: #1f2937;
+                font-size: 1.1rem;
+                padding: 8px 16px;
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 8px;
+                display: inline-block;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            .summary-list {
+                margin: 0;
+                padding-left: 24px;
+                list-style-type: none;
+            }
+            .summary-list li {
+                color: #1f2937;
+                padding: 8px 0;
+                position: relative;
+            }
+            .summary-list li:before {
+                content: "•";
+                color: #f97316;
+                font-weight: bold;
+                position: absolute;
+                left: -20px;
+            }
+            .report-header {
+                text-align: center;
+                margin-bottom: 40px;
+                padding-bottom: 30px;
+                border-bottom: 2px solid rgba(249, 115, 22, 0.2);
+            }
+            
+            .report-title {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: #1a2b3c;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #f97316, #c2410c);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                letter-spacing: -0.5px;
+            }
+            
+            .report-subtitle {
+                font-size: 1.1rem;
+                color: #64748b;
+                margin-top: 8px;
+                font-weight: 500;
+            }
+            .scoring { 
+                background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+                border-left: 5px solid #22c55e;
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.1);
+            }
+            .scoring-content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                color: #1f2937;
+                line-height: 1.8;
+            }
+            .scoring-content br + br {
+                content: "";
+                display: block;
+                margin: 12px 0;
+            }
+            .empty-list {
+                color: #6b7280;
+                font-style: italic;
+            }
+            .error-message {
+                color: #dc2626;
+                padding: 12px;
+                background-color: #fef2f2;
+                border-radius: 6px;
+                border-left: 4px solid #dc2626;
+            }
+            .score-badge {
+                background: linear-gradient(135deg, #22c55e, #16a34a);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-size: 1.5rem;
+                font-weight: 700;
+                display: inline-block;
+                margin: 12px 0;
+                box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+                position: relative;
+                top: -10px;
+            }
+            .score-badge::before {
+                content: "Score:";
+                font-size: 0.9rem;
+                font-weight: 500;
+                margin-right: 8px;
+                opacity: 0.9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="report-header">
+                <h1 class="report-title">CASSIA Analysis Report</h1>
+                <p class="report-subtitle">Comprehensive Cell Type Analysis and Annotation</p>
+            </div>
+            
+                <div class="agent-section final-annotation">
+                    <h2>🔍 Final Annotation Analysis</h2>
+                    1. Key functional markers and pathways<br><br>I’ll first group the most informative genes by function, focusing on those with reasonably well‑defined biology in brain or vasculature.<br><br>**a. Lipid / prostaglandin metabolism and transport**<br>- **PTGDS (Prostaglandin D2 synthase, lipocalin-type)**  <br>  - Enzyme that converts PGH2 to PGD2; in brain, the lipocalin-type PTGDS is classically a **leptomeningeal/arachnoid and perivascular cell marker**, also expressed in some perivascular fibroblast-like cells and meningeal fibroblasts.  <br>  - Very strong, highly ranked expression here is a major clue.<br>- **LCNL1 (Lipocalin-like 1)**  <br>  - Lipocalin family; often co‑expressed with PTGDS in **meningeal / perivascular fibroblast-like populations** and some specialized vascular-associated cells.<br>- **ABCA8**  <br>  - ATP-binding cassette transporter; enriched in **oligodendrocytes and some vascular/perivascular cells**, involved in lipid transport and cholesterol homeostasis.<br>- **SLC13A3 (Na⁺/dicarboxylate cotransporter 3)**  <br>  - Transports Krebs cycle intermediates (e.g., α‑ketoglutarate, succinate); enriched in **astrocytes and some perivascular cells**; also seen in choroid plexus and barrier-associated cells.<br><br>**b. Ion channels / transporters**<br>- **KCNMB1**  <br>  - Regulatory β1 subunit of large-conductance Ca²⁺-activated K⁺ channels (BK channels).  <br>  - Strongly expressed in **vascular smooth muscle cells (VSMCs)** and some pericytes; modulates vascular tone.<br>- **SCN7A**  <br>  - Atypical voltage-gated Na⁺ channel (NaX); in brain, enriched in **vascular-associated cells, circumventricular organs, and some glial/perivascular populations** rather than neurons.<br>- **SLC6A13 (GAT2/BGT-1)**  <br>  - GABA/betaine transporter; in brain, more associated with **non-neuronal barrier/vascular cells (endothelial, leptomeningeal, choroid plexus)** than with classical neurons or astrocytes.<br><br>**c. Cytoskeleton / contractile / structural**<br>- **LMOD1 (Leiomodin 1)**  <br>  - Actin-binding protein; canonical marker of **vascular smooth muscle cells** and some pericytes; strongly associated with contractile phenotype.<br>- **MYOZ3 (Myozenin 3)**  <br>  - Z-disc protein; skeletal/cardiac muscle–related, but in brain scRNA-seq it appears in **contractile mural cells (VSMC-like)**.<br>- **GAS2**  <br>  - Cytoskeleton regulator; expressed in various mesenchymal/fibroblast-like cells.<br>- **FAT3**  <br>  - Large cadherin; involved in cell adhesion and neurite morphogenesis; also seen in some non-neuronal structural cells.<br>- **COL21A1**  <br>  - Fibril-associated collagen; expressed in **vascular wall / perivascular fibroblasts** and some meningeal fibroblasts.<br><br>**d. Cell adhesion / axon guidance / synaptic scaffolding**<br>- **CNTNAP3B, CNTN3**  <br>  - Contactin-associated protein and contactin; cell adhesion molecules. While often discussed in neuronal contexts, they are also expressed in **perivascular and meningeal fibroblast-like cells** in human brain atlases.<br>- **DLGAP1 (SAPAP1)**  <br>  - Postsynaptic density scaffolding protein; typically neuronal, but low/moderate expression can appear in some non-neuronal cells in human datasets (often as a “neuronal contamination” signature or low-level expression).<br>- **SCUBE1**  <br>  - Secreted cell-surface glycoprotein; enriched in **endothelial and platelet/vascular-associated cells**; in brain, often marks **vascular endothelium and perivascular cells**.<br><br>**e. Signaling / transcription / regulatory**<br>- **JAK2**  <br>  - Tyrosine kinase; widely expressed, but in brain scRNA-seq often enriched in **endothelial and perivascular cells** relative to neurons.<br>- **PRKAG2**  <br>  - Regulatory γ2 subunit of AMPK; broadly expressed, but enriched in metabolically active cells, including **vascular and glial** populations.<br>- **POU6F2, FOXD2**  <br>  - Transcription factors. POU6F2 is known in retinal ganglion cells and some neuronal populations, but also appears in **specialized non-neuronal barrier/meningeal cells** in some human atlases. FOXD2 is more mesenchymal/epithelial; its presence supports a **non-neuronal, mesenchymal-like identity**.<br>- **ARHGAP10, STRIP2, LARP1B, PAXBP1**  <br>  - Regulators of cytoskeleton, signaling, and transcription; not strongly cell-type specific but compatible with a mesenchymal/perivascular phenotype.<br><br>**f. Sex-chromosome inactivation / dosage compensation**<br>- **XIST, TSIX**  <br>  - XIST is the canonical X-inactivation lncRNA; TSIX is its antisense regulator.  <br>  - Strong expression indicates these are **female cells** (or at least from an XX genome). This is a sex marker, not a lineage marker.<br><br>**g. Developmental / morphogen signaling**<br>- **DHH (Desert hedgehog)**  <br>  - Hedgehog family ligand. In the CNS, DHH is a hallmark of **endothelial and perivascular cells**, especially at the blood–brain barrier, and also of **perineurial/meningeal fibroblast-like cells**.  <br>  - Strong DHH expression is a key indicator of **vascular/meningeal barrier-associated mesenchymal cells**.<br><br>Overall functional pattern:  <br>- Strong prostaglandin/lipocalin (PTGDS, LCNL1),  <br>- Contractile/vascular (KCNMB1, LMOD1, MYOZ3),  <br>- Barrier/transport (SLC13A3, SLC6A13, ABCA8, SCN7A),  <br>- Vascular/meningeal signaling (DHH, SCUBE1, JAK2, COL21A1),  <br>→ strongly points to a **vascular-associated mesenchymal / mural / fibroblast-like population**, not neurons, not classic astrocytes, not microglia, not oligodendrocytes.<br><br>---<br><br>2. Key cell-type–informative markers<br><br>Now focusing on markers that are particularly informative for brain cell classes:<br><br>**Markers arguing against major neural parenchymal lineages**<br>- No canonical **neuronal** markers (e.g., SNAP25, RBFOX3/NeuN, SLC17A7, GAD1/2, SYN1, STMN2) in the top list.<br>- No canonical **astrocyte** markers (GFAP, AQP4, SLC1A2, SLC1A3, ALDH1L1).<br>- No canonical **oligodendrocyte / OPC** markers (MBP, PLP1, MOG, PDGFRA, OLIG1/2).<br>- No canonical **microglia** markers (CX3CR1, P2RY12, TMEM119, AIF1).<br>- No strong **endothelial** markers (PECAM1/CD31, VWF, KDR/VEGFR2, CLDN5) in this ranked list.<br><br>**Markers supporting vascular-associated mesenchymal / mural / fibroblast-like identity**<br>- **PTGDS + LCNL1**  <br>  - In human brain scRNA-seq atlases (e.g., Hodge et al., 2019; Siletti et al., 2023; and multiple vascular atlases), PTGDS^high LCNL1^+ clusters are consistently annotated as **leptomeningeal cells, arachnoid barrier cells, or perivascular fibroblasts**.<br>- **LMOD1, MYOZ3, KCNMB1**  <br>  - Classic **contractile mural cell** markers (VSMC/pericyte-like). LMOD1 is particularly specific for **arterial smooth muscle** in many vascular atlases.<br>- **COL21A1, SCUBE1, DHH, ABCA8, SLC13A3, SLC6A13**  <br>  - These are enriched in **vascular wall / perivascular fibroblasts / meningeal fibroblasts** and **barrier-associated cells** (arachnoid, choroid plexus, perineurial) in human brain datasets.<br>- **DHH**  <br>  - Strongly associated with **endothelial–perivascular signaling** and **perineurial/meningeal fibroblast-like cells** at the CNS–periphery interface.<br><br>**Sex marker**<br>- **XIST, TSIX** → female origin; not lineage-specific but confirms the cluster is not an artifact of Y-linked expression.<br><br>---<br><br>3. Cross-referencing with known scRNA-seq databases / literature<br><br>Using patterns known from:<br><br>- **Human and mouse brain atlases** (e.g., Hodge et al. 2019; Tasic et al.; Siletti et al. 2023; Yao et al. 2021; and vascular-focused atlases such as Vanlandewijck et al. 2018, and more recent human vascular atlases):<br>  - **PTGDS^high LCNL1^+** clusters are repeatedly annotated as:<br>    - **Leptomeningeal cells / arachnoid barrier cells**<br>    - **Perivascular fibroblasts / meningeal fibroblasts**<br>  - **LMOD1, MYOZ3, KCNMB1** are canonical for:<br>    - **Vascular smooth muscle cells (VSMCs)** and some **arterial pericytes**.<br>  - **DHH** is a hallmark of:<br>    - **Endothelial–perivascular signaling**, especially at the **blood–brain barrier** and **perineurial/meningeal fibroblast-like cells**.<br>  - **SLC13A3, SLC6A13, ABCA8**:<br>    - Enriched in **barrier-associated glial/mesenchymal cells** (e.g., arachnoid barrier, choroid plexus, perivascular fibroblasts) rather than in parenchymal neurons or microglia.<br><br>In datasets that explicitly annotate **vascular and meningeal compartments** (e.g., recent human cortex atlases with detailed non-neuronal annotation), one typically sees:<br><br>- **Perivascular fibroblasts / meningeal fibroblasts**:<br>  - PTGDS^high, LCNL1^+, COL21A1^+, ABCA8^+, DHH^+, SCUBE1^+, with variable expression of contractile genes (LMOD1, MYOZ3, KCNMB1) depending on subtype and vessel segment.<br>- **Vascular smooth muscle cells**:<br>  - Strong LMOD1, MYH11, ACTA2, TAGLN, KCNMB1, MYOZ3; often lower PTGDS/LCNL1 than fibroblasts/meningeal cells.<br>- **Pericytes**:<br>  - PDGFRB, RGS5, KCNJ8, ABCC9, with some overlap in contractile genes but usually less PTGDS/LCNL1.<br><br>Given the **very high ranking of PTGDS and LCNL1**, and the presence of **DHH, COL21A1, ABCA8, SCUBE1**, the profile aligns best with **perivascular fibroblast / meningeal fibroblast-like cells** that can show some contractile gene expression, rather than “pure” VSMCs.<br><br>---<br><br>4. Most probable general cell type<br><br>Within human brain tissue, the combination:<br><br>- PTGDS^high, LCNL1^high  <br>- DHH^+, COL21A1^+, ABCA8^+, SLC13A3^+, SLC6A13^+  <br>- LMOD1^+, MYOZ3^+, KCNMB1^+  <br>- Absence of canonical neuronal, astrocytic, oligodendroglial, microglial markers  <br><br>is most consistent with:<br><br>**General cell type: Vascular-associated mesenchymal cells (mural/perivascular/meningeal fibroblast-like cells)**<br><br>i.e., a **non-neuronal, non-glial, mesenchymal lineage associated with blood vessels and meninges**.<br><br>---<br><br>5. Top 3 most probable sub cell types (ranked)<br><br>Within this general class, the main plausible subtypes in human brain are:<br><br>1. **Perivascular fibroblasts / meningeal fibroblast-like cells (PTGDS⁺ LCNL1⁺ DHH⁺) – Most likely**<br><br>   Evidence:<br>   - **PTGDS and LCNL1 at the very top** of the ranked list: hallmark of **leptomeningeal and perivascular fibroblast-like populations** in human cortex and meninges.<br>   - **DHH, COL21A1, ABCA8, SCUBE1**: strongly associated with **perivascular and meningeal fibroblasts** and barrier-forming mesenchymal cells.<br>   - Expression of **SLC13A3, SLC6A13**: consistent with **barrier/transport roles** at the CNS surface or perivascular niche.<br>   - Presence of some contractile markers (LMOD1, MYOZ3, KCNMB1) is compatible with **perivascular fibroblasts adjacent to muscularized vessels**, which can show partial mural-like signatures.<br><br>   This subtype is often annotated in human atlases as:<br>   - “Leptomeningeal fibroblasts”<br>   - “Arachnoid barrier cells”<br>   - “Perivascular fibroblasts”<br>   - “Meningeal fibroblasts (PTGDS⁺)”<br><br>2. **Vascular smooth muscle cells (VSMCs) – Second most likely**<br><br>   Evidence:<br>   - **LMOD1, MYOZ3, KCNMB1** are classic **arterial smooth muscle** markers.<br>   - However, in canonical VSMC clusters one expects:<br>     - Very strong **ACTA2, TAGLN, MYH11** and other smooth muscle contractile genes, which are not in this top-ranked list.<br>     - PTGDS and LCNL1 are usually not the top markers in pure VSMC clusters.<br>   - Thus, while there is a **contractile signature**, the dominance of PTGDS/LCNL1 and DHH/ABCA8/SCUBE1 suggests a more fibroblast-like, barrier-associated phenotype rather than pure VSMC.<br><br>3. **Pericytes / mural cells (non-smooth muscle) – Third most likely**<br><br>   Evidence:<br>   - Some overlap in contractile and ion channel genes (KCNMB1, LMOD1, MYOZ3) could be compatible with **pericytes**, especially those on pre-capillary arterioles.<br>   - However, canonical pericyte markers (PDGFRB, RGS5, KCNJ8, ABCC9) are not prominent here.<br>   - The strong PTGDS/LCNL1/DHH/ABCA8/SCUBE1 pattern is more typical of **perivascular fibroblasts** than of pericytes.<br><br>**Most likely specific subtype annotation:**<br><br>> **Perivascular / meningeal fibroblast-like cells (PTGDS⁺ LCNL1⁺ DHH⁺) – leptomeningeal/perivascular fibroblasts**<br><br>If you need a concise label suitable for a cell-type column:<br><br>- “Perivascular fibroblast (PTGDS⁺, LCNL1⁺)”<br>or<br>- “Leptomeningeal fibroblast / arachnoid barrier cell”<br><br>depending on how your broader dataset is structured.<br><br>---<br><br>6. Concise summary<br><br>- The marker profile is dominated by **PTGDS and LCNL1**, with additional **vascular/mesenchymal and barrier-associated genes** (DHH, COL21A1, ABCA8, SCUBE1, SLC13A3, SLC6A13) and some **contractile markers** (LMOD1, MYOZ3, KCNMB1).  <br>- Canonical neuronal, astrocytic, oligodendroglial, microglial, and pure endothelial markers are absent from the top-ranked list.  <br>- Cross-referencing human brain scRNA-seq atlases, this pattern is characteristic of **perivascular / meningeal fibroblast-like cells**, often annotated as **leptomeningeal fibroblasts or arachnoid barrier cells**, with some mural-like features.  <br><br>**Final call:**  <br>- **General type:** Vascular-associated mesenchymal cell  <br>- **Specific subtype:** **Perivascular / meningeal fibroblast (PTGDS⁺ LCNL1⁺ DHH⁺)**<br><br>FINAL ANNOTATION COMPLETED
+                </div>
+            
+                <div class="agent-section validator">
+                    <h2>✓ Validation Check</h2>
+                    <div class="validation-result">✅ VALIDATION PASSED</div>
+                    Validation result: VALIDATION PASSED
+                </div>
+            
+                        <div class="agent-section formatting">
+                            <h2>📋 Summary</h2>
+                            
+                        <div class="summary-content">
+                            <div class="summary-item">
+                                <span class="summary-label">Main Cell Type:</span>
+                                <span class="summary-value">Vascular-associated mesenchymal cell</span>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Sub Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Perivascular / meningeal fibroblast-like cell (PTGDS⁺ LCNL1⁺ DHH⁺)</li><li>Vascular smooth muscle cell (VSMC)</li><li>Pericyte / mural cell (non-smooth muscle)</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Possible Mixed Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Perivascular fibroblast–vascular smooth muscle mixed mural phenotype</li><li>Perivascular fibroblast–pericyte mixed mural phenotype</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Number of Markers:</span>
+                                <span class="summary-value">50</span>
+                            </div>
+                        </div>
+                    
+                        </div>
+                    
+                    <div class="agent-section scoring">
+                        <h2>🎯 Quality Assessment</h2>
+                        <div class="score-badge">nan</div>
+                        <div class="scoring-content">
+                            Error: Error code: 400 - {'error': {'message': "Unsupported parameter: 'max_tokens' is not supported with this model. Use 'max_completion_tokens' instead.", 'type': 'invalid_request_error', 'param': 'max_tokens', 'code': 'unsupported_parameter'}}<br>
+                        </div>
+                    </div>
+                
+        </div>
+    </body>
+    </html>
+    

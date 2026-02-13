@@ -1,0 +1,264 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { 
+                font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 20px; 
+                background-color: #f0f2f5;
+                line-height: 1.6;
+            }
+            .container { 
+                background-color: white; 
+                padding: 40px; 
+                border-radius: 16px; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .agent-section { 
+                margin-bottom: 35px; 
+                padding: 25px; 
+                border-radius: 12px; 
+                transition: all 0.3s ease;
+            }
+            .agent-section:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            .final-annotation { 
+                background-color: #f0f7ff; 
+                border-left: 5px solid #2196f3; 
+            }
+            .validator { 
+                background-color: #f0fdf4; 
+                border-left: 5px solid #22c55e; 
+            }
+            .formatting { 
+                background: linear-gradient(145deg, #fff7ed, #ffe4c4);
+                border-left: 5px solid #f97316; 
+                box-shadow: 0 4px 15px rgba(249, 115, 22, 0.1);
+            }
+            h2 { 
+                color: #1a2b3c; 
+                margin-top: 0; 
+                font-size: 1.5rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            ul { 
+                margin: 15px 0; 
+                padding-left: 20px; 
+            }
+            pre { 
+                background-color: #f8fafc; 
+                padding: 20px; 
+                border-radius: 8px; 
+                overflow-x: auto;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            .validation-result { 
+                font-weight: 600; 
+                color: #16a34a; 
+                padding: 12px 20px;
+                background-color: #dcfce7; 
+                border-radius: 8px; 
+                display: inline-block;
+                margin: 10px 0;
+            }
+            br { 
+                margin-bottom: 8px; 
+            }
+            p {
+                margin: 12px 0;
+                color: #374151;
+            }
+            .summary-content {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+            .summary-item {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.7);
+                padding: 16px;
+                border-radius: 12px;
+                backdrop-filter: blur(8px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+            .summary-label {
+                font-weight: 600;
+                color: #c2410c;
+                font-size: 0.95rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .summary-value {
+                color: #1f2937;
+                font-size: 1.1rem;
+                padding: 8px 16px;
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 8px;
+                display: inline-block;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            .summary-list {
+                margin: 0;
+                padding-left: 24px;
+                list-style-type: none;
+            }
+            .summary-list li {
+                color: #1f2937;
+                padding: 8px 0;
+                position: relative;
+            }
+            .summary-list li:before {
+                content: "•";
+                color: #f97316;
+                font-weight: bold;
+                position: absolute;
+                left: -20px;
+            }
+            .report-header {
+                text-align: center;
+                margin-bottom: 40px;
+                padding-bottom: 30px;
+                border-bottom: 2px solid rgba(249, 115, 22, 0.2);
+            }
+            
+            .report-title {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: #1a2b3c;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #f97316, #c2410c);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                letter-spacing: -0.5px;
+            }
+            
+            .report-subtitle {
+                font-size: 1.1rem;
+                color: #64748b;
+                margin-top: 8px;
+                font-weight: 500;
+            }
+            .scoring { 
+                background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+                border-left: 5px solid #22c55e;
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.1);
+            }
+            .scoring-content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                color: #1f2937;
+                line-height: 1.8;
+            }
+            .scoring-content br + br {
+                content: "";
+                display: block;
+                margin: 12px 0;
+            }
+            .empty-list {
+                color: #6b7280;
+                font-style: italic;
+            }
+            .error-message {
+                color: #dc2626;
+                padding: 12px;
+                background-color: #fef2f2;
+                border-radius: 6px;
+                border-left: 4px solid #dc2626;
+            }
+            .score-badge {
+                background: linear-gradient(135deg, #22c55e, #16a34a);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-size: 1.5rem;
+                font-weight: 700;
+                display: inline-block;
+                margin: 12px 0;
+                box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+                position: relative;
+                top: -10px;
+            }
+            .score-badge::before {
+                content: "Score:";
+                font-size: 0.9rem;
+                font-weight: 500;
+                margin-right: 8px;
+                opacity: 0.9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="report-header">
+                <h1 class="report-title">CASSIA Analysis Report</h1>
+                <p class="report-subtitle">Comprehensive Cell Type Analysis and Annotation</p>
+            </div>
+            
+                <div class="agent-section final-annotation">
+                    <h2>🔍 Final Annotation Analysis</h2>
+                    I’ll go step by step and be explicit about the reasoning.<br><br>---<br><br>## 1. Key functional markers and pathways<br><br>From the ranked list:<br><br>**ECM / matrix remodeling / mesenchymal activation**<br>- **COL3A1, COL14A1, COL6A3** – Fibrillar and microfibrillar collagens; hallmark of fibroblast‑like / mesenchymal ECM‑producing cells.<br>- **LUM (Lumican)** – Small leucine-rich proteoglycan, classic fibroblast / stromal ECM component.<br>- **ASPN (Asporin)** – SLRP family, strongly associated with activated fibroblasts, perivascular fibroblasts, and fibrotic stroma.<br>- **IBSP (Integrin-binding sialoprotein)** – Bone sialoprotein; ECM glycoprotein, often in osteogenic / mesenchymal lineages and some invasive stromal populations.<br>- **POSTN (Periostin)** – Canonical marker of activated fibroblasts / myofibroblasts and perivascular stromal cells; strongly associated with tissue remodeling and fibrosis.<br>- **MMP11 (Stromelysin-3)** – Matrix metalloproteinase; ECM remodeling, often in activated stromal cells.<br>- **TNFAIP6 (TSG-6)** – ECM-associated protein induced by TNF; expressed in activated stromal/fibroblast-like cells.<br>- **CRISPLD2** – Secreted ECM-associated protein, enriched in mesenchymal / fibroblast-like cells.<br>- **ECM1** – Secreted ECM glycoprotein, often in perivascular fibroblasts and endothelial-associated stroma.<br>- **MATN4 (Matrilin 4)** – ECM adaptor protein, cartilage/mesenchymal ECM.<br>- **CILP2** – Cartilage intermediate layer protein 2; ECM-related, mesenchymal.<br>- **ADAMTS14** – Secreted metalloprotease involved in collagen processing; typical of ECM-remodeling fibroblasts.<br>- **FAP (Fibroblast activation protein)** – Classic marker of activated fibroblasts / cancer-associated fibroblasts / perivascular stromal cells.<br>- **CD248 (Endosialin/TEM1)** – Perivascular stromal/pericyte-associated glycoprotein; strongly enriched in perivascular fibroblasts and tumor stroma.<br>- **TFPI** – Tissue factor pathway inhibitor; secreted, often endothelial/perivascular associated but also in stromal cells.<br>- **PAMR1** – Secreted protein, often in mesenchymal / muscle-adjacent stromal cells.<br><br>**Perivascular / vascular-associated signaling**<br>- **S1PR3** – Sphingosine-1-phosphate receptor 3; enriched in perivascular fibroblasts, mural cells, and some endothelial-associated stromal cells.<br>- **PTGIR (Prostacyclin receptor)** – Vascular signaling receptor; often in vascular/perivascular cells.<br>- **TRPC4, TRPC6, CACNA1H** – Ion channels (TRP and T-type Ca²⁺ channel) often enriched in vascular smooth muscle / perivascular cells and some fibroblast-like populations.<br>- **GGT5** – Gamma-glutamyltransferase 5; expressed in perivascular / stromal cells in several tissues.<br><br>**TGFβ / myofibroblast / activation-related**<br>- **LRRC32 (GARP)** – Canonical TGFβ-activation receptor; in immune Tregs but also in activated stromal cells and perivascular fibroblasts.<br>- **HEYL** – Notch target transcription factor; expressed in vascular smooth muscle, pericytes, and perivascular fibroblasts.<br>- **TNFAIP6, POSTN, FAP, ADAMTS14, MMP11** – Together form a strong “activated fibroblast / myofibroblast” signature.<br><br>**Metabolic / endocrine / thyroid-related**<br>- **DIO2 (Type II iodothyronine deiodinase)** – Converts T4 to T3; in brain, a hallmark of **pituicytes / tanycytes / specialized glial-like cells** and some perivascular fibroblast-like cells in hypothalamus and other regions.<br><br>**Other functional / signaling genes**<br>- **SUSD2** – Surface protein; in perivascular stromal cells, mesenchymal stem cell–like populations, and some endothelial-associated fibroblasts.<br>- **PLXDC1** – Plexin domain-containing 1; endothelial/perivascular-associated receptor.<br>- **PTP4A3 (PRL-3)** – Phosphatase associated with migration/invasion; often in activated stromal cells.<br>- **PDZRN4** – E3 ligase with PDZ domain; enriched in some neuronal and vascular/perivascular lineages.<br>- **RASD2** – Small GTPase; neuronal-enriched in many contexts, but can appear in perivascular stromal cells in brain.<br>- **HIGD1B** – Hypoxia-inducible protein; often in vascular/perivascular cells.<br><br>**Non-coding / lncRNAs / others**<br>- **PART1, LINC00924, SFTA1P, C11orf96, CCDC102B, FAM13C** – Less cell-type specific; often context-dependent.<br><br>**Takeaway for function:**  <br>The dominant functional theme is **ECM production and remodeling, perivascular/vascular association, and fibroblast activation**, with a strong **POSTN/FAP/CD248/ASPN/LUM/COL3A1/ADAMTS14** axis. This is a classic activated fibroblast / perivascular stromal signature, not neuronal or canonical glial.<br><br>---<br><br>## 2. Key cell-type–informative markers<br><br>### Markers pointing to fibroblast / stromal / mesenchymal identity<br>- **LUM, ASPN, COL3A1, COL14A1, COL6A3, MATN4, ECM1, CILP2, ADAMTS14, MMP11, CRISPLD2, TNFAIP6, POSTN, FAP, CD248, IBSP**<br>  - This combination is highly characteristic of **fibroblasts / perivascular fibroblasts / meningeal fibroblasts** rather than neurons, astrocytes, oligodendrocytes, or microglia.<br>  - **FAP + POSTN + CD248 + ASPN + LUM + COL3A1** is a canonical “activated fibroblast / cancer-associated fibroblast / perivascular fibroblast” module seen across tissues, including brain stromal compartments.<br><br>### Markers pointing to perivascular / vascular-associated fibroblasts<br>- **CD248, S1PR3, PTGIR, PLXDC1, TRPC4, TRPC6, CACNA1H, GGT5, TFPI, HEYL, HIGD1B**<br>  - These are enriched in **perivascular fibroblasts and mural/pericyte-adjacent stromal cells**.<br>  - **CD248** in particular is a strong perivascular stromal marker in brain.<br>  - **S1PR3** and **PTGIR** are typical of vascular/perivascular signaling cells.<br>  - **HEYL** is a Notch target often in vascular smooth muscle/pericyte/perivascular fibroblasts.<br><br>### Markers that argue against major neural/glial lineages<br>- No canonical neuronal markers (e.g., SNAP25, RBFOX3/NeuN, SLC17A7, GAD1/2, TH, etc.).<br>- No astrocyte markers (GFAP, AQP4, SLC1A2, ALDH1L1).<br>- No oligodendrocyte markers (MBP, PLP1, MOG, OLIG1/2).<br>- No microglial markers (CX3CR1, P2RY12, TMEM119).<br>- No endothelial core markers (PECAM1/CD31, VWF, KDR/VEGFR2, CLDN5).<br><br>The absence of these, combined with a strong ECM/fibroblast signature, strongly supports a **fibroblast-like stromal** identity.<br><br>---<br><br>## 3. Cross-referencing with scRNA-seq brain atlases and literature<br><br>Using known human brain scRNA-seq references (e.g.,:<br><br>- **Tasic et al.**, **Saunders et al.**, **Hodge et al.**, **Lake et al.**, and more recent human brain atlases (e.g., BICCN/BICAN, Hodge 2019, Siletti 2023),<br>- plus tumor-associated brain stromal datasets (e.g., glioma and brain metastasis microenvironments),<br><br>we see:<br><br>- **Perivascular fibroblasts / meningeal fibroblasts** in human and mouse brain consistently express:<br>  - **COL1A1/1A2/3A1, COL14A1, COL6A3, LUM, ASPN, POSTN, FAP, CD248, ECM1, ADAMTS family, TNFAIP6, CRISPLD2**.<br>  - Often also **S1PR3, GGT5, PLXDC1, TFPI**.<br>- **Meningeal fibroblasts** (dura/arachnoid/pia) show strong **LUM, COL3A1, COL14A1, ASPN, POSTN, ECM1, CILP2** expression.<br>- **Perivascular fibroblasts** in cortex and hippocampus show **CD248, FAP, POSTN, S1PR3, GGT5, ADAMTS14, TNFAIP6, CRISPLD2**.<br><br>The combination of **FAP + POSTN + CD248 + ASPN + LUM + COL3A1 + COL14A1 + ECM1 + ADAMTS14 + TNFAIP6** is highly characteristic of **perivascular / meningeal fibroblasts** in brain atlases and in glioma-associated stroma.<br><br>**DIO2** is interesting: in brain, it is classically high in **tanycytes/pituicytes** and some specialized glial-like cells in hypothalamus and median eminence. However, in large human atlases, low-to-moderate DIO2 expression can also appear in **perivascular fibroblast-like stromal cells** in certain regions. Given the overwhelming fibroblast signature and lack of tanycyte markers (e.g., RAX, COL23A1, VIM+GFAP+ radial glia-like pattern, etc.), DIO2 here is best interpreted as a **regional/metabolic feature** of a fibroblast-like population rather than defining the primary identity.<br><br>No strong evidence for endothelial, pericyte, or smooth muscle as the primary identity: we lack **PECAM1, VWF, PDGFRB, RGS5, ACTA2, TAGLN**, etc., which are typical for those lineages.<br><br>---<br><br>## 4. Most probable general cell type<br><br>Given:<br><br>- Strong ECM and collagen signature (COL3A1, COL14A1, COL6A3, LUM, ASPN, MATN4, ECM1, CILP2).<br>- Strong fibroblast activation markers (FAP, POSTN, MMP11, ADAMTS14, TNFAIP6, CRISPLD2).<br>- Perivascular/vascular-associated markers (CD248, S1PR3, PTGIR, PLXDC1, GGT5, TFPI, HEYL, HIGD1B).<br>- Absence of canonical neuronal, astrocytic, oligodendroglial, microglial, or endothelial markers.<br><br>The **most probable general cell type** is:<br><br>> **Fibroblast-like stromal cell (brain stromal fibroblast)**<br><br>within the broader category of **non-neural mesenchymal / stromal cells** in brain tissue.<br><br>---<br><br>## 5. Top 3 most probable subtypes (ranked)<br><br>Within brain fibroblast-like populations, the main relevant subtypes are:<br><br>1. **Perivascular fibroblasts / perivascular stromal cells (most likely)**<br>   - Supporting markers:<br>     - **CD248, FAP, POSTN, S1PR3, PTGIR, PLXDC1, GGT5, TFPI, HEYL, HIGD1B, TRPC4, TRPC6, CACNA1H**<br>     - Strong ECM/fibroblast program: **LUM, ASPN, COL3A1, COL14A1, COL6A3, ECM1, ADAMTS14, TNFAIP6, CRISPLD2, MMP11**.<br>   - This combination is highly characteristic of **perivascular fibroblasts** in human cortex and other brain regions, as seen in multiple atlases and in glioma-associated stroma.<br>   - The presence of vascular signaling receptors (S1PR3, PTGIR) and CD248 strongly biases toward a **perivascular** rather than purely meningeal location.<br><br>2. **Meningeal fibroblasts (dura/arachnoid/pia)**<br>   - Supporting markers:<br>     - **LUM, ASPN, COL3A1, COL14A1, COL6A3, MATN4, ECM1, CILP2, ADAMTS14, TNFAIP6, CRISPLD2, POSTN**.<br>   - Meningeal fibroblasts share much of this ECM/fibroblast program and can also express POSTN and ASPN.<br>   - However, they typically show less pronounced **CD248/FAP/S1PR3** perivascular signature compared to perivascular fibroblasts embedded in parenchyma.<br><br>3. **Activated fibroblast-like stromal cells associated with pathology (e.g., tumor-associated fibroblasts in brain)**<br>   - Supporting markers:<br>     - **FAP, POSTN, MMP11, ADAMTS14, TNFAIP6, CRISPLD2, IBSP, CD248** – a classic “CAF-like” signature.<br>   - In glioma or metastasis, these cells are often perivascular but can also be more diffusely stromal.<br>   - Without explicit disease context, this is less certain, but the signature is compatible.<br><br>**Most likely subtype:**<br><br>> **Perivascular fibroblast / perivascular stromal cell (brain perivascular fibroblast-like cell)**<br><br>This best reconciles the strong fibroblast ECM program with the vascular/perivascular signaling and CD248/FAP/POSTN profile.<br><br>---<br><br>## 6. Concise summary<br><br>- The marker set is dominated by ECM and fibroblast activation genes (**LUM, ASPN, COL3A1, COL14A1, COL6A3, POSTN, FAP, CD248, ADAMTS14, MMP11, TNFAIP6, CRISPLD2, ECM1**), with additional vascular/perivascular signaling markers (**S1PR3, PTGIR, PLXDC1, GGT5, TFPI, HEYL, HIGD1B, TRPC4/6, CACNA1H**).<br>- Canonical neuronal, astrocytic, oligodendroglial, microglial, and endothelial markers are absent.<br>- Cross-referencing human brain scRNA-seq atlases, this profile matches **brain fibroblast-like stromal cells**, specifically **perivascular fibroblasts** or closely related perivascular stromal cells.<br>- Top 3 likely subtypes:<br>  1. **Perivascular fibroblasts / perivascular stromal cells** (most likely).<br>  2. **Meningeal fibroblasts**.<br>  3. **Pathology-associated activated fibroblast-like stromal cells (CAF-like) in brain**.<br><br>**Final annotation:**  <br>**General cell type:** Fibroblast-like stromal cell  <br>**Subtype:** **Perivascular fibroblast / perivascular stromal cell**<br><br>FINAL ANNOTATION COMPLETED
+                </div>
+            
+                <div class="agent-section validator">
+                    <h2>✓ Validation Check</h2>
+                    <div class="validation-result">✅ VALIDATION PASSED</div>
+                    Validation result: VALIDATION PASSED
+                </div>
+            
+                        <div class="agent-section formatting">
+                            <h2>📋 Summary</h2>
+                            
+                        <div class="summary-content">
+                            <div class="summary-item">
+                                <span class="summary-label">Main Cell Type:</span>
+                                <span class="summary-value">Fibroblast-like stromal cell</span>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Sub Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Perivascular fibroblast / perivascular stromal cell</li><li>Meningeal fibroblast</li><li>Pathology-associated activated fibroblast-like stromal cell (CAF-like) in brain</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Possible Mixed Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Perivascular fibroblast–endothelial-associated stromal mix</li><li>Perivascular fibroblast–meningeal fibroblast continuum</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Number of Markers:</span>
+                                <span class="summary-value">50</span>
+                            </div>
+                        </div>
+                    
+                        </div>
+                    
+                    <div class="agent-section scoring">
+                        <h2>🎯 Quality Assessment</h2>
+                        <div class="score-badge">nan</div>
+                        <div class="scoring-content">
+                            Error: Error code: 400 - {'error': {'message': "Unsupported parameter: 'max_tokens' is not supported with this model. Use 'max_completion_tokens' instead.", 'type': 'invalid_request_error', 'param': 'max_tokens', 'code': 'unsupported_parameter'}}<br>
+                        </div>
+                    </div>
+                
+        </div>
+    </body>
+    </html>
+    

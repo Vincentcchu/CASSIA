@@ -1,0 +1,264 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { 
+                font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 20px; 
+                background-color: #f0f2f5;
+                line-height: 1.6;
+            }
+            .container { 
+                background-color: white; 
+                padding: 40px; 
+                border-radius: 16px; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .agent-section { 
+                margin-bottom: 35px; 
+                padding: 25px; 
+                border-radius: 12px; 
+                transition: all 0.3s ease;
+            }
+            .agent-section:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            .final-annotation { 
+                background-color: #f0f7ff; 
+                border-left: 5px solid #2196f3; 
+            }
+            .validator { 
+                background-color: #f0fdf4; 
+                border-left: 5px solid #22c55e; 
+            }
+            .formatting { 
+                background: linear-gradient(145deg, #fff7ed, #ffe4c4);
+                border-left: 5px solid #f97316; 
+                box-shadow: 0 4px 15px rgba(249, 115, 22, 0.1);
+            }
+            h2 { 
+                color: #1a2b3c; 
+                margin-top: 0; 
+                font-size: 1.5rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            ul { 
+                margin: 15px 0; 
+                padding-left: 20px; 
+            }
+            pre { 
+                background-color: #f8fafc; 
+                padding: 20px; 
+                border-radius: 8px; 
+                overflow-x: auto;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            .validation-result { 
+                font-weight: 600; 
+                color: #16a34a; 
+                padding: 12px 20px;
+                background-color: #dcfce7; 
+                border-radius: 8px; 
+                display: inline-block;
+                margin: 10px 0;
+            }
+            br { 
+                margin-bottom: 8px; 
+            }
+            p {
+                margin: 12px 0;
+                color: #374151;
+            }
+            .summary-content {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+            .summary-item {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.7);
+                padding: 16px;
+                border-radius: 12px;
+                backdrop-filter: blur(8px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+            .summary-label {
+                font-weight: 600;
+                color: #c2410c;
+                font-size: 0.95rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .summary-value {
+                color: #1f2937;
+                font-size: 1.1rem;
+                padding: 8px 16px;
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 8px;
+                display: inline-block;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            .summary-list {
+                margin: 0;
+                padding-left: 24px;
+                list-style-type: none;
+            }
+            .summary-list li {
+                color: #1f2937;
+                padding: 8px 0;
+                position: relative;
+            }
+            .summary-list li:before {
+                content: "•";
+                color: #f97316;
+                font-weight: bold;
+                position: absolute;
+                left: -20px;
+            }
+            .report-header {
+                text-align: center;
+                margin-bottom: 40px;
+                padding-bottom: 30px;
+                border-bottom: 2px solid rgba(249, 115, 22, 0.2);
+            }
+            
+            .report-title {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: #1a2b3c;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #f97316, #c2410c);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                letter-spacing: -0.5px;
+            }
+            
+            .report-subtitle {
+                font-size: 1.1rem;
+                color: #64748b;
+                margin-top: 8px;
+                font-weight: 500;
+            }
+            .scoring { 
+                background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+                border-left: 5px solid #22c55e;
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.1);
+            }
+            .scoring-content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                color: #1f2937;
+                line-height: 1.8;
+            }
+            .scoring-content br + br {
+                content: "";
+                display: block;
+                margin: 12px 0;
+            }
+            .empty-list {
+                color: #6b7280;
+                font-style: italic;
+            }
+            .error-message {
+                color: #dc2626;
+                padding: 12px;
+                background-color: #fef2f2;
+                border-radius: 6px;
+                border-left: 4px solid #dc2626;
+            }
+            .score-badge {
+                background: linear-gradient(135deg, #22c55e, #16a34a);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-size: 1.5rem;
+                font-weight: 700;
+                display: inline-block;
+                margin: 12px 0;
+                box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+                position: relative;
+                top: -10px;
+            }
+            .score-badge::before {
+                content: "Score:";
+                font-size: 0.9rem;
+                font-weight: 500;
+                margin-right: 8px;
+                opacity: 0.9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="report-header">
+                <h1 class="report-title">CASSIA Analysis Report</h1>
+                <p class="report-subtitle">Comprehensive Cell Type Analysis and Annotation</p>
+            </div>
+            
+                <div class="agent-section final-annotation">
+                    <h2>🔍 Final Annotation Analysis</h2>
+                    1. Key functional markers and pathways  <br>(Here I focus on genes that are functionally informative rather than just “generic CNS”)<br><br>- **Myelination / lipid metabolism / glial membrane specialization**  <br>  - **MPZ** (Myelin Protein Zero): Canonical compact myelin structural protein in peripheral nervous system (PNS) Schwann cells; essentially absent from CNS oligodendrocytes.  <br>  - **PLP1** (Proteolipid Protein 1): Major CNS myelin protein; also expressed in some non‑myelinating glia and oligodendrocyte lineage.  <br>  - **GAL3ST1**: Galactose-3-O-sulfotransferase 1, key for sulfatide synthesis in myelin; expressed in myelinating glia (oligodendrocytes and Schwann cells).  <br>  - **MAL**: Myelin and lymphocyte protein, enriched in compact myelin and myelin-forming glia.  <br>  - **PMP2**: Peripheral myelin protein 2, classic Schwann cell / PNS myelin component.  <br>  - **LPL**: Lipoprotein lipase, involved in lipid uptake and remodeling; expressed in some glia including Schwann cells and certain oligodendrocyte states.  <br>  - **AZGP1**: Zinc-α2-glycoprotein, secreted glycoprotein involved in lipid mobilization; seen in some glial and secretory phenotypes.  <br>  - **ATP1A2**: Na⁺/K⁺-ATPase α2 subunit, enriched in glia (astrocytes, some oligodendrocytes, Schwann cells) for ion homeostasis.  <br><br>- **Neuro-glial adhesion, axon–glia interaction, synaptic/axonal association**  <br>  - **NRXN1** (Neurexin 1), **NLGN4X** (Neuroligin 4X): Canonical synaptic adhesion molecules; in glia, often reflect close association with axons/synapses or neuron-like transcriptional programs.  <br>  - **CHL1**: L1 family cell adhesion molecule, important in axon guidance and neuron–glia interactions; expressed in Schwann cells and some glia.  <br>  - **NCAM2**: Neural cell adhesion molecule 2, involved in neurite outgrowth and synaptic organization.  <br>  - **RELN**: Reelin, extracellular matrix glycoprotein; in brain, classically Cajal–Retzius and some interneurons, but also expressed in certain non-neuronal populations (e.g., specialized glia, meningeal/ECM-associated cells) and in peripheral glia in some contexts.  <br>  - **PTPRZ1**: Receptor-type protein tyrosine phosphatase zeta, strongly expressed in glial progenitors, astrocytes, and some oligodendrocyte lineage cells; also a hallmark of certain glial-like tumor and radial glia–like states.  <br>  - **ADAM23**, **SEMA3B**, **LGI4**:  <br>    - **LGI4** is particularly important: a secreted protein required for Schwann cell–axon interactions and peripheral myelination; knockout causes severe peripheral neuropathy.  <br>    - ADAM23 and LGI family form a signaling complex at axon–glia interfaces.  <br>    - SEMA3B: secreted semaphorin involved in axon guidance and glial–neuronal patterning.  <br><br>- **ECM / basal lamina / structural support**  <br>  - **COL28A1, COL14A1**: Collagens; COL14A1 is associated with fibril-associated collagens in connective tissue; COL28A1 is expressed in peripheral nerves and some specialized ECM niches.  <br>  - **LAMA2**: Laminin α2, a key component of the basal lamina around muscle and peripheral nerves; strongly associated with Schwann cell basal lamina and peripheral nerve ECM.  <br>  - **FBLN2** (Fibulin-2): ECM glycoprotein, enriched in peripheral nerve sheaths and perivascular/meningeal ECM.  <br>  - **ITGB8**: Integrin β8, mediates cell–ECM interactions; expressed in glia and vascular-associated cells.  <br>  - **CRLF1**, **MYOT**:  <br>    - **CRLF1**: Cytokine receptor-like factor 1, secreted protein that complexes with CLCF1; involved in neurotrophic signaling and ECM-associated niches.  <br>    - **MYOT** (Myotilin): Typically muscle/Z-disc protein, but can appear in perineurial/peripheral nerve–associated mesenchymal-like cells and some fibroblast-like glia.  <br><br>- **Glial identity / calcium-binding / stress response**  <br>  - **S100B**: Canonical glial calcium-binding protein; high in astrocytes, oligodendrocytes, Schwann cells, and some glial progenitors.  <br>  - **CRYAB**: αB-crystallin, small heat shock protein; enriched in myelinating glia and stress-responsive glia.  <br>  - **ALDH1A1**: Aldehyde dehydrogenase; in CNS, often astrocytic (ALDH1L1/ALDH1A1), but also expressed in some peripheral glia and glial progenitors.  <br><br>- **Transcription factors / lineage regulators**  <br>  - **FOXD3** and **FOXD3-AS1**: FOXD3 is a key transcription factor in neural crest stem cells and Schwann cell precursors; maintains multipotent neural crest and glial progenitor identity, represses melanocytic differentiation. Strongly points to neural crest–derived glia (Schwann lineage).  <br>  - **POU3F1** (Oct-6/Scip): Classic Schwann cell transcription factor required for the promyelinating to myelinating transition in peripheral nerves; hallmark of Schwann cell lineage.  <br><br>- **Ion channels / excitability**  <br>  - **SCN7A, SCN9A**: Voltage-gated sodium channels; SCN9A (Nav1.7) is a key nociceptor channel but also expressed in some peripheral glia and nerve-associated cells; their presence suggests peripheral nerve–associated environment.  <br><br>- **Immune-modulatory / tolerogenic**  <br>  - **TMEM176A, TMEM176B**: Transmembrane proteins enriched in tolerogenic dendritic cells and some glial/immune-like states; also seen in certain glial progenitors and tumor-associated glia.  <br><br>- **Other glial / neuronal-associated genes**  <br>  - **GPM6B**: Glycoprotein M6B, expressed in neurons and oligodendrocytes; involved in membrane dynamics and myelination.  <br>  - **SORCS1, SLC35F1, GPR155, CMTM5, ARHGEF26, CAPS, PRIMA1**: Various membrane/trafficking/signaling proteins enriched in neural/glial contexts; not individually cell-type-defining but consistent with a neural/glial, axon-associated phenotype.  <br><br>2. Key cell-type–informative markers (tissue/cell identity)<br><br>Now grouping by canonical cell-type associations in human brain/peripheral nerve context:<br><br>- **Strong Schwann cell / peripheral myelinating glia markers**  <br>  - **MPZ** – essentially definitive for Schwann cells (PNS myelin).  <br>  - **PMP2** – peripheral myelin protein 2, Schwann cell-enriched.  <br>  - **POU3F1 (Oct-6)** – Schwann cell promyelinating TF.  <br>  - **FOXD3** – neural crest / Schwann cell precursor TF.  <br>  - **LGI4** – required for Schwann cell–axon interaction and peripheral myelination.  <br>  - **LAMA2, COL28A1, FBLN2** – ECM components characteristic of peripheral nerve sheaths and Schwann cell basal lamina.  <br>  - **LPL, MAL, GAL3ST1, CRYAB, S100B** – supportive of myelinating glial identity, compatible with Schwann cells.  <br><br>- **Oligodendrocyte / CNS myelin markers**  <br>  - **PLP1, GAL3ST1, MAL, GPM6B** – typical oligodendrocyte/myelinating glia markers.  <br>  - However, **absence** of classic oligodendrocyte markers such as **MBP, MOG, MAG, CNP, SOX10 (not listed but often co-expressed), OLIG1/2** in the top markers is notable. PLP1 alone is not sufficient to call canonical CNS oligodendrocytes, especially in the presence of strong Schwann markers.  <br><br>- **Astrocyte markers**  <br>  - **S100B, ALDH1A1, ATP1A2, PTPRZ1** can be astrocytic, but:  <br>    - There is **no GFAP, AQP4, SLC1A2/GLT1, SLC1A3/GLAST, GJA1 (Cx43)** among top markers.  <br>    - The strong Schwann-specific program (MPZ, POU3F1, FOXD3, PMP2, LGI4, LAMA2) outweighs generic glial markers.  <br><br>- **Neuronal markers**  <br>  - **NRXN1, NLGN4X, NCAM2, CHL1** are neuronal/synaptic adhesion molecules, but these can be expressed in glia that are tightly associated with axons/synapses (e.g., Schwann cells, perisynaptic glia).  <br>  - There is **no strong pan-neuronal signature** (e.g., SNAP25, RBFOX3/NeuN, MAP2, TUBB3, SYT1, SLC17A7, GAD1/2) in the top list.  <br><br>- **Fibroblast / pericyte / vascular / meningeal markers**  <br>  - ECM genes (COL14A1, COL28A1, FBLN2, LAMA2) could suggest fibroblast-like or perineurial cells, but the concurrent presence of **MPZ, PMP2, POU3F1, FOXD3, LGI4** is not compatible with a pure fibroblast/pericyte identity.  <br><br>3. Cross-referencing with scRNA-seq databases and literature<br><br>- **Human brain scRNA-seq atlases (e.g., Hodge et al. 2019, Lake et al., Allen Brain Atlas, DropViz, and more recent multi-region atlases)**:  <br>  - Canonical CNS oligodendrocytes: PLP1, MBP, MOG, MAG, CNP, SOX10, OLIG1/2, CLDN11, etc. MPZ and PMP2 are typically **absent or extremely low** in CNS oligodendrocytes.  <br>  - Astrocytes: GFAP, AQP4, SLC1A2, SLC1A3, ALDH1L1, GJA1, etc. FOXD3 and POU3F1 are not astrocyte markers.  <br>  - Perivascular fibroblasts/meningeal cells: COL1A1/1A2, COL3A1, COL14A1, FBLN2, LAMA2, etc., but **do not** express MPZ, PMP2, POU3F1, FOXD3.  <br><br>- **Peripheral nerve / Schwann cell scRNA-seq (e.g., Toma et al., 2020; Carr et al.; mouse and human peripheral nerve atlases)**:  <br>  - Myelinating Schwann cells: **MPZ, PMP2, POU3F1, MAL, GAL3ST1, LAMA2, LGI4, PLP1 (low to moderate), S100B, CRYAB, LPL** are all characteristic.  <br>  - Schwann cell precursors / immature Schwann cells: **FOXD3, POU3F1**, ECM genes (LAMA2, COL28A1, FBLN2), and some synaptic adhesion molecules due to axon association.  <br>  - Non-myelinating / Remak Schwann cells: lower MPZ, higher ECM and neurotrophic factors, but still Schwann-lineage TFs.  <br><br>- **Key literature markers**:  <br>  - **POU3F1 (Oct-6)** is a textbook Schwann cell TF (e.g., Bermingham et al., Science 1996).  <br>  - **FOXD3** is a canonical neural crest / Schwann cell precursor TF (e.g., Mundell & Labosky, Development 2011).  <br>  - **LGI4** is essential for Schwann cell myelination (e.g., Colombo et al., Nat Neurosci 2010).  <br>  - **MPZ, PMP2** are standard peripheral myelin proteins (e.g., Jessen & Mirsky reviews on Schwann cells).  <br><br>Collectively, this combination is **highly characteristic of Schwann cells or Schwann cell–like glia**, not of any canonical CNS-resident glial subtype.<br><br>4. Most probable general cell type<br><br>Despite the dataset being “brain tissue,” the marker profile is **not** that of a typical CNS-resident cell (neuron, astrocyte, oligodendrocyte, microglia, endothelial, pericyte, fibroblast). Instead, it matches **peripheral nerve–associated glia**:<br><br>**Most probable general cell type: Neural crest–derived peripheral glial cell, specifically Schwann cell–lineage.**<br><br>Given the strong MPZ, PMP2, POU3F1, FOXD3, LGI4, LAMA2, COL28A1, GAL3ST1, MAL, S100B, CRYAB signature, this is best annotated as **Schwann cell / Schwann cell–like glia** associated with peripheral nerves that traverse or innervate the brain/meninges (e.g., cranial nerves, meningeal/perivascular nerves) or possibly contaminating peripheral nerve tissue in the dissection.<br><br>5. Top 3 most probable sub cell types (within Schwann lineage)<br><br>Within the Schwann cell lineage, we can consider:<br><br>1. **Myelinating Schwann cells (mSCs)** – most likely  <br>   - Supporting markers:  <br>     - **MPZ** (very high in myelinating Schwann cells).  <br>     - **PMP2**, **MAL**, **GAL3ST1**, **CRYAB**, **S100B** – classic myelinating Schwann cell/myelin-associated genes.  <br>     - **POU3F1** – promyelinating/maturing Schwann cells.  <br>     - **LGI4** – required for myelination.  <br>     - **LAMA2, COL28A1, FBLN2** – basal lamina and nerve ECM typical of myelinated fibers.  <br>   - Presence of **PLP1** is compatible; PLP1 is not exclusive to CNS oligodendrocytes and can be expressed in Schwann cells.  <br>   - The strong myelin structural program (MPZ, PMP2, MAL, GAL3ST1) argues for a **myelinating** rather than non-myelinating phenotype.<br><br>2. **Immature / promyelinating Schwann cells (Schwann cell precursors / transitional)** – second most likely  <br>   - Supporting markers:  <br>     - **FOXD3** – neural crest / Schwann precursor TF, often downregulated in fully mature myelinating Schwann cells.  <br>     - **POU3F1** – expressed in promyelinating Schwann cells.  <br>     - ECM-rich profile (LAMA2, COL28A1, FBLN2, COL14A1) consistent with cells still remodeling their basal lamina.  <br>   - However, the **very strong MPZ and PMP2** expression suggests that many cells are already in a myelinating state rather than purely precursor.<br><br>3. **Non-myelinating / Remak Schwann cells or perineurial-like Schwann-related cells** – third most likely  <br>   - These cells can express **LAMA2, COL14A1, FBLN2, COL28A1, LPL, S100B**, and some Schwann TFs.  <br>   - Typically, they have **lower MPZ/PMP2** and a more pronounced ECM and neurotrophic factor profile.  <br>   - Given MPZ is among the top markers, a pure non-myelinating Schwann identity is less likely, but a mixed population or transitional state cannot be fully excluded.<br><br>**Most likely specific subtype:**  <br>**Myelinating Schwann cells (peripheral myelinating glia) associated with cranial/peripheral nerves in or near the brain.**<br><br>6. Concise summary of analysis<br><br>- The marker list is dominated by **peripheral myelin and Schwann cell lineage genes**: **MPZ, PMP2, POU3F1, FOXD3, LGI4, LAMA2, COL28A1, GAL3ST1, MAL, S100B, CRYAB**, along with ECM components typical of peripheral nerve sheaths.  <br>- Canonical CNS oligodendrocyte or astrocyte markers are either absent or weak, while multiple **neural crest / Schwann-specific transcription factors and structural proteins** are present.  <br>- Cross-referencing with human and mouse scRNA-seq atlases and classical Schwann cell literature strongly supports a **Schwann cell** identity rather than any CNS-resident glial or neuronal type.  <br>- Within Schwann lineage, the high expression of **MPZ, PMP2, MAL, GAL3ST1, LGI4, POU3F1** indicates **myelinating Schwann cells** as the most probable subtype, with immature/promyelinating Schwann cells and non-myelinating Schwann cells as less likely alternatives.<br><br>**Final annotation:**  <br>- **General cell type:** Neural crest–derived peripheral glial cell (Schwann cell lineage).  <br>- **Most likely subtype:** **Myelinating Schwann cell** (peripheral myelinating glia associated with cranial/peripheral nerves in or near brain tissue).<br><br>FINAL ANNOTATION COMPLETED
+                </div>
+            
+                <div class="agent-section validator">
+                    <h2>✓ Validation Check</h2>
+                    <div class="validation-result">✅ VALIDATION PASSED</div>
+                    Validation result: VALIDATION PASSED
+                </div>
+            
+                        <div class="agent-section formatting">
+                            <h2>📋 Summary</h2>
+                            
+                        <div class="summary-content">
+                            <div class="summary-item">
+                                <span class="summary-label">Main Cell Type:</span>
+                                <span class="summary-value">Schwann cell (neural crest–derived peripheral glial cell)</span>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Sub Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Myelinating Schwann cell</li><li>Immature/promyelinating Schwann cell</li><li>Non-myelinating (Remak) Schwann cell or perineurial-like Schwann-related cell</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Possible Mixed Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Myelinating Schwann cells mixed with immature/promyelinating Schwann cells</li><li>Myelinating Schwann cells mixed with non-myelinating/Remak Schwann cells</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Number of Markers:</span>
+                                <span class="summary-value">50</span>
+                            </div>
+                        </div>
+                    
+                        </div>
+                    
+                    <div class="agent-section scoring">
+                        <h2>🎯 Quality Assessment</h2>
+                        <div class="score-badge">nan</div>
+                        <div class="scoring-content">
+                            Error: Error code: 400 - {'error': {'message': "Unsupported parameter: 'max_tokens' is not supported with this model. Use 'max_completion_tokens' instead.", 'type': 'invalid_request_error', 'param': 'max_tokens', 'code': 'unsupported_parameter'}}<br>
+                        </div>
+                    </div>
+                
+        </div>
+    </body>
+    </html>
+    

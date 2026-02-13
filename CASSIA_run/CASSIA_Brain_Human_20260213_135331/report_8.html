@@ -1,0 +1,264 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { 
+                font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 20px; 
+                background-color: #f0f2f5;
+                line-height: 1.6;
+            }
+            .container { 
+                background-color: white; 
+                padding: 40px; 
+                border-radius: 16px; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .agent-section { 
+                margin-bottom: 35px; 
+                padding: 25px; 
+                border-radius: 12px; 
+                transition: all 0.3s ease;
+            }
+            .agent-section:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            .final-annotation { 
+                background-color: #f0f7ff; 
+                border-left: 5px solid #2196f3; 
+            }
+            .validator { 
+                background-color: #f0fdf4; 
+                border-left: 5px solid #22c55e; 
+            }
+            .formatting { 
+                background: linear-gradient(145deg, #fff7ed, #ffe4c4);
+                border-left: 5px solid #f97316; 
+                box-shadow: 0 4px 15px rgba(249, 115, 22, 0.1);
+            }
+            h2 { 
+                color: #1a2b3c; 
+                margin-top: 0; 
+                font-size: 1.5rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            ul { 
+                margin: 15px 0; 
+                padding-left: 20px; 
+            }
+            pre { 
+                background-color: #f8fafc; 
+                padding: 20px; 
+                border-radius: 8px; 
+                overflow-x: auto;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            .validation-result { 
+                font-weight: 600; 
+                color: #16a34a; 
+                padding: 12px 20px;
+                background-color: #dcfce7; 
+                border-radius: 8px; 
+                display: inline-block;
+                margin: 10px 0;
+            }
+            br { 
+                margin-bottom: 8px; 
+            }
+            p {
+                margin: 12px 0;
+                color: #374151;
+            }
+            .summary-content {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+            .summary-item {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.7);
+                padding: 16px;
+                border-radius: 12px;
+                backdrop-filter: blur(8px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+            .summary-label {
+                font-weight: 600;
+                color: #c2410c;
+                font-size: 0.95rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .summary-value {
+                color: #1f2937;
+                font-size: 1.1rem;
+                padding: 8px 16px;
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 8px;
+                display: inline-block;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            .summary-list {
+                margin: 0;
+                padding-left: 24px;
+                list-style-type: none;
+            }
+            .summary-list li {
+                color: #1f2937;
+                padding: 8px 0;
+                position: relative;
+            }
+            .summary-list li:before {
+                content: "•";
+                color: #f97316;
+                font-weight: bold;
+                position: absolute;
+                left: -20px;
+            }
+            .report-header {
+                text-align: center;
+                margin-bottom: 40px;
+                padding-bottom: 30px;
+                border-bottom: 2px solid rgba(249, 115, 22, 0.2);
+            }
+            
+            .report-title {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: #1a2b3c;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #f97316, #c2410c);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                letter-spacing: -0.5px;
+            }
+            
+            .report-subtitle {
+                font-size: 1.1rem;
+                color: #64748b;
+                margin-top: 8px;
+                font-weight: 500;
+            }
+            .scoring { 
+                background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+                border-left: 5px solid #22c55e;
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.1);
+            }
+            .scoring-content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                color: #1f2937;
+                line-height: 1.8;
+            }
+            .scoring-content br + br {
+                content: "";
+                display: block;
+                margin: 12px 0;
+            }
+            .empty-list {
+                color: #6b7280;
+                font-style: italic;
+            }
+            .error-message {
+                color: #dc2626;
+                padding: 12px;
+                background-color: #fef2f2;
+                border-radius: 6px;
+                border-left: 4px solid #dc2626;
+            }
+            .score-badge {
+                background: linear-gradient(135deg, #22c55e, #16a34a);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-size: 1.5rem;
+                font-weight: 700;
+                display: inline-block;
+                margin: 12px 0;
+                box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+                position: relative;
+                top: -10px;
+            }
+            .score-badge::before {
+                content: "Score:";
+                font-size: 0.9rem;
+                font-weight: 500;
+                margin-right: 8px;
+                opacity: 0.9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="report-header">
+                <h1 class="report-title">CASSIA Analysis Report</h1>
+                <p class="report-subtitle">Comprehensive Cell Type Analysis and Annotation</p>
+            </div>
+            
+                <div class="agent-section final-annotation">
+                    <h2>🔍 Final Annotation Analysis</h2>
+                    1. Key functional markers and pathways (cell-cycle/proliferation signature)<br>The ranked list is dominated by canonical cell-cycle and mitotic regulators, with no obvious lineage-specific markers:<br><br>- Proliferation / cell-cycle control<br>  - MKI67 – canonical proliferation marker; expressed in all active phases of the cell cycle (G1, S, G2, M), absent in quiescent cells. Strong indicator of actively cycling cells.<br>  - FOXM1, MYBL2 – transcription factors driving G2/M gene expression and mitotic progression.<br>  - CCNA2 (Cyclin A2), CCNB1, CCNB2 – cyclins controlling S–G2 (CCNA2) and G2/M transition (B-type cyclins).<br>  - CDC25C – phosphatase activating CDK1–cyclin B complex; promotes G2/M transition.<br>  - RRM2 – ribonucleotide reductase subunit; dNTP synthesis for DNA replication.<br><br>- Mitosis, spindle assembly, chromosome segregation<br>  - CENPF, CENPA – centromere proteins; kinetochore function and chromosome segregation.<br>  - KIF family members (KIF23, KIF18B, KIF20A, KIF4A, KIF2C, KIFC1) – mitotic kinesins involved in spindle dynamics, chromosome alignment, and cytokinesis.<br>  - AURKB – Aurora kinase B; chromosome condensation, spindle checkpoint, cytokinesis.<br>  - PLK1 – Polo-like kinase 1; central mitotic regulator (entry into mitosis, spindle formation, cytokinesis).<br>  - BUB1, TTK (Mps1) – spindle assembly checkpoint kinases.<br>  - SGO1 – Shugoshin; protects centromeric cohesion during mitosis.<br>  - NCAPH – condensin I subunit; chromosome condensation.<br>  - PRC1, RACGAP1 – central spindle and cytokinesis regulators.<br>  - CEP55 – centrosome and midbody protein; abscission during cytokinesis.<br>  - ERCC6L (PICH) – DNA helicase at centromeres; spindle checkpoint.<br>  - HJURP – histone chaperone for CENP-A; centromere assembly.<br><br>- DNA replication / S-phase / chromatin<br>  - TICRR – replication initiation factor (Treslin-interacting protein).<br>  - HIST1H1A – linker histone H1; chromatin structure.<br>  - CDCA2, CDCA3, CDCA8 – cell division cycle–associated proteins; chromatin and mitotic regulation.<br>  - CKAP2L – cytoskeleton-associated protein; spindle and chromosome segregation.<br><br>- Ubiquitin–proteasome and cell-cycle degradation<br>  - UBE2C – E2 ubiquitin-conjugating enzyme; APC/C cofactor, promotes mitotic exit and G1/S transition.<br>  - CDC20 – APC/C activator; anaphase onset.<br>  - BIRC5 (Survivin) – inhibitor of apoptosis and component of chromosomal passenger complex.<br><br>- Other mitotic / proliferation-associated genes<br>  - GTSE1 – G2 and S phase expressed protein; p53 regulation, microtubule dynamics.<br>  - DEPDC1, DEPDC1B, FAM83D, PIMREG, PBK (TOPK), PRR11, DLGAP5 – well-known proliferation/mitotic signature genes, frequently co-expressed in cycling cells and tumors.<br><br>Functionally, this is a textbook G2/M-phase / mitotic gene module, with essentially no information about neuronal vs glial vs vascular identity.<br><br>2. Key cell-type markers (or lack thereof)<br>In contrast to lineage-specific markers (e.g., NEUROD6, GAD1/2, GFAP, AQP4, PDGFRA, CLDN5, P2RY12), this list contains:<br><br>- No neuronal markers (no SNAP25, RBFOX3/NeuN, SLC17A7, GAD1/2, etc.).<br>- No astrocyte markers (no GFAP, AQP4, SLC1A2, ALDH1L1).<br>- No oligodendrocyte/OPC markers (no MBP, MOG, PLP1, PDGFRA, OLIG1/2).<br>- No microglial markers (no P2RY12, CX3CR1, AIF1).<br>- No endothelial/pericyte markers (no CLDN5, PECAM1, PDGFRB, RGS5).<br><br>All listed genes are generic cell-cycle/mitotic genes expressed in any actively dividing cell, regardless of lineage. Thus, this cluster is defined by *state* (cycling, G2/M) rather than *type*.<br><br>3. Cross-referencing with scRNA-seq databases and literature<br>- In human and mouse brain scRNA-seq atlases (e.g., Tasic et al., Hodge et al., Darmanis et al., Lake et al., and more recent human cortical atlases), a similar gene set (MKI67, TOP2A, UBE2C, CENPF, BIRC5, CCNB1/2, PLK1, AURKB, KIFs, BUB1, CDC20, etc.) is routinely used as:<br>  - A canonical G2/M cell-cycle module.<br>  - A signature for “cycling” subclusters within progenitors, OPCs, microglia, endothelial cells, and sometimes tumor cells.<br>- Databases like CellMarker, PanglaoDB, and Azimuth reference maps for human brain show these genes as:<br>  - “Proliferating cells,” “dividing cells,” “G2/M phase,” or “MKI67+ cycling [cell type]” modules, not as lineage markers.<br><br>Thus, the marker set is consistent with a generic “MKI67+ G2/M cycling” cluster, which in brain datasets typically corresponds to:<br>- Neural progenitor / radial glia (in developmental or tumor contexts).<br>- Cycling OPCs.<br>- Cycling microglia or endothelial cells (less common, but present in some conditions).<br>- Or a pooled “cycling” meta-cluster that cuts across multiple lineages if clustering was done without regressing out cell-cycle effects.<br><br>4. Most probable general cell type<br>Given:<br>- Tissue: human brain.<br>- Marker list: exclusively G2/M cell-cycle genes, no lineage markers.<br>- No developmental stage or pathology information.<br><br>The only robust annotation that can be made from this list alone is a *state* annotation:<br><br>**General cell type (state): Actively cycling (G2/M-phase) cells (MKI67+ proliferating cells).**<br><br>We cannot reliably assign neuronal vs glial vs vascular identity without additional markers (either from lower-ranked genes in this cluster or from the global dataset).<br><br>5. Top 3 most probable sub cell types (within the brain context)<br><br>Because the list is purely cell-cycle, the ranking below is based on typical proliferative populations in human brain scRNA-seq, not on direct evidence from the provided genes:<br><br>1. **Cycling oligodendrocyte precursor cells (OPCs) / proliferating glial progenitors**  <br>   - Rationale: In most adult and many pediatric/adolescent human brain datasets, the dominant proliferative population is OPCs. They often form a distinct “MKI67+/TOP2A+ OPC” cluster.  <br>   - However, we do not see OPC markers (PDGFRA, CSPG4/NG2, OLIG1/2, SOX10) in the top-ranked list, but that is expected if the ranking is by “most differential vs non-cycling” and dominated by cell-cycle genes.<br><br>2. **Cycling neural progenitors / radial glia–like cells (especially in developmental or tumor samples)**  <br>   - Rationale: In fetal brain, organoids, or glioma samples, neural progenitors are highly proliferative and show exactly this G2/M signature.  <br>   - Without markers like SOX2, HES1, PAX6, FABP7, or EGFR, we cannot confirm this, but it is a common source of MKI67+ clusters in brain datasets.<br><br>3. **Cycling non-neural support cells (e.g., proliferating microglia or endothelial cells)**  <br>   - Rationale: In inflamed, injured, or tumor-associated brain tissue, microglia and endothelial cells can proliferate. They will also express this same G2/M module.  <br>   - Again, we lack lineage markers (P2RY12, CX3CR1, CLDN5, PECAM1, etc.), so this remains speculative.<br><br>Given only the provided markers, the **most defensible subtype annotation** is:<br><br>> **“MKI67+ G2/M-phase cycling cells (cell-cycle cluster), lineage undetermined.”**<br><br>If forced to choose a lineage-specific subtype in a typical adult human brain atlas context, the most likely would be:<br><br>> **Most likely lineage-specific subtype (speculative): Cycling OPCs / proliferating oligodendrocyte-lineage cells.**<br><br>—but this is *not* supported directly by the given gene list; it is inferred from common patterns in brain scRNA-seq.<br><br>6. Concise summary<br>- The marker list is a classic G2/M cell-cycle and mitotic gene module (MKI67, TOP2A, PLK1, AURKB, CCNB1/2, CENPF, UBE2C, BIRC5, multiple KIFs, BUB1, CDC20, etc.).<br>- There are no lineage-specific markers to distinguish neurons, glia, microglia, or endothelial cells.<br>- Cross-referencing with brain scRNA-seq atlases indicates this is a generic “proliferating / MKI67+ / G2M” cluster, often representing cycling OPCs or progenitors, but the lineage cannot be determined from these genes alone.<br>- Best annotation:<br><br>  - **General:** Proliferating (MKI67+) G2/M-phase cells.  <br>  - **Top 3 likely subtypes in brain context (speculative):**  <br>    1) Cycling OPCs / glial progenitors  <br>    2) Cycling neural progenitors / radial glia–like cells  <br>    3) Cycling microglia or endothelial cells  <br>  - **Most likely subtype (if a single label is required):** “Cycling (MKI67+) cells, likely OPC/progenitor-lineage” – but with explicit note that lineage is not supported by the provided markers.<br><br>FINAL ANNOTATION COMPLETED
+                </div>
+            
+                <div class="agent-section validator">
+                    <h2>✓ Validation Check</h2>
+                    <div class="validation-result">✅ VALIDATION PASSED</div>
+                    Validation result: VALIDATION PASSED
+                </div>
+            
+                        <div class="agent-section formatting">
+                            <h2>📋 Summary</h2>
+                            
+                        <div class="summary-content">
+                            <div class="summary-item">
+                                <span class="summary-label">Main Cell Type:</span>
+                                <span class="summary-value">Proliferating (MKI67+) G2/M-phase cycling cells, lineage undetermined</span>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Sub Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Cycling oligodendrocyte precursor cells (OPCs) / proliferating glial progenitors (speculative)</li><li>Cycling neural progenitors / radial glia–like cells (speculative)</li><li>Cycling non-neural support cells (e.g., proliferating microglia or endothelial cells) (speculative)</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Possible Mixed Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Mixed cycling populations across multiple brain lineages (neuronal, glial, microglial, endothelial), unified by G2/M cell-cycle state rather than cell type</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Number of Markers:</span>
+                                <span class="summary-value">50</span>
+                            </div>
+                        </div>
+                    
+                        </div>
+                    
+                    <div class="agent-section scoring">
+                        <h2>🎯 Quality Assessment</h2>
+                        <div class="score-badge">nan</div>
+                        <div class="scoring-content">
+                            Error: Error code: 400 - {'error': {'message': "Unsupported parameter: 'max_tokens' is not supported with this model. Use 'max_completion_tokens' instead.", 'type': 'invalid_request_error', 'param': 'max_tokens', 'code': 'unsupported_parameter'}}<br>
+                        </div>
+                    </div>
+                
+        </div>
+    </body>
+    </html>
+    

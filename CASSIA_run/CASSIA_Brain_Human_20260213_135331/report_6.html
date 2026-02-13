@@ -1,0 +1,264 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { 
+                font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 20px; 
+                background-color: #f0f2f5;
+                line-height: 1.6;
+            }
+            .container { 
+                background-color: white; 
+                padding: 40px; 
+                border-radius: 16px; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .agent-section { 
+                margin-bottom: 35px; 
+                padding: 25px; 
+                border-radius: 12px; 
+                transition: all 0.3s ease;
+            }
+            .agent-section:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            .final-annotation { 
+                background-color: #f0f7ff; 
+                border-left: 5px solid #2196f3; 
+            }
+            .validator { 
+                background-color: #f0fdf4; 
+                border-left: 5px solid #22c55e; 
+            }
+            .formatting { 
+                background: linear-gradient(145deg, #fff7ed, #ffe4c4);
+                border-left: 5px solid #f97316; 
+                box-shadow: 0 4px 15px rgba(249, 115, 22, 0.1);
+            }
+            h2 { 
+                color: #1a2b3c; 
+                margin-top: 0; 
+                font-size: 1.5rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            ul { 
+                margin: 15px 0; 
+                padding-left: 20px; 
+            }
+            pre { 
+                background-color: #f8fafc; 
+                padding: 20px; 
+                border-radius: 8px; 
+                overflow-x: auto;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            .validation-result { 
+                font-weight: 600; 
+                color: #16a34a; 
+                padding: 12px 20px;
+                background-color: #dcfce7; 
+                border-radius: 8px; 
+                display: inline-block;
+                margin: 10px 0;
+            }
+            br { 
+                margin-bottom: 8px; 
+            }
+            p {
+                margin: 12px 0;
+                color: #374151;
+            }
+            .summary-content {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+            .summary-item {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.7);
+                padding: 16px;
+                border-radius: 12px;
+                backdrop-filter: blur(8px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+            .summary-label {
+                font-weight: 600;
+                color: #c2410c;
+                font-size: 0.95rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .summary-value {
+                color: #1f2937;
+                font-size: 1.1rem;
+                padding: 8px 16px;
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 8px;
+                display: inline-block;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            .summary-list {
+                margin: 0;
+                padding-left: 24px;
+                list-style-type: none;
+            }
+            .summary-list li {
+                color: #1f2937;
+                padding: 8px 0;
+                position: relative;
+            }
+            .summary-list li:before {
+                content: "•";
+                color: #f97316;
+                font-weight: bold;
+                position: absolute;
+                left: -20px;
+            }
+            .report-header {
+                text-align: center;
+                margin-bottom: 40px;
+                padding-bottom: 30px;
+                border-bottom: 2px solid rgba(249, 115, 22, 0.2);
+            }
+            
+            .report-title {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: #1a2b3c;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #f97316, #c2410c);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                letter-spacing: -0.5px;
+            }
+            
+            .report-subtitle {
+                font-size: 1.1rem;
+                color: #64748b;
+                margin-top: 8px;
+                font-weight: 500;
+            }
+            .scoring { 
+                background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+                border-left: 5px solid #22c55e;
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.1);
+            }
+            .scoring-content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                color: #1f2937;
+                line-height: 1.8;
+            }
+            .scoring-content br + br {
+                content: "";
+                display: block;
+                margin: 12px 0;
+            }
+            .empty-list {
+                color: #6b7280;
+                font-style: italic;
+            }
+            .error-message {
+                color: #dc2626;
+                padding: 12px;
+                background-color: #fef2f2;
+                border-radius: 6px;
+                border-left: 4px solid #dc2626;
+            }
+            .score-badge {
+                background: linear-gradient(135deg, #22c55e, #16a34a);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-size: 1.5rem;
+                font-weight: 700;
+                display: inline-block;
+                margin: 12px 0;
+                box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+                position: relative;
+                top: -10px;
+            }
+            .score-badge::before {
+                content: "Score:";
+                font-size: 0.9rem;
+                font-weight: 500;
+                margin-right: 8px;
+                opacity: 0.9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="report-header">
+                <h1 class="report-title">CASSIA Analysis Report</h1>
+                <p class="report-subtitle">Comprehensive Cell Type Analysis and Annotation</p>
+            </div>
+            
+                <div class="agent-section final-annotation">
+                    <h2>🔍 Final Annotation Analysis</h2>
+                    I’ll go step by step and be explicit about the reasoning.<br><br>---<br><br>## 1. Key functional markers and pathways<br><br>From the ranked list:<br><br>**Synaptic/neuronal signaling & ion channels**<br>- **SYT10** – Synaptotagmin-10, Ca²⁺-sensing synaptic vesicle protein; strongly associated with neurons, especially subsets of excitatory neurons.<br>- **KCNIP4** – Kv channel-interacting protein; modulates A-type K⁺ channels (Kv4.x), typical of neurons.<br>- **KCNH5** – Voltage-gated K⁺ channel (EAG family), neuronal excitability.<br>- **KCNMA1** – BK (large-conductance Ca²⁺-activated K⁺) channel; regulates neuronal firing and neurotransmitter release.<br>- **CACNA1D** – Cav1.3 L-type voltage-gated Ca²⁺ channel; expressed in neurons (and some endocrine cells), important for pacemaking and synaptic function.<br>- **GABRB2** – GABA-A receptor β2 subunit; inhibitory synaptic transmission, broadly neuronal.<br>- **DLGAP1** – Postsynaptic density protein (SAPAP1); scaffolding at excitatory synapses, hallmark of neurons.<br>- **SLC1A1** – EAAT3/EAAC1 glutamate transporter; neuronal glutamate uptake, especially in excitatory neurons.<br>- **SLC4A10** – Na⁺-driven Cl⁻/HCO₃⁻ exchanger; expressed in neurons and some glia, involved in pH regulation and neuronal excitability.<br><br>These collectively indicate a **neuronal, synaptically active, ion-channel–rich population**, not glia or vascular cells.<br><br>---<br><br>**Secreted factors / neuropeptides / growth factors**<br>- **PENK** – Proenkephalin; neuropeptide precursor, often in inhibitory interneurons but also in some excitatory projection neurons in cortex and hippocampus.<br>- **PTN** – Pleiotrophin; secreted growth factor, neurotrophic and angiogenic roles, expressed by some neurons and perivascular cells.<br>- **SEMA3D** – Semaphorin 3D; axon guidance and neuronal wiring.<br>- **NELL1** – Neural EGFL-like 1; secreted protein involved in development, ECM interactions, sometimes in specific neuronal subtypes.<br>- **RPRM (Reprimo)** – p53-dependent cell cycle regulator; in brain, associated with specific neuronal populations and stress responses.<br>- **ECEL1** – Endothelin-converting enzyme-like 1; neuronal peptidase, enriched in specific neuronal subtypes (e.g., motor/sensory circuits).<br><br>---<br><br>**Extracellular matrix / adhesion / structural**<br>- **SFRP4** – Secreted frizzled-related protein 4; Wnt signaling modulator, often in stromal/mesenchymal cells but also in some specialized neuronal niches.<br>- **FNDC1** – Fibronectin type III domain-containing 1; ECM/adhesion-related.<br>- **MGP** – Matrix Gla protein; ECM-associated, often vascular/smooth muscle, but can appear in perivascular or specialized neuronal niches.<br>- **CLU** – Clusterin; secreted chaperone, stress response, neurodegeneration-associated, expressed by neurons and glia.<br>- **PODN** – Podocan; small leucine-rich proteoglycan, ECM.<br>- **PI16** – Peptidase inhibitor 16; ECM-associated, often fibroblast/perivascular, but can mark perivascular-like neuronal niches.<br>- **IGFBP5** – Insulin-like growth factor binding protein 5; modulates IGF signaling, ECM-associated.<br>- **APCDD1** – Wnt pathway inhibitor, membrane glycoprotein; often in vascular/epithelial contexts but also in some neuronal subtypes.<br>- **PDZRN4** – PDZ domain-containing RING finger protein; synaptic/adhesion-related, enriched in specific neuronal populations.<br>- **SNTG2** – Syntrophin gamma 2; part of dystrophin-associated complex, synaptic/structural.<br><br>These suggest a neuron type with **strong ECM and Wnt/IGF signaling modulation**, possibly at a **perivascular or boundary niche**.<br><br>---<br><br>**Transporters / metabolism**<br>- **SLC26A7, SLC26A2** – Anion exchangers; more typical of epithelial/transport epithelia, but low-level expression can appear in specialized neurons or choroid plexus–adjacent cells.<br>- **ABCB1 (MDR1)** – Efflux transporter; classic BBB endothelial marker, but can be expressed in some neurons and glia under stress or in specific regions.<br>- **ENTPD2** – Ectonucleoside triphosphate diphosphohydrolase 2; extracellular nucleotide metabolism, often glial/perivascular but also in some neurons.<br>- **ACADL** – Long-chain acyl-CoA dehydrogenase; mitochondrial β-oxidation, metabolic capacity.<br>- **RBP4** – Retinol-binding protein 4; classically liver/adipose/serum, but in brain can mark specific neuronal populations (e.g., some cortical/striatal projection neurons).<br><br>---<br><br>**Epithelial-like / barrier / innate immune**<br>- **MUC4** – Mucin 4; typically epithelial, but low expression can appear in barrier-associated or choroid plexus–adjacent cells.<br>- **EHF** – Ets homologous factor; epithelial transcription factor, often in barrier epithelia.<br>- **SLPI** – Secretory leukocyte protease inhibitor; innate immune/epithelial barrier protein.<br>- **DEFB1** – β-defensin 1; antimicrobial peptide, usually epithelial/urogenital/skin, but can appear in barrier-like or choroid plexus–associated cells.<br>- **IFI27** – Interferon alpha-inducible protein 27; interferon response, stress/inflammation.<br><br>These are unusual for canonical neurons and suggest either:<br>- a **barrier-associated neuronal population** (e.g., near ventricles/choroid plexus/meninges), or  <br>- some contamination/ambient RNA from epithelial/vascular cells in the niche.<br><br>---<br><br>**Other**<br>- **ALPL** – Tissue-nonspecific alkaline phosphatase; strong in endothelial/pericyte/osteogenic lineages, but also in some specialized brain barrier regions.<br>- **C7** – Complement component 7; innate immunity, often liver/immune, but can be expressed in brain barrier/vascular niches.<br>- **CRABP2** – Cellular retinoic acid-binding protein 2; retinoic acid signaling, often in progenitors/epithelial/neuronal differentiation contexts.<br>- **ALLC, FAM20A, B3GNT8** – Secreted or Golgi enzymes, glycosylation/secretory pathway, not cell-type–defining but consistent with a secretory, ECM-modifying cell.<br><br>---<br><br>## 2. Key cell-type–defining markers<br><br>**Strong neuronal markers**<br>- SYT10, KCNIP4, KCNH5, KCNMA1, CACNA1D, GABRB2, DLGAP1, SLC1A1, SLC4A10, ECEL1, SNTG2, PDZRN4, PENK.<br><br>These firmly place the cluster as **neuronal**, not astrocyte, oligodendrocyte, microglia, or endothelial.<br><br>**Markers arguing against glia/vascular as the primary identity**<br>- No strong astrocyte markers (GFAP, AQP4, SLC1A2, ALDH1L1).<br>- No oligodendrocyte markers (MBP, PLP1, MOG, MAG).<br>- No microglial markers (CX3CR1, P2RY12, TMEM119).<br>- No canonical endothelial markers (PECAM1/CD31, VWF, KDR/VEGFR2) or pericyte markers (PDGFRB, RGS5) in the top list.<br><br>**Neuropeptide / projection neuron–associated**<br>- PENK, PTN, NELL1, RBP4, IGFBP5, SFRP4, APCDD1, PI16, PODN, MGP, CLU – these combinations are seen in **cortical and hippocampal excitatory projection neurons** and some **striatal projection neurons**, often in perivascular or layer-specific niches.<br><br>**Inhibitory vs excitatory**<br>- Presence of **GABRB2** (GABA-A receptor) is not specific to inhibitory neurons; it is widely expressed in excitatory neurons as postsynaptic receptors.<br>- Absence of canonical GABAergic interneuron markers (GAD1/2, VGAT/SLC6A1, PVALB, SST, VIP, LAMP5, RELN) in the top markers.<br>- Presence of **SLC1A1** (EAAT3) and multiple voltage-gated K⁺ and Ca²⁺ channels is more typical of **excitatory projection neurons** than of astrocytes or pure inhibitory interneurons.<br><br>So the cluster is best interpreted as **excitatory neurons**.<br><br>---<br><br>## 3. Cross-referencing with scRNA-seq atlases and literature<br><br>Using known human brain scRNA-seq references (e.g., Hodge et al. 2019, Lake et al. 2018, Yao et al. 2021, and cell-type annotations in CellTypes.org / Allen Brain Atlas):<br><br>- **SYT10**: Enriched in specific **cortical excitatory neuron subclasses**, particularly intratelencephalic (IT) projection neurons in upper/middle layers and some corticothalamic populations.<br>- **PENK**: In human cortex and striatum, PENK is expressed in:<br>  - Some **IT and corticothalamic excitatory neurons** (especially in deep layers), and  <br>  - A subset of **striatal medium spiny neurons** (PENK+ indirect pathway).<br>- **SFRP4, IGFBP5, PI16, PODN, MGP, APCDD1**: These appear in **perivascular-like excitatory neuron populations** and **layer 1/2 IT neurons** in human cortex datasets, often annotated as “vascular-associated excitatory neurons” or “perivascular excitatory neurons” in recent high-resolution atlases.<br>- **RBP4**: In mouse, Rbp4 is a classic marker of **layer 5 IT corticocortical/corticostriatal projection neurons**. In human, RBP4+ excitatory neurons are enriched in **deep-layer IT/ET projection neuron subclasses**.<br>- **ECEL1, NELL1, PTN**: These are enriched in **projection neurons with strong developmental/axon guidance signatures**, often corticothalamic or corticospinal-like in deep layers, and in some sensory-related circuits.<br><br>The co-occurrence of:<br>- Strong neuronal/synaptic markers (SYT10, DLGAP1, KCNIP4, CACNA1D, KCNMA1),<br>- PENK and RBP4,<br>- ECM/perivascular-associated genes (SFRP4, IGFBP5, PI16, PODN, MGP, APCDD1, PTN),<br><br>matches best with **cortical excitatory projection neurons that are perivascular- or boundary-associated**, often annotated in human atlases as specialized IT or corticothalamic subtypes with vascular/ECM signatures.<br><br>The epithelial/barrier-like genes (MUC4, DEFB1, SLPI, EHF, ABCB1, ALPL, C7) are consistent with:<br>- either a **perivascular/meningeal/ventricular niche** where neurons are exposed to barrier/immune signals, or  <br>- some ambient RNA from adjacent barrier cells.  <br>But the dominant transcriptional program is clearly neuronal.<br><br>---<br><br>## 4. Most probable general cell type<br><br>**General cell type: Neuron → Excitatory (glutamatergic) projection neuron**<br><br>Evidence:<br>- Strong synaptic vesicle and postsynaptic density markers (SYT10, DLGAP1).<br>- Multiple voltage-gated K⁺ and Ca²⁺ channels (KCNIP4, KCNH5, KCNMA1, CACNA1D).<br>- Glutamate transporter SLC1A1 and neuronal pH regulator SLC4A10.<br>- Absence of canonical inhibitory interneuron markers and glial markers.<br><br>---<br><br>## 5. Top 3 most probable subtypes (ranked)<br><br>Given the dataset is “Human brain” without region specified, I’ll consider the most common atlas-derived subtypes that fit this signature.<br><br>### 1) Perivascular / barrier-associated cortical excitatory IT neurons (most likely)<br><br>**Rationale:**<br>- Neuronal core: SYT10, DLGAP1, KCNIP4, KCNMA1, CACNA1D, GABRB2, SLC1A1.<br>- IT/deep-layer projection signature: RBP4, PENK, PTN, NELL1, ECEL1.<br>- Strong ECM/perivascular signature: SFRP4, IGFBP5, PI16, PODN, MGP, APCDD1, CLU, PTN.<br>- Barrier/innate immune/epithelial-like genes (DEFB1, SLPI, MUC4, EHF, ABCB1, ALPL, C7, IFI27) suggest proximity to vasculature or meninges/ventricles, consistent with **perivascular excitatory neurons** described in recent human cortical atlases.<br><br>These neurons are often annotated as:<br>- “Excitatory IT perivascular”  <br>- “Excitatory IT vascular-associated”  <br>- or similar labels in high-resolution human cortex datasets.<br><br>**Most likely specific subtype annotation:**  <br>**Cortical excitatory intratelencephalic (IT) projection neurons with perivascular/ECM signature**.<br><br>---<br><br>### 2) Deep-layer corticothalamic / corticocortical excitatory neurons (RBP4+/PENK+)<br><br>**Rationale:**<br>- **RBP4** and **PENK** co-expression is characteristic of **layer 5 IT/corticostriatal** and some **corticothalamic** neurons in mouse and human.<br>- ECEL1, NELL1, PTN, SEMA3D support a **projection neuron with strong developmental/axon guidance program**, typical of corticothalamic or corticospinal-like neurons.<br>- The ECM/perivascular genes could be secondary to location in deep layers near vasculature.<br><br>If the dataset is from **cortex** and enriched for deep layers, this could be annotated as:<br>- “L5 IT RBP4+ PENK+ excitatory neuron” or  <br>- “L5/6 corticothalamic-like excitatory neuron”.<br><br>---<br><br>### 3) Striatal-like PENK+ projection neurons (less likely but plausible)<br><br>**Rationale:**<br>- **PENK** is a hallmark of **indirect pathway medium spiny neurons (iMSNs)** in striatum.<br>- Some ECM and IGF/Wnt modulators (IGFBP5, SFRP4, PTN) are also expressed in striatal projection neurons.<br>- However:<br>  - We lack strong striatal MSN markers (e.g., PPP1R1B/DARPP-32, DRD2/DRD1, FOXP1/FOXP2 in the top list).<br>  - The presence of epithelial/barrier-like genes (MUC4, DEFB1, SLPI, EHF) is atypical for canonical striatal MSNs.<br>  - SYT10 and RBP4 patterns fit cortex better than striatum in most human atlases.<br><br>Thus, a **striatal PENK+ projection neuron** identity is possible but less consistent with the full marker set than a **cortical perivascular IT neuron**.<br><br>---<br><br>### Most likely subtype (final choice)<br><br>**Most likely subtype:**  <br>**Cortical excitatory intratelencephalic (IT) projection neuron with a strong perivascular/ECM and barrier-associated transcriptional program**  <br>(often annotated in human scRNA-seq atlases as “perivascular excitatory neuron” or “vascular-associated IT excitatory neuron”).<br><br>---<br><br>## 6. Concise summary<br><br>- The cluster expresses a robust **neuronal and synaptic program** (SYT10, DLGAP1, KCNIP4, KCNMA1, CACNA1D, GABRB2, SLC1A1, SLC4A10), clearly identifying it as **neuronal**.<br>- Absence of interneuron and glial markers, plus presence of glutamatergic transporter and projection-associated genes (RBP4, PENK, PTN, NELL1, ECEL1), indicate **excitatory projection neurons**.<br>- Co-expression of ECM and perivascular/barrier-associated genes (SFRP4, IGFBP5, PI16, PODN, MGP, APCDD1, CLU, DEFB1, SLPI, MUC4, EHF, ABCB1, ALPL, C7) matches **perivascular or barrier-adjacent cortical excitatory neuron subtypes** described in human brain atlases.<br>- Top annotation: **Cortical excitatory IT projection neuron, perivascular/ECM-enriched subtype**.<br><br>**FINAL ANNOTATION COMPLETED**
+                </div>
+            
+                <div class="agent-section validator">
+                    <h2>✓ Validation Check</h2>
+                    <div class="validation-result">✅ VALIDATION PASSED</div>
+                    Validation result: VALIDATION PASSED
+                </div>
+            
+                        <div class="agent-section formatting">
+                            <h2>📋 Summary</h2>
+                            
+                        <div class="summary-content">
+                            <div class="summary-item">
+                                <span class="summary-label">Main Cell Type:</span>
+                                <span class="summary-value">Excitatory (glutamatergic) cortical projection neuron</span>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Sub Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Cortical intratelencephalic (IT) projection neuron with perivascular/ECM-enriched signature</li><li>Deep-layer RBP4+/PENK+ corticocortical or corticothalamic excitatory neuron</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Possible Mixed Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Perivascular/barrier-associated non-neuronal cells (e.g., epithelial or vascular/meningeal) contributing ambient RNA</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Number of Markers:</span>
+                                <span class="summary-value">50</span>
+                            </div>
+                        </div>
+                    
+                        </div>
+                    
+                    <div class="agent-section scoring">
+                        <h2>🎯 Quality Assessment</h2>
+                        <div class="score-badge">nan</div>
+                        <div class="scoring-content">
+                            Error: Error code: 400 - {'error': {'message': "Unsupported parameter: 'max_tokens' is not supported with this model. Use 'max_completion_tokens' instead.", 'type': 'invalid_request_error', 'param': 'max_tokens', 'code': 'unsupported_parameter'}}<br>
+                        </div>
+                    </div>
+                
+        </div>
+    </body>
+    </html>
+    

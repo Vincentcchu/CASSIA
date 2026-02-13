@@ -1,0 +1,264 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { 
+                font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 20px; 
+                background-color: #f0f2f5;
+                line-height: 1.6;
+            }
+            .container { 
+                background-color: white; 
+                padding: 40px; 
+                border-radius: 16px; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .agent-section { 
+                margin-bottom: 35px; 
+                padding: 25px; 
+                border-radius: 12px; 
+                transition: all 0.3s ease;
+            }
+            .agent-section:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            .final-annotation { 
+                background-color: #f0f7ff; 
+                border-left: 5px solid #2196f3; 
+            }
+            .validator { 
+                background-color: #f0fdf4; 
+                border-left: 5px solid #22c55e; 
+            }
+            .formatting { 
+                background: linear-gradient(145deg, #fff7ed, #ffe4c4);
+                border-left: 5px solid #f97316; 
+                box-shadow: 0 4px 15px rgba(249, 115, 22, 0.1);
+            }
+            h2 { 
+                color: #1a2b3c; 
+                margin-top: 0; 
+                font-size: 1.5rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            ul { 
+                margin: 15px 0; 
+                padding-left: 20px; 
+            }
+            pre { 
+                background-color: #f8fafc; 
+                padding: 20px; 
+                border-radius: 8px; 
+                overflow-x: auto;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            .validation-result { 
+                font-weight: 600; 
+                color: #16a34a; 
+                padding: 12px 20px;
+                background-color: #dcfce7; 
+                border-radius: 8px; 
+                display: inline-block;
+                margin: 10px 0;
+            }
+            br { 
+                margin-bottom: 8px; 
+            }
+            p {
+                margin: 12px 0;
+                color: #374151;
+            }
+            .summary-content {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+            .summary-item {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.7);
+                padding: 16px;
+                border-radius: 12px;
+                backdrop-filter: blur(8px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+            .summary-label {
+                font-weight: 600;
+                color: #c2410c;
+                font-size: 0.95rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .summary-value {
+                color: #1f2937;
+                font-size: 1.1rem;
+                padding: 8px 16px;
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 8px;
+                display: inline-block;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            .summary-list {
+                margin: 0;
+                padding-left: 24px;
+                list-style-type: none;
+            }
+            .summary-list li {
+                color: #1f2937;
+                padding: 8px 0;
+                position: relative;
+            }
+            .summary-list li:before {
+                content: "•";
+                color: #f97316;
+                font-weight: bold;
+                position: absolute;
+                left: -20px;
+            }
+            .report-header {
+                text-align: center;
+                margin-bottom: 40px;
+                padding-bottom: 30px;
+                border-bottom: 2px solid rgba(249, 115, 22, 0.2);
+            }
+            
+            .report-title {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: #1a2b3c;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #f97316, #c2410c);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                letter-spacing: -0.5px;
+            }
+            
+            .report-subtitle {
+                font-size: 1.1rem;
+                color: #64748b;
+                margin-top: 8px;
+                font-weight: 500;
+            }
+            .scoring { 
+                background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+                border-left: 5px solid #22c55e;
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.1);
+            }
+            .scoring-content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                color: #1f2937;
+                line-height: 1.8;
+            }
+            .scoring-content br + br {
+                content: "";
+                display: block;
+                margin: 12px 0;
+            }
+            .empty-list {
+                color: #6b7280;
+                font-style: italic;
+            }
+            .error-message {
+                color: #dc2626;
+                padding: 12px;
+                background-color: #fef2f2;
+                border-radius: 6px;
+                border-left: 4px solid #dc2626;
+            }
+            .score-badge {
+                background: linear-gradient(135deg, #22c55e, #16a34a);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-size: 1.5rem;
+                font-weight: 700;
+                display: inline-block;
+                margin: 12px 0;
+                box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+                position: relative;
+                top: -10px;
+            }
+            .score-badge::before {
+                content: "Score:";
+                font-size: 0.9rem;
+                font-weight: 500;
+                margin-right: 8px;
+                opacity: 0.9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="report-header">
+                <h1 class="report-title">CASSIA Analysis Report</h1>
+                <p class="report-subtitle">Comprehensive Cell Type Analysis and Annotation</p>
+            </div>
+            
+                <div class="agent-section final-annotation">
+                    <h2>🔍 Final Annotation Analysis</h2>
+                    1. Key functional markers and pathways<br><br>I’ll first group the most informative genes by function, focusing on immune, myeloid, and tissue-remodeling programs.<br><br>**a. Innate immune / inflammatory cytokines & chemokines**<br><br>- **CCL4, CCL3, CCL2, CCL8**  <br>  - Pro-inflammatory chemokines produced by activated myeloid cells (monocytes/macrophages, microglia, DCs).  <br>  - Recruit monocytes, T cells, NK cells; classic markers of activated inflammatory myeloid states.<br>- **IL1B, IL1A, TNF, IL20, CXCL8 (IL-8)**  <br>  - Canonical pro-inflammatory cytokines.  <br>  - IL1B/IL1A and TNF are hallmark NF-κB–driven genes in activated macrophages/microglia.  <br>  - CXCL8 is a potent neutrophil chemoattractant, but in brain scRNA-seq it is often seen in highly activated myeloid cells rather than true neutrophils (which have a very different marker set).<br>- **EBI3**  <br>  - Subunit of IL-27 and IL-35; expressed in activated antigen-presenting cells (APCs), including dendritic cells and macrophages.<br><br>**b. Antigen presentation / MHC-II / APC program**<br><br>- **HLA-DRA, HLA-DRB1, HLA-DPA1, HLA-DPB1, HLA-DQA1, HLA-DQB1**  <br>  - MHC class II genes, defining professional APCs (microglia, macrophages, dendritic cells, B cells).  <br>  - High, coordinated expression indicates a strongly antigen-presenting, activated myeloid phenotype.<br>- **CD74**  <br>  - Invariant chain for MHC-II; classic marker of MHC-II–positive APCs (microglia, macrophages, DCs, B cells).<br>- **CD83**  <br>  - Maturation marker of dendritic cells and activated APCs; also upregulated in activated microglia/macrophages.<br><br>**c. Complement and opsonization / phagocytosis**<br><br>- **C1QA, C1QB, C1QC**  <br>  - C1q complex; in brain, these are canonical **microglia/macrophage** markers, especially associated with synaptic pruning and phagocytosis.  <br>  - Strongly enriched in microglia and border-associated macrophages vs. peripheral monocytes.<br>- **C3, C3AR1, C5AR1**  <br>  - Complement component C3 and receptors for C3a and C5a; typical of phagocytic, inflammatory myeloid cells.<br>- **APOE, CLU**  <br>  - Lipoproteins involved in lipid handling and complement regulation; in brain, APOE is expressed by astrocytes and microglia/macrophages, CLU by astrocytes and some vascular/stromal cells, but both are also upregulated in disease-associated/activated microglia and perivascular macrophages.<br><br>**d. Myeloid / macrophage lineage and activation**<br><br>- **MS4A7**  <br>  - Strongly associated with tissue-resident macrophages and monocytes; in brain, enriched in perivascular and meningeal macrophages vs. homeostatic parenchymal microglia.<br>- **CD163**  <br>  - Scavenger receptor, hallmark of **M2-like tissue macrophages**, especially perivascular macrophages and border-associated macrophages in brain; not typical of homeostatic parenchymal microglia.<br>- **CLEC4E (MINCLE)**  <br>  - Pattern-recognition receptor in macrophages/monocytes; associated with inflammatory macrophage activation.<br>- **CLEC9A**  <br>  - Classically a marker of cDC1 dendritic cells; however, low-level expression can appear in some activated myeloid subsets. Its presence suggests a strong APC/dendritic-like program but must be interpreted in context.<br>- **NRROS (LRRC33)**  <br>  - Negative regulator of ROS; enriched in microglia and CNS macrophages.<br>- **PLD4**  <br>  - Expressed in microglia and some macrophage subsets; associated with phagocytic and lysosomal function.<br>- **ITGB2-AS1**  <br>  - Antisense to ITGB2 (CD18), a leukocyte integrin; indicates leukocyte/myeloid identity.<br><br>**e. NF-κB / inflammatory transcriptional regulators**<br><br>- **NLRP3**  <br>  - Inflammasome component; classic in activated macrophages/microglia producing IL1B.  <br>- **NFKBID**  <br>  - NF-κB inhibitor; part of feedback regulation in NF-κB–driven inflammatory responses.<br>- **NRROS** (again)  <br>  - Also modulates TGF-β and ROS; part of microglial homeostasis and inflammatory regulation.<br><br>**f. Vascular / stromal / ECM and tissue remodeling**<br><br>These are interesting because they are not canonical microglia markers but often appear in **perivascular / border-associated macrophages** that interact with vasculature and ECM:<br><br>- **LYVE1**  <br>  - Lymphatic vessel endothelial hyaluronan receptor; in brain, a hallmark of **perivascular and meningeal macrophages** (LYVE1+ border-associated macrophages), not parenchymal microglia.<br>- **EGFL6, FBLN1, THSD4, NPNT, OGN, DCN, FGL2, IGFBP5**  <br>  - ECM and matrix-associated proteins, angiogenesis and vascular remodeling factors.  <br>  - These are more typical of stromal/vascular niches and macrophages associated with vasculature (perivascular macrophages) than of classic homeostatic microglia.<br>- **C2orf40 (ECRG4)**  <br>  - Secreted factor with roles in vascular biology and inflammation; expressed in choroid plexus and vascular/stromal compartments in brain.<br>- **LEPR**  <br>  - Leptin receptor; expressed in some endothelial, perivascular, and hypothalamic cells, but also reported in subsets of perivascular macrophages and border-associated macrophages in some datasets.<br><br>**g. Metabolic / regulatory / noncoding**<br><br>- **MLXIPL (ChREBP)**  <br>  - Carbohydrate-responsive transcription factor; metabolic regulation, often upregulated in metabolically active or lipid-handling myeloid cells.<br>- **MEG3, ZNF350-AS1**  <br>  - lncRNAs; MEG3 is broadly expressed but can be enriched in certain glial and vascular-associated cells.<br><br>---<br><br>2. Key cell type markers (tissue context)<br><br>Now focusing on markers that are particularly informative for **brain myeloid subtypes**:<br><br>**Markers supporting CNS myeloid identity (microglia / CNS macrophages)**<br><br>- **C1QA/B/C, C3, C3AR1, C5AR1, APOE, NRROS, PLD4**  <br>  - Strongly support a CNS-resident myeloid identity (microglia or CNS-associated macrophages).<br>- **MHC-II genes (HLA-DRA/B1/DPA1/DPB1/DQA1/DQB1), CD74, CD83, EBI3**  <br>  - Indicate an **activated, antigen-presenting** state typical of disease-associated microglia or border-associated macrophages.<br><br>**Markers distinguishing microglia vs. border-associated / perivascular macrophages**<br><br>- **CD163, LYVE1, MS4A7, FGL2, IGFBP5, ECM genes (OGN, DCN, FBLN1, THSD4, NPNT, EGFL6)**  <br>  - This combination is characteristic of **perivascular / meningeal / border-associated macrophages** rather than parenchymal homeostatic microglia.  <br>  - CD163 and LYVE1 in particular are widely used to define perivascular macrophages in human and mouse brain.<br>- Classic homeostatic microglia markers (e.g., **P2RY12, TMEM119, CX3CR1, TREM2, SALL1**) are **not** in the top markers list, which argues against a homeostatic parenchymal microglia cluster.<br><br>**Markers suggesting dendritic-like APC features**<br><br>- **CLEC9A, CD83, high MHC-II, EBI3**  <br>  - CLEC9A is a hallmark of cDC1 dendritic cells in blood and lymphoid tissues.  <br>  - However, in brain scRNA-seq, CLEC9A can be upregulated in certain activated border-associated macrophages or DC-like myeloid cells at interfaces (meninges, choroid plexus).  <br>  - The strong macrophage signature (C1q, CD163, LYVE1) outweighs a pure DC interpretation.<br><br>---<br><br>3. Cross-referencing with scRNA-seq databases and literature<br><br>Cross-referencing with major human brain scRNA-seq atlases and myeloid-focused studies:<br><br>- **Olah et al., Nat Neurosci 2020; Sankowski et al., Nat Neurosci 2019; Van Hove et al., Immunity 2019; Jordão et al., Nat Neurosci 2019; Yao et al., Cell 2021 (Human Brain Cell Atlas)**:<br>  - **LYVE1+CD163+MS4A7+** macrophages are consistently annotated as **perivascular / meningeal / border-associated macrophages**, distinct from P2RY12+ parenchymal microglia.<br>  - These cells often show:<br>    - High **C1QA/B/C, APOE, CLU, C3** (CNS myeloid signature).<br>    - High **MHC-II** and **CD74** (APC function).<br>    - Enrichment for **ECM and vascular interaction genes** (e.g., DCN, OGN, FBLN1, NPNT, THSD4).<br>- **Disease-associated microglia (DAM) / activated microglia** signatures (e.g., Keren-Shaul et al., Cell 2017; Mathys et al., Nature 2019) show:<br>  - Upregulation of **APOE, C1QA/B/C, C3, MHC-II, CD74, TNF, IL1B, CCL2/3/4**, etc.  <br>  - However, they typically **retain microglia core markers** (P2RY12, TMEM119, CX3CR1, TREM2) and **lack strong LYVE1/CD163** expression.  <br>  - The presence of **LYVE1 and CD163** here is more consistent with **border-associated macrophages** than DAM microglia.<br><br>- **CLEC9A+ DCs** in blood/lymphoid tissues (Villani et al., Science 2017; See et al., Science 2017):<br>  - Express CLEC9A, XCR1, BATF3, IRF8, high MHC-II, but **do not** typically express **C1QA/B/C, CD163, LYVE1, MS4A7** at high levels.  <br>  - The strong macrophage and complement signature in this cluster argues against a classical cDC1 identity.<br><br>Thus, the combined signature best matches **CNS border-associated macrophages**, particularly **LYVE1+CD163+ perivascular macrophages**, in an **activated, inflammatory, MHC-II–high state**.<br><br>---<br><br>4. Most probable general cell type<br><br>Given:<br><br>- Strong myeloid/APC signature (MHC-II, CD74, C1q, C3, C5AR1, C3AR1, APOE).<br>- CNS-resident myeloid markers (C1QA/B/C, NRROS, PLD4).<br>- Border-associated macrophage markers (LYVE1, CD163, MS4A7, ECM/vascular genes).<br>- Robust inflammatory cytokine/chemokine expression (IL1A/B, TNF, CCL2/3/4/8, CXCL8).<br><br>**Most probable general cell type:**<br>- **CNS-resident myeloid cell – macrophage lineage (microglia / CNS-associated macrophage).**<br><br>Within that, the pattern is more macrophage-like than classical parenchymal microglia.<br><br>---<br><br>5. Top 3 most probable sub cell types (ranked)<br><br>**1) LYVE1+ CD163+ perivascular / meningeal (border-associated) macrophages – activated, MHC-II–high**<br><br>- Supporting markers:<br>  - **LYVE1, CD163, MS4A7, FGL2, IGFBP5, ECM/vascular genes (OGN, DCN, FBLN1, THSD4, NPNT, EGFL6)** → classic perivascular/meningeal macrophage profile.<br>  - **C1QA/B/C, C3, APOE, CLU, NRROS, PLD4** → CNS myeloid identity.<br>  - **HLA-DRA/DRB1/DPA1/DPB1/DQA1/DQB1, CD74, CD83, EBI3** → strong APC activation.<br>  - **IL1A/B, TNF, CCL2/3/4/8, CXCL8, NLRP3, NFKBID** → robust inflammatory activation.<br>- This combination is highly characteristic of **border-associated macrophages** at vascular/meningeal interfaces in human brain, especially in inflamed or diseased tissue.<br><br>**2) Disease-associated / inflammatory microglia (DAM-like or MHC-II–high microglia)**<br><br>- Supporting markers:<br>  - **C1QA/B/C, C3, APOE, CLU, MHC-II, CD74, TNF, IL1B, CCL2/3/4, NLRP3** → overlaps strongly with DAM / activated microglia signatures.<br>- Arguments against being the primary identity:<br>  - Lack of canonical microglia core markers in the top list (P2RY12, TMEM119, CX3CR1, TREM2, SALL1).  <br>  - Presence of **LYVE1 and CD163**, which are typically **absent** from parenchymal microglia and enriched in perivascular macrophages.<br>- Thus, DAM-like microglia is a plausible but less likely annotation than perivascular macrophages.<br><br>**3) Dendritic cell–like CNS myeloid cells (CLEC9A+ DC-like macrophages at CNS borders)**<br><br>- Supporting markers:<br>  - **CLEC9A, CD83, high MHC-II, EBI3** → DC-like APC program.<br>- Arguments against a pure DC identity:<br>  - Strong macrophage and complement signature (**C1QA/B/C, CD163, LYVE1, MS4A7**), which is atypical for classical cDC1.<br>- A reasonable interpretation is a **DC-like subset of border-associated macrophages** rather than bona fide classical dendritic cells.<br><br>**Most likely subtype:**<br>- **LYVE1+ CD163+ perivascular / meningeal border-associated macrophages (CNS-associated macrophages), in an activated, MHC-II–high, inflammatory state.**<br><br>---<br><br>6. Concise summary<br><br>- The marker set is dominated by:<br>  - Myeloid/APC genes (MHC-II, CD74, CD83, C1QA/B/C, C3, C3AR1, C5AR1, APOE, NRROS, PLD4).<br>  - Strong inflammatory cytokines/chemokines (IL1A/B, TNF, CCL2/3/4/8, CXCL8, NLRP3).<br>  - Border-associated macrophage markers (LYVE1, CD163, MS4A7) and ECM/vascular interaction genes (OGN, DCN, FBLN1, THSD4, NPNT, EGFL6, FGL2, IGFBP5).<br>- This profile matches **CNS border-associated macrophages**, particularly **LYVE1+ CD163+ perivascular/meningeal macrophages**, rather than homeostatic parenchymal microglia or classical dendritic cells.<br>- The high MHC-II and inflammatory gene expression indicates these cells are in an **activated, antigen-presenting, pro-inflammatory state**.<br><br>**Final annotation:**  <br>**General cell type:** CNS-resident myeloid cell (macrophage lineage).  <br>**Specific subtype:** **Activated LYVE1+ CD163+ perivascular / meningeal border-associated macrophages (CNS-associated macrophages).**<br><br>FINAL ANNOTATION COMPLETED
+                </div>
+            
+                <div class="agent-section validator">
+                    <h2>✓ Validation Check</h2>
+                    <div class="validation-result">✅ VALIDATION PASSED</div>
+                    Validation result: VALIDATION PASSED
+                </div>
+            
+                        <div class="agent-section formatting">
+                            <h2>📋 Summary</h2>
+                            
+                        <div class="summary-content">
+                            <div class="summary-item">
+                                <span class="summary-label">Main Cell Type:</span>
+                                <span class="summary-value">CNS-resident myeloid cell (macrophage lineage)</span>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Sub Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Activated LYVE1+ CD163+ perivascular / meningeal border-associated macrophages (CNS-associated macrophages)</li><li>Disease-associated / inflammatory microglia (DAM-like or MHC-II–high microglia)</li><li>Dendritic cell–like CNS myeloid cells (CLEC9A+ DC-like macrophages at CNS borders)</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Possible Mixed Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Border-associated macrophages with dendritic cell–like APC features</li><li>Border-associated macrophages with DAM-like inflammatory microglial features</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Number of Markers:</span>
+                                <span class="summary-value">50</span>
+                            </div>
+                        </div>
+                    
+                        </div>
+                    
+                    <div class="agent-section scoring">
+                        <h2>🎯 Quality Assessment</h2>
+                        <div class="score-badge">nan</div>
+                        <div class="scoring-content">
+                            Error: Error code: 400 - {'error': {'message': "Unsupported parameter: 'max_tokens' is not supported with this model. Use 'max_completion_tokens' instead.", 'type': 'invalid_request_error', 'param': 'max_tokens', 'code': 'unsupported_parameter'}}<br>
+                        </div>
+                    </div>
+                
+        </div>
+    </body>
+    </html>
+    

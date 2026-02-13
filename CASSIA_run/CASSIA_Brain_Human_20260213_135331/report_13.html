@@ -1,0 +1,264 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { 
+                font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 20px; 
+                background-color: #f0f2f5;
+                line-height: 1.6;
+            }
+            .container { 
+                background-color: white; 
+                padding: 40px; 
+                border-radius: 16px; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .agent-section { 
+                margin-bottom: 35px; 
+                padding: 25px; 
+                border-radius: 12px; 
+                transition: all 0.3s ease;
+            }
+            .agent-section:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            .final-annotation { 
+                background-color: #f0f7ff; 
+                border-left: 5px solid #2196f3; 
+            }
+            .validator { 
+                background-color: #f0fdf4; 
+                border-left: 5px solid #22c55e; 
+            }
+            .formatting { 
+                background: linear-gradient(145deg, #fff7ed, #ffe4c4);
+                border-left: 5px solid #f97316; 
+                box-shadow: 0 4px 15px rgba(249, 115, 22, 0.1);
+            }
+            h2 { 
+                color: #1a2b3c; 
+                margin-top: 0; 
+                font-size: 1.5rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            ul { 
+                margin: 15px 0; 
+                padding-left: 20px; 
+            }
+            pre { 
+                background-color: #f8fafc; 
+                padding: 20px; 
+                border-radius: 8px; 
+                overflow-x: auto;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            .validation-result { 
+                font-weight: 600; 
+                color: #16a34a; 
+                padding: 12px 20px;
+                background-color: #dcfce7; 
+                border-radius: 8px; 
+                display: inline-block;
+                margin: 10px 0;
+            }
+            br { 
+                margin-bottom: 8px; 
+            }
+            p {
+                margin: 12px 0;
+                color: #374151;
+            }
+            .summary-content {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+            .summary-item {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.7);
+                padding: 16px;
+                border-radius: 12px;
+                backdrop-filter: blur(8px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+            .summary-label {
+                font-weight: 600;
+                color: #c2410c;
+                font-size: 0.95rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .summary-value {
+                color: #1f2937;
+                font-size: 1.1rem;
+                padding: 8px 16px;
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 8px;
+                display: inline-block;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            .summary-list {
+                margin: 0;
+                padding-left: 24px;
+                list-style-type: none;
+            }
+            .summary-list li {
+                color: #1f2937;
+                padding: 8px 0;
+                position: relative;
+            }
+            .summary-list li:before {
+                content: "•";
+                color: #f97316;
+                font-weight: bold;
+                position: absolute;
+                left: -20px;
+            }
+            .report-header {
+                text-align: center;
+                margin-bottom: 40px;
+                padding-bottom: 30px;
+                border-bottom: 2px solid rgba(249, 115, 22, 0.2);
+            }
+            
+            .report-title {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: #1a2b3c;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #f97316, #c2410c);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                letter-spacing: -0.5px;
+            }
+            
+            .report-subtitle {
+                font-size: 1.1rem;
+                color: #64748b;
+                margin-top: 8px;
+                font-weight: 500;
+            }
+            .scoring { 
+                background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+                border-left: 5px solid #22c55e;
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.1);
+            }
+            .scoring-content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                color: #1f2937;
+                line-height: 1.8;
+            }
+            .scoring-content br + br {
+                content: "";
+                display: block;
+                margin: 12px 0;
+            }
+            .empty-list {
+                color: #6b7280;
+                font-style: italic;
+            }
+            .error-message {
+                color: #dc2626;
+                padding: 12px;
+                background-color: #fef2f2;
+                border-radius: 6px;
+                border-left: 4px solid #dc2626;
+            }
+            .score-badge {
+                background: linear-gradient(135deg, #22c55e, #16a34a);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-size: 1.5rem;
+                font-weight: 700;
+                display: inline-block;
+                margin: 12px 0;
+                box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+                position: relative;
+                top: -10px;
+            }
+            .score-badge::before {
+                content: "Score:";
+                font-size: 0.9rem;
+                font-weight: 500;
+                margin-right: 8px;
+                opacity: 0.9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="report-header">
+                <h1 class="report-title">CASSIA Analysis Report</h1>
+                <p class="report-subtitle">Comprehensive Cell Type Analysis and Annotation</p>
+            </div>
+            
+                <div class="agent-section final-annotation">
+                    <h2>🔍 Final Annotation Analysis</h2>
+                    1. Key functional markers and pathways<br><br>I’ll first group the most informative genes by function, focusing on myelination, oligodendrocyte lineage, and neuronal/glial features.<br><br>**Myelin / lipid metabolism / oligodendrocyte function**<br>- **MOG** – Myelin oligodendrocyte glycoprotein; classic compact myelin protein, highly specific to mature myelinating oligodendrocytes.<br>- **MAG** – Myelin-associated glycoprotein; paranodal myelin protein, expressed in myelinating oligodendrocytes.<br>- **PLP1** – Proteolipid protein 1; major CNS myelin protein, hallmark of oligodendrocytes.<br>- **MOBP** (not listed) / **ERMN** – Ermin; cytoskeletal protein enriched in myelinating oligodendrocytes, involved in myelin sheath formation.<br>- **UGT8** – UDP glycosyltransferase 8; catalyzes galactosylceramide synthesis, critical for myelin lipid biosynthesis.<br>- **FA2H** – Fatty acid 2-hydroxylase; involved in synthesis of 2-hydroxylated sphingolipids, important for myelin stability.<br>- **TPPP** – Tubulin polymerization-promoting protein; enriched in oligodendrocytes, associated with microtubule dynamics in myelinating cells.<br>- **CNDP1** – Carnosine dipeptidase 1; expressed in oligodendrocytes in several human brain sc/snRNA-seq datasets, linked to metabolic support.<br>- **CARNS1** – Carnosine synthase; also seen in oligodendrocyte/myelinating populations, involved in histidine-containing dipeptide metabolism.<br>- **HEPACAM** – Hepatocyte cell adhesion molecule; strong marker of oligodendrocyte lineage (especially OPCs and some OLs) in human brain, involved in cell adhesion and blood–brain barrier/astroglial interfaces but also robust in OL lineage clusters.<br>- **GJB1** – Connexin 32; gap junction protein in oligodendrocytes and Schwann cells, mediating oligodendrocyte–astrocyte coupling.<br>- **SLC24A2** – Na+/Ca2+-K+ exchanger; enriched in oligodendrocytes/myelinating cells in human datasets, involved in ion homeostasis.<br>- **SLC5A11** – Sodium-dependent myo-inositol transporter; expressed in oligodendrocytes and involved in osmolyte/inositol transport.<br>- **SLCO1A2** – Organic anion transporter; enriched in oligodendrocyte/BBB-related populations in human brain, involved in solute transport.<br>- **TF** – Transferrin; iron transport protein, strongly expressed in oligodendrocytes (iron-demanding myelinating cells).<br>- **ATP10B** – P4-ATPase (phospholipid flippase); implicated in phospholipid translocation, consistent with high membrane turnover in myelinating cells.<br>- **OMG** – Oligodendrocyte myelin glycoprotein; myelin-associated inhibitor of neurite outgrowth, oligodendrocyte/myelin-specific.<br><br>**Transcription factors / lineage regulators**<br>- **SOX10** – Master regulator of oligodendrocyte lineage; required for OL differentiation and myelin gene expression.<br>- **OLIG2** – Basic helix-loop-helix TF; canonical oligodendrocyte lineage marker (also in some ventral progenitors), persists in OLs.<br>- **NKX6-2** – Homeobox TF; enriched in oligodendrocyte lineage, particularly in differentiating and mature OLs in human cortex.<br>- **ST18** – Transcription factor enriched in subsets of oligodendrocytes and some neuronal populations; in human brain snRNA-seq, often marks specific OL subclusters.<br><br>**Cytoskeleton / process extension / maturation**<br>- **TUBB4A** – β-tubulin isoform; enriched in oligodendrocytes and some neurons, associated with myelinating OLs in human datasets.<br>- **DPYSL5 (CRMP5)** – Collapsin response mediator protein; involved in neurite outgrowth and process extension, expressed in OL lineage and neurons.<br>- **STMN4** – Stathmin family; microtubule dynamics, often higher in more immature/differentiating OLs compared to fully mature ones.<br><br>**Cell adhesion / axon–glia interaction**<br>- **CNTN2 (TAG-1)** – Contactin 2; axon–glia adhesion molecule at juxtaparanodes, expressed in both neurons and oligodendrocytes; in OLs, associated with myelinated axons.<br>- **CADM2** – Cell adhesion molecule 2; neuronal/axon-associated, but also appears in OL clusters that interact with specific axon types.<br>- **CNTNAP4** – Neurexin family; typically neuronal, but low-level expression can appear in OLs in some datasets, reflecting axon-associated transcriptional programs.<br>- **AMER2 (FAM123C)** – Microtubule-binding protein enriched in OLs and some neurons; associated with Wnt signaling modulation and cytoskeletal organization.<br><br>**Ion channels / transporters**<br>- **KCNJ10 (Kir4.1)** – Inward-rectifier K+ channel; classically astrocytic, but in human data can be expressed in some OL lineage cells, especially perivascular/ion-buffering OLs.<br>- **SLC24A2, SLC5A11, SLCO1A2** – As above, ion/solute transporters consistent with glial homeostatic roles.<br><br>**Neuronal-associated genes (contextual, not dominant)**<br>- **GRIA2** – AMPA receptor subunit; strongly neuronal, but low-level expression is common in OLs (glutamate responsiveness).<br>- **ELAVL3** – Neuronal RNA-binding protein (HuC); typically neuronal, but low expression can appear in OL clusters in some human datasets, especially in transitional states or due to ambient RNA.<br>- **PRIMA1** – Anchors acetylcholinesterase at neuronal membranes; mostly neuronal, but again can be low-level or ambient.<br><br>**Other / lncRNAs / less characterized**<br>- **VSTM2B, KLK6, PLPPR1, SEC14L5, TMEM151A, SPOCK3, KLHL32, LRP2, HEPACAM, AC* / AL* lncRNAs, NTM-AS1, LINC00320, HEPN1, OR7A5** – Many of these are known from human brain snRNA-seq as enriched in specific oligodendrocyte subclusters (e.g., KLK6, SPOCK3, PLPPR1, VSTM2B) or in glial/BBB-related populations (LRP2, HEPACAM). KLK6 in particular is a well-known marker of certain mature OL states and reactive OLs.<br><br>2. Key cell type markers (by tissue/cell class)<br><br>**Canonical oligodendrocyte / myelinating OL markers**<br>- **PLP1, MOG, MAG, OMG, UGT8, FA2H, TF, ERMN, TPPP, GJB1, SLC24A2, SLC5A11, SLCO1A2, HEPACAM, CNDP1, CARNS1, VSTM2B, KLK6, PLPPR1, SPOCK3**<br>  - This combination is highly characteristic of **mature, myelinating oligodendrocytes** in human cortex/white matter.<br><br>**Oligodendrocyte lineage TFs**<br>- **SOX10, OLIG2, NKX6-2, ST18**<br>  - Strongly support oligodendrocyte lineage identity rather than astrocyte or neuron.<br><br>**OPC vs mature OL discrimination**<br>- OPC markers (e.g., PDGFRA, CSPG4/NG2, VCAN, PDGFRB) are **absent** from the list.<br>- Instead, we see high expression of **MOG, MAG, PLP1, ERMN, UGT8, FA2H, TF**, which are **late-stage myelinating OL** markers.<br>- Presence of **STMN4, DPYSL5** suggests some dynamic cytoskeletal remodeling, but in the context of strong myelin gene expression, this is more consistent with **differentiating to mature OLs** rather than early OPCs.<br><br>**Astrocyte markers**<br>- Classic astrocyte markers (GFAP, AQP4, ALDH1L1, SLC1A3/GLAST, SLC1A2/EAAT2) are not present.<br>- **KCNJ10** is astrocyte-enriched but not exclusive; in human data, some OL subtypes express it, especially those with perivascular/ion-buffering roles.<br><br>**Neuronal markers**<br>- **GRIA2, ELAVL3, PRIMA1, CADM2, CNTNAP4** are neuronal, but:<br>  - They are not accompanied by a broad neuronal program (no NEUN/RBFOX3, SYT1, SNAP25, MAP2, etc.).<br>  - In human snRNA-seq, low-level neuronal gene expression is common in OL clusters, likely reflecting axon–glia signaling or ambient RNA.<br><br>3. Cross-referencing with known scRNA/snRNA-seq atlases and literature<br><br>Using major human brain atlases (e.g., Lake et al. 2018; Hodge et al. 2019; Jäkel et al. 2019; Siletti et al. 2023; Allen Brain Map human MTG/cortex datasets; NeMO/CellxGene OL annotations):<br><br>- **Core OL identity**:<br>  - Co-expression of **PLP1, MOG, MAG, ERMN, UGT8, FA2H, TF, GJB1, TPPP, SOX10, OLIG2, NKX6-2** is the canonical signature of **mature oligodendrocytes**.<br>  - These genes define OL clusters such as “Oligo_1–6”, “OL1–OL6”, “Mature OL”, “Myelinating OL” in multiple datasets.<br><br>- **Subcluster-specific markers**:<br>  - **KLK6, VSTM2B, SPOCK3, PLPPR1, CNDP1, CARNS1, SLC24A2, SLCO1A2, SLC5A11, HEPACAM** are repeatedly seen as **subtype markers** for distinct mature OL states in human cortex and white matter.<br>  - For example, Jäkel et al. (2019, Nature) and subsequent human studies identify OL subtypes like:<br>    - **OL1/“Mature myelinating”**: high PLP1, MOG, MAG, ERMN, UGT8, FA2H.<br>    - **OL2/“Newly formed”**: lower MOG, higher genes like STMN4, DPYSL family.<br>    - **OL3–OL6**: enriched for KLK6, VSTM2B, SPOCK3, CNDP1, CARNS1, etc., often associated with region-specific or activity-dependent myelination.<br>  - **KLK6** is particularly associated with **late, often white-matter-enriched OLs** and sometimes with disease/reactive OL states.<br><br>- **Exclusion of other glia**:<br>  - Lack of astrocyte, microglia, endothelial, or pericyte canonical markers strongly argues against those identities.<br><br>4. Most probable general cell type<br><br>Given the dominance of myelin structural genes, OL lineage TFs, and OL-specific metabolic/transport genes, the general cell type is:<br><br>**General cell type: Oligodendrocyte (mature, myelinating)**<br><br>5. Top 3 most probable sub cell types (ranked) and final subtype call<br><br>Within oligodendrocytes, human datasets typically distinguish:<br><br>- OPCs / committed OPCs<br>- Newly formed / early differentiating OLs<br>- Intermediate / pre-myelinating OLs<br>- Mature myelinating OLs<br>- Region- or state-specific mature OL subtypes (e.g., KLK6+, VSTM2B+, SPOCK3+ OLs)<br><br>Key discriminants in your list:<br><br>- Strong **myelin structural program**: **MOG, MAG, PLP1, ERMN, UGT8, FA2H, TF, GJB1, TPPP** → clearly **post-mitotic, myelinating**.<br>- Presence of **KLK6, VSTM2B, SPOCK3, PLPPR1, CNDP1, CARNS1, SLC24A2, SLCO1A2, SLC5A11** → characteristic of **specific mature OL subclusters** in human cortex/white matter, often labeled “OL5/OL6”, “Oligo_5/6”, or “KLK6+/VSTM2B+ OL”.<br>- Some **STMN4, DPYSL5** suggests not the very terminally quiescent OL, but still clearly beyond OPC.<br><br>**Ranked subtypes:**<br><br>1. **Most likely: Mature myelinating oligodendrocyte – KLK6+/VSTM2B+/SPOCK3+ subtype (late-stage OL, often white-matter-enriched)**  <br>   - Justification:<br>     - High **MOG, MAG, PLP1, ERMN, UGT8, FA2H, TF** → fully myelinating.<br>     - **KLK6, VSTM2B, SPOCK3, PLPPR1, CNDP1, CARNS1, SLC24A2, SLCO1A2, SLC5A11** match the transcriptional profile of **late, specialized OL subclusters** in human atlases.<br>     - **SOX10, OLIG2, NKX6-2** confirm lineage; absence of OPC markers rules out progenitors.<br><br>2. **Second: Mature myelinating oligodendrocyte – general cortical/white-matter OL (non-specifically subtyped)**  <br>   - If one does not distinguish KLK6+/VSTM2B+ subclusters, this would be annotated simply as **“Mature myelinating oligodendrocyte”**.<br>   - Fits all canonical markers but ignores finer subtype resolution.<br><br>3. **Third: Differentiating / newly formed oligodendrocyte (transitioning to myelinating)**  <br>   - Supported weakly by **STMN4, DPYSL5**, which are higher in earlier OL states.<br>   - However, the very strong myelin gene expression and presence of late markers (KLK6, VSTM2B, SPOCK3) make this less likely than a fully mature subtype.<br><br>**Most likely subtype (final call):**  <br>**Mature myelinating oligodendrocyte, KLK6+/VSTM2B+/SPOCK3+ late-stage subtype (human cortical/white-matter OL).**<br><br>6. Concise summary<br><br>- The marker set is dominated by **myelin structural genes (PLP1, MOG, MAG, ERMN, OMG)**, **myelin lipid metabolism genes (UGT8, FA2H)**, **oligodendrocyte lineage TFs (SOX10, OLIG2, NKX6-2)**, and **OL-enriched transport/metabolic genes (TF, GJB1, SLC24A2, SLC5A11, SLCO1A2, CNDP1, CARNS1)**.  <br>- Absence of OPC, astrocyte, microglial, or neuronal core programs, plus presence of **KLK6, VSTM2B, SPOCK3, PLPPR1**, matches **late, mature myelinating oligodendrocyte subclusters** described in human brain sc/snRNA-seq atlases.  <br>- Therefore, this cluster is best annotated as a **mature myelinating oligodendrocyte**, specifically a **KLK6+/VSTM2B+/SPOCK3+ late-stage OL subtype**.<br><br>FINAL ANNOTATION COMPLETED
+                </div>
+            
+                <div class="agent-section validator">
+                    <h2>✓ Validation Check</h2>
+                    <div class="validation-result">✅ VALIDATION PASSED</div>
+                    Validation result: VALIDATION PASSED
+                </div>
+            
+                        <div class="agent-section formatting">
+                            <h2>📋 Summary</h2>
+                            
+                        <div class="summary-content">
+                            <div class="summary-item">
+                                <span class="summary-label">Main Cell Type:</span>
+                                <span class="summary-value">Mature myelinating oligodendrocyte</span>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Sub Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Mature myelinating oligodendrocyte – KLK6+/VSTM2B+/SPOCK3+ late-stage subtype (human cortical/white-matter OL)</li><li>Mature myelinating oligodendrocyte – general cortical/white-matter OL (non-specifically subtyped)</li><li>Differentiating/newly formed oligodendrocyte transitioning to myelinating state</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Possible Mixed Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Oligodendrocyte with low-level neuronal-associated gene expression (GRIA2, ELAVL3, PRIMA1, CADM2, CNTNAP4) likely due to axon–glia interaction or ambient RNA</li><li>Oligodendrocyte subtype with partial astrocyte-like ion-buffering features (KCNJ10-expressing OLs)</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Number of Markers:</span>
+                                <span class="summary-value">50</span>
+                            </div>
+                        </div>
+                    
+                        </div>
+                    
+                    <div class="agent-section scoring">
+                        <h2>🎯 Quality Assessment</h2>
+                        <div class="score-badge">nan</div>
+                        <div class="scoring-content">
+                            Error: Error code: 400 - {'error': {'message': "Unsupported parameter: 'max_tokens' is not supported with this model. Use 'max_completion_tokens' instead.", 'type': 'invalid_request_error', 'param': 'max_tokens', 'code': 'unsupported_parameter'}}<br>
+                        </div>
+                    </div>
+                
+        </div>
+    </body>
+    </html>
+    

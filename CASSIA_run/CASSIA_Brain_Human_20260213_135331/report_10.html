@@ -1,0 +1,264 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { 
+                font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 20px; 
+                background-color: #f0f2f5;
+                line-height: 1.6;
+            }
+            .container { 
+                background-color: white; 
+                padding: 40px; 
+                border-radius: 16px; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .agent-section { 
+                margin-bottom: 35px; 
+                padding: 25px; 
+                border-radius: 12px; 
+                transition: all 0.3s ease;
+            }
+            .agent-section:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            .final-annotation { 
+                background-color: #f0f7ff; 
+                border-left: 5px solid #2196f3; 
+            }
+            .validator { 
+                background-color: #f0fdf4; 
+                border-left: 5px solid #22c55e; 
+            }
+            .formatting { 
+                background: linear-gradient(145deg, #fff7ed, #ffe4c4);
+                border-left: 5px solid #f97316; 
+                box-shadow: 0 4px 15px rgba(249, 115, 22, 0.1);
+            }
+            h2 { 
+                color: #1a2b3c; 
+                margin-top: 0; 
+                font-size: 1.5rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            ul { 
+                margin: 15px 0; 
+                padding-left: 20px; 
+            }
+            pre { 
+                background-color: #f8fafc; 
+                padding: 20px; 
+                border-radius: 8px; 
+                overflow-x: auto;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            .validation-result { 
+                font-weight: 600; 
+                color: #16a34a; 
+                padding: 12px 20px;
+                background-color: #dcfce7; 
+                border-radius: 8px; 
+                display: inline-block;
+                margin: 10px 0;
+            }
+            br { 
+                margin-bottom: 8px; 
+            }
+            p {
+                margin: 12px 0;
+                color: #374151;
+            }
+            .summary-content {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+            .summary-item {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.7);
+                padding: 16px;
+                border-radius: 12px;
+                backdrop-filter: blur(8px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+            .summary-label {
+                font-weight: 600;
+                color: #c2410c;
+                font-size: 0.95rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .summary-value {
+                color: #1f2937;
+                font-size: 1.1rem;
+                padding: 8px 16px;
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 8px;
+                display: inline-block;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            .summary-list {
+                margin: 0;
+                padding-left: 24px;
+                list-style-type: none;
+            }
+            .summary-list li {
+                color: #1f2937;
+                padding: 8px 0;
+                position: relative;
+            }
+            .summary-list li:before {
+                content: "•";
+                color: #f97316;
+                font-weight: bold;
+                position: absolute;
+                left: -20px;
+            }
+            .report-header {
+                text-align: center;
+                margin-bottom: 40px;
+                padding-bottom: 30px;
+                border-bottom: 2px solid rgba(249, 115, 22, 0.2);
+            }
+            
+            .report-title {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: #1a2b3c;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #f97316, #c2410c);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                letter-spacing: -0.5px;
+            }
+            
+            .report-subtitle {
+                font-size: 1.1rem;
+                color: #64748b;
+                margin-top: 8px;
+                font-weight: 500;
+            }
+            .scoring { 
+                background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+                border-left: 5px solid #22c55e;
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.1);
+            }
+            .scoring-content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                color: #1f2937;
+                line-height: 1.8;
+            }
+            .scoring-content br + br {
+                content: "";
+                display: block;
+                margin: 12px 0;
+            }
+            .empty-list {
+                color: #6b7280;
+                font-style: italic;
+            }
+            .error-message {
+                color: #dc2626;
+                padding: 12px;
+                background-color: #fef2f2;
+                border-radius: 6px;
+                border-left: 4px solid #dc2626;
+            }
+            .score-badge {
+                background: linear-gradient(135deg, #22c55e, #16a34a);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-size: 1.5rem;
+                font-weight: 700;
+                display: inline-block;
+                margin: 12px 0;
+                box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+                position: relative;
+                top: -10px;
+            }
+            .score-badge::before {
+                content: "Score:";
+                font-size: 0.9rem;
+                font-weight: 500;
+                margin-right: 8px;
+                opacity: 0.9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="report-header">
+                <h1 class="report-title">CASSIA Analysis Report</h1>
+                <p class="report-subtitle">Comprehensive Cell Type Analysis and Annotation</p>
+            </div>
+            
+                <div class="agent-section final-annotation">
+                    <h2>🔍 Final Annotation Analysis</h2>
+                    1. Key functional markers and pathways (with roles)<br>---------------------------------------------------<br><br>I’ll first group the most informative genes by function, because this cluster is dominated by a coherent contractile/vascular program plus a few brain-specific transport/metabolic features.<br><br>**a. Smooth muscle contractile apparatus / Ca²⁺ handling**<br><br>- **ACTA2 (α-SMA)** – canonical smooth muscle actin; hallmark of vascular smooth muscle cells (VSMCs) and pericytes with a contractile phenotype.  <br>- **MYH11** – smooth muscle myosin heavy chain; one of the most specific markers of fully differentiated contractile VSMCs.  <br>- **MYOCD (myocardin)** – master transcriptional coactivator driving smooth muscle gene expression (e.g., ACTA2, MYH11, TAGLN). Strong indicator of a contractile smooth muscle program.  <br>- **SGCA (sarcoglycan alpha)** – component of the dystrophin–glycoprotein complex; expressed in muscle and smooth muscle, contributes to membrane stability.  <br>- **MYOM1** – myomesin 1, sarcomeric protein; more typical of striated muscle but can appear in highly contractile smooth muscle–like states.  <br>- **CASQ2 (calsequestrin 2)** – Ca²⁺-binding protein in sarcoplasmic reticulum; classically cardiac/smooth muscle Ca²⁺ handling.  <br>- **PLN (phospholamban)** – regulator of SERCA; modulates Ca²⁺ reuptake into SR, again a muscle-type Ca²⁺ handling component.  <br>- **HRC (histidine-rich Ca²⁺-binding protein)** – SR Ca²⁺-binding protein; supports excitation–contraction coupling.  <br>- **TRPC6** – Ca²⁺-permeable cation channel; involved in mechanosensation and Ca²⁺ influx in vascular smooth muscle and pericytes.  <br>- **KCNA5, KCNAB1** – voltage-gated K⁺ channel α and β subunits; regulate membrane potential and contractility in vascular smooth muscle.  <br>- **ANO1 (TMEM16A)** – Ca²⁺-activated Cl⁻ channel; important in smooth muscle excitability and contraction.  <br>- **RGS5** – regulator of G-protein signaling; classic pericyte/VSMC marker, involved in vascular tone and remodeling.  <br>- **MRVI1** – NO/cGMP pathway effector (IRAG); modulates Ca²⁺ release and smooth muscle relaxation.  <br>- **AVPR1A** – vasopressin receptor 1A; mediates vasoconstriction in vascular smooth muscle.  <br>- **HTR1F** – serotonin receptor; can modulate vascular tone.  <br>- **RCAN2** – regulator of calcineurin; participates in Ca²⁺-dependent signaling, including in vascular cells.<br><br>Collectively, this is a textbook **contractile vascular smooth muscle/pericyte** signature, with strong emphasis on Ca²⁺-dependent contractility.<br><br>**b. Vascular / mural cell identity and extracellular matrix**<br><br>- **ACTA2, MYH11, MYOCD, RGS5** – as above, core mural cell markers.  <br>- **GJA4 (connexin 37)** – gap junction protein enriched in arterial endothelium and VSMCs; supports cell–cell communication in vessel walls.  <br>- **ANGPT1** – angiopoietin-1; produced by pericytes/VSMCs, stabilizes endothelium and maintains vessel integrity.  <br>- **AGT (angiotensinogen)** – precursor of angiotensin II; can be expressed by vascular-associated cells, contributes to local renin–angiotensin signaling.  <br>- **COL14A1** – fibril-associated collagen; enriched in perivascular fibroblast-like and mural cells, involved in ECM organization.  <br>- **TINAGL1** – ECM-associated protein; implicated in cell adhesion and angiogenesis.  <br>- **TIMP4** – tissue inhibitor of metalloproteinases; regulates ECM turnover, often in vascular and cardiac tissues.  <br>- **ACAN (aggrecan)** – large proteoglycan; in brain, can be expressed by perivascular cells and specialized ECM niches (e.g., perineuronal nets, but here in a mural context).  <br>- **PARM1** – prostatic androgen-regulated mucin-like protein; also reported in vascular/mesenchymal contexts, associated with cell adhesion/ECM.  <br>- **FRMD3, CCDC102B** – cytoskeletal/structural proteins; often seen in mesenchymal/vascular cells.<br><br>These genes reinforce a **vascular mural cell** identity with active ECM production and vessel stabilization.<br><br>**c. Metabolic and hypoxia-related genes**<br><br>- **COX4I2** – alternative cytochrome c oxidase subunit; enriched in oxygen-sensing vascular cells (e.g., arterial smooth muscle, pericytes) and in hypoxia-adapted tissues.  <br>- **NDUFA4L2** – hypoxia-inducible mitochondrial complex I–associated protein; classic HIF target, strongly expressed in hypoxic vascular/perivascular cells.  <br>- **CYGB (cytoglobin)** – oxygen-binding globin in fibroblasts and perivascular cells; involved in ROS and NO metabolism.  <br>- **HIGD1B** – hypoxia-inducible gene; mitochondrial, associated with hypoxic vascular cells.  <br>- **FABP4** – fatty acid–binding protein 4; in brain, often in perivascular cells (pericytes, perivascular fibroblast-like cells) and sometimes in vascular smooth muscle, linked to lipid metabolism and vascular remodeling.  <br>- **IGFBP7** – IGF-binding protein 7; secreted factor with roles in vascular integrity, angiogenesis, and ECM; enriched in perivascular cells.  <br>- **INPP4B** – phosphoinositide phosphatase; modulates PI3K/AKT signaling, often in vascular/mesenchymal contexts.<br><br>This pattern (COX4I2, NDUFA4L2, CYGB, HIGD1B) is characteristic of **oxygen-sensing, hypoxia-adapted vascular mural cells**, particularly in brain microvasculature.<br><br>**d. Transporters and brain-specific features**<br><br>- **SLCO1C1** – organic anion transporter; highly enriched in brain vasculature (especially endothelial cells of the blood–brain barrier) for thyroid hormone transport. Its presence in this cluster suggests a **brain vascular niche**; in mural cells it may reflect close association with BBB endothelium or low-level expression.  <br>- **ATP1A2** – Na⁺/K⁺-ATPase α2 subunit; strongly expressed in astrocytes but also in vascular smooth muscle and pericytes; supports ion homeostasis and contractility.  <br>- **SLC38A11** – amino acid transporter; CNS-enriched, including in some vascular/perivascular cells.  <br>- **CD36** – scavenger receptor; expressed in microvascular endothelium and pericytes, involved in lipid uptake and angiogenesis.<br><br>These support a **brain vascular/perivascular** context rather than generic peripheral smooth muscle.<br><br>**e. Transcriptional regulators / developmental markers**<br><br>- **TBX2, TBX2-AS1** – T-box transcription factor and antisense RNA; involved in development and cell cycle regulation, including in smooth muscle and cardiac lineages.  <br>- **TCF15** – transcription factor involved in mesodermal and myogenic differentiation.  <br>- **DLX5** – homeobox gene; more classically neurodevelopmental/craniofacial, but can appear in mesenchymal/vascular developmental programs.  <br>- **CARMN** – lncRNA associated with myocardin and smooth muscle differentiation; reinforces a contractile VSMC identity.  <br>- **RERGL, RERG** – Ras-related small GTPases; associated with growth regulation and sometimes vascular/mesenchymal states.  <br>- **REM1** – RGK family GTPase; modulates voltage-gated Ca²⁺ channels, relevant to excitable/contractile cells.<br><br>These point to a **differentiated but still transcriptionally active smooth muscle lineage**.<br><br>2. Key cell type markers (by target tissue/cell class)<br>------------------------------------------------------<br><br>From the above, the most cell-type-informative markers are:<br><br>**Canonical mural cell / smooth muscle markers**<br><br>- **ACTA2, MYH11, MYOCD, CARMN, RGS5, GJA4, ANGPT1, MRVI1, TRPC6, AVPR1A, ANO1, KCNA5/KCNAB1, CASQ2, PLN, HRC, SGCA, MYOM1**<br><br>These define a **contractile vascular smooth muscle / pericyte** identity.<br><br>**Pericyte / perivascular fibroblast-like markers**<br><br>- **RGS5, IGFBP7, FABP4, COL14A1, TINAGL1, TIMP4, CYGB, NDUFA4L2, COX4I2, HIGD1B, ACAN, ANGPT1**<br><br>These are typical of **brain pericytes and perivascular fibroblast-like cells**, especially those in hypoxic microenvironments.<br><br>**Brain vascular context markers**<br><br>- **SLCO1C1, ATP1A2, SLC38A11, CD36, COX4I2, NDUFA4L2, CYGB**<br><br>These anchor the cluster specifically to **brain vasculature**, not generic peripheral smooth muscle.<br><br>3. Cross-referencing with scRNA-seq databases and literature<br>------------------------------------------------------------<br><br>Using known human/mouse brain scRNA-seq atlases and marker sets:<br><br>- **Brain mural cells (pericytes and VSMCs)** in datasets such as:<br>  - Tasic et al. (mouse cortex),  <br>  - Zeisel et al. (mouse brain),  <br>  - Saunders et al. (mouse),  <br>  - Hodge et al., and human atlases (e.g., Lake, Habib, and more recent human brain vascular atlases),<br>  typically show:<br>  - **Pericytes**: RGS5, PDGFRB, KCNJ8, ABCC9, RGS5, CSPG4, COL4A1, COL4A2, NDUFA4L2, COX4I2, CYGB, ANGPT1, IGFBP7, FABP4.  <br>  - **VSMCs (arterial/arteriolar)**: ACTA2, MYH11, TAGLN, MYOCD, CARMN, CNN1, SMTN, GJA4, KCNMB1/2, KCNA5, RGS5, MRVI1, AVPR1A, ANO1, TRPC6.<br><br>This cluster matches **both** pericyte and VSMC signatures, but the presence of **MYH11 + MYOCD + CARMN + strong Ca²⁺-handling machinery (CASQ2, PLN, HRC)** is particularly characteristic of **fully contractile VSMCs**, especially arterial/arteriolar smooth muscle.<br><br>- **Hypoxia/oxygen-sensing mural cells**:  <br>  - COX4I2, NDUFA4L2, CYGB, HIGD1B are well-described in **arterial smooth muscle and pericytes** in brain microvasculature, often associated with oxygen sensing and metabolic adaptation (e.g., carotid body–like programs, but also brain microvessels).<br><br>- **Brain endothelial vs mural distinction**:  <br>  - Endothelial cells typically express PECAM1, VWF, KDR, CDH5, CLDN5, OCLN, SLC2A1, etc. None of these are in the top markers.  <br>  - Instead, we see a **pure mural contractile program** with some brain-vascular transporters (SLCO1C1, ATP1A2) but no endothelial core markers.<br><br>Thus, cross-referencing strongly supports **brain vascular mural cells**, with a bias toward **contractile smooth muscle** rather than pure pericytes.<br><br>4. Most probable general cell type<br>----------------------------------<br><br>Given:<br><br>- Strong expression of **MYH11, ACTA2, MYOCD, CARMN, CASQ2, PLN, HRC, KCNA5, ANO1, TRPC6, AVPR1A, MRVI1**  <br>- Co-expression of **RGS5, ANGPT1, COL14A1, IGFBP7, FABP4, NDUFA4L2, COX4I2, CYGB, HIGD1B**  <br>- Brain vascular context markers **SLCO1C1, ATP1A2, SLC38A11, CD36**<br><br>The most probable **general cell type** is:<br><br>> **Brain vascular mural cell (smooth muscle/pericyte lineage)**<br><br>5. Top 3 most probable sub cell types (ranked)<br>----------------------------------------------<br><br>Now, within brain mural cells, we can refine to subtypes. In human brain scRNA-seq, typical mural subclasses include:<br><br>- Arterial/arteriolar smooth muscle cells (contractile VSMCs)  <br>- Venous/venular smooth muscle cells (often less strongly contractile)  <br>- Capillary pericytes (canonical pericytes)  <br>- Perivascular fibroblast-like cells (fibroblast/pericyte hybrids)<br><br>**1) Most likely: Arterial/arteriolar vascular smooth muscle cell (contractile VSMC)**<br><br>Evidence:<br><br>- **High-confidence contractile markers**:  <br>  - **MYH11, ACTA2, MYOCD, CARMN, CASQ2, PLN, HRC, MYOM1** – hallmark of fully differentiated contractile smooth muscle.  <br>- **Ion channel and GPCR repertoire typical of arterial VSMCs**:  <br>  - **KCNA5, KCNAB1, ANO1, TRPC6, AVPR1A, HTR1F, MRVI1** – consistent with regulation of vascular tone in resistance arteries/arterioles.  <br>- **Gap junction and ECM**:  <br>  - **GJA4, COL14A1, TINAGL1, TIMP4, ANGPT1** – typical of arterial wall smooth muscle.  <br>- **Oxygen-sensing/hypoxia markers**:  <br>  - **COX4I2, NDUFA4L2, CYGB, HIGD1B** – enriched in arterial smooth muscle and oxygen-sensing vascular cells.  <br>- **Developmental regulators**:  <br>  - **TBX2, TCF15, MYOCD, CARMN** – consistent with a smooth muscle lineage program.<br><br>This combination is more specific to **arterial/arteriolar smooth muscle** than to capillary pericytes.<br><br>**2) Second most likely: Capillary/venular pericyte (oxygen-sensing, hypoxia-adapted pericyte)**<br><br>Evidence:<br><br>- **Pericyte-associated markers**:  <br>  - **RGS5, ANGPT1, IGFBP7, FABP4, COL14A1, CYGB, NDUFA4L2, COX4I2, HIGD1B, ACAN** – all seen in brain pericytes and perivascular fibroblast-like cells.  <br>- **Brain vascular context**:  <br>  - **SLCO1C1, ATP1A2, SLC38A11, CD36** – consistent with perivascular cells closely associated with BBB endothelium.  <br>- However, **MYH11 + MYOCD + strong Ca²⁺-handling machinery** are typically lower or absent in canonical capillary pericytes and more characteristic of VSMCs. Their strong presence here argues that if this is a pericyte-like cell, it is a **“smooth muscle–like pericyte”** (e.g., arteriolar pericyte) rather than a classic capillary pericyte.<br><br>Thus, pericyte is plausible but less likely than a bona fide VSMC.<br><br>**3) Third most likely: Perivascular fibroblast-like cell with smooth muscle features**<br><br>Evidence:<br><br>- **ECM and fibroblast-like markers**:  <br>  - **COL14A1, TINAGL1, TIMP4, ACAN, IGFBP7, FABP4** – typical of perivascular fibroblast-like cells.  <br>- But these cells usually **lack strong MYH11/MYOCD/CASQ2/PLN/HRC** expression and do not show such a robust contractile ion channel repertoire.  <br>- The presence of a full smooth muscle contractile program makes a pure fibroblast-like identity unlikely; at most, this could be a transitional or hybrid mural state.<br><br>So this is a distant third.<br><br>**Most likely subtype (final call)**<br><br>> **Most likely subtype: Arterial/arteriolar vascular smooth muscle cell (contractile mural cell) in brain vasculature.**<br><br>If one wanted to be more granular in a brain atlas annotation, a label such as:<br><br>- **“Brain vascular smooth muscle cell, arterial/arteriolar (MYH11⁺/MYOCD⁺/COX4I2⁺)”**<br><br>would be appropriate.<br><br>6. Concise summary<br>------------------<br><br>- The marker list is dominated by **smooth muscle contractile genes** (ACTA2, MYH11, MYOCD, CARMN, CASQ2, PLN, HRC, KCNA5, ANO1, TRPC6, AVPR1A, MRVI1) and **mural cell markers** (RGS5, GJA4, ANGPT1, COL14A1, IGFBP7, FABP4).  <br>- Co-expression of **COX4I2, NDUFA4L2, CYGB, HIGD1B** indicates an **oxygen-sensing, hypoxia-adapted vascular phenotype**, typical of brain microvascular mural cells.  <br>- Brain-specific vascular context is supported by **SLCO1C1, ATP1A2, SLC38A11, CD36**.  <br>- Lack of endothelial markers and strong presence of MYH11/MYOCD/CARMN clearly place this cluster in the **vascular smooth muscle/pericyte lineage**, not endothelium or parenchymal glia/neurons.<br><br>**Final annotation:**<br><br>- **General cell type:** Brain vascular mural cell  <br>- **Most likely subtype:** **Arterial/arteriolar vascular smooth muscle cell (contractile VSMC)**  <br>- **Secondary possibilities:** (2) Arteriolar/pericyte-like mural cell; (3) Perivascular fibroblast-like mural cell with smooth muscle features.<br><br>FINAL ANNOTATION COMPLETED
+                </div>
+            
+                <div class="agent-section validator">
+                    <h2>✓ Validation Check</h2>
+                    <div class="validation-result">✅ VALIDATION PASSED</div>
+                    Validation result: VALIDATION PASSED
+                </div>
+            
+                        <div class="agent-section formatting">
+                            <h2>📋 Summary</h2>
+                            
+                        <div class="summary-content">
+                            <div class="summary-item">
+                                <span class="summary-label">Main Cell Type:</span>
+                                <span class="summary-value">Brain vascular mural cell (smooth muscle/pericyte lineage)</span>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Sub Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Arterial/arteriolar vascular smooth muscle cell (contractile VSMC)</li><li>Capillary/venular pericyte (oxygen-sensing, hypoxia-adapted pericyte)</li><li>Perivascular fibroblast-like mural cell with smooth muscle features</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Possible Mixed Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Mixed arterial/arteriolar smooth muscle–pericyte mural population</li><li>Pericyte–perivascular fibroblast-like hybrid mural cells</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Number of Markers:</span>
+                                <span class="summary-value">50</span>
+                            </div>
+                        </div>
+                    
+                        </div>
+                    
+                    <div class="agent-section scoring">
+                        <h2>🎯 Quality Assessment</h2>
+                        <div class="score-badge">nan</div>
+                        <div class="scoring-content">
+                            Error: Error code: 400 - {'error': {'message': "Unsupported parameter: 'max_tokens' is not supported with this model. Use 'max_completion_tokens' instead.", 'type': 'invalid_request_error', 'param': 'max_tokens', 'code': 'unsupported_parameter'}}<br>
+                        </div>
+                    </div>
+                
+        </div>
+    </body>
+    </html>
+    

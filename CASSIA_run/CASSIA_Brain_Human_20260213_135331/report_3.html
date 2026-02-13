@@ -1,0 +1,264 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { 
+                font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 20px; 
+                background-color: #f0f2f5;
+                line-height: 1.6;
+            }
+            .container { 
+                background-color: white; 
+                padding: 40px; 
+                border-radius: 16px; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .agent-section { 
+                margin-bottom: 35px; 
+                padding: 25px; 
+                border-radius: 12px; 
+                transition: all 0.3s ease;
+            }
+            .agent-section:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            .final-annotation { 
+                background-color: #f0f7ff; 
+                border-left: 5px solid #2196f3; 
+            }
+            .validator { 
+                background-color: #f0fdf4; 
+                border-left: 5px solid #22c55e; 
+            }
+            .formatting { 
+                background: linear-gradient(145deg, #fff7ed, #ffe4c4);
+                border-left: 5px solid #f97316; 
+                box-shadow: 0 4px 15px rgba(249, 115, 22, 0.1);
+            }
+            h2 { 
+                color: #1a2b3c; 
+                margin-top: 0; 
+                font-size: 1.5rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            ul { 
+                margin: 15px 0; 
+                padding-left: 20px; 
+            }
+            pre { 
+                background-color: #f8fafc; 
+                padding: 20px; 
+                border-radius: 8px; 
+                overflow-x: auto;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            .validation-result { 
+                font-weight: 600; 
+                color: #16a34a; 
+                padding: 12px 20px;
+                background-color: #dcfce7; 
+                border-radius: 8px; 
+                display: inline-block;
+                margin: 10px 0;
+            }
+            br { 
+                margin-bottom: 8px; 
+            }
+            p {
+                margin: 12px 0;
+                color: #374151;
+            }
+            .summary-content {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+            .summary-item {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.7);
+                padding: 16px;
+                border-radius: 12px;
+                backdrop-filter: blur(8px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+            .summary-label {
+                font-weight: 600;
+                color: #c2410c;
+                font-size: 0.95rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .summary-value {
+                color: #1f2937;
+                font-size: 1.1rem;
+                padding: 8px 16px;
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 8px;
+                display: inline-block;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            .summary-list {
+                margin: 0;
+                padding-left: 24px;
+                list-style-type: none;
+            }
+            .summary-list li {
+                color: #1f2937;
+                padding: 8px 0;
+                position: relative;
+            }
+            .summary-list li:before {
+                content: "•";
+                color: #f97316;
+                font-weight: bold;
+                position: absolute;
+                left: -20px;
+            }
+            .report-header {
+                text-align: center;
+                margin-bottom: 40px;
+                padding-bottom: 30px;
+                border-bottom: 2px solid rgba(249, 115, 22, 0.2);
+            }
+            
+            .report-title {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: #1a2b3c;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #f97316, #c2410c);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                letter-spacing: -0.5px;
+            }
+            
+            .report-subtitle {
+                font-size: 1.1rem;
+                color: #64748b;
+                margin-top: 8px;
+                font-weight: 500;
+            }
+            .scoring { 
+                background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+                border-left: 5px solid #22c55e;
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.1);
+            }
+            .scoring-content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                color: #1f2937;
+                line-height: 1.8;
+            }
+            .scoring-content br + br {
+                content: "";
+                display: block;
+                margin: 12px 0;
+            }
+            .empty-list {
+                color: #6b7280;
+                font-style: italic;
+            }
+            .error-message {
+                color: #dc2626;
+                padding: 12px;
+                background-color: #fef2f2;
+                border-radius: 6px;
+                border-left: 4px solid #dc2626;
+            }
+            .score-badge {
+                background: linear-gradient(135deg, #22c55e, #16a34a);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-size: 1.5rem;
+                font-weight: 700;
+                display: inline-block;
+                margin: 12px 0;
+                box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+                position: relative;
+                top: -10px;
+            }
+            .score-badge::before {
+                content: "Score:";
+                font-size: 0.9rem;
+                font-weight: 500;
+                margin-right: 8px;
+                opacity: 0.9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="report-header">
+                <h1 class="report-title">CASSIA Analysis Report</h1>
+                <p class="report-subtitle">Comprehensive Cell Type Analysis and Annotation</p>
+            </div>
+            
+                <div class="agent-section final-annotation">
+                    <h2>🔍 Final Annotation Analysis</h2>
+                    1. Key functional markers and pathways  <br>(Here I focus on the most informative genes for function/state.)<br><br>- **Cell cycle / mitosis / proliferation**<br>  - **UBE2C, PCLAF, CCNB2, PTTG1, CDC20, BIRC5 (Survivin), CENPK, CDCA3, PBK, AURKA, CCNB1, CENPA, AURKB, CKS2, CENPW, UBE2S, TOP2A, CDKN3, RRM2, MAD2L1, UBE2T**<br>    - Classic G2/M and S-phase markers; strongly enriched in proliferating cells.<br>    - Many are core components of mitotic spindle assembly, chromosome segregation, and DNA replication/repair.<br>    - This pattern is typical of a **cycling/proliferative cluster**, often seen as a “cell cycle” meta-cluster in scRNA-seq.<br>- **Ribosomal / translational machinery**<br>  - **RPL35, RPS17, RPL36A, RPL37A, RPS26, RPS21**<br>    - High ribosomal protein expression is common in proliferating cells with high biosynthetic demand.<br>- **Redox / stress response**<br>  - **TXN, TXNRD2, HMGB3**<br>    - Thioredoxin and thioredoxin reductase: redox homeostasis, often up in proliferating or stressed cells.<br>    - HMGB3: chromatin-associated protein, enriched in proliferative/immature cells.<br>- **Cytoskeleton / structural**<br>  - **TPM1, TAGLN2, TUBB2B, TUBB2A, TUBA1C**<br>    - Actin- and microtubule-associated proteins; reflect cytoskeletal remodeling, motility, and mitotic spindle formation.<br>    - TUBB2B/TUBB2A/TUBA1C are also enriched in neural lineages (neurons and progenitors).<br>- **Calcium-binding / S100 family**<br>  - **S100A6, S100A3**<br>    - S100A6 is broadly expressed in glia, endothelial cells, fibroblast-like cells, and some progenitors; often upregulated in reactive or proliferative states.<br>- **Metabolism / glycolysis**<br>  - **GAPDH, NNMT**<br>    - GAPDH: glycolysis, housekeeping.<br>    - NNMT: methylation metabolism; often high in stromal/fibroblast-like and some progenitor populations.<br>- **Immune / cytokine / chemokine**<br>  - **CXCL14, IL11**<br>    - CXCL14: chemokine; in brain, often expressed by astrocytes and some neuronal/glial subsets, also perivascular/stromal cells.<br>    - IL11: cytokine; can be expressed by stromal-like or reactive glial cells, often associated with signaling to other cell types.<br>- **Other functional markers**<br>  - **LGALS1 (Galectin-1)**: cell–cell/matrix interactions, immune modulation; high in astrocytes, oligodendrocyte lineage, endothelial and stromal cells, and in many proliferative states.<br>  - **ANXA2**: annexin; membrane dynamics, often in endothelial, astrocytic, and stromal cells.<br>  - **FHL2**: LIM-domain protein; transcriptional co-regulator, often in mesenchymal/stromal and vascular-associated cells.<br>  - **TMSB15A**: actin-binding thymosin; cytoskeletal dynamics, often in progenitors and migratory cells.<br>  - **PPP1R14B**: phosphatase regulator; less cell-type specific, but often up in proliferating cells.<br><br>Functionally, this is a **highly proliferative, G2/M-enriched cluster** with strong cytoskeletal and biosynthetic signatures, plus some chemokine/cytokine and stromal-like features.<br><br>---<br><br>2. Key cell-type–informative markers<br><br>Here I focus on markers that help distinguish major brain cell classes.<br><br>- **Neural lineage / neuronal progenitor–associated**<br>  - **TUBB2B, TUBB2A, TUBA1C**<br>    - Canonical neuronal microtubule genes; strongly expressed in **neuroepithelial cells, radial glia, intermediate progenitors, and immature neurons**.<br>    - TUBB2B in particular is a well-known marker of **developing cortical neurons and progenitors**.<br>  - **PBK (TOPK), BIRC5, UBE2C, CCNB1/2, AURKA/B, TOP2A**<br>    - These are not neuron-specific, but in brain scRNA-seq they are typically enriched in **cycling neural progenitors** (radial glia, intermediate progenitors) and cycling glial precursors.<br>- **Astrocyte / glial / stromal-associated**<br>  - **CXCL14**<br>    - In human and mouse brain atlases (e.g., Tasic, Hodge, and human cortical datasets), CXCL14 is enriched in **astrocytes and some excitatory neuron subtypes**, but also in perivascular/stromal-like cells.<br>  - **LGALS1**<br>    - Strong in **astrocytes, oligodendrocyte lineage, endothelial, and perivascular cells**; also upregulated in reactive glia.<br>  - **S100A6**<br>    - Expressed in **astrocytes, endothelial cells, pericytes, and some oligodendrocyte progenitors**; not specific but points away from mature neurons.<br>  - **ANXA2, FHL2, TAGLN2, TPM1, NNMT**<br>    - These are frequently seen in **perivascular, fibroblast-like, and mesenchymal/stromal cells**, but can also appear in reactive astrocytes and some progenitors.<br>- **Endothelial / perivascular / mesenchymal-like hints**<br>  - **TAGLN2, TPM1, FHL2, NNMT, LGALS1, ANXA2**<br>    - This combination is common in **perivascular fibroblast-like cells, vascular smooth muscle/pericytes, and meningeal/mesenchymal cells** in human brain atlases.<br>    - However, the **very strong cell-cycle signature** and presence of TUBB2B/TUBA1C suggest a progenitor-like rather than a fully differentiated vascular smooth muscle identity.<br><br>Notably **absent**:<br>- No strong **neuronal identity markers** (e.g., SNAP25, STMN2, RBFOX3/NeuN, SYT1, SLC17A7, GAD1/2).<br>- No clear **microglial markers** (e.g., P2RY12, CX3CR1, AIF1).<br>- No canonical **oligodendrocyte lineage markers** (e.g., OLIG1/2, PDGFRA, MBP, PLP1).<br>- No strong **canonical astrocyte markers** like GFAP, AQP4, SLC1A2, ALDH1L1 (though LGALS1, S100A6, CXCL14 are compatible with astrocyte/perivascular environments).<br><br>This pattern is typical of a **cycling progenitor / cycling glial or stromal-like cluster** rather than a mature neuronal or microglial population.<br><br>---<br><br>3. Cross-referencing with scRNA-seq databases and literature<br><br>Using patterns known from:<br><br>- **Human cortical and hippocampal atlases** (e.g., Hodge et al. 2019, Lake et al. 2018, and more recent human brain single-cell atlases):<br>  - Clusters annotated as **“cycling progenitors”**, **“dividing glia”**, or **“G2/M cells”** show strong enrichment of **UBE2C, TOP2A, BIRC5, CCNB1/2, AURKA/B, PTTG1, CDC20, CENPA/K/W, CDKN3, RRM2**.<br>  - These clusters often cut across multiple lineages (e.g., cycling radial glia, cycling OPCs, cycling astrocytes) and are sometimes annotated as a **cell-cycle meta-cluster**.<br>- **Developing human brain datasets** (e.g., Nowakowski et al., Polioudakis et al.):<br>  - **TUBB2B, TUBA1C** are high in **radial glia and intermediate progenitors**, especially in proliferative zones.<br>  - The same cell-cycle genes listed above define **proliferative neural progenitors**.<br>- **Perivascular / fibroblast-like brain cells** (e.g., Vanlandewijck et al., Saunders et al.):<br>  - **TAGLN2, TPM1, FHL2, NNMT, LGALS1, ANXA2** are enriched in **perivascular fibroblast-like cells, vascular smooth muscle cells, and meningeal cells**.<br>  - However, those populations typically also show strong **COL1A1/2, PDGFRB, ACTA2, RGS5, MCAM, etc.**, which are not present here.<br><br>Given the **dominant cell-cycle signature** and **neural-tubulin expression (TUBB2B/TUBA1C)**, the closest matches in brain atlases are:<br><br>- **Cycling neural progenitors / intermediate progenitor cells (IPCs)**<br>- **Cycling glial progenitors (e.g., OPCs or astrocyte progenitors)**<br>- More generically, **“G2/M cycling cells”** that are annotated as a proliferative overlay on multiple lineages.<br><br>---<br><br>4. Most probable general cell type<br><br>The general identity is best described as:<br><br>> **Cycling neural/glial progenitor-like cells (G2/M-phase proliferative cluster)**<br><br>Rationale:<br>- Strong, coherent **G2/M and S-phase gene program**.<br>- Presence of **neural tubulins (TUBB2B, TUBA1C)**, which are characteristic of neural lineages rather than classic mesenchymal or endothelial cells.<br>- Lack of definitive mature neuronal, astrocytic, oligodendrocytic, or microglial markers.<br>- Presence of **LGALS1, S100A6, CXCL14, NNMT, TAGLN2, TPM1**, which are compatible with **progenitor or perivascular/astroglial environments**, but not sufficient to override the progenitor/cell-cycle interpretation.<br><br>So at the “broad class” level, I would annotate this as:<br><br>- **General class:** Cycling progenitor / dividing neural-glial precursor (G2/M-phase).<br><br>---<br><br>5. Top 3 most probable sub cell types (ranked)<br><br>Given the limited marker set (mostly cell-cycle genes), subtyping is necessarily probabilistic. Still, based on the combination of neural tubulins and stromal-like markers:<br><br>**1) Cycling neural progenitors / intermediate progenitor cells (most likely)**  <br>- Supporting markers:<br>  - **TUBB2B, TUBB2A, TUBA1C**: strong association with **neuroepithelial and neuronal progenitors**.<br>  - Robust **G2/M program** (UBE2C, TOP2A, BIRC5, CCNB1/2, AURKA/B, PTTG1, CDC20, etc.) matches **dividing IPCs/radial glia** in developing and some adult neurogenic niches.<br>- Against:<br>  - Absence of some classic radial glia markers (e.g., SOX2, HES1, VIM, FABP7) in this list, but that may be due to the list being restricted to top differentially expressed genes, which are dominated by cell-cycle genes.<br><br>**2) Cycling glial progenitors (e.g., astrocyte progenitors or OPC-like proliferative glia)**  <br>- Supporting markers:<br>  - **LGALS1, S100A6, CXCL14, ANXA2**: compatible with **astrocyte-lineage or perivascular glial** environments.<br>  - Strong cell-cycle program is typical of **cycling OPCs and astrocyte progenitors**.<br>- Against:<br>  - No canonical OPC markers (PDGFRA, CSPG4/NG2, OLIG1/2) or strong astrocyte markers (GFAP, AQP4, SLC1A2) in the provided list.<br><br>**3) Cycling perivascular / fibroblast-like or vascular smooth muscle–like cells**  <br>- Supporting markers:<br>  - **TAGLN2, TPM1, FHL2, NNMT, LGALS1, ANXA2**: characteristic of **perivascular fibroblast-like cells, vascular smooth muscle cells, and meningeal cells** in human brain.<br>  - These populations can be highly proliferative in certain contexts (e.g., pathology, development).<br>- Against:<br>  - Lack of strong canonical vascular/pericyte markers (e.g., ACTA2, PDGFRB, RGS5, COL1A1/2, MCAM).<br>  - Presence of **TUBB2B/TUBA1C** leans more toward neural lineage than classic mesenchymal/vascular smooth muscle.<br><br>**Most likely subtype annotation:**  <br>> **Cycling neural progenitor / intermediate progenitor (G2/M-phase)**<br><br>If the dataset is from **developing human brain**, I would be even more specific and call this:<br><br>- **“G2/M-phase intermediate progenitor / radial glia”** cluster.<br><br>If from **adult brain**, I would annotate more cautiously as:<br><br>- **“Cycling neural/glial progenitors (G2/M)”**, acknowledging that adult neurogenic niches and glial progenitors share this program.<br><br>---<br><br>6. Concise summary<br><br>- The marker list is dominated by **G2/M and S-phase cell-cycle genes** (UBE2C, TOP2A, BIRC5, CCNB1/2, AURKA/B, PTTG1, CDC20, CENP genes, RRM2, CDKN3), indicating a **highly proliferative cluster**.<br>- **Neural tubulins (TUBB2B, TUBA1C)** point to a **neural lineage**, consistent with **neural progenitors or immature neurons**, rather than classic mesenchymal or endothelial cells.<br>- Additional markers (LGALS1, S100A6, CXCL14, TAGLN2, TPM1, NNMT, ANXA2, FHL2) are compatible with **glial/perivascular/progenitor environments**, but are not strongly lineage-defining on their own.<br>- There are **no strong mature neuronal, astrocytic, oligodendrocytic, or microglial markers**, reinforcing that this is a **progenitor / cycling meta-cluster**.<br><br>**Final annotation:**<br>- **General cell type:** Cycling neural/glial progenitor (G2/M-phase proliferative cluster)  <br>- **Most likely subtype:** **Cycling neural progenitor / intermediate progenitor cell (G2/M)**<br><br>FINAL ANNOTATION COMPLETED
+                </div>
+            
+                <div class="agent-section validator">
+                    <h2>✓ Validation Check</h2>
+                    <div class="validation-result">✅ VALIDATION PASSED</div>
+                    Validation result: VALIDATION PASSED
+                </div>
+            
+                        <div class="agent-section formatting">
+                            <h2>📋 Summary</h2>
+                            
+                        <div class="summary-content">
+                            <div class="summary-item">
+                                <span class="summary-label">Main Cell Type:</span>
+                                <span class="summary-value">Cycling neural/glial progenitor (G2/M-phase proliferative cluster)</span>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Sub Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Cycling neural progenitor / intermediate progenitor cell (G2/M)</li><li>Cycling glial progenitor (e.g., astrocyte progenitor or OPC-like proliferative glia)</li><li>Cycling perivascular / fibroblast-like or vascular smooth muscle–like cell</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Possible Mixed Cell Types:</span>
+                                <ul class="summary-list">
+                                    <li>Cycling neural progenitors and cycling glial progenitors</li><li>Cycling neural/glial progenitors and cycling perivascular or fibroblast-like cells</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span class="summary-label">Number of Markers:</span>
+                                <span class="summary-value">50</span>
+                            </div>
+                        </div>
+                    
+                        </div>
+                    
+                    <div class="agent-section scoring">
+                        <h2>🎯 Quality Assessment</h2>
+                        <div class="score-badge">nan</div>
+                        <div class="scoring-content">
+                            Error: Error code: 400 - {'error': {'message': "Unsupported parameter: 'max_tokens' is not supported with this model. Use 'max_completion_tokens' instead.", 'type': 'invalid_request_error', 'param': 'max_tokens', 'code': 'unsupported_parameter'}}<br>
+                        </div>
+                    </div>
+                
+        </div>
+    </body>
+    </html>
+    
