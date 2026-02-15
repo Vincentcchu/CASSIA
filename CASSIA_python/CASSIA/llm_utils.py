@@ -11,6 +11,14 @@ except ImportError:
     def resolve_model_name(model_name: str, provider: str = None):
         return model_name, provider or "openrouter"
 
+# Import token tracker for usage monitoring
+try:
+    from .token_tracker import get_tracker
+except ImportError:
+    # Fallback if token_tracker is not available
+    def get_tracker():
+        return None
+
 def call_llm(
     prompt: str,
     provider: str = "openai",
@@ -100,6 +108,16 @@ def call_llm(
             **additional_params
         )
         
+        # Track token usage
+        tracker = get_tracker()
+        if tracker and hasattr(response, 'usage'):
+            tracker.record_api_call(
+                input_tokens=response.usage.prompt_tokens,
+                output_tokens=response.usage.completion_tokens,
+                model=model,
+                provider=provider
+            )
+        
         return response.choices[0].message.content
     
     # Custom OpenAI-compatible API call (base_url as provider)
@@ -135,6 +153,17 @@ def call_llm(
             max_tokens=max_tokens,
             **additional_params
         )
+        
+        # Track token usage
+        tracker = get_tracker()
+        if tracker and hasattr(response, 'usage'):
+            tracker.record_api_call(
+                input_tokens=response.usage.prompt_tokens,
+                output_tokens=response.usage.completion_tokens,
+                model=model,
+                provider="custom"
+            )
+        
         return response.choices[0].message.content
     
     # Anthropic API call
@@ -172,6 +201,16 @@ def call_llm(
         # Call the API
         response = client.messages.create(**message_params)
         
+        # Track token usage
+        tracker = get_tracker()
+        if tracker and hasattr(response, 'usage'):
+            tracker.record_api_call(
+                input_tokens=response.usage.input_tokens,
+                output_tokens=response.usage.output_tokens,
+                model=model,
+                provider=provider
+            )
+        
         # Extract the text content from the response
         if hasattr(response, 'content') and len(response.content) > 0:
             content_block = response.content[0]
@@ -204,7 +243,20 @@ def call_llm(
         response = requests.post(url, headers=headers, data=json.dumps(data))
         response.raise_for_status()
         
-        return response.json()["choices"][0]["message"]["content"]
+        response_json = response.json()
+        
+        # Track token usage
+        tracker = get_tracker()
+        if tracker and 'usage' in response_json:
+            usage = response_json['usage']
+            tracker.record_api_call(
+                input_tokens=usage.get('prompt_tokens', 0),
+                output_tokens=usage.get('completion_tokens', 0),
+                model=model,
+                provider=provider
+            )
+        
+        return response_json["choices"][0]["message"]["content"]
     
     else:
         raise ValueError(f"Unsupported provider: {provider}") 

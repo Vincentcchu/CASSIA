@@ -39,6 +39,9 @@ from .model_settings import (
 from .annotation_boost import iterative_marker_analysis
 from .annotation_boost import runCASSIA_annotationboost, runCASSIA_annotationboost_additional_task
 
+# Import token tracking utilities
+from .token_tracker import get_tracker, reset_tracker, TokenTracker
+
 # Import main functions from extracted modules
 try:
     from .merging_annotation import merge_annotations, merge_annotations_all

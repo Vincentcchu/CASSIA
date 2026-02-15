@@ -42,3 +42,9 @@ CASSIA_python/cassia_secrets.py
 
 # API keys configuration
 api_keys.json
+
+# Generated data outputs
+*.csv
+*.h5ad
+*.html
+*.json

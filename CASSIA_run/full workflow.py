@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """
-CASSIA Analysis Pipeline for H5AD Data
+CASSIA Analysis Pipeline for H5AD Data with Performance Tracking
 
 This script processes single-cell RNA-seq data in h5ad format and runs
-CASSIA automated cell type annotation.
+CASSIA automated cell type annotation with comprehensive tracking of
+time, token usage, and costs.
 
 Usage:
     python cassia_analysis.py
@@ -18,6 +19,7 @@ import CASSIA
 import argparse
 import os
 import json
+import time
 
 
 def _load_api_key(config_path: str = "api_keys.json", provider: str = "openai") -> str:
@@ -54,10 +56,11 @@ def preprocess_and_cluster(adata, resolution=0.5, n_pcs=40, n_neighbors=10):
         
     Returns:
     --------
-    AnnData
-        Processed AnnData object with clusters
+    tuple: (AnnData, preprocessing_time)
+        Processed AnnData object with clusters and time taken
     """
     print("Starting preprocessing...")
+    start_time = time.time()
     
     # Basic QC and filtering
     print("  - Filtering cells and genes...")
@@ -99,9 +102,12 @@ def preprocess_and_cluster(adata, resolution=0.5, n_pcs=40, n_neighbors=10):
     print("  - Computing UMAP...")
     sc.tl.umap(adata)
     
-    print(f"✓ Preprocessing complete! Found {len(adata.obs['leiden'].unique())} clusters")
+    preprocessing_time = time.time() - start_time
     
-    return adata
+    print(f"✓ Preprocessing complete! Found {len(adata.obs['leiden'].unique())} clusters")
+    print(f"  Time taken: {preprocessing_time:.2f} seconds ({preprocessing_time/60:.2f} minutes)")
+    
+    return adata, preprocessing_time
 
 
 def find_marker_genes(adata, groupby='cluster', method='wilcoxon'):
@@ -175,7 +181,7 @@ def find_marker_genes(adata, groupby='cluster', method='wilcoxon'):
 
 def main():
     """
-    Main function to run the complete pipeline.
+    Main function to run the complete pipeline with performance tracking.
     """
     # ============================================================================
     # CONFIGURATION - EDIT THESE SETTINGS
@@ -202,6 +208,10 @@ def main():
     N_NEIGHBORS = 10               # Number of neighbors for graph
     MAX_WORKERS = 4                # Parallel workers for CASSIA
     
+    # Cost tracking settings (GPT-5.1 pricing)
+    INPUT_PRICE_PER_MILLION = 1.25  # $1.25 per 1M input tokens
+    OUTPUT_PRICE_PER_MILLION = 10.0  # $10 per 1M output tokens
+    
     # Optional: save intermediate results
     SAVE_MARKERS = True            # Save marker genes to CSV
     SAVE_PROCESSED_H5AD = True     # Save processed h5ad file
@@ -210,8 +220,16 @@ def main():
     # PIPELINE EXECUTION
     # ============================================================================
     
+    # Import token tracker
+    from CASSIA.token_tracker import get_tracker, reset_tracker
+    
+    # Reset and start tracking
+    reset_tracker()
+    tracker = get_tracker()
+    tracker.start_timer()
+    
     print("="*70)
-    print("CASSIA Analysis Pipeline")
+    print("CASSIA Analysis Pipeline with Performance Tracking")
     print("="*70)
     
     # Check if input file exists
@@ -225,13 +243,16 @@ def main():
     adata = sc.read_h5ad(INPUT_H5AD)
     print(f"✓ Loaded {adata.n_obs} cells × {adata.n_vars} genes")
     
-    # Preprocess and cluster
-    adata = preprocess_and_cluster(
+    # Preprocess and cluster (with timing)
+    adata, preprocessing_time = preprocess_and_cluster(
         adata, 
         resolution=CLUSTERING_RESOLUTION,
         n_pcs=N_PCS,
         n_neighbors=N_NEIGHBORS
     )
+    
+    # Record preprocessing time
+    tracker.record_preprocessing_time(preprocessing_time)
     
     # Save processed h5ad if requested
     if SAVE_PROCESSED_H5AD:
@@ -277,6 +298,9 @@ def main():
     print(f"\nSetting API key for {PROVIDER}...")
     CASSIA.set_api_key(API_KEY, provider=PROVIDER)
     
+    # Record annotation start time
+    tracker.record_annotation_start()
+    
     try:
         CASSIA.runCASSIA_pipeline(
             output_file_name=OUTPUT_NAME,
@@ -293,6 +317,9 @@ def main():
             annotationboost_provider=PROVIDER
         )
         
+        # Record annotation end time
+        tracker.record_annotation_end()
+        
         print("\n" + "="*70)
         print("✓ CASSIA Analysis Complete!")
         print("="*70)
@@ -301,6 +328,23 @@ def main():
     except Exception as e:
         print(f"\n❌ Error running CASSIA pipeline: {e}")
         raise
+    finally:
+        # Stop overall timer
+        tracker.stop_timer()
+        
+        # Print performance summary
+        tracker.print_summary(
+            input_price_per_million=INPUT_PRICE_PER_MILLION,
+            output_price_per_million=OUTPUT_PRICE_PER_MILLION
+        )
+        
+        # Save performance summary to file
+        summary_file = f"{OUTPUT_NAME}_performance.json"
+        tracker.save_summary(
+            summary_file,
+            input_price_per_million=INPUT_PRICE_PER_MILLION,
+            output_price_per_million=OUTPUT_PRICE_PER_MILLION
+        )
     
     # Clean up temporary markers file if it was created
     if not SAVE_MARKERS and os.path.exists(marker_path):
