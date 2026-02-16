@@ -306,7 +306,7 @@ def main():
             output_file_name=OUTPUT_NAME,
             tissue=TISSUE,
             species=SPECIES,
-            marker_path=marker_path,
+            marker=marker_path,
             max_workers=MAX_WORKERS,
             annotation_model=MODEL,
             annotation_provider=PROVIDER,
